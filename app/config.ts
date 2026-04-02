@@ -4,7 +4,7 @@ export const siteConfig = {
   phone: '(832) 945-8084',
   cleanPhone: '+18329458084',
   email: 'faridarabzadeh77@yahoo.com',
-  domain: 'https://onestopoutdoorconstruction.net',
+  domain: 'https://onestopoutdoorconstruction.com',
   primaryService: 'Patio Covers',
   services: [
     'Concrete & Driveways',

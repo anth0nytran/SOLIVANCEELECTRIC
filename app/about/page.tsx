@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: 'About Us — 15+ Years Serving Richmond & Katy TX',
     description:
       'Family-owned outdoor construction in Richmond, Katy & Houston TX. 15+ years, fully insured, locally trusted.',
-    url: 'https://onestopoutdoorconstruction.net/about',
+    url: 'https://onestopoutdoorconstruction.com/about',
     images: [{ url: '/hero.png', width: 1200, height: 630, alt: 'One Stop Outdoor Construction — Richmond, Katy & Houston TX' }],
   },
   twitter: {
@@ -25,8 +25,8 @@ const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://onestopoutdoorconstruction.net/' },
-    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://onestopoutdoorconstruction.net/about' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://onestopoutdoorconstruction.com/' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://onestopoutdoorconstruction.com/about' },
   ],
 };
 

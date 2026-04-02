@@ -199,7 +199,7 @@ export async function POST(req: Request) {
   const brandAddress = 'Richmond, TX';
   const brandPrimary = '#1a3a6b';
   const brandAccent = '#c0392b';
-  const fromEmail = process.env.LEAD_FROM_EMAIL || 'One Stop Outdoor Construction <leads@onestopoutdoorconstruction.net>';
+  const fromEmail = process.env.LEAD_FROM_EMAIL || 'One Stop Outdoor Construction <leads@onestopoutdoorconstruction.com>';
   const subject = `New Lead: ${safeService} | ${safeName}`;
 
   const pageUrlIsDev =

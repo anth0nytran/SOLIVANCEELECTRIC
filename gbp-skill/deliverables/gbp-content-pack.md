@@ -113,7 +113,7 @@ Professional paver stone walkway design and installation using flagstone, slate,
 > Post these as questions on your own profile, then answer them from your business account
 
 **Q: How much does a patio cover cost in Richmond, TX?**
-A: Patio cover costs vary based on size, material, and style. We offer lattice, solid insulated, and aluminum patio covers starting from competitive prices. Every project is different, so we provide free, no-obligation estimates. Call us at (832) 945-8084 or visit onestopoutdoorconstruction.net to get your free quote.
+A: Patio cover costs vary based on size, material, and style. We offer lattice, solid insulated, and aluminum patio covers starting from competitive prices. Every project is different, so we provide free, no-obligation estimates. Call us at (832) 945-8084 or visit onestopoutdoorconstruction.com to get your free quote.
 
 **Q: Do you handle city permits and HOA approvals?**
 A: Yes! We handle all city permits and HOA approvals as part of our service. You don't have to worry about any of the paperwork — we take care of everything from start to finish so you can focus on enjoying your new outdoor space.

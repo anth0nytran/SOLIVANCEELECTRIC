@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Blog — Outdoor Construction Tips & Cost Guides',
     description: 'Cost guides, design tips & outdoor construction advice for Richmond, Katy & Houston TX homeowners.',
-    url: 'https://onestopoutdoorconstruction.net/blog',
+    url: 'https://onestopoutdoorconstruction.com/blog',
   },
 };
 
@@ -34,13 +34,13 @@ export default function BlogPage() {
                 '@type': 'ListItem',
                 position: 1,
                 name: 'Home',
-                item: 'https://onestopoutdoorconstruction.net',
+                item: 'https://onestopoutdoorconstruction.com',
               },
               {
                 '@type': 'ListItem',
                 position: 2,
                 name: 'Blog',
-                item: 'https://onestopoutdoorconstruction.net/blog',
+                item: 'https://onestopoutdoorconstruction.com/blog',
               },
             ],
           }),
@@ -56,13 +56,13 @@ export default function BlogPage() {
             '@type': 'CollectionPage',
             'name': 'Outdoor Construction Blog — Richmond, Katy, Houston & Beyond',
             'description': 'Expert outdoor construction tips, cost guides, and design advice for homeowners in Richmond, Katy, Houston & surrounding areas.',
-            'url': 'https://onestopoutdoorconstruction.net/blog',
+            'url': 'https://onestopoutdoorconstruction.com/blog',
             'mainEntity': {
               '@type': 'ItemList',
               'itemListElement': blogPosts.map((post, i) => ({
                 '@type': 'ListItem',
                 'position': i + 1,
-                'url': `https://onestopoutdoorconstruction.net/blog/${post.slug}`,
+                'url': `https://onestopoutdoorconstruction.com/blog/${post.slug}`,
                 'name': post.title,
               })),
             },

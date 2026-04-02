@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllSlugs } from './blog/posts';
 
-const BASE_URL = 'https://onestopoutdoorconstruction.net';
+const BASE_URL = 'https://onestopoutdoorconstruction.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [

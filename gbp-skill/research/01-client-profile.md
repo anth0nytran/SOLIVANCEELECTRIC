@@ -6,7 +6,7 @@
 - **Category (Primary):** Contractor (NEEDS CHANGE — too generic)
 - **Location:** 3020 Gold Heist Dr, Richmond, TX 77407
 - **Phone:** (832) 945-8084
-- **Website:** onestopoutdoorconstruction.net
+- **Website:** onestopoutdoorconstruction.com
 - **Reviews:** 32 reviews, 5.0 average
 - **GBP Completeness:** 3/10 — Major gaps across the board
 - **Biggest Gap:** No business description, wrong category, no hours, no services listed

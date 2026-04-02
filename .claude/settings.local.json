@@ -9,7 +9,7 @@
       "Bash(claude skill:*)",
       "Bash(claude plugin:*)",
       "Bash(find '/c/Users/antho/Desktop/one stop outdoor construction/app' -type f \\\\\\(-name *.ts -o -name *.tsx -o -name *.css \\\\\\))",
-      "WebFetch(domain:www.onestopoutdoorconstruction.net)",
+      "WebFetch(domain:www.onestopoutdoorconstruction.com)",
       "Bash(cd /c/Users/antho/Desktop/\"one stop outdoor construction\")",
       "Bash(npx playwright:*)",
       "mcp__plugin_playwright_playwright__browser_run_code",

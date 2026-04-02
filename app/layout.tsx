@@ -27,7 +27,7 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://onestopoutdoorconstruction.net'),
+  metadataBase: new URL('https://onestopoutdoorconstruction.com'),
   title: {
     default: "Patio Covers & Outdoor Construction | Richmond TX",
     template: "%s | One Stop Outdoor Construction",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Patio Covers & Outdoor Construction in Richmond TX | One Stop Outdoor Construction",
     description: "Patio covers, concrete, outdoor kitchens & pergolas in Richmond, Katy, Houston & Sugar Land TX. 15+ years. Licensed & insured. Free estimates — (832) 945-8084.",
-    url: 'https://onestopoutdoorconstruction.net',
+    url: 'https://onestopoutdoorconstruction.com',
     siteName: 'One Stop Outdoor Construction',
     locale: 'en_US',
     type: 'website',
@@ -112,9 +112,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
               "name": "One Stop Outdoor Construction",
-              "image": "https://onestopoutdoorconstruction.net/facebook/hero.jpg",
-              "@id": "https://onestopoutdoorconstruction.net",
-              "url": "https://onestopoutdoorconstruction.net",
+              "image": "https://onestopoutdoorconstruction.com/facebook/hero.jpg",
+              "@id": "https://onestopoutdoorconstruction.com",
+              "url": "https://onestopoutdoorconstruction.com",
               "telephone": "+18329458084",
               "email": "faridarabzadeh77@yahoo.com",
               "description": "Quality patio covers, concrete, outdoor kitchens, pergolas, roofing and walkways serving Richmond, Katy, Houston, Sugar Land & Rosenberg TX. 15+ years in business. Licensed & insured. Free estimates.",
@@ -228,7 +228,7 @@ export default function RootLayout({
               "@type": "WebSite",
               "name": "One Stop Outdoor Construction",
               "alternateName": ["One Stop Outdoor", "OSOC", "One Stop Outdoor Construction LLC"],
-              "url": "https://onestopoutdoorconstruction.net"
+              "url": "https://onestopoutdoorconstruction.com"
             })
           }}
         />

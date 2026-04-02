@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/api/',
         },
-        sitemap: 'https://onestopoutdoorconstruction.net/sitemap.xml',
+        sitemap: 'https://onestopoutdoorconstruction.com/sitemap.xml',
     };
 }

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Patio Covers & Outdoor Construction in Richmond TX',
     description: 'Patio covers, concrete, outdoor kitchens & pergolas in Richmond, Katy, Houston & Sugar Land TX. 15+ years. Licensed & insured.',
-    url: 'https://onestopoutdoorconstruction.net',
+    url: 'https://onestopoutdoorconstruction.com',
     images: [{ url: '/hero.png', width: 1200, height: 630, alt: 'One Stop Outdoor Construction — Patio Covers & Outdoor Construction in Richmond TX' }],
   },
 };
