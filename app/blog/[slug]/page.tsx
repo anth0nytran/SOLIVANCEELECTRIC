@@ -38,11 +38,13 @@ export async function generateMetadata({
       publishedTime: post.date,
       authors: ['One Stop Outdoor Construction'],
       siteName: 'One Stop Outdoor Construction',
+      images: [{ url: '/hero.png', width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
+      images: ['/hero.png'],
     },
   };
 }
@@ -144,7 +146,7 @@ export default async function BlogPostPage({
               url: 'https://onestopoutdoorconstruction.net',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://onestopoutdoorconstruction.net/onestop/og-image.svg',
+                url: 'https://onestopoutdoorconstruction.net/hero.png',
               },
             },
             mainEntityOfPage: {

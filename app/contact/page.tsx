@@ -12,13 +12,13 @@ export const metadata: Metadata = {
     description:
       'Book your free consultation. Serving Richmond, Katy, Houston, Sugar Land & surrounding areas.',
     url: 'https://onestopoutdoorconstruction.net/contact',
-    images: [{ url: '/logos/main_logo.svg', width: 1200, height: 630, alt: 'Contact One Stop Outdoor Construction — Free Estimates' }],
+    images: [{ url: '/hero.png', width: 1200, height: 630, alt: 'Contact One Stop Outdoor Construction — Free Estimates' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Free Estimate — Contact Us in Richmond, Katy & Houston TX',
     description: 'Book your free consultation. Serving Richmond, Katy, Houston, Sugar Land & surrounding areas.',
-    images: ['/logos/main_logo.svg'],
+    images: ['/hero.png'],
   },
 };
 

@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/logos/main_logo.svg',
+        url: '/hero.png',
         width: 1200,
         height: 630,
         alt: 'One Stop Outdoor Construction — Patio Covers, Concrete & Outdoor Kitchens in Richmond, Katy & Houston TX',
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Quality Outdoor Construction | One Stop Outdoor Construction",
     description: "Patio covers, concrete, outdoor kitchens, pergolas & roofing for Richmond, Katy, Houston, Sugar Land & Rosenberg TX. Licensed & insured. Free estimates.",
-    images: ['/logos/main_logo.svg'],
+    images: ['/hero.png'],
   },
   icons: {
     icon: [

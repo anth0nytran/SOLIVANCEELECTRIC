@@ -12,13 +12,13 @@ export const metadata: Metadata = {
     description:
       'Patio covers, concrete, outdoor kitchens, pergolas, roofing & walkways in Richmond, Katy & Houston TX. 15+ years experience.',
     url: 'https://onestopoutdoorconstruction.net/services',
-    images: [{ url: '/logos/main_logo.svg', width: 1200, height: 630, alt: 'One Stop Outdoor Construction Services — Richmond, Katy & Houston TX' }],
+    images: [{ url: '/hero.png', width: 1200, height: 630, alt: 'One Stop Outdoor Construction Services — Richmond, Katy & Houston TX' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Services — Patio Covers, Concrete & More in Richmond TX',
     description: 'Patio covers, concrete, outdoor kitchens, pergolas, roofing & walkways in Richmond, Katy & Houston TX. 15+ years experience.',
-    images: ['/logos/main_logo.svg'],
+    images: ['/hero.png'],
   },
 };
 

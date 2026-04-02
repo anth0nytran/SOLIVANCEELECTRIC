@@ -11,13 +11,13 @@ export const metadata: Metadata = {
     title: 'Our Work — Patio Covers, Concrete & More in Richmond TX',
     description: 'Real outdoor construction projects from Richmond, Katy, Houston, Sugar Land & surrounding areas.',
     url: 'https://onestopoutdoorconstruction.net/gallery',
-    images: [{ url: '/logos/main_logo.svg', width: 1200, height: 630, alt: 'One Stop Outdoor Construction Project Gallery — Richmond TX' }],
+    images: [{ url: '/hero.png', width: 1200, height: 630, alt: 'One Stop Outdoor Construction Project Gallery — Richmond TX' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Our Work — Patio Covers, Concrete & More in Richmond TX',
     description: 'Real outdoor construction projects from Richmond, Katy, Houston, Sugar Land & surrounding areas.',
-    images: ['/logos/main_logo.svg'],
+    images: ['/hero.png'],
   },
 };
 
