@@ -25,13 +25,13 @@ const cities = ['Richmond', 'Katy', 'Sugar Land', 'Houston', 'Rosenberg'];
 
 const photoProjects = [
   // Patio Cover — new photos
-  ...Array.from({ length: 9 }, (_, i) => ({
+  ...Array.from({ length: 11 }, (_, i) => ({
     service: 'Patio Cover',
     location: cities[i % cities.length],
     src: `/photos_new_web/patio-cover/patio-cover-${i + 1}.jpg`,
   })),
   // Concrete — new photos
-  ...Array.from({ length: 8 }, (_, i) => ({
+  ...Array.from({ length: 11 }, (_, i) => ({
     service: 'Concrete',
     location: cities[i % cities.length],
     src: `/photos_new_web/concrete/concrete-${i + 1}.jpg`,
