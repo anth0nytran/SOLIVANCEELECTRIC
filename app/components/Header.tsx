@@ -35,7 +35,7 @@ export function Header() {
       >
         <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-center gap-2 py-2 text-center">
           <span className="text-[0.7rem] sm:text-xs font-bold tracking-wide">
-            Serving Richmond, Katy, Houston, Sugar Land &amp; Rosenberg
+            Serving Houston, Sugar Land, Richmond &amp; Katy
           </span>
           <span className="text-white/30 hidden sm:inline">|</span>
           <a href={`tel:${siteConfig.cleanPhone}`} className="hidden sm:inline-flex items-center gap-1.5 text-xs font-extrabold text-white hover:text-white/80 transition-colors duration-200">
@@ -62,12 +62,12 @@ export function Header() {
                 transition={{ duration: 0.5, delay: 0.25 }}
               >
                 <Image
-                  src="/logos/main_logo.svg"
-                  alt="One Stop Outdoor Construction"
-                  width={200}
-                  height={56}
+                  src="/logo/logo_horzontial.PNG"
+                  alt="Solivance Electric LLC"
+                  width={600}
+                  height={400}
                   priority
-                  className="h-10 sm:h-14 w-auto"
+                  className="h-12 sm:h-16 w-auto"
                 />
               </motion.div>
             </Link>

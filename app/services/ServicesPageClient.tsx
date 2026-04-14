@@ -10,7 +10,6 @@ import {
   Phone,
   ChevronDown,
   Shield,
-  Star,
   ChevronLeft,
   ChevronRight,
   X,
@@ -143,10 +142,6 @@ function MediaLightbox({
                 draggable={false}
                 onContextMenu={(e) => e.preventDefault()}
               />
-              {/* Watermark */}
-              <div className="absolute bottom-2 left-2 pointer-events-none select-none opacity-25">
-                <img src="/logos/main_logo.png" alt="" aria-hidden draggable={false} className="h-5 w-auto" />
-              </div>
             </div>
           )}
         </div>
@@ -233,10 +228,6 @@ function MediaCarouselPlayer({ service }: { service: ServiceItem }) {
           <Clock className="h-3 w-3 text-[var(--onestop-gold)]" />
           {service.turnaround}
         </div>
-        {/* Watermark */}
-        <div className="absolute bottom-1.5 left-1.5 z-[1] pointer-events-none select-none opacity-30">
-          <img src="/logos/main_logo.png" alt="" aria-hidden draggable={false} className="h-[5%] min-h-[14px] max-h-[20px] w-auto" />
-        </div>
       </div>
 
       {/* Thumbnail strip */}
@@ -305,13 +296,12 @@ export default function ServicesPageClient({
       <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] py-10 sm:py-14 lg:py-16">
         <div className="absolute inset-0">
           <Image
-            src="/facebook/filler.jpg"
+            src="/placeholder.svg"
             alt=""
             aria-hidden
             fill
             priority
             sizes="100vw"
-           
             className="object-cover opacity-20"
           />
         </div>
@@ -326,12 +316,12 @@ export default function ServicesPageClient({
           </nav>
 
           <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl leading-[1.08]">
-            Our Services
+            Our Electrical Services
           </h1>
           <p className="mt-3 text-base leading-relaxed text-white/50 max-w-xl">
-            Patio covers, concrete, outdoor kitchens, pergolas, roofing, and walkways.
-            {' '}{siteConfig.yearsInBusiness}+ years serving Richmond, Katy, Houston, Sugar Land,
-            and Rosenberg.
+            Panel upgrades, generators, parking lot lighting, EV chargers, warehouse
+            electrical, pedestals &amp; mobile home connections. Licensed commercial
+            electricians serving Houston, Sugar Land, Richmond, Katy &amp; surrounding areas.
           </p>
 
           {/* Quick-nav pills */}
@@ -409,7 +399,7 @@ export default function ServicesPageClient({
                       href="/contact"
                       className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--onestop-red)] px-5 sm:px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-lg hover:brightness-110 transition-all active:scale-[0.98] whitespace-nowrap"
                     >
-                      Free Estimate <ArrowRight className="h-4 w-4" />
+                      Free Quote <ArrowRight className="h-4 w-4" />
                     </Link>
                     <a
                       href={`tel:${siteConfig.cleanPhone}`}
@@ -427,19 +417,8 @@ export default function ServicesPageClient({
 
       {/* ═══ MID-PAGE CTA ═══ */}
       <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] py-16 sm:py-20">
-        <div className="absolute inset-0">
-          <Image
-            src="/facebook/filler2.jpg"
-            alt=""
-            aria-hidden
-            fill
-            sizes="100vw"
-           
-            className="object-cover opacity-30 mix-blend-luminosity"
-          />
-        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--onestop-navy-deep)]/90 to-transparent" />
-        
+
         <div className={`${shell} relative z-10`}>
           <motion.div
             initial="hidden"
@@ -452,14 +431,14 @@ export default function ServicesPageClient({
               Ready to Start Your Project?
             </h2>
             <p className="mt-5 text-base text-white/50 max-w-lg mx-auto leading-relaxed">
-              Every project starts with a free, no-pressure estimate. Call us or fill out the form.
+              Every project starts with a free, no-pressure quote. Call us or fill out the form — 24/7 for emergencies.
             </p>
             <div className="mt-9 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--onestop-red)] px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-white hover:brightness-110 transition-all whitespace-nowrap"
               >
-                Free Estimate <ArrowRight className="h-4 w-4" />
+                Free Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href={`tel:${siteConfig.cleanPhone}`}
@@ -470,7 +449,7 @@ export default function ServicesPageClient({
             </div>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-wider text-white/30">
               <span className="flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed &amp; Insured</span>
-              <span className="flex items-center gap-1.5"><Star className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> 5-Star Rated</span>
+              <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> 24/7 Emergency</span>
             </div>
           </motion.div>
         </div>
@@ -493,10 +472,10 @@ export default function ServicesPageClient({
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { step: '01', title: 'Free Consultation', desc: 'We visit your property, assess the scope, and discuss your options at no cost.' },
-              { step: '02', title: 'Custom Proposal', desc: 'You receive a detailed, transparent quote with no hidden fees or surprises.' },
-              { step: '03', title: 'Expert Build', desc: 'Our crew handles construction with quality craftsmanship and clean worksite practices.' },
-              { step: '04', title: 'Final Walkthrough', desc: 'We walk through the finished project together and make sure everything meets our standards.' },
+              { step: '01', title: 'Free Consultation', desc: 'We visit your property, evaluate the electrical scope, and discuss options at no cost.' },
+              { step: '02', title: 'Custom Proposal', desc: 'You receive a detailed, itemized quote with code notes, timeline, and permit plan.' },
+              { step: '03', title: 'Licensed Install', desc: 'Our licensed crew handles installation with clean runs, proper labeling, and minimal downtime.' },
+              { step: '04', title: 'Final Walkthrough & Inspection', desc: 'We pass inspection, walk the job with you, and hand off clean documentation.' },
             ].map((item) => (
               <motion.div
                 key={item.step}
@@ -550,19 +529,8 @@ export default function ServicesPageClient({
 
       {/* ═══ BOTTOM CTA ═══ */}
       <section className="relative isolate overflow-hidden bg-slate-950 py-16 sm:py-20">
-        <div className="absolute inset-0">
-          <Image
-            src="/facebook/filler2.jpg"
-            alt=""
-            aria-hidden
-            fill
-            sizes="100vw"
-           
-            className="object-cover opacity-20 mix-blend-luminosity"
-          />
-        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-slate-950/40" />
-        
+
         <div className={`${shell} relative z-10`}>
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="max-w-lg">
@@ -570,7 +538,7 @@ export default function ServicesPageClient({
                 Ready to get started? Call us today.
               </h2>
               <p className="mt-3 text-base text-white/50">
-                Quality craftsmanship. Fair pricing. {siteConfig.yearsInBusiness}+ years of trust.
+                Premium electrical work, done right. Licensed, insured &amp; 24/7 emergency service.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
@@ -578,7 +546,7 @@ export default function ServicesPageClient({
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--onestop-red)] px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-white hover:brightness-110 transition-all whitespace-nowrap"
               >
-                Free Estimate <ArrowRight className="h-4 w-4" />
+                Free Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href={`tel:${siteConfig.cleanPhone}`}

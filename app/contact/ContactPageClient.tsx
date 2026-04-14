@@ -10,8 +10,8 @@ import {
   CheckCircle2,
   ArrowRight,
   MapPin,
-  Star,
-  Truck,
+  HardHat,
+  Zap,
 } from 'lucide-react';
 import { siteConfig } from '../config';
 import { EstimateForm } from '../components/EstimateForm';
@@ -30,13 +30,12 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
       <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] py-10 sm:py-14 lg:py-16">
         <div className="absolute inset-0">
           <Image
-            src="/facebook/filler.jpg"
+            src="/placeholder.svg"
             alt=""
             aria-hidden
             fill
             priority
             sizes="100vw"
-           
             className="object-cover opacity-20"
           />
         </div>
@@ -51,20 +50,22 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
           </nav>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-[1.08] tracking-tight">
-            Contact Us
+            Contact Solivance Electric
           </h1>
           <p className="mt-3 text-base text-white/50 leading-relaxed max-w-lg">
-            Tell us about your project and we will deliver a detailed, no-pressure estimate — usually within 24 hours.
+            Tell us about your electrical project — panel upgrade, generator, EV charger,
+            warehouse build, or anything in between. We&apos;ll respond within 24 hours
+            with a transparent, itemized quote.
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-white/40">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-white/50" /> Free estimates
+              <CheckCircle2 className="h-3.5 w-3.5 text-white/50" /> Free quotes
             </span>
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-white/50" /> Response within 24 hrs
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-white/50" /> {siteConfig.yearsInBusiness}+ years experience
+              <CheckCircle2 className="h-3.5 w-3.5 text-white/50" /> 24/7 Emergency
             </span>
           </div>
 
@@ -94,10 +95,12 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
             >
               <div className="mb-8">
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--onestop-navy-deep)] leading-tight uppercase tracking-tight">
-                  Request Your Estimate
+                  Request Your Free Quote
                 </h2>
                 <p className="text-[0.95rem] text-slate-500 mt-3 leading-relaxed">
-                  Describe your project below. No cost, no pressure — just an honest quote from a team that has completed 500+ outdoor projects.
+                  Describe your electrical project below — commercial or residential. No cost,
+                  no pressure. Just a transparent, itemized quote from a licensed Texas
+                  electrical contractor.
                 </p>
               </div>
               <EstimateForm />
@@ -133,7 +136,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
                     </div>
                     <div>
                       <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/50">Hours</div>
-                      <p className="mt-0.5 text-base font-medium text-white/90">Available {siteConfig.hours}</p>
+                      <p className="mt-0.5 text-base font-medium text-white/90">{siteConfig.hours}</p>
                     </div>
                   </div>
 
@@ -154,13 +157,14 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
               {/* Owner Quote Card */}
               <div className="bg-[var(--onestop-cream)] border border-slate-200 rounded-xl p-7 sm:p-8 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mt-2 -mr-1 text-8xl text-[var(--onestop-navy-deep)]/5 font-[family-name:var(--font-app-display)] leading-none select-none">&ldquo;</div>
-                <h4 className="text-[1.05rem] font-bold text-[var(--onestop-navy-deep)] mb-3 relative z-10 leading-snug">Honest work.<br/>Straightforward pricing.</h4>
+                <h4 className="text-[1.05rem] font-bold text-[var(--onestop-navy-deep)] mb-3 relative z-10 leading-snug">Premium electrical work,<br/>done right the first time.</h4>
                 <p className="text-slate-500 text-sm leading-relaxed mb-5 relative z-10 font-medium">
-                  If you prefer to skip the form and just talk it through, give me a call directly.
+                  Prefer to skip the form and talk it through? Call me directly —
+                  happy to walk through your project.
                 </p>
                 <div className="relative z-10 flex items-center gap-3">
                   <div className="h-0.5 w-6 bg-[var(--onestop-red)] opacity-60" />
-                  <p className="text-xs font-bold uppercase tracking-widest text-[var(--onestop-navy-deep)]">{siteConfig.ownerName}</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[var(--onestop-navy-deep)]">{siteConfig.ownerName}, Owner</p>
                 </div>
               </div>
 
@@ -168,9 +172,9 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { icon: Shield, label: 'Licensed & Insured' },
-                  { icon: Star, label: `${siteConfig.rating} Star Rated` },
-                  { icon: CheckCircle2, label: `${siteConfig.yearsInBusiness}+ Years Experience` },
-                  { icon: Truck, label: '70% Repeat & Referral' },
+                  { icon: Clock, label: '24/7 Emergency' },
+                  { icon: HardHat, label: 'Commercial & Residential' },
+                  { icon: Zap, label: 'Free Quotes' },
                 ].map((item) => (
                   <div key={item.label} className="flex items-center gap-2.5 bg-slate-50 rounded-lg px-3.5 py-3 border border-slate-100">
                     <item.icon className="h-4 w-4 shrink-0 text-[var(--onestop-navy)]" />
@@ -230,17 +234,6 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
 
       {/* ═══ BOTTOM CTA ═══ */}
       <section className="relative isolate overflow-hidden bg-slate-950 py-16 sm:py-20">
-        <div className="absolute inset-0">
-          <Image
-            src="/facebook/filler2.jpg"
-            alt=""
-            aria-hidden
-            fill
-            sizes="100vw"
-           
-            className="object-cover opacity-20 mix-blend-luminosity"
-          />
-        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-slate-950/40" />
         <div className={`${shell} relative z-10`}>
           <motion.div
@@ -255,7 +248,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
                 Ready to start your project?
               </h2>
               <p className="mt-2 text-base text-white/50">
-                Call now for a same-day estimate. {siteConfig.hours} daily.
+                Call for a free quote. {siteConfig.hours}.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">

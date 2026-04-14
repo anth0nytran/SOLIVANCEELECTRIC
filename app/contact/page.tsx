@@ -3,22 +3,22 @@ import { siteConfig } from '../config';
 import ContactPageClient from './ContactPageClient';
 
 export const metadata: Metadata = {
-  title: 'Free Estimate — Contact Us in Richmond, Katy & Houston TX',
+  title: 'Contact Solivance Electric — Free Quote in Houston, Sugar Land & Katy',
   description:
-    'Book a free consultation with One Stop Outdoor Construction. Patio covers, concrete & outdoor kitchens in Richmond, Katy & Houston TX. (832) 945-8084.',
+    'Contact Solivance Electric LLC for a free electrical quote. Panel upgrades, generators, EV chargers, parking lot lighting & commercial electrical. 24/7 emergency. (832) 965-9964.',
   alternates: { canonical: '/contact' },
   openGraph: {
-    title: 'Free Estimate — Contact Us in Richmond, Katy & Houston TX',
+    title: 'Contact Solivance Electric — Free Quote in Houston, Sugar Land & Katy',
     description:
-      'Book your free consultation. Serving Richmond, Katy, Houston, Sugar Land & surrounding areas.',
-    url: 'https://onestopoutdoorconstruction.com/contact',
-    images: [{ url: '/hero.png', width: 1200, height: 630, alt: 'Contact One Stop Outdoor Construction — Free Estimates' }],
+      'Get a free quote for commercial or residential electrical work. Serving Houston, Sugar Land, Richmond, Katy & Pearland. 24/7 emergency.',
+    url: `${siteConfig.domain}/contact`,
+    images: [{ url: '/placeholder.svg', width: 1200, height: 630, alt: 'Contact Solivance Electric LLC — Free Quotes' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Estimate — Contact Us in Richmond, Katy & Houston TX',
-    description: 'Book your free consultation. Serving Richmond, Katy, Houston, Sugar Land & surrounding areas.',
-    images: ['/hero.png'],
+    title: 'Contact Solivance Electric — Free Quote in Houston, Sugar Land & Katy',
+    description: 'Get a free quote. Serving Houston, Sugar Land, Richmond, Katy & Pearland. 24/7 emergency.',
+    images: ['/placeholder.svg'],
   },
 };
 
@@ -33,20 +33,24 @@ const breadcrumbJsonLd = {
 
 const contactFaqs = [
   {
-    q: 'How fast do you respond?',
-    a: 'Most consultation requests get a reply within 1-2 hours during business hours (8am-5pm). Call (832) 945-8084 directly for the fastest response.',
+    q: 'How fast do you respond to quote requests?',
+    a: `Most quote requests receive a reply within 24 hours. For urgent or emergency electrical issues, call ${siteConfig.phone} directly — we run 24/7 emergency response.`,
   },
   {
     q: 'Is the consultation really free?',
-    a: 'Yes — 100% free, zero obligation. We assess the job and give you an honest, upfront price. No hidden fees, no pressure.',
+    a: 'Yes — 100% free, zero obligation. We evaluate the electrical scope, pull load calcs if needed, and provide a transparent, itemized quote. No hidden fees, no pressure.',
   },
   {
-    q: 'What info do you need from me?',
-    a: 'Just your phone number and address. That\'s it. We\'ll reach out to schedule a time that works for you.',
+    q: 'What info do you need from me to quote a job?',
+    a: 'For most jobs we need your name, phone, service address, and a short description of the electrical work. For commercial scopes, a site visit or existing electrical drawings speed things up.',
   },
   {
-    q: 'Do you offer payment plans?',
-    a: 'We offer flexible options on larger jobs. During your consultation, let us know your budget and we\'ll work with you. We accept cash, checks, and all major credit cards.',
+    q: 'Do you offer 24-hour emergency electrical service?',
+    a: `Yes. Solivance Electric provides 24/7 emergency service for outages, tripped commercial panels, burning smells, and anything unsafe. Call ${siteConfig.phone} any time, day or night.`,
+  },
+  {
+    q: 'Do you offer payment plans for large commercial jobs?',
+    a: 'For larger commercial scopes (warehouse builds, multi-charger EV deployments, full panel replacements), we offer flexible milestone-based billing. Tell us your budget during the consultation and we will structure the proposal around it.',
   },
 ];
 

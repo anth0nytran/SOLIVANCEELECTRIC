@@ -1,23 +1,24 @@
 import type { Metadata } from 'next';
+import { siteConfig } from '../config';
 import AboutPageClient from './AboutPageClient';
 
 export const metadata: Metadata = {
-  title: 'About Us — 15+ Years Serving Richmond & Katy TX',
+  title: 'About Solivance Electric — Commercial Electrician in Houston TX',
   description:
-    'Family-owned outdoor construction in Richmond, Katy & Houston TX. 15+ years, fully insured. Patio covers, concrete, outdoor kitchens & more. (832) 945-8084.',
+    'Solivance Electric LLC — licensed commercial electrical contractor serving Houston, Sugar Land, Richmond & Katy. Panel upgrades, generators, EV chargers. 24/7 emergency.',
   alternates: { canonical: '/about' },
   openGraph: {
-    title: 'About Us — 15+ Years Serving Richmond & Katy TX',
+    title: 'About Solivance Electric — Commercial Electrician in Houston TX',
     description:
-      'Family-owned outdoor construction in Richmond, Katy & Houston TX. 15+ years, fully insured, locally trusted.',
-    url: 'https://onestopoutdoorconstruction.com/about',
-    images: [{ url: '/hero.png', width: 1200, height: 630, alt: 'One Stop Outdoor Construction — Richmond, Katy & Houston TX' }],
+      'Licensed commercial electrical contractor in Houston TX. Panel upgrades, generators, parking lot lighting, EV chargers. 24/7 emergency service.',
+    url: `${siteConfig.domain}/about`,
+    images: [{ url: '/placeholder.svg', width: 1200, height: 630, alt: 'Solivance Electric LLC — Commercial Electrician in Houston TX' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Us — 15+ Years Serving Richmond & Katy TX',
-    description: 'Family-owned outdoor construction in Richmond, Katy & Houston TX. 15+ years, fully insured, locally trusted.',
-    images: ['/hero.png'],
+    title: 'About Solivance Electric — Commercial Electrician in Houston TX',
+    description: 'Licensed commercial electrical contractor serving Houston, Sugar Land, Richmond & Katy.',
+    images: ['/placeholder.svg'],
   },
 };
 
@@ -25,8 +26,8 @@ const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://onestopoutdoorconstruction.com/' },
-    { '@type': 'ListItem', position: 2, name: 'About', item: 'https://onestopoutdoorconstruction.com/about' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteConfig.domain}/` },
+    { '@type': 'ListItem', position: 2, name: 'About', item: `${siteConfig.domain}/about` },
   ],
 };
 

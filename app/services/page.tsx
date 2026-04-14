@@ -3,22 +3,22 @@ import { siteConfig, serviceData } from '../config';
 import ServicesPageClient from './ServicesPageClient';
 
 export const metadata: Metadata = {
-  title: 'Services — Patio Covers, Concrete & More in Richmond TX',
+  title: 'Electrical Services — Panel Upgrades, Generators & EV Chargers in Houston TX',
   description:
-    'Patio covers, concrete, outdoor kitchens, pergolas, roofing & walkways in Richmond, Katy & Houston TX. 15+ years. Licensed & insured. (832) 945-8084.',
+    'Commercial electrical services in Houston TX: panel upgrades, generator installs, parking lot lighting, EV chargers, warehouse electrical. Licensed & insured. (832) 965-9964.',
   alternates: { canonical: '/services' },
   openGraph: {
-    title: 'Services — Patio Covers, Concrete & More in Richmond TX',
+    title: 'Electrical Services — Panel Upgrades, Generators & EV Chargers in Houston TX',
     description:
-      'Patio covers, concrete, outdoor kitchens, pergolas, roofing & walkways in Richmond, Katy & Houston TX. 15+ years experience.',
-    url: 'https://onestopoutdoorconstruction.com/services',
-    images: [{ url: '/hero.png', width: 1200, height: 630, alt: 'One Stop Outdoor Construction Services — Richmond, Katy & Houston TX' }],
+      'Panel upgrades, generators, parking lot lighting, EV chargers, warehouse electrical. Serving Houston, Sugar Land, Richmond & Katy. 24/7 emergency.',
+    url: `${siteConfig.domain}/services`,
+    images: [{ url: '/placeholder.svg', width: 1200, height: 630, alt: 'Solivance Electric Services — Houston TX' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Services — Patio Covers, Concrete & More in Richmond TX',
-    description: 'Patio covers, concrete, outdoor kitchens, pergolas, roofing & walkways in Richmond, Katy & Houston TX. 15+ years experience.',
-    images: ['/hero.png'],
+    title: 'Electrical Services — Panel Upgrades, Generators & EV Chargers in Houston TX',
+    description: 'Panel upgrades, generators, parking lot lighting, EV chargers, warehouse electrical. 24/7 emergency.',
+    images: ['/placeholder.svg'],
   },
 };
 
@@ -44,28 +44,32 @@ const breadcrumbJsonLd = {
 
 const serviceFaqs = [
   {
-    q: 'How much does a patio cover cost in Richmond, TX?',
-    a: 'Patio cover costs vary based on the size, materials, and design complexity. A basic aluminum patio cover may start around $3,000, while custom wood or insulated panel covers can range higher. We offer competitive pricing — book a consultation and we\'ll give you an honest quote before any work begins.',
+    q: 'How much does a panel upgrade cost in Houston, TX?',
+    a: 'Panel upgrade costs depend on service size (100A, 200A, 400A+), wire run length, and whether the meter base and grounding need replacement. Most residential 200A upgrades fall in a predictable range; commercial panels vary with switchgear. We provide a transparent, itemized quote before any work begins — no surprises.',
   },
   {
-    q: 'How long does a concrete driveway installation take?',
-    a: 'Most residential concrete driveway installations in the Richmond, Katy, and Sugar Land area take 3-5 days from start to finish, including prep, pour, and curing time. Larger projects or decorative stamped concrete may take longer. We\'ll give you a clear timeline during your consultation.',
+    q: 'How long does an EV charger install take?',
+    a: 'A single Level 2 EV charger install is typically completed in one day once materials are on site. DC fast chargers (Level 3) and multi-unit commercial deployments take longer because of service capacity, trenching, and utility coordination. We scope timing precisely during the consultation.',
   },
   {
-    q: 'Do I need a permit for a patio cover or outdoor kitchen in Richmond?',
-    a: 'In most cases, yes — patio covers, outdoor kitchens, and pergolas typically require a building permit in Fort Bend County and surrounding areas. We handle the permitting process for you so you don\'t have to worry about it.',
+    q: 'Do you pull permits and coordinate inspections?',
+    a: 'Yes — every job that requires a permit gets one. We handle the permit application, the rough-in and final inspections, and any utility coordination so you are not chasing paperwork. It is part of the price, not an add-on.',
   },
   {
-    q: 'What materials do you use for outdoor kitchens?',
-    a: 'We use high-quality, weather-resistant materials including stainless steel appliances, natural stone countertops, and durable masonry or stucco for the base structure. Every outdoor kitchen is custom-designed to fit your space and budget.',
+    q: 'Do you handle commercial projects, or just residential?',
+    a: 'Both, but commercial and industrial are our specialty — warehouses, retail, offices, medical, property management, and fleet facilities. We also take on premium residential work where code compliance and craftsmanship matter.',
   },
   {
-    q: 'Do you offer warranties on your work?',
-    a: `Yes — we stand behind every project we complete. Our workmanship warranty covers structural and installation issues. We\'re also licensed and fully insured for your protection. Call us at ${siteConfig.phone} for details.`,
+    q: 'Do you offer 24-hour emergency electrical service?',
+    a: `Yes. Standard hours are 6am–6pm, but we provide 24-hour emergency electrical service across the Houston metro. Call ${siteConfig.phone} any time — we prioritize outages, burning smells, and anything unsafe.`,
   },
   {
-    q: 'What is included in your walkway and paver installation?',
-    a: 'Our walkway and paver installation includes site preparation, base material and compaction, paver layout and installation, edge restraints, and joint sand. We handle every step so your outdoor space looks polished and professional from day one.',
+    q: 'Are you licensed and insured?',
+    a: 'Yes — Solivance Electric LLC is a fully licensed Texas electrical contractor carrying comprehensive liability insurance. We are happy to provide license and insurance documentation on request.',
+  },
+  {
+    q: 'Can you install a commercial standby generator?',
+    a: 'Yes. We size, install, and commission commercial standby generators with automatic transfer switches — including load calculations, fuel planning (natural gas or diesel), pad work, and the permits required. We also offer annual service contracts.',
   },
 ];
 

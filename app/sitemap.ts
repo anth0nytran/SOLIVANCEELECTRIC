@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllSlugs } from './blog/posts';
 
-const BASE_URL = 'https://onestopoutdoorconstruction.com';
+const BASE_URL = 'https://solivanceelectric.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
@@ -21,12 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/about`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/gallery`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
       priority: 0.8,
     },
     {

@@ -90,12 +90,14 @@ export async function POST(req: Request) {
 
   const name = pickField(data, ['name', 'fullName', 'fullname']);
   const phone = pickField(data, ['phone', 'phoneNumber', 'phone_number', 'tel']);
+  const email = pickField(data, ['email', 'emailAddress', 'email_address']);
   const address = pickField(data, ['address', 'streetAddress']);
   const zipCode = pickField(data, ['zipCode', 'zip_code', 'zip']);
   const message = pickField(data, ['message', 'details', 'notes']);
   const company = pickField(data, ['company', 'companyName', 'company_name']);
   const service = pickField(data, ['service', 'serviceNeeded', 'service_needed']);
   const timeline = pickField(data, ['timeline', 'projectTimeline', 'project_timeline']);
+  const urgency = pickField(data, ['urgency']);
   const page = pickField(data, ['page', 'pageUrl', 'page_url']);
   const site = pickField(data, ['site', 'siteUrl', 'site_url']);
 
@@ -174,7 +176,7 @@ export async function POST(req: Request) {
   }
 
   // 3b2. Reject if message contains the site's own domain (common in bot pitches)
-  const ownDomainPatterns = ['onestopoutdoor', 'onestopoutdoorconstruct'];
+  const ownDomainPatterns = ['solivanceelectric'];
   const lowerMessage = (message || '').toLowerCase();
   if (ownDomainPatterns.some(d => lowerMessage.includes(d))) {
     return NextResponse.json({ ok: true }, { status: 200 });
@@ -218,11 +220,11 @@ export async function POST(req: Request) {
   }).format(new Date());
   const safeName = name || 'Website Form';
   const safeService = service || 'Website Form';
-  const brandName = 'One Stop Outdoor Construction';
-  const brandAddress = 'Richmond, TX';
+  const brandName = 'Solivance Electric LLC';
+  const brandAddress = 'Houston, TX';
   const brandPrimary = '#1a3a6b';
   const brandAccent = '#c0392b';
-  const fromEmail = process.env.LEAD_FROM_EMAIL || 'One Stop Outdoor Construction <leads@onestopoutdoorconstruction.com>';
+  const fromEmail = process.env.LEAD_FROM_EMAIL || 'Solivance Electric LLC <leads@solivanceelectric.com>';
   const subject = `New Lead: ${safeService} | ${safeName}`;
 
   const pageUrlIsDev =
@@ -245,11 +247,13 @@ export async function POST(req: Request) {
     `Timestamp: ${timestamp}`,
     name ? `Name: ${name}` : '',
     phone ? `Phone: ${phone}` : '',
+    email ? `Email: ${email}` : '',
     address ? `Address: ${address}` : '',
     zipCode ? `Zip Code: ${zipCode}` : '',
     company ? `Company: ${company}` : '',
     service ? `Service: ${service}` : '',
-    timeline ? `Timeline: ${timeline}` : '',
+    timeline ? `Preferred Window: ${timeline}` : '',
+    urgency ? `Urgency: ${urgency}` : '',
     pageUrlDisplay ? `Page: ${pageUrlDisplay}` : '',
     site ? `Site: ${site}` : '',
     `Message:\n${message || '(none)'}`,
@@ -314,10 +318,12 @@ export async function POST(req: Request) {
                 <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="font-size:14px;">
                   <tr><td style="padding:10px 0;color:#64748b;width:120px;">Name</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(safeName)}</td></tr>
                   <tr><td style="padding:10px 0;color:#64748b;">Phone</td><td style="padding:10px 0;"><a href="tel:${escapeHtml(phoneLink || phone)}" style="color:#0f172a;text-decoration:none;font-weight:700;">${escapeHtml(phone)}</a></td></tr>
+                  ${email ? `<tr><td style="padding:10px 0;color:#64748b;">Email</td><td style="padding:10px 0;"><a href="mailto:${escapeHtml(email)}" style="color:#0f172a;text-decoration:none;font-weight:700;">${escapeHtml(email)}</a></td></tr>` : ''}
                   <tr><td style="padding:10px 0;color:#64748b;">Address</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(address)}</td></tr>
                   ${zipCode ? `<tr><td style="padding:10px 0;color:#64748b;">Zip Code</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(zipCode)}</td></tr>` : ''}
                   <tr><td style="padding:10px 0;color:#64748b;">Service</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(safeService)}</td></tr>
-                  ${timeline ? `<tr><td style="padding:10px 0;color:#64748b;">Timeline</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(timeline)}</td></tr>` : ''}
+                  ${timeline ? `<tr><td style="padding:10px 0;color:#64748b;">Preferred Window</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(timeline)}</td></tr>` : ''}
+                  ${urgency ? `<tr><td style="padding:10px 0;color:#64748b;">Urgency</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(urgency)}</td></tr>` : ''}
                   ${pageUrlDisplay ? `<tr><td style="padding:10px 0;color:#64748b;">Page URL</td><td style="padding:10px 0;"><a href="${escapeHtml(page)}" style="color:${brandAccent};text-decoration:none;">${escapeHtml(pageUrlDisplay)}</a></td></tr>` : ''}
                   ${site ? `<tr><td style="padding:10px 0;color:#64748b;">Site</td><td style="padding:10px 0;"><a href="${escapeHtml(site)}" style="color:${brandAccent};text-decoration:none;">${escapeHtml(site)}</a></td></tr>` : ''}
                   ${company ? `<tr><td style="padding:10px 0;color:#64748b;">Company</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(company)}</td></tr>` : ''}
@@ -336,7 +342,7 @@ export async function POST(req: Request) {
       <tr>
         <td style="padding:0 20px 22px;">
           <div style="border-left:4px solid ${brandAccent};padding:12px;background:#f8fafc;border-radius:8px;font-size:12px;color:#475569;line-height:1.5;">
-            This lead came from the One Stop Outdoor Construction website form.
+            This lead came from the Solivance Electric LLC website form.
             <span style="display:block;margin-top:6px;font-weight:700;color:${brandPrimary};">${brandAddress}</span>
           </div>
         </td>

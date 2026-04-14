@@ -6,14 +6,15 @@ import { blogPosts } from './posts';
 import { siteConfig } from '../config';
 
 export const metadata: Metadata = {
-  title: 'Blog — Outdoor Construction Tips & Cost Guides',
+  title: 'Blog — Commercial Electrical Insights & Guides | Solivance Electric',
   description:
-    'Cost guides, design tips & outdoor construction advice for Richmond, Katy & Houston TX homeowners. From a local contractor with 15+ years experience.',
+    'Commercial electrical guides, cost breakdowns, and Houston-specific advice from Solivance Electric LLC — panel upgrades, EV chargers, generators, and more.',
   alternates: { canonical: '/blog' },
   openGraph: {
-    title: 'Blog — Outdoor Construction Tips & Cost Guides',
-    description: 'Cost guides, design tips & outdoor construction advice for Richmond, Katy & Houston TX homeowners.',
-    url: 'https://onestopoutdoorconstruction.com/blog',
+    title: 'Blog — Commercial Electrical Insights & Guides | Solivance Electric',
+    description:
+      'Commercial electrical guides and Houston-specific advice from Solivance Electric LLC.',
+    url: `${siteConfig.domain}/blog`,
   },
 };
 
@@ -34,13 +35,13 @@ export default function BlogPage() {
                 '@type': 'ListItem',
                 position: 1,
                 name: 'Home',
-                item: 'https://onestopoutdoorconstruction.com',
+                item: siteConfig.domain,
               },
               {
                 '@type': 'ListItem',
                 position: 2,
                 name: 'Blog',
-                item: 'https://onestopoutdoorconstruction.com/blog',
+                item: `${siteConfig.domain}/blog`,
               },
             ],
           }),
@@ -54,15 +55,16 @@ export default function BlogPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
-            'name': 'Outdoor Construction Blog — Richmond, Katy, Houston & Beyond',
-            'description': 'Expert outdoor construction tips, cost guides, and design advice for homeowners in Richmond, Katy, Houston & surrounding areas.',
-            'url': 'https://onestopoutdoorconstruction.com/blog',
+            'name': 'Commercial Electrical Blog — Houston, Sugar Land, Richmond, Katy',
+            'description':
+              'Expert commercial electrical guides and Houston-specific advice from Solivance Electric LLC.',
+            'url': `${siteConfig.domain}/blog`,
             'mainEntity': {
               '@type': 'ItemList',
               'itemListElement': blogPosts.map((post, i) => ({
                 '@type': 'ListItem',
                 'position': i + 1,
-                'url': `https://onestopoutdoorconstruction.com/blog/${post.slug}`,
+                'url': `${siteConfig.domain}/blog/${post.slug}`,
                 'name': post.title,
               })),
             },
@@ -82,10 +84,11 @@ export default function BlogPage() {
           </nav>
           <div className="max-w-2xl">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--onestop-navy-deep)] leading-tight">
-              Outdoor Construction Blog
+              Electrical Insights from Solivance Electric
             </h1>
             <p className="mt-3 text-base text-slate-500 leading-relaxed">
-              Tips, cost guides, and design advice from the crew at {siteConfig.businessName}.
+              Commercial electrical guides, cost breakdowns, and Houston-specific
+              advice from the team at {siteConfig.businessName}.
             </p>
           </div>
         </div>
@@ -155,12 +158,11 @@ export default function BlogPage() {
       <section className="relative isolate overflow-hidden bg-slate-950 py-12 sm:py-14">
         <div className="absolute inset-0">
           <Image
-            src="/facebook/filler2.jpg"
+            src="/placeholder.svg"
             alt=""
             aria-hidden
             fill
             sizes="100vw"
-           
             className="object-cover opacity-20 mix-blend-luminosity"
           />
         </div>
@@ -168,15 +170,15 @@ export default function BlogPage() {
         <div className={`${shell} relative z-10`}>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="text-center sm:text-left">
-              <h2 className="text-xl sm:text-2xl font-extrabold text-white">Need outdoor construction?</h2>
-              <p className="mt-1 text-sm text-white/50">Quality craftsmanship for Richmond, Katy, Houston, Sugar Land &amp; beyond.</p>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-white">Need a commercial electrician?</h2>
+              <p className="mt-1 text-sm text-white/50">Licensed electrical work for Houston, Sugar Land, Richmond, Katy &amp; beyond.</p>
             </div>
             <div className="flex gap-3">
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 rounded-lg bg-[var(--onestop-red)] px-6 py-3 text-sm font-bold text-white hover:brightness-110 transition"
               >
-                Book Consultation <ArrowRight className="h-4 w-4" />
+                Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href={`tel:${siteConfig.cleanPhone}`}

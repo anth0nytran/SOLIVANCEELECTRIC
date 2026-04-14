@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/api/',
         },
-        sitemap: 'https://onestopoutdoorconstruction.com/sitemap.xml',
+        sitemap: 'https://solivanceelectric.com/sitemap.xml',
     };
 }

@@ -6,9 +6,9 @@
   --onestop-ink: #0f2847;
   --onestop-navy: #1a3a6b;
   --onestop-navy-deep: #0f2847;
-  --onestop-red: #c0392b;
-  --onestop-gold: #c0392b;
-  --onestop-cream: #f5f7fa;
+  --onestop-red: #F26B1F;
+  --onestop-gold: #F26B1F;
+  --onestop-cream: #ffffff;
   --onestop-line: #e2e8f0;
 }
 
@@ -34,23 +34,28 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-app-body), -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
 }
 
 .onestop-site h1,
 .onestop-site h2,
-.onestop-site h3 {
-  letter-spacing: -0.02em;
+.onestop-site h3,
+.onestop-site h4 {
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
-/* Industrial construction feel — square edges, bold weight */
-.onestop-site .rounded-2xl { border-radius: 0.25rem; }
-.onestop-site .rounded-xl { border-radius: 0.25rem; }
+/* Refined radii — squared-off industrial, not aggressively so */
+.onestop-site .rounded-2xl { border-radius: 0.5rem; }
+.onestop-site .rounded-xl { border-radius: 0.375rem; }
 .onestop-site .rounded-lg { border-radius: 0.25rem; }
-.onestop-site .rounded-full { border-radius: 9999px; } /* keep pills round */
+.onestop-site .rounded-full { border-radius: 9999px; }
 
-/* Heavier heading weight for industrial feel */
-.onestop-site h1 { font-weight: 900; }
-.onestop-site h2 { font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; }
+.onestop-site h1 { font-weight: 700; letter-spacing: -0.03em; }
+.onestop-site h2 { font-weight: 700; letter-spacing: -0.025em; }
 
 /* Buttons — squared off, industrial */
 .onestop-site button, .onestop-site a[class*="rounded"] {
@@ -80,11 +85,30 @@ body {
 .onestop-site .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  gap: 0.625rem;
+  font-family: var(--font-app-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
+  color: var(--onestop-navy);
+}
+
+.onestop-site .eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: var(--onestop-gold);
+}
+
+.onestop-site .hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(15,40,71,0.12) 20%, rgba(15,40,71,0.12) 80%, transparent);
+}
+
+.onestop-site .mono {
+  font-family: var(--font-app-mono), ui-monospace, monospace;
+  font-feature-settings: "tnum", "zero";
 }
 
 .onestop-site .section-heading {

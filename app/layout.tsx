@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Geist, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { MobileCTA } from "./components/MobileCTA";
 import "./globals.css";
 
-const bodyFont = Inter({
+const bodyFont = Geist({
   variable: "--font-app-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const displayFont = Inter_Tight({
+const displayFont = Bricolage_Grotesque({
   variable: "--font-app-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800", "900"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -27,70 +27,65 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://onestopoutdoorconstruction.com'),
+  metadataBase: new URL('https://solivanceelectric.com'),
   title: {
-    default: "Patio Covers & Outdoor Construction | Richmond TX",
-    template: "%s | One Stop Outdoor Construction",
+    default: "Commercial Electrical Contractor | Houston TX",
+    template: "%s | Solivance Electric LLC",
   },
-  description: "Patio covers, concrete, outdoor kitchens & pergolas in Richmond, Katy, Houston & Sugar Land TX. 15+ years. Licensed & insured. Free estimates — (832) 945-8084.",
+  description: "Commercial electrical contractor in Houston TX. Panel upgrades, generator installs, parking lot lighting, EV chargers & more. Licensed & insured. 24hr emergency — (832) 965-9964.",
   keywords: [
-    'patio cover Richmond TX',
-    'patio cover Katy TX',
-    'concrete contractor Richmond TX',
-    'outdoor kitchen Richmond TX',
-    'outdoor construction Houston TX',
-    'pergola builder Katy TX',
-    'stamped concrete Richmond TX',
-    'covered patio Houston TX',
-    'outdoor kitchen builder Katy TX',
-    'roofing contractor Richmond TX',
-    'walkway installation Katy TX',
-    'paver contractor Houston TX',
-    'concrete driveway Sugar Land TX',
-    'patio cover Sugar Land TX',
-    'outdoor construction Rosenberg TX',
-    'outdoor living Richmond TX 77407',
-    'patio cover near me Katy 77493',
-    'concrete contractor Houston 77048',
-    'outdoor kitchen Sugar Land TX',
-    'pergola installation Richmond TX',
-    'licensed contractor Richmond TX',
-    'home improvement Katy TX',
-    'backyard remodel Houston TX',
-    'outdoor renovation Sugar Land TX',
+    'commercial electrical contractor Houston TX',
+    'panel upgrades Houston TX',
+    'generator installation Houston TX',
+    'parking lot lighting Houston TX',
+    'EV charger installation Houston TX',
+    'commercial warehouse electrical Houston TX',
+    'pedestal installation Houston TX',
+    'mobile home electrical connection Houston TX',
+    'electrical contractor Sugar Land TX',
+    'electrical contractor Richmond TX',
+    'electrical contractor Katy TX',
+    'electrical contractor Pearland TX',
+    'electrical contractor Missouri City TX',
+    'electrical contractor Stafford TX',
+    'electrical contractor Rosenberg TX',
+    'licensed electrician Houston TX',
+    '24 hour emergency electrician Houston TX',
+    'commercial electrician 77048',
+    'business electrical services Houston TX',
+    'corporate electrical contractor Houston TX',
   ],
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: "Patio Covers & Outdoor Construction in Richmond TX | One Stop Outdoor Construction",
-    description: "Patio covers, concrete, outdoor kitchens & pergolas in Richmond, Katy, Houston & Sugar Land TX. 15+ years. Licensed & insured. Free estimates — (832) 945-8084.",
-    url: 'https://onestopoutdoorconstruction.com',
-    siteName: 'One Stop Outdoor Construction',
+    title: "Commercial Electrical Contractor in Houston TX | Solivance Electric LLC",
+    description: "Panel upgrades, generator installs, parking lot lighting, EV chargers & commercial electrical services in Houston TX. Licensed & insured. 24hr emergency — (832) 965-9964.",
+    url: 'https://solivanceelectric.com',
+    siteName: 'Solivance Electric LLC',
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: '/hero.png',
+        url: '/placeholder.svg',
         width: 1200,
         height: 630,
-        alt: 'One Stop Outdoor Construction — Patio Covers, Concrete & Outdoor Kitchens in Richmond, Katy & Houston TX',
+        alt: 'Solivance Electric LLC — Commercial Electrical Contractor in Houston TX',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Quality Outdoor Construction | One Stop Outdoor Construction",
-    description: "Patio covers, concrete, outdoor kitchens, pergolas & roofing for Richmond, Katy, Houston, Sugar Land & Rosenberg TX. Licensed & insured. Free estimates.",
-    images: ['/hero.png'],
+    title: "Premium Electrical Work. Done Right. | Solivance Electric LLC",
+    description: "Commercial electrical contractor serving Houston, Sugar Land, Richmond, Katy, Pearland & surrounding TX. Licensed & insured. 24hr emergency service.",
+    images: ['/placeholder.svg'],
   },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
-      { url: '/logos/favicon.svg', type: 'image/svg+xml' },
     ],
     shortcut: '/favicon.ico',
-    apple: '/logos/main_logo.png',
+    apple: '/placeholder.svg',
   },
 };
 
@@ -110,111 +105,63 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-              "name": "One Stop Outdoor Construction",
-              "image": "https://onestopoutdoorconstruction.com/facebook/hero.jpg",
-              "@id": "https://onestopoutdoorconstruction.com",
-              "url": "https://onestopoutdoorconstruction.com",
-              "telephone": "+18329458084",
-              "email": "faridarabzadeh77@yahoo.com",
-              "description": "Quality patio covers, concrete, outdoor kitchens, pergolas, roofing and walkways serving Richmond, Katy, Houston, Sugar Land & Rosenberg TX. 15+ years in business. Licensed & insured. Free estimates.",
+              "@type": ["LocalBusiness", "ElectricalContractor"],
+              "name": "Solivance Electric LLC",
+              "image": "https://solivanceelectric.com/placeholder.svg",
+              "@id": "https://solivanceelectric.com",
+              "url": "https://solivanceelectric.com",
+              "telephone": "+18329659964",
+              "email": "service@solivanceelectric.com",
+              "description": "Licensed and insured commercial electrical contractor serving Houston, Sugar Land, Richmond, Katy, Pearland, Missouri City, Stafford and Rosenberg TX. Panel upgrades, generator installs, parking lot lighting, EV chargers, commercial warehouses, pedestals and mobile home connections. 24hr emergency service.",
               "address": {
                 "@type": "PostalAddress",
-                "addressLocality": "Richmond",
+                "addressLocality": "Houston",
                 "addressRegion": "TX",
-                "postalCode": "77407",
+                "postalCode": "77048",
                 "addressCountry": "US"
               },
               "geo": {
                 "@type": "GeoCoordinates",
-                "latitude": 29.5823,
-                "longitude": -95.7607
+                "latitude": 29.6163,
+                "longitude": -95.3461
               },
               "areaServed": [
-                { "@type": "City", "name": "Richmond", "sameAs": "https://en.wikipedia.org/wiki/Richmond,_Texas" },
-                { "@type": "City", "name": "Katy" },
-                { "@type": "City", "name": "Houston" },
+                { "@type": "City", "name": "Houston", "sameAs": "https://en.wikipedia.org/wiki/Houston" },
                 { "@type": "City", "name": "Sugar Land" },
-                { "@type": "City", "name": "Rosenberg" },
+                { "@type": "City", "name": "Richmond" },
+                { "@type": "City", "name": "Katy" },
+                { "@type": "City", "name": "Pearland" },
                 { "@type": "City", "name": "Missouri City" },
-                { "@type": "City", "name": "Fulshear" },
                 { "@type": "City", "name": "Stafford" },
-                { "@type": "City", "name": "Pearland" }
+                { "@type": "City", "name": "Rosenberg" }
               ],
               "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                "opens": "08:00",
-                "closes": "17:00"
+                "opens": "06:00",
+                "closes": "18:00",
+                "description": "Regular hours 6am–6pm Mon–Sat. 24hr emergency service available."
               },
               "priceRange": "$$",
-              "foundingDate": "2011",
               "knowsLanguage": ["en", "es"],
               "paymentAccepted": "Cash, Credit Card, Check, Zelle",
               "currenciesAccepted": "USD",
-              "slogan": "Quality Outdoor Construction You Can Trust",
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "5.0",
-                "reviewCount": "32",
-                "bestRating": "5",
-                "worstRating": "1"
+              "slogan": "Premium Electrical Work. Done Right.",
+              "founder": {
+                "@type": "Person",
+                "name": "Jossue Molina"
               },
-              "review": [
-                {
-                  "@type": "Review",
-                  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-                  "author": { "@type": "Person", "name": "Barbara Autry Huyser" },
-                  "reviewBody": "I can't rave about this company enough. Communication was excellent throughout the project. The transformation was completed in 8 working days. I would recommend these guys to anyone for any outdoor projects.",
-                  "datePublished": "2025-09-15"
-                },
-                {
-                  "@type": "Review",
-                  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-                  "author": { "@type": "Person", "name": "Vishakha Dastidar" },
-                  "reviewBody": "Amazing people! Outstanding team! His efficient team finished the job earlier than expected and under budget. He quoted the best price of all the contractors and delivered excellent workmanship.",
-                  "datePublished": "2025-08-20"
-                },
-                {
-                  "@type": "Review",
-                  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-                  "author": { "@type": "Person", "name": "Angelina Smith" },
-                  "reviewBody": "One Stop Outdoor Construction Texas is one of the best contractors I have ever done business with. David was patient and came out to my house three times before we decided to proceed. His team is very skilled and efficient.",
-                  "datePublished": "2025-07-10"
-                },
-                {
-                  "@type": "Review",
-                  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-                  "author": { "@type": "Person", "name": "AC Nguyen" },
-                  "reviewBody": "We had a vision for our patio and David and his crew built it into existence. His mission was to build it so it looked like it came with the house initially, and he exceeded expectations.",
-                  "datePublished": "2025-06-05"
-                },
-                {
-                  "@type": "Review",
-                  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-                  "author": { "@type": "Person", "name": "Art DRjr" },
-                  "reviewBody": "Reasonable price and best of all, quality work. Every crew member is pleasant and polite. We had a covered patio, with concrete floor, stamped concrete, and other work done. All completed within 5 days. 100% recommended.",
-                  "datePublished": "2025-05-22"
-                },
-                {
-                  "@type": "Review",
-                  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-                  "author": { "@type": "Person", "name": "Jennifer Clark" },
-                  "reviewBody": "David did our patio in April this year and we love it! He was extremely professional and reasonably priced. Unlike most contractors, he was always there when he said he would be.",
-                  "datePublished": "2025-04-18"
-                }
-              ],
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
-                "name": "Outdoor Construction Services",
+                "name": "Commercial Electrical Services",
                 "itemListElement": [
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Patio Covers", "description": "Custom patio cover installation — lattice, solid insulated, aluminum with optional skylights and ceiling fans" } },
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Concrete & Driveways", "description": "Decorative concrete, stamped concrete, colored concrete, driveway installation in Richmond, Katy & Houston TX" } },
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Outdoor Kitchens", "description": "Custom outdoor kitchen design and construction with built-in grills, countertops, and stone veneer" } },
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pergolas", "description": "Custom pergola design and installation for outdoor living spaces" } },
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Roofing Services", "description": "Residential roofing including shingle, metal, flat, and green roofing installations" } },
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Walkways & Pavers", "description": "Paver stone walkway design and installation with flagstone, slate, and natural stone options" } },
-                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Stamped Concrete", "description": "Decorative stamped concrete for driveways, patios, pool decks and walkways" } }
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Panel Upgrades", "description": "Commercial electrical panel upgrades and replacements for increased capacity, safety and code compliance" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Generator Installs", "description": "Standby and commercial generator installation, transfer switches and backup power systems" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Parking Lot Lighting", "description": "Commercial parking lot lighting design, installation, retrofit and LED upgrades for businesses and corporations" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "EV Chargers", "description": "Commercial EV charging station installation, Level 2 and DC fast chargers for businesses and workplaces" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "New Commercial Warehouses", "description": "Ground-up commercial warehouse electrical installation, lighting, power distribution and service" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pedestals", "description": "RV, marina and commercial power pedestal installation and service" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile Home Connections", "description": "Mobile and manufactured home electrical service connections, meter loops and feeders" } }
                 ]
               }
             })
@@ -226,9 +173,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "One Stop Outdoor Construction",
-              "alternateName": ["One Stop Outdoor", "OSOC", "One Stop Outdoor Construction LLC"],
-              "url": "https://onestopoutdoorconstruction.com"
+              "name": "Solivance Electric LLC",
+              "alternateName": ["Solivance Electric", "Solivance"],
+              "url": "https://solivanceelectric.com"
             })
           }}
         />
