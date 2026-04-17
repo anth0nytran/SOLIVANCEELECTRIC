@@ -385,3 +385,7 @@ details[open] > *:not(summary) {
   color: #64748b;
   font-style: italic;
 }
+
+/* Hide scrollbar utility — horizontal scroll chip rails */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

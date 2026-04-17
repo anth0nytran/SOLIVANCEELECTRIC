@@ -15,7 +15,7 @@ const footerServices: { slug: string; label: string }[] = [
   { slug: 'parking-lot-lighting', label: 'Parking Lot Lighting' },
   { slug: 'ev-chargers', label: 'EV Chargers' },
   { slug: 'commercial-warehouses', label: 'New Commercial Warehouses' },
-  { slug: 'pedestals', label: 'Pedestals' },
+  { slug: 'pedestals', label: 'RV Park Pedestals' },
   { slug: 'mobile-home-connections', label: 'Mobile Home Connections' },
 ];
 
@@ -41,7 +41,7 @@ export function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm text-white/50 max-w-md leading-relaxed font-medium">
-              Premium commercial &amp; residential electrical services across Houston, Sugar Land, Richmond &amp; Katy. Licensed, insured &amp; available 24/7 for emergencies.
+              Licensed Texas electrical contractor covering Houston, Cypress, Katy, Memorial and the surrounding Harris and Fort Bend metro. Commercial, light-industrial, and premium residential. 24-hour emergency line answered by a licensed electrician.
             </p>
             <div className="mt-6 space-y-4">
               <div>
@@ -60,7 +60,7 @@ export function Footer() {
             <ul className="space-y-4 text-sm text-white/50 font-medium">
               {footerServices.map((s) => (
                 <li key={s.slug}>
-                  <Link href={`/services#${s.slug}`} className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2">
+                  <Link href={`/services/${s.slug}`} className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2">
                     <ArrowRight className="h-3 w-3 text-white/30" />
                     {s.label}
                   </Link>
@@ -112,7 +112,13 @@ export function Footer() {
       <div className="border-t border-white/10 bg-black/20">
         <div className={`${shell} py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left text-xs text-white/30 font-medium tracking-wide`}>
           <p>&copy; {new Date().getFullYear()} {siteConfig.businessName} &mdash; Houston, TX. All rights reserved.</p>
-          <p>Premium Electrical Work since {new Date().getFullYear() - siteConfig.yearsInBusiness}. Website by <a href="https://quicklaunchweb.us" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors">QuickLaunchWeb</a></p>
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-1">
+            <Link href="/privacy" className="text-white/50 hover:text-white transition-colors">Privacy Policy</Link>
+            <span aria-hidden className="text-white/20">·</span>
+            <Link href="/terms" className="text-white/50 hover:text-white transition-colors">Terms of Service</Link>
+            <span aria-hidden className="text-white/20">·</span>
+            <span>Website by <a href="https://quicklaunchweb.us" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors">QuickLaunchWeb</a></span>
+          </div>
         </div>
       </div>
 

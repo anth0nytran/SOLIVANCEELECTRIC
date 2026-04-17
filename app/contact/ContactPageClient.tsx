@@ -50,12 +50,13 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
           </nav>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-[1.08] tracking-tight">
-            Contact Solivance Electric
+            Walk a site. Get a number.
           </h1>
           <p className="mt-3 text-base text-white/50 leading-relaxed max-w-lg">
-            Tell us about your electrical project — panel upgrade, generator, EV charger,
-            warehouse build, or anything in between. We&apos;ll respond within 24 hours
-            with a transparent, itemized quote.
+            Panel upgrade, standby generator, EV charger build, parking-lot retrofit,
+            warehouse fit-out, RV park pedestal array, or a mobile home hookup —
+            describe it below. We respond within 24 hours with an itemized, fixed-fee
+            quote. Emergencies are handled by phone, any hour.
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-white/40">
             <span className="flex items-center gap-1.5">
@@ -95,12 +96,13 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
             >
               <div className="mb-8">
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--onestop-navy-deep)] leading-tight uppercase tracking-tight">
-                  Request Your Free Quote
+                  Request a fixed-fee quote
                 </h2>
                 <p className="text-[0.95rem] text-slate-500 mt-3 leading-relaxed">
-                  Describe your electrical project below — commercial or residential. No cost,
-                  no pressure. Just a transparent, itemized quote from a licensed Texas
-                  electrical contractor.
+                  Commercial, light-industrial, or premium residential. A licensed
+                  Texas contractor walks the site free, hands back an itemized number,
+                  and starts on the date you pick. No high-pressure pitch, no ballpark
+                  over the phone.
                 </p>
               </div>
               <EstimateForm />
@@ -154,17 +156,20 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
                 </div>
               </div>
 
-              {/* Owner Quote Card */}
+              {/* Talk to a Licensed Electrician Card */}
               <div className="bg-[var(--onestop-cream)] border border-slate-200 rounded-xl p-7 sm:p-8 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mt-2 -mr-1 text-8xl text-[var(--onestop-navy-deep)]/5 font-[family-name:var(--font-app-display)] leading-none select-none">&ldquo;</div>
-                <h4 className="text-[1.05rem] font-bold text-[var(--onestop-navy-deep)] mb-3 relative z-10 leading-snug">Premium electrical work,<br/>done right the first time.</h4>
+                <h4 className="text-[1.05rem] font-bold text-[var(--onestop-navy-deep)] mb-3 relative z-10 leading-snug">Rather walk it through<br/>on the phone?</h4>
                 <p className="text-slate-500 text-sm leading-relaxed mb-5 relative z-10 font-medium">
-                  Prefer to skip the form and talk it through? Call me directly —
-                  happy to walk through your project.
+                  Describe the site, scope, and timing. A licensed electrician
+                  picks up — not a dispatcher, not a call center. Emergencies are
+                  routed the same way, any hour.
                 </p>
                 <div className="relative z-10 flex items-center gap-3">
                   <div className="h-0.5 w-6 bg-[var(--onestop-red)] opacity-60" />
-                  <p className="text-xs font-bold uppercase tracking-widest text-[var(--onestop-navy-deep)]">{siteConfig.ownerName}, Owner</p>
+                  <a href={`tel:${siteConfig.cleanPhone}`} className="text-xs font-bold uppercase tracking-widest text-[var(--onestop-navy-deep)] hover:text-[var(--onestop-red)] transition-colors">
+                    {siteConfig.phone} · 24/7 Emergency Line
+                  </a>
                 </div>
               </div>
 
@@ -245,10 +250,10 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
           >
             <div className="text-center sm:text-left">
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-                Ready to start your project?
+                On the schedule this week.
               </h2>
               <p className="mt-2 text-base text-white/50">
-                Call for a free quote. {siteConfig.hours}.
+                Walk the site free. Fixed-fee number in 24 hours. {siteConfig.hours}.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">

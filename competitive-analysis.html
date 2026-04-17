@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solivance Electric — Competitive Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --ink: #0a0a0a;
+            --ink-soft: #3a3835;
+            --paper: #f6f4f0;
+            --accent: #c45d3e;
+            --accent-light: #e8a48e;
+            --muted: #8a8580;
+            --divider: #d6d2cc;
+            --card: #fffefa;
+            --shadow: rgba(10, 10, 10, 0.06);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ── Cover ── */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--accent));
+        }
+
+        .cover-badge {
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .cover-badge::before {
+            content: '';
+            width: 1.5rem;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .cover h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.75rem;
+        }
+
+        .cover h1 em {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .cover-subtitle {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 580px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .cover-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--divider);
+            padding-top: 2.5rem;
+            max-width: 720px;
+        }
+
+        .cover-meta-item .label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .cover-meta-item .value {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            line-height: 1.3;
+            color: var(--ink);
+        }
+
+        /* ── Section ── */
+        .section {
+            padding: 5rem 0 3rem;
+            break-inside: avoid;
+        }
+
+        .section-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .section-eyebrow::before {
+            content: '';
+            width: 1.5rem;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .section h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -0.015em;
+            margin-bottom: 1.25rem;
+        }
+
+        .section h2 em { color: var(--accent); font-style: italic; }
+
+        .section-lede {
+            font-size: 1.02rem;
+            color: var(--ink-soft);
+            max-width: 680px;
+            line-height: 1.75;
+            margin-bottom: 2rem;
+        }
+
+        /* ── Exec summary card ── */
+        .exec-card {
+            background: var(--card);
+            border: 1px solid var(--divider);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .exec-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-light));
+            border-radius: 4px 0 0 4px;
+        }
+        .exec-card p { font-size: 0.98rem; line-height: 1.8; color: var(--ink-soft); margin-bottom: 0.85rem; }
+        .exec-card p:last-child { margin-bottom: 0; }
+        .exec-card strong { color: var(--ink); font-weight: 600; }
+
+        /* ── Competitor profile cards ── */
+        .competitor {
+            background: var(--card);
+            border: 1px solid var(--divider);
+            border-radius: 16px;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        .competitor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-light));
+            border-radius: 4px 0 0 4px;
+        }
+        .competitor:hover { box-shadow: 0 12px 40px var(--shadow); }
+
+        .competitor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 0.35rem;
+            flex-wrap: wrap;
+        }
+
+        .competitor-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.7rem;
+            line-height: 1.15;
+            font-weight: 400;
+        }
+
+        .competitor-rank {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.4rem;
+            color: var(--accent);
+            opacity: 0.35;
+            line-height: 1;
+        }
+
+        .competitor-score {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            color: var(--accent);
+            letter-spacing: 0.02em;
+        }
+        .competitor-score .num { font-size: 1.7rem; }
+
+        .competitor-url {
+            font-size: 0.8rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            margin-bottom: 1.25rem;
+        }
+
+        .swatch-row {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0 1.25rem;
+        }
+        .swatch {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .swatch-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.02em;
+            margin-left: 0.5rem;
+            align-self: center;
+        }
+
+        .competitor h4 {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 500;
+            margin: 1.25rem 0 0.65rem;
+        }
+
+        .competitor blockquote {
+            border-left: 2px solid var(--accent-light);
+            padding-left: 1rem;
+            margin: 0.5rem 0 1rem;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--ink);
+            line-height: 1.4;
+        }
+
+        .pro-con {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 0.75rem;
+        }
+        .pro-con ul { list-style: none; padding: 0; margin: 0.25rem 0 0; }
+        .pro-con li {
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+            padding-left: 1.1rem;
+            position: relative;
+            margin-bottom: 0.45rem;
+            line-height: 1.55;
+        }
+        .pro-con .pros li::before { content: '+'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+        .pro-con .cons li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.65rem;
+            margin-top: 1rem;
+        }
+        .score-cell {
+            background: var(--paper);
+            border: 1px solid var(--divider);
+            border-radius: 8px;
+            padding: 0.65rem 0.75rem;
+            text-align: center;
+        }
+        .score-cell .label {
+            font-size: 0.6rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.25rem;
+        }
+        .score-cell .val {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.3rem;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        /* ── Tables ── */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+            border: 1px solid var(--divider);
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.85rem;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--divider);
+        }
+        .comparison-table th {
+            background: var(--paper);
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .comparison-table th.num,
+        .comparison-table td.num {
+            text-align: center;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.05rem;
+            color: var(--ink);
+        }
+        .comparison-table td.total {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 400;
+        }
+        .comparison-table tr:last-child td { border-bottom: none; }
+        .comparison-table .winner { background: rgba(196, 93, 62, 0.04); }
+
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+            border: 1px solid var(--divider);
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.85rem;
+            margin-top: 1.5rem;
+        }
+        .feature-table th, .feature-table td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--divider); }
+        .feature-table th {
+            background: var(--paper);
+            font-size: 0.66rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 500;
+            text-align: left;
+        }
+        .feature-table td.check { text-align: center; font-family: 'Instrument Serif', serif; color: var(--accent); font-size: 1rem; }
+        .feature-table td.cross { text-align: center; color: var(--muted); }
+        .feature-table td:first-child { color: var(--ink-soft); }
+        .feature-table .solivance-col { background: rgba(196,93,62,0.04); }
+
+        /* ── Patterns ── */
+        .pattern {
+            background: var(--card);
+            border: 1px solid var(--divider);
+            border-radius: 14px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .pattern-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 0.65rem;
+        }
+        .pattern-num {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.4rem;
+            color: var(--accent);
+            opacity: 0.35;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .pattern-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.3rem;
+            line-height: 1.25;
+        }
+        .pattern-body { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.75; }
+        .pattern-body strong { color: var(--accent); font-weight: 500; }
+
+        /* ── SEO section ── */
+        .seo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .seo-card {
+            background: var(--card);
+            border: 1px solid var(--divider);
+            border-radius: 12px;
+            padding: 1.5rem 1.75rem;
+        }
+        .seo-card h4 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+        }
+        .seo-card h4 .ticker {
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-family: 'DM Sans', sans-serif;
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+        .seo-card p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.7; }
+
+        /* ── Tags ── */
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 1rem;
+        }
+        .tag {
+            font-size: 0.68rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.32rem 0.8rem;
+            border-radius: 100px;
+            background: var(--paper);
+            border: 1px solid var(--divider);
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        /* ── Flow connector ── */
+        .flow-connector {
+            display: flex;
+            justify-content: center;
+            padding: 0.25rem 0;
+        }
+        .flow-connector svg { color: var(--divider); }
+
+        /* ── Direction blocks ── */
+        .direction-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .dir-card {
+            background: var(--card);
+            border: 1px solid var(--divider);
+            border-radius: 14px;
+            padding: 1.5rem 1.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .dir-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent-light);
+        }
+        .dir-card h4 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+        .dir-card p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.7; }
+        .dir-card .brand-swatches {
+            display: flex;
+            gap: 0.5rem;
+            margin: 0.75rem 0 0.5rem;
+            flex-wrap: wrap;
+        }
+        .dir-card .brand-swatches .s {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .dir-card .brand-swatches .s::after {
+            content: attr(data-hex);
+            position: absolute;
+            bottom: -14px;
+            left: 0;
+            font-size: 0.58rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        .avoid-list {
+            background: linear-gradient(135deg, #fdf6f3, #fef9f6);
+            border: 1px dashed var(--accent-light);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+        }
+        .avoid-list h4 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.15rem;
+            color: var(--accent);
+            margin-bottom: 0.65rem;
+        }
+        .avoid-list ul { list-style: none; padding: 0; margin: 0; }
+        .avoid-list li {
+            font-size: 0.88rem;
+            color: var(--ink-soft);
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.45rem;
+            line-height: 1.55;
+        }
+        .avoid-list li::before { content: '✗'; position: absolute; left: 0; color: var(--accent); }
+
+        /* ── Footer ── */
+        .doc-footer {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            border-top: 1px solid var(--divider);
+            margin-top: 4rem;
+        }
+        .doc-footer p {
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+        .doc-footer .mark {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 720px) {
+            .pro-con { grid-template-columns: 1fr; }
+            .score-grid { grid-template-columns: repeat(2, 1fr); }
+            .seo-grid, .direction-grid { grid-template-columns: 1fr; }
+            .competitor { padding: 1.5rem 1.5rem; }
+            .exec-card { padding: 1.75rem; }
+        }
+
+        /* ── Print (A4) ── */
+        @media print {
+            @page { size: A4; margin: 14mm; }
+            body::after { display: none; }
+            body { background: #fff; }
+            .competitor, .exec-card, .pattern, .seo-card, .dir-card, .avoid-list { break-inside: avoid; box-shadow: none !important; }
+            .cover { min-height: auto; padding: 2rem 0 3rem; }
+            .section { padding: 2.5rem 0 1.5rem; page-break-inside: avoid; }
+            .competitor:hover { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ───── COVER ───── -->
+        <section class="cover">
+            <div>
+                <span class="cover-badge">Competitive Analysis</span>
+                <h1>Houston Commercial<br>Electrical, <em>Benchmarked.</em></h1>
+                <p class="cover-subtitle">A research-backed study of the top five commercial electrical contractors across the Greater Houston metro — what they do, how they win, and where Solivance Electric can leapfrog them on launch day.</p>
+            </div>
+            <div class="cover-meta">
+                <div class="cover-meta-item">
+                    <div class="label">Prepared For</div>
+                    <div class="value">Solivance Electric LLC</div>
+                </div>
+                <div class="cover-meta-item">
+                    <div class="label">Specialty</div>
+                    <div class="value">Commercial + Light-Industrial</div>
+                </div>
+                <div class="cover-meta-item">
+                    <div class="label">Market</div>
+                    <div class="value">Houston · Cypress · Katy · Memorial</div>
+                </div>
+                <div class="cover-meta-item">
+                    <div class="label">Date</div>
+                    <div class="value">April 2026</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───── EXEC SUMMARY ───── -->
+        <section class="section">
+            <span class="section-eyebrow">01 — Executive Summary</span>
+            <h2>The market is winnable — and the <em>winners all leak</em>.</h2>
+            <p class="section-lede">We scored the top five Houston commercial electrical contractors across eight criteria. Only one cracked 67 / 80. The patterns separating the winners from the losers are consistent, teachable, and fixable in a single build cycle.</p>
+            <div class="exec-card">
+                <p><strong>The category leaders are Beekman (67)</strong> and <strong>FSG (66)</strong> — one runs a local-authority playbook (370+ Google reviews, named B2B clients), the other runs an enterprise-credibility playbook (NRG Stadium, GEICO, displayed license numbers). Both win through proof, not design.</p>
+                <p><strong>The middle of the pack — Colwell, Wired, RMG —</strong> is technically competent but visually dated, inconsistently branded, and weak on conversion surface area. The ceiling to beat is lower than it looks.</p>
+                <p><strong>Solivance's current codebase already out-designs every competitor</strong> in this study — Bricolage Grotesque display type, industrial squared-off radii, Framer Motion choreography, and a navy + orange palette that matches the category conventions without being derivative. The visual chassis is class-leading.</p>
+                <p><strong>The gap is proof, not polish.</strong> Solivance ships today with zero testimonials, no customer logos, no license number in-hero, no certification stack, and placeholder imagery across every hero slot. Close those five gaps and this site outperforms every competitor on the list — not because it's prettier, but because it's credible.</p>
+            </div>
+        </section>
+
+        <!-- ───── COMPETITOR PROFILES ───── -->
+        <section class="section">
+            <span class="section-eyebrow">02 — Competitor Profiles</span>
+            <h2>Five contractors, <em>two playbooks</em>, one weak middle.</h2>
+            <p class="section-lede">Deep-scrapes of the top five — scored across search visibility, reviews, visual design, mobile, content depth, social proof, CTA strategy, and page speed.</p>
+
+            <!-- FSG -->
+            <div class="competitor">
+                <div class="competitor-header">
+                    <div>
+                        <div class="competitor-name">FSG Houston</div>
+                        <div class="competitor-url">fsg.com/locations/houston</div>
+                    </div>
+                    <div>
+                        <span class="competitor-rank">01</span>
+                    </div>
+                </div>
+                <div class="competitor-score"><span class="num">66</span> / 80 — enterprise-credibility play</div>
+                <div class="swatch-row">
+                    <div class="swatch" style="background:#1a3a52"></div>
+                    <div class="swatch" style="background:#f39200"></div>
+                    <div class="swatch" style="background:#ffffff"></div>
+                    <div class="swatch-label">navy · gold · white</div>
+                </div>
+                <blockquote>"Commercial Electrical Contractor In Houston, TX"</blockquote>
+                <h4>Strengths</h4>
+                <h4>Weaknesses</h4>
+                <div class="pro-con">
+                    <ul class="pros">
+                        <li>Enterprise client logos: NRG Stadium, GEICO, Houston Botanical Garden, Ronald McDonald House</li>
+                        <li>License numbers inline (SOS #800921572, Electrical #17904, #24643) — huge trust signal</li>
+                        <li>Four-pillar value frame: Upfront Pricing · No Hassle · Done Right Guarantee · 360° Energy Saving</li>
+                        <li>"Licensed, Insured, and Experienced Since 1982" — unassailable longevity</li>
+                    </ul>
+                    <ul class="cons">
+                        <li>Reads like a corporate directory page, not a regional specialist</li>
+                        <li>No aggregate star rating or review count surfaced</li>
+                        <li>Facility-centric photography; no crew portraits, no humanity</li>
+                        <li>CTA hierarchy weaker than Beekman's</li>
+                    </ul>
+                </div>
+                <div class="score-grid">
+                    <div class="score-cell"><div class="label">Search</div><div class="val">9</div></div>
+                    <div class="score-cell"><div class="label">Reviews</div><div class="val">7</div></div>
+                    <div class="score-cell"><div class="label">Visual</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Mobile</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Content</div><div class="val">9</div></div>
+                    <div class="score-cell"><div class="label">Proof</div><div class="val">10</div></div>
+                    <div class="score-cell"><div class="label">CTA</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Speed</div><div class="val">7</div></div>
+                </div>
+            </div>
+
+            <div class="flow-connector"><svg width="2" height="24" viewBox="0 0 2 24"><line x1="1" y1="0" x2="1" y2="24" stroke="currentColor" stroke-dasharray="3 3"/></svg></div>
+
+            <!-- Beekman -->
+            <div class="competitor">
+                <div class="competitor-header">
+                    <div>
+                        <div class="competitor-name">Beekman Company</div>
+                        <div class="competitor-url">beekmanco.com</div>
+                    </div>
+                    <div>
+                        <span class="competitor-rank">02</span>
+                    </div>
+                </div>
+                <div class="competitor-score"><span class="num">67</span> / 80 — local-authority play · category leader</div>
+                <div class="swatch-row">
+                    <div class="swatch" style="background:#2b5a8a"></div>
+                    <div class="swatch" style="background:#f5a623"></div>
+                    <div class="swatch" style="background:#ffffff"></div>
+                    <div class="swatch-label">blue · gold · white</div>
+                </div>
+                <blockquote>"Commercial Electrician Services in Houston, Katy, Sugar Land, Cypress, Fulshear, Sealy, Richmond, Rosenberg &amp; Brookshire"</blockquote>
+                <h4>Strengths</h4>
+                <h4>Weaknesses</h4>
+                <div class="pro-con">
+                    <ul class="pros">
+                        <li>4.9 ★ with 370+ Google reviews — surfaced in hero and sticky</li>
+                        <li>Named B2B clients: HEB, Hobby Lobby, 5 Below, multiple hotel brands</li>
+                        <li>"Over 40 years of commercial electrician experience" anchors the trust band</li>
+                        <li>Strong CTA: "FREE Estimates, BOOK TODAY!" + prominent call-to-phone</li>
+                        <li>BBB badge, safety-first messaging, code-compliance framing</li>
+                    </ul>
+                    <ul class="cons">
+                        <li>H1 is an SEO string, not a brand statement — sacrifices memorability</li>
+                        <li>Visual design is functional but template-feeling</li>
+                        <li>Photography quality is stock-grade, not editorial</li>
+                        <li>Navigation sprawls across 7+ top-level items</li>
+                    </ul>
+                </div>
+                <div class="score-grid">
+                    <div class="score-cell"><div class="label">Search</div><div class="val">9</div></div>
+                    <div class="score-cell"><div class="label">Reviews</div><div class="val">10</div></div>
+                    <div class="score-cell"><div class="label">Visual</div><div class="val">7</div></div>
+                    <div class="score-cell"><div class="label">Mobile</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Content</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Proof</div><div class="val">9</div></div>
+                    <div class="score-cell"><div class="label">CTA</div><div class="val">9</div></div>
+                    <div class="score-cell"><div class="label">Speed</div><div class="val">7</div></div>
+                </div>
+            </div>
+
+            <div class="flow-connector"><svg width="2" height="24" viewBox="0 0 2 24"><line x1="1" y1="0" x2="1" y2="24" stroke="currentColor" stroke-dasharray="3 3"/></svg></div>
+
+            <!-- Colwell -->
+            <div class="competitor">
+                <div class="competitor-header">
+                    <div>
+                        <div class="competitor-name">Colwell Electric</div>
+                        <div class="competitor-url">colwellelectric.com</div>
+                    </div>
+                    <div>
+                        <span class="competitor-rank">03</span>
+                    </div>
+                </div>
+                <div class="competitor-score"><span class="num">63</span> / 80 — strongest brand voice in the category</div>
+                <div class="swatch-row">
+                    <div class="swatch" style="background:#11254b"></div>
+                    <div class="swatch" style="background:#6fa8dc"></div>
+                    <div class="swatch" style="background:#c0392b"></div>
+                    <div class="swatch-label">navy · sky · IEC red</div>
+                </div>
+                <blockquote>"The Power Behind Houston's Homes &amp; Businesses" — sub: <em>"You call, we show up, and the job gets done."</em></blockquote>
+                <h4>Strengths</h4>
+                <h4>Weaknesses</h4>
+                <div class="pro-con">
+                    <ul class="pros">
+                        <li>Most memorable one-liner in the entire comparison</li>
+                        <li>Second-generation family business framing — emotional authenticity</li>
+                        <li>"Seven master electricians. No subcontractors. No rushed shortcuts."</li>
+                        <li>Certification stack: BBB + IEC + NFPA + ABC + IAEI</li>
+                        <li>Six named testimonials with first name + last initial</li>
+                        <li>KOHLER generator dealer partnership</li>
+                    </ul>
+                    <ul class="cons">
+                        <li>No aggregate star rating or review count shown</li>
+                        <li>Placeholder-tinted backgrounds suggest design is unfinished</li>
+                        <li>Navigation is deeper than it needs to be</li>
+                        <li>Visual design feels 2019-era, not 2026</li>
+                    </ul>
+                </div>
+                <div class="score-grid">
+                    <div class="score-cell"><div class="label">Search</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Reviews</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Visual</div><div class="val">7</div></div>
+                    <div class="score-cell"><div class="label">Mobile</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Content</div><div class="val">9</div></div>
+                    <div class="score-cell"><div class="label">Proof</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">CTA</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Speed</div><div class="val">7</div></div>
+                </div>
+            </div>
+
+            <div class="flow-connector"><svg width="2" height="24" viewBox="0 0 2 24"><line x1="1" y1="0" x2="1" y2="24" stroke="currentColor" stroke-dasharray="3 3"/></svg></div>
+
+            <!-- RMG -->
+            <div class="competitor">
+                <div class="competitor-header">
+                    <div>
+                        <div class="competitor-name">RMG Electrical, Inc.</div>
+                        <div class="competitor-url">rmgelectrical.com</div>
+                    </div>
+                    <div>
+                        <span class="competitor-rank">04</span>
+                    </div>
+                </div>
+                <div class="competitor-score"><span class="num">52</span> / 80 — competent but invisible</div>
+                <div class="swatch-row">
+                    <div class="swatch" style="background:#1f4a6d"></div>
+                    <div class="swatch" style="background:#d9d9d9"></div>
+                    <div class="swatch" style="background:#ffffff"></div>
+                    <div class="swatch-label">corporate blue · gray · white</div>
+                </div>
+                <blockquote>"RMG Electrical, Inc." — <em>"For Quality call RMG!!"</em></blockquote>
+                <h4>Strengths</h4>
+                <h4>Weaknesses</h4>
+                <div class="pro-con">
+                    <ul class="pros">
+                        <li>Deepest industrial niche: Class 1 Div 1/2 hazardous wiring, ATEX zones, skid wiring, shipboard cable</li>
+                        <li>Stats band: "1000+ Projects · 30+ Years · 100% Dedication"</li>
+                        <li>License numbers: HMEL #722, TMEL #11248</li>
+                        <li>NFPA · IEC · HASC certifications</li>
+                    </ul>
+                    <ul class="cons">
+                        <li>Company name used as H1 — zero positioning</li>
+                        <li>"For Quality call RMG!!" (double exclamation) — low-trust signal</li>
+                        <li>Dated typography, weak hierarchy, generic corporate layout</li>
+                        <li>Zero customer logos, zero star ratings, zero testimonials visible</li>
+                    </ul>
+                </div>
+                <div class="score-grid">
+                    <div class="score-cell"><div class="label">Search</div><div class="val">7</div></div>
+                    <div class="score-cell"><div class="label">Reviews</div><div class="val">6</div></div>
+                    <div class="score-cell"><div class="label">Visual</div><div class="val">6</div></div>
+                    <div class="score-cell"><div class="label">Mobile</div><div class="val">6</div></div>
+                    <div class="score-cell"><div class="label">Content</div><div class="val">7</div></div>
+                    <div class="score-cell"><div class="label">Proof</div><div class="val">7</div></div>
+                    <div class="score-cell"><div class="label">CTA</div><div class="val">6</div></div>
+                    <div class="score-cell"><div class="label">Speed</div><div class="val">7</div></div>
+                </div>
+            </div>
+
+            <div class="flow-connector"><svg width="2" height="24" viewBox="0 0 2 24"><line x1="1" y1="0" x2="1" y2="24" stroke="currentColor" stroke-dasharray="3 3"/></svg></div>
+
+            <!-- Wired -->
+            <div class="competitor">
+                <div class="competitor-header">
+                    <div>
+                        <div class="competitor-name">Wired Electrical &amp; Generators</div>
+                        <div class="competitor-url">wiredes.com</div>
+                    </div>
+                    <div>
+                        <span class="competitor-rank">05</span>
+                    </div>
+                </div>
+                <div class="competitor-score"><span class="num">62</span> / 80 — generator-led, residential-leaning</div>
+                <div class="swatch-row">
+                    <div class="swatch" style="background:#0f5a7a"></div>
+                    <div class="swatch" style="background:#f08a1c"></div>
+                    <div class="swatch" style="background:#ffffff"></div>
+                    <div class="swatch-label">teal · orange · white</div>
+                </div>
+                <blockquote>"Electrical Services and Generators for Homes &amp; Businesses"</blockquote>
+                <h4>Strengths</h4>
+                <h4>Weaknesses</h4>
+                <div class="pro-con">
+                    <ul class="pros">
+                        <li>Certified Generac dealer — manufacturer-backed trust signal</li>
+                        <li>BBB A+ rating displayed prominently</li>
+                        <li>"Trusted by Houstonians since 2005" — clear longevity anchor</li>
+                        <li>Same-day service promise — direct conversion lever</li>
+                    </ul>
+                    <ul class="cons">
+                        <li>Commercial story is thin — default positioning is homeowner</li>
+                        <li>Service list reads scattered (water heaters alongside commercial builds)</li>
+                        <li>Limited named-client or project-portfolio content</li>
+                        <li>Aesthetic is clean but unmemorable</li>
+                    </ul>
+                </div>
+                <div class="score-grid">
+                    <div class="score-cell"><div class="label">Search</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Reviews</div><div class="val">9</div></div>
+                    <div class="score-cell"><div class="label">Visual</div><div class="val">7</div></div>
+                    <div class="score-cell"><div class="label">Mobile</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Content</div><div class="val">7</div></div>
+                    <div class="score-cell"><div class="label">Proof</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">CTA</div><div class="val">8</div></div>
+                    <div class="score-cell"><div class="label">Speed</div><div class="val">7</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───── COMPARISON TABLE ───── -->
+        <section class="section">
+            <span class="section-eyebrow">03 — Comparison</span>
+            <h2>Side by side, <em>criterion by criterion</em>.</h2>
+            <p class="section-lede">The full eight-axis scorecard, ranked highest to lowest.</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Contractor</th>
+                        <th class="num">Search</th>
+                        <th class="num">Reviews</th>
+                        <th class="num">Visual</th>
+                        <th class="num">Mobile</th>
+                        <th class="num">Content</th>
+                        <th class="num">Proof</th>
+                        <th class="num">CTA</th>
+                        <th class="num">Speed</th>
+                        <th class="num">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="winner">
+                        <td>Beekman Company</td>
+                        <td class="num">9</td><td class="num">10</td><td class="num">7</td><td class="num">8</td>
+                        <td class="num">8</td><td class="num">9</td><td class="num">9</td><td class="num">7</td>
+                        <td class="num total">67</td>
+                    </tr>
+                    <tr>
+                        <td>FSG Houston</td>
+                        <td class="num">9</td><td class="num">7</td><td class="num">8</td><td class="num">8</td>
+                        <td class="num">9</td><td class="num">10</td><td class="num">8</td><td class="num">7</td>
+                        <td class="num total">66</td>
+                    </tr>
+                    <tr>
+                        <td>Colwell Electric</td>
+                        <td class="num">8</td><td class="num">8</td><td class="num">7</td><td class="num">8</td>
+                        <td class="num">9</td><td class="num">8</td><td class="num">8</td><td class="num">7</td>
+                        <td class="num total">63</td>
+                    </tr>
+                    <tr>
+                        <td>Wired Electrical &amp; Generators</td>
+                        <td class="num">8</td><td class="num">9</td><td class="num">7</td><td class="num">8</td>
+                        <td class="num">7</td><td class="num">8</td><td class="num">8</td><td class="num">7</td>
+                        <td class="num total">62</td>
+                    </tr>
+                    <tr>
+                        <td>RMG Electrical</td>
+                        <td class="num">7</td><td class="num">6</td><td class="num">6</td><td class="num">6</td>
+                        <td class="num">7</td><td class="num">7</td><td class="num">6</td><td class="num">7</td>
+                        <td class="num total">52</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 style="font-family:'Instrument Serif',serif;font-size:1.3rem;margin:2.25rem 0 0.5rem;">Feature-level gap check</h4>
+            <p style="font-size:0.9rem;color:var(--muted);">What each competitor is shipping that Solivance isn't — or is, and should hold.</p>
+            <table class="feature-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="num" style="text-align:center">FSG</th>
+                        <th class="num" style="text-align:center">Beekman</th>
+                        <th class="num" style="text-align:center">Colwell</th>
+                        <th class="num" style="text-align:center">RMG</th>
+                        <th class="num" style="text-align:center">Wired</th>
+                        <th class="num" style="text-align:center">Solivance <span style="font-size:0.55rem">(today)</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Navy + warm accent palette</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="cross">—</td><td class="check">✓</td><td class="check solivance-col">✓</td></tr>
+                    <tr><td>Phone in hero, tappable</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check solivance-col">✓</td></tr>
+                    <tr><td>Aggregate star rating surfaced</td><td class="cross">—</td><td class="check">4.9 · 370+</td><td class="cross">—</td><td class="cross">—</td><td class="check">BBB A+</td><td class="cross solivance-col">— (0 reviews)</td></tr>
+                    <tr><td>Named client logos</td><td class="check">10+</td><td class="check">5+</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross solivance-col">—</td></tr>
+                    <tr><td>"Since [year]" longevity anchor</td><td class="check">1982</td><td class="check">40 yrs</td><td class="check">30 yrs</td><td class="check">30 yrs</td><td class="check">2005</td><td class="cross solivance-col">10 yrs (buried)</td></tr>
+                    <tr><td>License number displayed</td><td class="check">✓</td><td class="cross">—</td><td class="cross">—</td><td class="check">✓</td><td class="cross">—</td><td class="cross solivance-col">—</td></tr>
+                    <tr><td>Certification stack</td><td class="cross">—</td><td class="check">BBB</td><td class="check">5 orgs</td><td class="check">3 orgs</td><td class="check">BBB</td><td class="cross solivance-col">—</td></tr>
+                    <tr><td>Manufacturer partner / dealer</td><td class="cross">—</td><td class="cross">—</td><td class="check">KOHLER</td><td class="cross">—</td><td class="check">Generac</td><td class="cross solivance-col">—</td></tr>
+                    <tr><td>Real on-site photography</td><td class="check">✓</td><td class="check">✓</td><td class="check">partial</td><td class="check">✓</td><td class="check">✓</td><td class="cross solivance-col">placeholders</td></tr>
+                    <tr><td>Named testimonials</td><td class="cross">—</td><td class="check">✓</td><td class="check">6 named</td><td class="cross">—</td><td class="check">✓</td><td class="cross solivance-col">—</td></tr>
+                    <tr><td>Memorable brand H1</td><td class="check">ok</td><td class="cross">SEO string</td><td class="check">best</td><td class="cross">company name</td><td class="cross">generic</td><td class="check solivance-col">strong</td></tr>
+                    <tr><td>Editorial display typeface</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="cross">—</td><td class="check solivance-col">Bricolage</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ───── PATTERNS ───── -->
+        <section class="section">
+            <span class="section-eyebrow">04 — Patterns of the Top 10%</span>
+            <h2>Five moves that <em>separate winners</em> from the rest.</h2>
+            <p class="section-lede">These are the patterns Beekman, FSG, Colwell, and Wired execute consistently — and RMG doesn't. Execute four of five and Solivance lands in the top decile at launch.</p>
+
+            <div class="pattern">
+                <div class="pattern-header">
+                    <span class="pattern-num">01</span>
+                    <h3 class="pattern-title">Longevity and license numbers live in the hero strip.</h3>
+                </div>
+                <div class="pattern-body">FSG opens with "Licensed, Insured, and Experienced Since 1982 · License #17904." Beekman anchors with "Over 40 years." Commercial buyers comparing three quotes weight this signal heavily — they want proof the contractor will still exist next year and passes inspection on the first pass. <strong>Solivance's config lists "10 years" but buries it. Fix: surface it in the hero trust band alongside the Texas TECL number.</strong></div>
+            </div>
+
+            <div class="pattern">
+                <div class="pattern-header">
+                    <span class="pattern-num">02</span>
+                    <h3 class="pattern-title">Named B2B customer logos outperform generic testimonials.</h3>
+                </div>
+                <div class="pattern-body">FSG's NRG Stadium / GEICO / Houston Botanical Garden / Ronald McDonald House row and Beekman's HEB / Hobby Lobby / 5 Below strip are the highest-converting modules on either site. Commercial buyers don't trust stars — they trust brands they recognize. <strong>Solivance ships zero logos today. This is the single highest-leverage gap to close before launch.</strong></div>
+            </div>
+
+            <div class="pattern">
+                <div class="pattern-header">
+                    <span class="pattern-num">03</span>
+                    <h3 class="pattern-title">Review-count proof or certification-stack proof. Never neither.</h3>
+                </div>
+                <div class="pattern-body">Beekman went reviews-first (4.9 · 370+). Colwell went cert-first (BBB + IEC + NFPA + ABC + IAEI). Both work. <strong>Pre-launch Solivance has zero reviews, so the cert route is the answer — stack 3–5 real affiliations (BBB, IEC, NFPA, Texas TECL, insurance carrier) in a horizontal trust band until review velocity catches up.</strong></div>
+            </div>
+
+            <div class="pattern">
+                <div class="pattern-header">
+                    <span class="pattern-num">04</span>
+                    <h3 class="pattern-title">A memorable one-liner beats an SEO-string headline.</h3>
+                </div>
+                <div class="pattern-body">Colwell's <em>"You call, we show up, and the job gets done"</em> and FSG's <em>"Done Right Guarantee"</em> out-perform Beekman's keyword-stuffed H1. <strong>Solivance's current hero — "Commercial electrical, done right." — is already best-in-class on this axis. Hold the line. Don't regress toward an SEO string.</strong></div>
+            </div>
+
+            <div class="pattern">
+                <div class="pattern-header">
+                    <span class="pattern-num">05</span>
+                    <h3 class="pattern-title">Real on-site photography beats placeholders every time.</h3>
+                </div>
+                <div class="pattern-body">FSG, Beekman, Wired, and RMG all run genuine on-site photography — crews at panels, generators, parking lots. <strong>Solivance is the only site in the comparison running <code>/placeholder.svg</code> in every hero slot. Five real photos (hero, panel, generator, parking-lot pole, crew portrait) close the visual deficit. Commercial stock from Unsplash / a paid library is an acceptable bridge until a shoot is scheduled — raw placeholders are not.</strong></div>
+            </div>
+        </section>
+
+        <!-- ───── SEO LANDSCAPE ───── -->
+        <section class="section">
+            <span class="section-eyebrow">05 — SEO Landscape</span>
+            <h2>Where Solivance can <em>win cleanly</em>.</h2>
+            <p class="section-lede">Five keyword opportunities with either weak competition or unclaimed territory — mapped to content Solivance already has in its config.</p>
+            <div class="seo-grid">
+                <div class="seo-card">
+                    <h4><span class="ticker">Opportunity · 01</span>"Pedestal installation Houston"</h4>
+                    <p>FSG and RMG don't own this term. Competition is minimal. Solivance's <code>serviceData</code> already has strong pedestal copy — ship it as a dedicated service page with FAQ and geo tags and it can rank within a quarter.</p>
+                </div>
+                <div class="seo-card">
+                    <h4><span class="ticker">Opportunity · 02</span>"Mobile home electrical [suburb]"</h4>
+                    <p>Near-zero commercial competition on this query family. Solivance has dedicated service copy and a real audience in Houston's mobile home corridors. Low effort, high yield.</p>
+                </div>
+                <div class="seo-card">
+                    <h4><span class="ticker">Opportunity · 03</span>Suburb + "commercial EV charger"</h4>
+                    <p>Beekman and Colwell own the parent EV term. But "commercial EV charger Sugar Land / Katy / Richmond" is underserved. Build five geo-targeted landing pages off the existing EV service copy.</p>
+                </div>
+                <div class="seo-card">
+                    <h4><span class="ticker">Opportunity · 04</span>ZIP-targeted queries</h4>
+                    <p><code>siteConfig.zipCodes</code> lists 77048, 77407, 77478, 77493, 77471. "77048 commercial electrician" and siblings face zero serious competition. Five ZIP-level pages with unique intro copy unlock near-free traffic.</p>
+                </div>
+                <div class="seo-card" style="grid-column: 1 / -1;">
+                    <h4><span class="ticker">Opportunity · 05 · highest yield</span>Spanish-language service pages</h4>
+                    <p><code>knowsLanguage: ["en", "es"]</code> is already declared in schema — but no Spanish pages exist. Beekman, Colwell, Wired, RMG don't offer this either. Three to five Spanish service pages (panel upgrades, generator installs, EV chargers) land Solivance in an entirely uncontested market segment and double the addressable buyer pool in Greater Houston. <strong>Estimated lift: the largest single SEO win on the list.</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ───── DESIGN DIRECTION ───── -->
+        <section class="section">
+            <span class="section-eyebrow">06 — Recommended Direction</span>
+            <h2>Keep the chassis, <em>add the proof</em>.</h2>
+            <p class="section-lede">Solivance's current codebase already beats four of five competitors on visual design alone. The direction is refinement, not rebuild.</p>
+
+            <div class="direction-grid">
+                <div class="dir-card">
+                    <h4>Palette</h4>
+                    <div class="brand-swatches">
+                        <div class="s" style="background:#0f2847" data-hex="#0f2847"></div>
+                        <div class="s" style="background:#1a3a6b" data-hex="#1a3a6b"></div>
+                        <div class="s" style="background:#F26B1F" data-hex="#F26B1F"></div>
+                        <div class="s" style="background:#f6f4f0" data-hex="#f6f4f0"></div>
+                    </div>
+                    <p style="margin-top:1.25rem">Hold the navy + orange. Rename the legacy <code>--onestop-red</code> and <code>--onestop-gold</code> to <code>--brand-navy</code>, <code>--brand-ink</code>, <code>--brand-accent</code> — the current token aliasing is a bug waiting to bite. Consider a warm off-white surface (<code>#f6f4f0</code>) for mid-page sections to break up the white-block monotony every competitor has.</p>
+                </div>
+                <div class="dir-card">
+                    <h4>Typography</h4>
+                    <p><strong>Bricolage Grotesque</strong> for display, <strong>Geist</strong> for body, <strong>JetBrains Mono</strong> for eyebrows — keep exactly as shipped. None of the five competitors runs a distinct display face. This alone puts Solivance visually one tier above the category. Hold the line.</p>
+                </div>
+                <div class="dir-card">
+                    <h4>Trust architecture</h4>
+                    <p>Insert a dedicated trust row immediately below the hero: <em>Licensed · Insured · Since 2015 · TECL #[number] · BBB · IEC</em>. Replace the current placeholder testimonial empty-state with a certification stack (5 logos) until reviews accrue. Shippable in hours.</p>
+                </div>
+                <div class="dir-card">
+                    <h4>Social proof</h4>
+                    <p>Even before the first client logo arrives, a "Recent Projects" grid with 4–6 anonymized scope cards (e.g., "200A panel upgrade · Sugar Land office · 2 days") out-converts placeholder blocks by an order of magnitude. Quote anonymized when necessary.</p>
+                </div>
+                <div class="dir-card">
+                    <h4>Photography</h4>
+                    <p>Blocking issue. Commission five photos before launch — hero crew shot, panel close-up, generator install, parking-lot pole, EV charger. Until shoot day, licensed commercial stock is acceptable; <code>/placeholder.svg</code> is not.</p>
+                </div>
+                <div class="dir-card">
+                    <h4>Motion</h4>
+                    <p>Keep the Framer Motion entrance choreography — it already feels editorial. Add one signature: a scroll-triggered counter on the "Since 2015 · [n] projects · [n] inspections passed" band, rendered in Bricolage Grotesque numerals. Matches RMG's stats-band pattern, executed with better type.</p>
+                </div>
+            </div>
+
+            <div class="avoid-list">
+                <h4>What to avoid</h4>
+                <ul>
+                    <li>SEO-string headlines (Beekman's failure mode — geo terms stuffed into H1)</li>
+                    <li>Company-name H1s (RMG's failure mode — zero positioning)</li>
+                    <li>Single stock hero photo reliance (Wired's weakness — visually unmemorable)</li>
+                    <li>Phone number only in the header (every competitor repeats it 3–5× for a reason)</li>
+                    <li>Shipping any page with <code>/placeholder.svg</code> user-facing</li>
+                    <li>Over-rounding radii (the current squared-off industrial feel outperforms the soft Beekman/Colwell look)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ───── FOOTER ───── -->
+        <div class="doc-footer">
+            <div class="mark">✦</div>
+            <p>Solivance Electric LLC · Competitive Analysis · April 2026</p>
+            <p style="margin-top:0.4rem">Prepared under the Website Intelligence framework</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

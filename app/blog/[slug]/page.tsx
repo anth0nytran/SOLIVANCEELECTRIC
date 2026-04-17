@@ -303,12 +303,13 @@ export default async function BlogPostPage({
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-slate-950/40" />
         <div className={`${shell} relative z-10 text-center`}>
           <h2 className="font-[family-name:var(--font-app-display)] text-3xl sm:text-4xl font-bold text-white mb-4">
-            Ready to Get a Quote?
+            Walk a site. Get a number.
           </h2>
           <p className="text-slate-300 max-w-xl mx-auto mb-8 leading-relaxed">
-            {siteConfig.businessName} serves Houston, Sugar Land, Richmond, Katy,
-            and surrounding areas with licensed commercial electrical work — panel
-            upgrades, generators, EV chargers, and more. Call us or request a quote online.
+            {siteConfig.businessName} works Houston, Cypress, Katy, Memorial and
+            the surrounding metro. Panel upgrades, standby generators, EV chargers,
+            parking-lot lighting, warehouse electrical. Call or request a quote online —
+            licensed electrician on the phone, not a scheduler.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link

@@ -23,8 +23,8 @@ export const blogPosts: BlogPost[] = [
     image: '/placeholder.svg',
     keywords: [
       'commercial panel upgrade Houston TX',
-      'electrical panel replacement Sugar Land',
-      '200 amp service upgrade Richmond TX',
+      'electrical panel replacement Cypress TX',
+      '200 amp service upgrade Memorial Houston',
       'commercial electrician Katy',
       'warehouse panel upgrade Houston',
       'flickering lights commercial building',
@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
     ],
     content: `
 <p>An electrical panel is the heart of your commercial building. It takes utility power from the street and distributes it safely to every circuit, fixture, and piece of equipment inside. When a panel is undersized, outdated, or failing, the symptoms show up everywhere &mdash; flickering lights, tripped breakers during normal operation, hot panel covers, and nuisance downtime that costs you money every time it happens.</p>
-<p>At <strong>Solivance Electric LLC</strong>, panel upgrades are one of our most requested services across Houston, Sugar Land, Richmond, and Katy. Below we walk through the warning signs that tell you it is time for an upgrade, what the process looks like, and what a modern commercial service should do for your building.</p>
+<p>At <strong>Solivance Electric LLC</strong>, panel upgrades are one of our most requested services across Houston, Cypress, Katy, and Memorial. Below we walk through the warning signs that tell you it is time for an upgrade, what the process looks like, and what a modern commercial service should do for your building.</p>
 
 <h2>7 Warning Signs Your Commercial Panel Needs an Upgrade</h2>
 <p>Panels rarely fail all at once. They send signals for months &mdash; sometimes years &mdash; before something gives. Here is what to watch for.</p>
@@ -108,22 +108,22 @@ export const blogPosts: BlogPost[] = [
 <h2>Do Not Wait for the Panel to Fail</h2>
 <p>The most expensive panel upgrades are the ones that follow an outage, a fire, or a failed insurance inspection &mdash; because by then you are paying for the upgrade, the downtime, and the damage. If your building is showing any of the signs above, get a professional assessment before the panel forces your hand.</p>
 
-<p>Solivance Electric LLC provides licensed, insured commercial electrical service across Houston (77048), Sugar Land, Richmond, and Katy. <a href="/contact">Request a panel assessment</a> or call us directly &mdash; most quotes come back within 24 hours.</p>
+<p>Solivance Electric LLC provides licensed, insured commercial electrical service across Houston, Cypress, Katy, and Memorial. <a href="/contact">Request a panel assessment</a> or call us directly &mdash; most quotes come back within 24 hours.</p>
 `,
   },
   {
     slug: 'ev-charger-installation-commercial-houston',
     title: 'EV Charger Installation for Houston Commercial Properties',
     description:
-      'Level 2 vs DC fast charging, load calculations, permits, and real ROI for commercial EV charger installation in Houston, Sugar Land, Richmond, and Katy.',
+      'Level 2 vs DC fast charging, load calculations, permits, and real ROI for commercial EV charger installation in Houston, Cypress, Katy, and Memorial.',
     date: '2026-03-15',
     readTime: '8 min read',
     category: 'EV Chargers',
     image: '/placeholder.svg',
     keywords: [
       'EV charger installation Houston TX',
-      'commercial EV charging Sugar Land',
-      'Level 2 charger Richmond TX',
+      'commercial EV charging Cypress TX',
+      'Level 2 charger Memorial Houston',
       'DC fast charger Houston',
       'workplace EV charging Katy',
       'apartment EV charger installation',
@@ -150,7 +150,7 @@ export const blogPosts: BlogPost[] = [
     ],
     content: `
 <p>Commercial EV charging is no longer a perk &mdash; it is infrastructure your tenants, employees, and customers expect. Houston commercial property owners who installed chargers in 2022 are seeing higher lease-up rates, longer tenant stays, and real revenue from session fees. Those who wait are competing for tenants with a visibly shorter amenity list.</p>
-<p>At <strong>Solivance Electric LLC</strong>, we design and install <a href="/services#ev-chargers">commercial EV charging systems</a> across Houston, Sugar Land, Richmond, and Katy. This guide covers what property owners actually need to know before calling for a quote.</p>
+<p>At <strong>Solivance Electric LLC</strong>, we design and install <a href="/services#ev-chargers">commercial EV charging systems</a> across Houston, Cypress, Katy, and Memorial. This guide covers what property owners actually need to know before calling for a quote.</p>
 
 <h2>Level 2 vs DC Fast Charging &mdash; Which Fits Your Property?</h2>
 <p>The right charger type depends entirely on how long cars sit at your property.</p>
@@ -188,7 +188,7 @@ export const blogPosts: BlogPost[] = [
 <p>When the calculation shows the service cannot support the planned load, the honest answer is a <a href="/services#panel-upgrades">panel upgrade</a> alongside the chargers. We build that into the quote rather than discovering it mid-install.</p>
 
 <h2>Permitting &mdash; What to Expect in Houston</h2>
-<p>Every commercial EV charger install in the City of Houston, Sugar Land, Richmond, and Katy requires an electrical permit and inspection. On DC fast-charging projects, you will also coordinate with CenterPoint on service size and transformer capacity, which can add weeks to the timeline.</p>
+<p>Every commercial EV charger install in the City of Houston, Cypress, Katy, and Memorial requires an electrical permit and inspection. On DC fast-charging projects, you will also coordinate with CenterPoint on service size and transformer capacity, which can add weeks to the timeline.</p>
 <p>We file the permit, schedule the inspection, and handle any utility coordination. The only thing we ask of the property owner is access and a decision on charger model and networking.</p>
 
 <h2>ROI and Tenant Attraction</h2>
@@ -213,7 +213,7 @@ export const blogPosts: BlogPost[] = [
 <h2>Start With a Site Assessment</h2>
 <p>The cheapest way to get to a real number on your project is a one-hour site walk with an electrician who installs commercial EV chargers for a living. We will tell you honestly whether your building needs a service upgrade, how many ports it can support, and what the all-in number looks like.</p>
 
-<p>Solivance Electric LLC installs commercial EV charging across Houston, Sugar Land, Richmond, and Katy. <a href="/contact">Request a commercial EV site assessment</a> and we will follow up within one business day.</p>
+<p>Solivance Electric LLC installs commercial EV charging across Houston, Cypress, Katy, and Memorial. <a href="/contact">Request a commercial EV site assessment</a> and we will follow up within one business day.</p>
 `,
   },
   {
@@ -227,8 +227,8 @@ export const blogPosts: BlogPost[] = [
     image: '/placeholder.svg',
     keywords: [
       'commercial generator installation Houston TX',
-      'backup generator Sugar Land',
-      'standby generator Richmond TX',
+      'backup generator Cypress TX',
+      'standby generator Memorial Houston',
       'warehouse generator Katy',
       'hurricane generator Houston business',
       'automatic transfer switch commercial',
@@ -255,7 +255,7 @@ export const blogPosts: BlogPost[] = [
     ],
     content: `
 <p>Houston is one of the most power-disrupted commercial markets in the country. Hurricanes, tropical storms, derechos, ice storms, and everyday grid events routinely take parts of the metro offline for hours or days. Every hour your business is dark costs you &mdash; in spoiled inventory, lost sales, payroll for idle staff, comfort-of-stay tenant complaints, and reputation with customers who simply went somewhere else.</p>
-<p>A properly sized, professionally installed standby generator eliminates that risk. At <strong>Solivance Electric LLC</strong>, we install <a href="/services#generator-installs">commercial standby generators</a> across Houston, Sugar Land, Richmond, and Katy &mdash; sized and commissioned so the lights come back on 10 seconds after the grid drops, without anyone having to touch a thing.</p>
+<p>A properly sized, professionally installed standby generator eliminates that risk. At <strong>Solivance Electric LLC</strong>, we install <a href="/services#generator-installs">commercial standby generators</a> across Houston, Cypress, Katy, and Memorial &mdash; sized and commissioned so the lights come back on 10 seconds after the grid drops, without anyone having to touch a thing.</p>
 
 <h2>The Gulf Coast Problem</h2>
 <p>Three realities make Houston uniquely risky for commercial power:</p>
@@ -312,7 +312,7 @@ export const blogPosts: BlogPost[] = [
 <h2>Do Not Wait for the Next Storm</h2>
 <p>The one absolute truth about commercial generators in Houston: demand spikes the week before every major storm, lead times go from 6 weeks to 6 months, and the contractors who would have installed yours are booked solid. The time to plan a generator is before you need one.</p>
 
-<p>Solivance Electric LLC designs, installs, and services commercial standby generators across Houston, Sugar Land, Richmond, and Katy. <a href="/contact">Request a generator consultation</a> and we will walk your site, size the unit properly, and deliver a real quote within days &mdash; not weeks.</p>
+<p>Solivance Electric LLC designs, installs, and services commercial standby generators across Houston, Cypress, Katy, and Memorial. <a href="/contact">Request a generator consultation</a> and we will walk your site, size the unit properly, and deliver a real quote within days &mdash; not weeks.</p>
 `,
   },
 ];

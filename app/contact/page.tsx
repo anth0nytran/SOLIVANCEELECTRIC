@@ -3,22 +3,22 @@ import { siteConfig } from '../config';
 import ContactPageClient from './ContactPageClient';
 
 export const metadata: Metadata = {
-  title: 'Contact Solivance Electric — Free Quote in Houston, Sugar Land & Katy',
+  title: 'Contact Solivance Electric — Fixed-Fee Quotes · Houston · Cypress · Katy · Memorial',
   description:
-    'Contact Solivance Electric LLC for a free electrical quote. Panel upgrades, generators, EV chargers, parking lot lighting & commercial electrical. 24/7 emergency. (832) 965-9964.',
+    'Licensed Texas electrical contractor. Walk a site free, fixed-fee quote in 24 hours. Panel upgrades, standby generators, EV chargers, parking-lot lighting, warehouse electrical. 24/7 emergency line. (832) 965-9964.',
   alternates: { canonical: '/contact' },
   openGraph: {
-    title: 'Contact Solivance Electric — Free Quote in Houston, Sugar Land & Katy',
+    title: 'Contact Solivance Electric — Fixed-Fee Quotes · Greater Houston',
     description:
-      'Get a free quote for commercial or residential electrical work. Serving Houston, Sugar Land, Richmond, Katy & Pearland. 24/7 emergency.',
+      'Fixed-fee quote in 24 hours. Serving Houston, Cypress, Katy, Memorial. 24/7 emergency line answered by a licensed electrician.',
     url: `${siteConfig.domain}/contact`,
-    images: [{ url: '/placeholder.svg', width: 1200, height: 630, alt: 'Contact Solivance Electric LLC — Free Quotes' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Contact Solivance Electric LLC — Fixed-Fee Quotes' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contact Solivance Electric — Free Quote in Houston, Sugar Land & Katy',
-    description: 'Get a free quote. Serving Houston, Sugar Land, Richmond, Katy & Pearland. 24/7 emergency.',
-    images: ['/placeholder.svg'],
+    title: 'Contact Solivance Electric — Fixed-Fee Quotes · Greater Houston',
+    description: 'Fixed-fee quote in 24 hours. Houston, Cypress, Katy, Memorial. 24/7 emergency.',
+    images: ['/og-image.jpg'],
   },
 };
 
@@ -33,24 +33,24 @@ const breadcrumbJsonLd = {
 
 const contactFaqs = [
   {
-    q: 'How fast do you respond to quote requests?',
-    a: `Most quote requests receive a reply within 24 hours. For urgent or emergency electrical issues, call ${siteConfig.phone} directly — we run 24/7 emergency response.`,
+    q: 'How fast will Solivance Electric respond to my quote request?',
+    a: `Most written quote requests get a reply inside 24 hours. Emergency calls are routed to a licensed electrician on the 24-hour line — ${siteConfig.phone} — any hour, any day.`,
   },
   {
-    q: 'Is the consultation really free?',
-    a: 'Yes — 100% free, zero obligation. We evaluate the electrical scope, pull load calcs if needed, and provide a transparent, itemized quote. No hidden fees, no pressure.',
+    q: 'Is the consultation and site walk really free?',
+    a: 'Yes — free, zero obligation. We walk the site, check service capacity, pull a load calc if the scope needs one, and hand back a fixed-fee, itemized number. No hidden fees, no signed agreement required to get the quote.',
   },
   {
-    q: 'What info do you need from me to quote a job?',
-    a: 'For most jobs we need your name, phone, service address, and a short description of the electrical work. For commercial scopes, a site visit or existing electrical drawings speed things up.',
+    q: 'What information do you need to quote a commercial job?',
+    a: 'Name, phone, service address, and one or two sentences on the scope. For commercial work, existing single-line diagrams or a meter/panel photo speed up the pricing. Everything else we gather on the walk.',
   },
   {
-    q: 'Do you offer 24-hour emergency electrical service?',
-    a: `Yes. Solivance Electric provides 24/7 emergency service for outages, tripped commercial panels, burning smells, and anything unsafe. Call ${siteConfig.phone} any time, day or night.`,
+    q: 'Do you run a 24-hour emergency electrical line?',
+    a: `Yes. Outages, tripped main breakers, burning smells, smoke from a panel, a feeder melted at the lug — call ${siteConfig.phone} any hour. A licensed electrician picks up, not a scheduler.`,
   },
   {
-    q: 'Do you offer payment plans for large commercial jobs?',
-    a: 'For larger commercial scopes (warehouse builds, multi-charger EV deployments, full panel replacements), we offer flexible milestone-based billing. Tell us your budget during the consultation and we will structure the proposal around it.',
+    q: 'Do you offer milestone billing on larger commercial jobs?',
+    a: 'Yes. Warehouse builds, multi-stall EV deployments, full switchgear replacements — we structure the invoice in milestones (mobilization, rough-in, trim, commissioning) so your cash flow matches the work on the ground. Tell us the budget shape in the consultation and we build the proposal around it.',
   },
 ];
 

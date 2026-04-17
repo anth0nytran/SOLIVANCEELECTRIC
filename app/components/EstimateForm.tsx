@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { ArrowRight, Phone, User, MapPin, ClipboardList, Lock, Calendar, Mail, Zap, Shield } from 'lucide-react';
+import { ArrowRight, Phone, User, MapPin, ClipboardList, Lock, Calendar, Clock, Mail, Zap, Shield } from 'lucide-react';
 import { siteConfig } from '../config';
 
 export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
@@ -80,32 +80,39 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
 
         <div className="grid gap-4 sm:gap-4.5 sm:grid-cols-2">
           <div>
-            <label className={`block text-xs font-bold mb-1.5 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-slate-700'}`}>Preferred Date/Time Window <span className="text-red-500">*</span></label>
+            <label className={`block text-xs font-bold mb-1.5 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-slate-700'}`}>Preferred Date <span className="text-red-500">*</span></label>
             <div className="relative">
               <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
-              <select required name="timeline" defaultValue="" className="w-full rounded-lg border border-slate-300 bg-slate-50 pl-10 pr-4 py-3 text-base text-slate-900 outline-none transition-all focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 shadow-sm appearance-none">
-                <option value="" disabled>Select a window...</option>
-                <option value="Morning (8am-12pm)">Morning (8am-12pm)</option>
-                <option value="Afternoon (12pm-5pm)">Afternoon (12pm-5pm)</option>
-                <option value="Evening (5pm-8pm)">Evening (5pm-8pm)</option>
-                <option value="ASAP / Emergency">ASAP / Emergency</option>
+              <input required name="preferredDate" type="date" min={new Date().toISOString().split('T')[0]} className="w-full rounded-lg border border-slate-300 bg-slate-50 pl-10 pr-4 py-3 text-base text-slate-900 outline-none transition-all focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 shadow-sm" />
+            </div>
+          </div>
+          <div>
+            <label className={`block text-xs font-bold mb-1.5 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-slate-700'}`}>Time Window <span className="text-red-500">*</span></label>
+            <div className="relative">
+              <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+              <select required name="timeWindow" defaultValue="" className="w-full rounded-lg border border-slate-300 bg-slate-50 pl-10 pr-4 py-3 text-base text-slate-900 outline-none transition-all focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 shadow-sm appearance-none">
+                <option value="" disabled>Pick a window...</option>
+                <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
+                <option value="Afternoon (12pm–5pm)">Afternoon (12pm–5pm)</option>
+                <option value="After hours (5pm–8pm)">After hours (5pm–8pm)</option>
                 <option value="Flexible">Flexible</option>
               </select>
             </div>
           </div>
-          <div>
-            <label className={`block text-xs font-bold mb-1.5 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-slate-700'}`}>Urgency <span className="text-red-500">*</span></label>
-            <div className="relative">
-              <Zap className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
-              <select required name="urgency" defaultValue="" className="w-full rounded-lg border border-slate-300 bg-slate-50 pl-10 pr-4 py-3 text-base text-slate-900 outline-none transition-all focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 shadow-sm appearance-none">
-                <option value="" disabled>Select urgency...</option>
-                <option value="Emergency — now">Emergency — now</option>
-                <option value="Within 24 hours">Within 24 hours</option>
-                <option value="This week">This week</option>
-                <option value="This month">This month</option>
-                <option value="Just exploring">Just exploring</option>
-              </select>
-            </div>
+        </div>
+
+        <div>
+          <label className={`block text-xs font-bold mb-1.5 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-slate-700'}`}>Urgency <span className="text-red-500">*</span></label>
+          <div className="relative">
+            <Zap className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+            <select required name="urgency" defaultValue="" className="w-full rounded-lg border border-slate-300 bg-slate-50 pl-10 pr-4 py-3 text-base text-slate-900 outline-none transition-all focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 shadow-sm appearance-none">
+              <option value="" disabled>Select urgency...</option>
+              <option value="Emergency — now">Emergency — now</option>
+              <option value="Within 24 hours">Within 24 hours</option>
+              <option value="This week">This week</option>
+              <option value="This month">This month</option>
+              <option value="Just getting a number">Just getting a number</option>
+            </select>
           </div>
         </div>
 
@@ -125,6 +132,13 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
           <textarea name="message" rows={3} maxLength={5000} placeholder="Scope of work, site access notes, equipment specs, or any specific concerns..." className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-3 text-base text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 shadow-sm min-h-[80px] resize-y" />
         </div>
 
+        <label className="flex items-start gap-2.5 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-3.5 py-3">
+          <input type="checkbox" name="sms_consent" value="yes" className="mt-0.5 h-4 w-4 shrink-0 border-slate-300 text-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)] rounded-sm" />
+          <span className="text-[0.72rem] leading-[1.55] text-slate-600">
+            <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-700'}`}>Optional — SMS consent.</span> I agree to receive SMS text messages from <strong>Solivance Electric LLC</strong> about my quote request, scheduling, and appointment follow-up. Message frequency varies (typically 1–5 messages per request). Msg &amp; data rates may apply. Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help. See our <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a> and <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms of Service</a>.
+          </span>
+        </label>
+
         <div className="pt-2">
           <button type="submit" disabled={formStatus === 'sending'} className="relative w-full overflow-hidden rounded-lg bg-[var(--onestop-red)] py-4 text-[0.85rem] font-bold uppercase tracking-[0.15em] text-white shadow-lg transition-all hover:bg-[var(--onestop-navy-deep)] active:scale-[0.98] disabled:opacity-60 disabled:active:scale-100 group">
             <span className="relative z-10 flex items-center justify-center gap-2">
@@ -133,8 +147,8 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
             </span>
           </button>
 
-          <p className="mt-3 text-center text-[0.7rem] leading-relaxed text-slate-400 font-medium px-2">
-            By clicking request, you agree to receive SMS or emails from Solivance Electric LLC containing details for this quote and related electrical services. Message &amp; data rates may apply. You can reply STOP to opt-out.
+          <p className="mt-3 text-center text-[0.68rem] leading-relaxed text-slate-400 font-medium px-2">
+            Submitting this form does not create a service contract. We will contact you by phone or email to confirm your quote. SMS texts are only sent if you check the consent box above.
           </p>
 
           <div className="mt-3 flex items-center justify-center gap-1.5 text-[0.7rem] font-bold uppercase tracking-widest text-[var(--onestop-navy)]/70">

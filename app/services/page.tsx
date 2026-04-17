@@ -3,22 +3,22 @@ import { siteConfig, serviceData } from '../config';
 import ServicesPageClient from './ServicesPageClient';
 
 export const metadata: Metadata = {
-  title: 'Electrical Services — Panel Upgrades, Generators & EV Chargers in Houston TX',
+  title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Houston · Cypress · Katy · Memorial',
   description:
-    'Commercial electrical services in Houston TX: panel upgrades, generator installs, parking lot lighting, EV chargers, warehouse electrical. Licensed & insured. (832) 965-9964.',
+    'Seven commercial electrical services across Greater Houston: panel upgrades through 3-phase switchgear, standby generator installs, LED parking-lot lighting, Level 2 and DCFC EV chargers, warehouse builds, RV park pedestals, mobile home connections. 24/7 emergency. (832) 965-9964.',
   alternates: { canonical: '/services' },
   openGraph: {
-    title: 'Electrical Services — Panel Upgrades, Generators & EV Chargers in Houston TX',
+    title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Houston · Cypress · Katy · Memorial',
     description:
-      'Panel upgrades, generators, parking lot lighting, EV chargers, warehouse electrical. Serving Houston, Sugar Land, Richmond & Katy. 24/7 emergency.',
+      'Panel upgrades, standby generators, LED parking-lot lighting, EV chargers, warehouse electrical, RV park pedestals, mobile home connections. Houston, Cypress, Katy, Memorial. 24/7 emergency.',
     url: `${siteConfig.domain}/services`,
-    images: [{ url: '/placeholder.svg', width: 1200, height: 630, alt: 'Solivance Electric Services — Houston TX' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Solivance Electric Services — Greater Houston' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Electrical Services — Panel Upgrades, Generators & EV Chargers in Houston TX',
-    description: 'Panel upgrades, generators, parking lot lighting, EV chargers, warehouse electrical. 24/7 emergency.',
-    images: ['/placeholder.svg'],
+    title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Solivance Electric',
+    description: 'Commercial electrical across Houston, Cypress, Katy, Memorial. 24/7 emergency.',
+    images: ['/og-image.jpg'],
   },
 };
 
@@ -44,32 +44,32 @@ const breadcrumbJsonLd = {
 
 const serviceFaqs = [
   {
-    q: 'How much does a panel upgrade cost in Houston, TX?',
-    a: 'Panel upgrade costs depend on service size (100A, 200A, 400A+), wire run length, and whether the meter base and grounding need replacement. Most residential 200A upgrades fall in a predictable range; commercial panels vary with switchgear. We provide a transparent, itemized quote before any work begins — no surprises.',
+    q: 'How much does a commercial panel upgrade cost in Houston?',
+    a: 'A 200A commercial upgrade typically runs $2,500–$8,500 depending on meter location and utility coordination. 400A and 3-phase upgrades run $6,000–$18,000. Every number is a fixed-fee quote after a free site walk — no ballpark over the phone. We pull the Harris County or City of Houston permit and coordinate the CenterPoint cut-over as part of the scope.',
   },
   {
-    q: 'How long does an EV charger install take?',
-    a: 'A single Level 2 EV charger install is typically completed in one day once materials are on site. DC fast chargers (Level 3) and multi-unit commercial deployments take longer because of service capacity, trenching, and utility coordination. We scope timing precisely during the consultation.',
+    q: 'How long does a Level 2 or DC fast charger install take?',
+    a: 'A single Level 2 charger with available panel capacity is a one-day install. Multi-stall Level 2 deployments or a DC fast charger (Level 3) typically run 3–10 days because of service capacity upgrades, trenching, and utility coordination. We scope the exact window after a site walk and load calc.',
   },
   {
-    q: 'Do you pull permits and coordinate inspections?',
-    a: 'Yes — every job that requires a permit gets one. We handle the permit application, the rough-in and final inspections, and any utility coordination so you are not chasing paperwork. It is part of the price, not an add-on.',
+    q: 'Do you pull permits and coordinate the inspection?',
+    a: 'Yes. Every job that triggers a permit gets one. We file the application with Harris County or the City of Houston (depending on jurisdiction), meet the inspector for rough-in and final, and coordinate the CenterPoint Energy cut-over. You do not chase paperwork — we do.',
   },
   {
-    q: 'Do you handle commercial projects, or just residential?',
-    a: 'Both, but commercial and industrial are our specialty — warehouses, retail, offices, medical, property management, and fleet facilities. We also take on premium residential work where code compliance and craftsmanship matter.',
+    q: 'Do you handle commercial and industrial, or just residential?',
+    a: 'Commercial and light-industrial is the core of what we do — warehouses, retail pads, office parks, medical build-outs, fleet yards, and property-management portfolios. We also take on premium residential work where code compliance and switchgear sizing actually matter.',
   },
   {
-    q: 'Do you offer 24-hour emergency electrical service?',
-    a: `Yes. Standard hours are 6am–6pm, but we provide 24-hour emergency electrical service across the Houston metro. Call ${siteConfig.phone} any time — we prioritize outages, burning smells, and anything unsafe.`,
+    q: 'Do you run a 24-hour emergency line?',
+    a: `Yes. Standard hours are 6am–6pm, six days a week. A licensed electrician picks up after hours for emergencies — lost power to a tenant suite, tripped main breaker, burning smell from a panel, smoke from switchgear. Call ${siteConfig.phone} any hour.`,
   },
   {
-    q: 'Are you licensed and insured?',
-    a: 'Yes — Solivance Electric LLC is a fully licensed Texas electrical contractor carrying comprehensive liability insurance. We are happy to provide license and insurance documentation on request.',
+    q: 'Are you licensed and insured in Texas?',
+    a: 'Yes. Solivance Electric LLC is a licensed Texas electrical contractor with active liability insurance on every job. License number and certificate of insurance are available on request before work begins.',
   },
   {
-    q: 'Can you install a commercial standby generator?',
-    a: 'Yes. We size, install, and commission commercial standby generators with automatic transfer switches — including load calculations, fuel planning (natural gas or diesel), pad work, and the permits required. We also offer annual service contracts.',
+    q: 'Can you size and commission a commercial standby generator?',
+    a: 'Yes. Load calc against your actual metered demand, generator sizing (commercial standby typically 22–150 kW), ATS wiring, fuel planning (natural gas or diesel), pad work, and the emissions permit if required. We commission the unit with a live test, document the run, and put the first annual service date on your calendar.',
   },
 ];
 

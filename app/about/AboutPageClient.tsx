@@ -54,9 +54,11 @@ export default function AboutPageClient() {
             About <span className="text-[var(--onestop-gold)]">Solivance Electric</span>
           </h1>
           <p className="mt-3 text-base text-white/50 leading-relaxed max-w-xl">
-            Licensed commercial electrical contractor based in Houston, TX. Premium
-            panel upgrades, generators, EV chargers, and warehouse electrical for
-            businesses and high-end residential across the greater Houston area.
+            Licensed Texas electrical contractor. Commercial, light-industrial, and
+            premium residential across Houston, Cypress, Katy, and Memorial — panel
+            upgrades through 3-phase switchgear, standby generators with ATS
+            commissioning, LED parking-lot retrofits, EV charger builds, RV park
+            pedestals, and ground-up warehouse electrical.
           </p>
         </div>
       </section>
@@ -66,10 +68,10 @@ export default function AboutPageClient() {
         <div className={shell}>
           <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-slate-100">
             {[
-              { value: 'Licensed', label: '& Insured' },
-              { value: '24/7', label: 'Emergency Service' },
-              { value: 'Commercial', label: '& Residential' },
-              { value: '100%', label: 'Code Compliant' },
+              { value: '2023', label: 'NEC Compliant' },
+              { value: '24/7', label: 'Emergency Line' },
+              { value: 'In-House', label: 'Licensed Crew' },
+              { value: '1st Walk', label: 'Inspection Pass' },
             ].map((stat) => (
               <motion.div
                 key={stat.label}
@@ -97,30 +99,41 @@ export default function AboutPageClient() {
               viewport={{ once: true, margin: '-80px' }}
               variants={fadeUp}
             >
+                <div className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-[var(--onestop-navy)]">
+                  <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+                  01 — What we do
+                </div>
                 <h2 className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl leading-tight mb-8">
-                Our Story
-              </h2>
-              <div className="space-y-5 text-[0.95rem] leading-[1.8] text-slate-600">
+                  A licensed Texas crew.<br/>One standard across every job.
+                </h2>
+                <div className="space-y-5 text-[0.95rem] leading-[1.8] text-slate-600">
                 <p>
-                  {siteConfig.ownerName} founded Solivance Electric LLC to bring premium,
-                  code-correct electrical work to Houston-area businesses and high-end
-                  residential clients. After years of licensed field experience across
-                  commercial and industrial projects, Jossue saw a simple gap in the
-                  market: contractors who actually do the work right the first time.
+                  Solivance Electric is a licensed Texas electrical contractor covering
+                  Houston, Cypress, Katy, and Memorial. We work commercial buildings,
+                  light-industrial, warehouses, and premium residential — panel upgrades
+                  from 200A through 3-phase switchgear, standby generator installs with
+                  full ATS commissioning, Level 2 and DCFC EV charger builds, LED
+                  parking-lot retrofits to photometric spec, RV park pedestal arrays
+                  to NEC 551, and ground-up electrical for new warehouse construction.
                 </p>
                 <p>
-                  Solivance is a young, focused operation — no call centers, no
-                  sub-sub-sub-contractors. When you call, you&apos;re talking to the team
-                  that will actually be on your property. We pull our own permits,
-                  coordinate our own inspections, and stand behind every panel, every
-                  feeder, every fixture.
+                  In-house crew. Not subcontracted three layers deep, not handed off to
+                  a scheduler. One foreman from the site walk to the final inspection.
+                  When you call, a licensed electrician picks up — not a call center.
                 </p>
                 <p>
-                  Our top services — <strong className="text-[var(--onestop-navy-deep)]">panel
-                  upgrades, generator installs, parking lot lighting, EV chargers,
-                  and new commercial warehouse electrical</strong> — are built around one
-                  standard: premium quality work, done right. We also handle pedestals
-                  and mobile home connections with the same attention to code and detail.
+                  We pull the Harris County or City of Houston permit, coordinate the
+                  CenterPoint cut-over, and show up when the inspector does. Every
+                  splice is installed to the <strong className="text-[var(--onestop-navy-deep)]">2023 NEC</strong> when
+                  it is made — not retro-fixed after the blue tag. The panel cover goes
+                  back on straight. The grounding bonds are visible and labeled. The
+                  mechanical room is swept before we leave.
+                </p>
+                <p>
+                  <strong className="text-[var(--onestop-navy-deep)]">Done right the first time</strong> is
+                  not a marketing line. It is the reason we do not have a callback
+                  schedule. Inspections pass on the first walk because the work was
+                  correct when it was buried.
                 </p>
               </div>
 
@@ -149,7 +162,7 @@ export default function AboutPageClient() {
 
               <div className="flex items-center gap-3 rounded-xl bg-[var(--onestop-cream)] border border-slate-200 px-5 py-4">
                 <Shield className="h-5 w-5 text-[var(--onestop-gold)] shrink-0" />
-                <span className="text-sm font-semibold text-[var(--onestop-navy-deep)]">Fully licensed &amp; insured — every job, every time</span>
+                <span className="text-sm font-semibold text-[var(--onestop-navy-deep)]">Licensed Texas contractor · Liability COI on request</span>
               </div>
             </motion.div>
           </div>
@@ -171,11 +184,12 @@ export default function AboutPageClient() {
                 Customer Reviews
               </h2>
               <div className="mt-10 rounded-2xl border border-slate-200 bg-white px-6 py-10 sm:px-10 sm:py-12 shadow-sm">
-                <h3 className="text-lg font-extrabold text-[var(--onestop-navy-deep)] sm:text-xl">Be our first reviewer.</h3>
+                <h3 className="text-lg font-extrabold text-[var(--onestop-navy-deep)] sm:text-xl">Your review goes here.</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-500 sm:text-base">
-                  Solivance Electric LLC is a new Houston business focused on premium,
-                  code-correct work. We value every customer&apos;s feedback — after we
-                  complete your project, we&apos;d be grateful for an honest review.
+                  We are building a Google review base one finished job at a time.
+                  When we pull the feeder, wire the switchgear, or commission the
+                  generator on your property — and the inspector signs off — an
+                  honest review from you carries real weight in this city.
                 </p>
                 <Link
                   href="/contact"
@@ -199,19 +213,23 @@ export default function AboutPageClient() {
             variants={fadeUp}
             className="text-center max-w-2xl mx-auto mb-14"
           >
+            <div className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-[var(--onestop-navy)] justify-center">
+              <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+              02 — How we work
+            </div>
             <h2 className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl leading-tight">
-              How We Work
+              Six things the spec sheet<br/>does not tell you.
             </h2>
           </motion.div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: Shield, title: 'Integrity', desc: 'Honest pricing, clear scope, no upselling. If something is not right, we come back and fix it — no argument.' },
-              { icon: CheckCircle2, title: 'Code Compliance', desc: 'Every panel, feeder, and fixture is installed to current NEC and local code. Permits pulled, inspections passed.' },
-              { icon: HardHat, title: 'Safety', desc: 'Every crew member is trained in electrical safety, lockout/tagout, and proper worksite protocols.' },
-              { icon: Clock, title: 'Reliability', desc: 'When we say we will be there, we are there — including 24/7 emergency response for urgent issues.' },
-              { icon: Zap, title: 'Commercial Expertise', desc: 'Warehouses, offices, retail, medical — we understand operational downtime and work around it.' },
-              { icon: Sparkles, title: 'Clean Worksite', desc: 'Every conduit stub, every drop of wire shaving — cleaned up. Your property stays pristine.' },
+              { icon: Shield, title: 'Fixed-fee quotes', desc: 'A walk of the site, an itemized number, a signed scope. No "time and materials" mid-job surprise.' },
+              { icon: CheckCircle2, title: 'NEC 2023 first', desc: 'Every splice, every bond, every feeder sized to the current code the day it is installed. Not retro-fixed after the inspector shows up.' },
+              { icon: HardHat, title: 'Lockout / tagout', desc: 'OSHA 1910.147 protocol on every energized job. Crew briefed, hazards called out, no one works inside a panel alive.' },
+              { icon: Clock, title: 'Tenant-aware scheduling', desc: 'Occupied office, working warehouse, retail during hours — we sequence the downtime around the tenant, not the other way around.' },
+              { icon: Zap, title: 'Commercial and light-industrial', desc: 'Warehouses, office parks, retail pads, medical, property-management portfolios. We know what an operational shutdown actually costs.' },
+              { icon: Sparkles, title: 'Clean the room', desc: 'Conduit stubs capped, wire shavings swept, labels legible on every breaker. The mechanical room is neater than when we opened it.' },
             ].map((v) => (
               <motion.div
                 key={v.title}
@@ -242,14 +260,20 @@ export default function AboutPageClient() {
             variants={fadeUp}
             className="max-w-3xl"
           >
+            <div className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-[var(--onestop-navy)]">
+              <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+              03 — Where we work
+            </div>
             <h2 className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl leading-tight">
-              Service Areas
+              Houston, Cypress, Katy, Memorial —<br/>and the metro around them.
             </h2>
             <p className="mt-4 text-base text-slate-500 leading-relaxed">
               <Users className="inline h-4 w-4 mr-1 align-[-2px]" />
-              We serve commercial and high-end residential electrical clients across
-              the greater Houston area. Not sure whether we cover your location?
-              Just call — we probably do.
+              Core service area is the north-west and west side of Greater Houston —
+              I-10 corridor, US-290 corridor, Memorial Villages, and the Katy-Cypress
+              fringe. Harris County and Fort Bend County permits are what we pull
+              day-in, day-out. If your address is inside the Beltway or along those
+              corridors, we cover it.
             </p>
           </motion.div>
 
@@ -312,11 +336,11 @@ export default function AboutPageClient() {
             className="text-center max-w-2xl mx-auto"
           >
             <h2 className="text-3xl font-extrabold text-white sm:text-4xl leading-tight">
-              Get a Free Quote
+              Walk a site with us.
             </h2>
             <p className="mt-5 text-base text-white/50 max-w-lg mx-auto leading-relaxed">
-              Premium electrical work, done right the first time. Call us or fill
-              out the form — no obligation.
+              Describe the job on the phone or send the address. We walk the site
+              free, hand back a fixed-fee number, and start on the date you picked.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">

@@ -12,6 +12,7 @@ import {
   Clock,
   HardHat,
   Award,
+  MapPin,
 } from 'lucide-react';
 import { siteConfig, serviceData } from './config';
 import { Stars } from './components/Stars';
@@ -67,26 +68,38 @@ function HeroEstimateForm() {
         </div>
       </div>
 
+      <div className="grid gap-3 lg:gap-4 sm:grid-cols-2">
+        <div>
+          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Email <span className="text-[var(--onestop-red)]">*</span></label>
+          <input required name="email" type="email" placeholder="you@example.com" autoComplete="email" className={inputClass} />
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Service Address <span className="text-[var(--onestop-red)]">*</span></label>
+          <input required name="address" type="text" placeholder="123 Main St, Cypress TX" autoComplete="street-address" className={inputClass} />
+        </div>
+      </div>
+
       <div>
-        <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Street Address <span className="text-[var(--onestop-red)]">*</span></label>
-        <input required name="address" type="text" placeholder="123 Main St, Houston TX" autoComplete="street-address" className={inputClass} />
+        <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Service Needed <span className="text-[var(--onestop-red)]">*</span></label>
+        <select required name="service" defaultValue="" className={`${inputClass} appearance-none`}>
+          <option value="" disabled>Select a service</option>
+          {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
+        </select>
       </div>
 
       <div className="grid gap-3 lg:gap-4 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Service Needed <span className="text-[var(--onestop-red)]">*</span></label>
-          <select required name="service" defaultValue="" className={`${inputClass} appearance-none`}>
-            <option value="" disabled>Select a service</option>
-            {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
-          </select>
+          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Preferred Date <span className="text-[var(--onestop-red)]">*</span></label>
+          <input required name="preferredDate" type="date" min={new Date().toISOString().split('T')[0]} className={inputClass} />
         </div>
         <div>
-          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Timeline</label>
-          <select name="timeline" defaultValue="" className={`${inputClass} appearance-none`}>
-            <option value="" disabled>How soon?</option>
-            <option value="ASAP / Emergency">ASAP / Emergency</option>
-            <option value="Within 2 weeks">Within 2 weeks</option>
-            <option value="Within 1 month">Within 1 month</option>
+          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Time Window <span className="text-[var(--onestop-red)]">*</span></label>
+          <select required name="timeWindow" defaultValue="" className={`${inputClass} appearance-none`}>
+            <option value="" disabled>Pick a window</option>
+            <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
+            <option value="Afternoon (12pm–5pm)">Afternoon (12pm–5pm)</option>
+            <option value="After hours (5pm–8pm)">After hours (5pm–8pm)</option>
+            <option value="Emergency — now">Emergency — now</option>
             <option value="Flexible">Flexible</option>
           </select>
         </div>
@@ -94,12 +107,14 @@ function HeroEstimateForm() {
 
       <div>
         <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Project Details <span className="text-slate-400 normal-case font-normal">(optional)</span></label>
-        <textarea name="message" rows={2} maxLength={5000} placeholder="Describe your project, building type, or best time to reach you..." className={`${inputClass} resize-none`} />
+        <textarea name="message" rows={2} maxLength={5000} placeholder="Site access notes, scope, equipment on order, or the best number to reach a foreman..." className={`${inputClass} resize-none`} />
       </div>
 
-      <label className="flex items-start gap-2.5 cursor-pointer">
-        <input type="checkbox" name="sms_consent" defaultChecked className="mt-0.5 h-4 w-4 border-slate-300 text-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)] rounded-sm" />
-        <span className="text-[0.7rem] leading-relaxed text-slate-500">I agree to receive SMS/text messages from Solivance Electric LLC regarding my estimate. Message &amp; data rates may apply. Reply STOP to opt out.</span>
+      <label className="flex items-start gap-2.5 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-3 py-2.5">
+        <input type="checkbox" name="sms_consent" value="yes" className="mt-0.5 h-4 w-4 border-slate-300 text-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)] rounded-sm" />
+        <span className="text-[0.68rem] leading-[1.55] text-slate-600">
+          <span className="font-bold text-slate-700">Optional — SMS consent.</span> I agree to receive SMS text messages from <strong>Solivance Electric LLC</strong> about my quote request, scheduling, and appointment follow-up. Message frequency varies (typically 1–5 messages per request). Msg &amp; data rates may apply. Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help. See our <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a> and <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms of Service</a>.
+        </span>
       </label>
 
       <button type="submit" disabled={formStatus === 'sending'} className="w-full bg-[var(--onestop-red)] py-3 lg:py-4 text-sm font-bold uppercase tracking-[0.15em] text-white transition-all hover:bg-[#a5311f] active:scale-[0.98] disabled:opacity-60">
@@ -132,9 +147,9 @@ function ReviewsSection() {
               </div>
               <h3 className="text-lg font-extrabold text-white sm:text-xl">Your review could go here.</h3>
               <p className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base">
-                Solivance Electric LLC is a young company focused on premium, code-correct
-                electrical work. We value customer feedback — be one of our first reviewers
-                after we complete your project.
+                Solivance Electric is building out a Google review base one finished job at a time.
+                If we pull the feeder, wire the panel, or commission the generator on your property,
+                an honest review after the inspector signs off goes a long way.
               </p>
               <Link
                 href="/contact"
@@ -187,7 +202,7 @@ export default function HomePageClient() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="text-white">
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-6 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-white/55">
                 <span className="h-px w-6 bg-[var(--onestop-gold)]" />
-                Houston · Sugar Land · Richmond
+                Houston · Cypress · Katy · Memorial
               </motion.div>
 
               <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }} className="text-[2.1rem] sm:text-[2.85rem] lg:text-[3.4rem] xl:text-[4rem] font-extrabold leading-[0.98] tracking-[-0.035em] text-white mb-5 sm:mb-7">
@@ -195,7 +210,7 @@ export default function HomePageClient() {
               </motion.h1>
 
               <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base lg:text-[1.0625rem] leading-[1.65] text-white/65 max-w-[480px] mb-6 sm:mb-9">
-                Panel upgrades, generator installs, EV chargers, parking lot lighting &amp; commercial builds across the Greater Houston area. Licensed, insured, and available 24/7.
+                200A through 3-phase switchgear. Standby generators with ATS commissioning. LED parking-lot retrofits to photometric spec. Level 2 and DC fast chargers. Warehouse builds, RV park pedestals, mobile-home hookups — across Houston, Cypress, Katy, and Memorial. Licensed. Insured. Line open 24/7.
               </motion.p>
 
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.35 }} className="flex flex-col sm:flex-row gap-3 mb-6 sm:mb-9">
@@ -253,14 +268,14 @@ export default function HomePageClient() {
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.03em] leading-[1.05]">What we do best.</h2>
             <p className="mt-5 text-[0.95rem] sm:text-base text-slate-500 leading-relaxed max-w-xl">
-              Seven core services covering commercial, industrial, and premium residential electrical work across the Greater Houston area.
+              Seven services, one crew, one standard. Commercial, light-industrial, and premium residential electrical across the Greater Houston metro.
             </p>
           </div>
 
           {/* Top row — 3 equal cards */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 mb-3">
             {serviceData.slice(0, 3).map((s) => (
-              <Link key={s.slug} href={`/services#${s.slug}`} className="group relative overflow-hidden rounded-xl bg-slate-100 aspect-[4/3] flex flex-col justify-end">
+              <Link key={s.slug} href={`/services/${s.slug}`} className="group relative overflow-hidden rounded-xl bg-slate-100 aspect-[4/3] flex flex-col justify-end">
                 <Image src={getServicePreviewImage(s)} alt={s.title} fill className="object-cover group-hover:scale-[1.03] transition-transform duration-500" sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="relative z-10 p-5">
@@ -277,7 +292,7 @@ export default function HomePageClient() {
           {/* Bottom row — remaining cards */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {serviceData.slice(3).map((s) => (
-              <Link key={s.slug} href={`/services#${s.slug}`} className="group relative overflow-hidden rounded-xl bg-slate-100 aspect-[4/3] flex flex-col justify-end">
+              <Link key={s.slug} href={`/services/${s.slug}`} className="group relative overflow-hidden rounded-xl bg-slate-100 aspect-[4/3] flex flex-col justify-end">
                 <Image src={getServicePreviewImage(s)} alt={s.title} fill className="object-cover group-hover:scale-[1.03] transition-transform duration-500" sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="relative z-10 p-5">
@@ -289,6 +304,73 @@ export default function HomePageClient() {
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* View all services CTA */}
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-slate-200">
+            <p className="text-sm text-slate-500 font-medium max-w-md">
+              Each service has a dedicated page with cost ranges, timelines, code references, and FAQs.
+            </p>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 bg-[var(--onestop-navy-deep)] px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[var(--onestop-red)] transition-colors"
+            >
+              View all seven services <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SERVICE AREAS — clean professional ═══ */}
+      <section className="bg-white py-16 sm:py-24 border-t border-slate-100">
+        <div className={shell}>
+          <div className="max-w-2xl mb-10 sm:mb-12">
+            <div className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[var(--onestop-red)] mb-3">
+              Service Areas
+            </div>
+            <h2 className="text-[1.85rem] sm:text-[2.4rem] font-bold text-[var(--onestop-navy-deep)] leading-[1.15] tracking-[-0.02em]">
+              Serving Houston, Cypress, Katy &amp; Memorial.
+            </h2>
+            <p className="mt-4 text-[0.98rem] text-slate-600 leading-[1.7]">
+              Licensed Texas commercial electrical contractor working the Greater Houston metro. Harris and Fort Bend County permits are what we pull day-in, day-out. Surrounding metro covered on a call.
+            </p>
+          </div>
+
+          {/* Clean 4-card row for cities */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {siteConfig.serviceAreas.map((area) => {
+              const citySlug = area.toLowerCase().replace(/\s+/g, '-');
+              return (
+                <Link
+                  key={area}
+                  href={`/locations/${citySlug}`}
+                  className="group rounded-md bg-slate-50 p-6 hover:bg-[var(--onestop-navy-deep)] transition-colors"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <MapPin className="h-4 w-4 text-[var(--onestop-red)] group-hover:text-[var(--onestop-gold)] transition-colors" />
+                    <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                  <h3 className="text-[1.35rem] font-bold text-[var(--onestop-navy-deep)] group-hover:text-white transition-colors leading-tight">
+                    {area}
+                  </h3>
+                  <div className="mt-2 text-[0.82rem] text-slate-500 group-hover:text-white/70 transition-colors font-[family-name:var(--font-app-mono)]">
+                    Commercial &middot; Residential
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-slate-200">
+            <p className="text-sm text-slate-500 max-w-md">
+              Plus Spring, Jersey Village, Tomball, Bellaire, Sugar Land, Missouri City and the surrounding metro.
+            </p>
+            <Link
+              href="/locations"
+              className="inline-flex items-center gap-2 bg-[var(--onestop-navy-deep)] px-5 py-2.5 text-[0.78rem] font-bold uppercase tracking-[0.12em] text-white rounded-md hover:bg-[var(--onestop-red)] transition-colors"
+            >
+              All service areas <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </div>
       </section>
@@ -310,24 +392,27 @@ export default function HomePageClient() {
                 <span className="h-px w-6 bg-[var(--onestop-gold)]" />
                 02 — About
               </div>
-              <h2 className="text-3xl font-bold leading-[1.08] text-[var(--onestop-navy-deep)] sm:text-4xl tracking-[-0.03em]">Premium electrical work.<br/>Done right the first time.</h2>
+              <h2 className="text-3xl font-bold leading-[1.08] text-[var(--onestop-navy-deep)] sm:text-4xl tracking-[-0.03em]">Commercial electrical.<br/>Done right the first time.</h2>
               <p className="mt-4 text-[0.95rem] leading-relaxed text-slate-600">
-                {siteConfig.ownerName} founded Solivance Electric LLC to bring code-correct,
-                commercial-grade electrical work to Houston area businesses, property managers,
-                and high-end residential clients. Our focus: panel upgrades, generator installs,
-                and commercial EV infrastructure built to last.
+                Solivance Electric is a licensed Texas electrical contractor working commercial,
+                light-industrial, and premium residential sites across Greater Houston.
+                In-house crew — not subcontracted three layers deep. One foreman from the site
+                walk to the final inspection.
               </p>
               <p className="mt-3 text-[0.95rem] leading-relaxed text-slate-600">
-                Licensed, insured, and on call 24/7 for emergency service — we show up,
-                do the work to code, and leave your property cleaner than we found it.
+                We pull the Harris County or City of Houston permits, coordinate the
+                CenterPoint cut-over, and show up when the inspector does. Every splice
+                is to the 2023 NEC when it is made — not after the blue tag goes up.
+                The panel cover goes back on straight. The grounding bonds are visible and
+                labeled. The mechanical room is swept. No callbacks.
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-5 sm:gap-4">
                 {[
-                  { icon: Shield, title: 'Licensed & Insured', desc: 'Full coverage on every job.' },
-                  { icon: Clock, title: '24/7 Emergency', desc: 'Around-the-clock response.' },
-                  { icon: HardHat, title: 'Commercial Expertise', desc: 'Warehouses, offices, retail.' },
-                  { icon: Award, title: 'Premium Workmanship', desc: 'Code-correct, built to last.' },
+                  { icon: Shield, title: 'Licensed & Insured', desc: 'Texas contractor, COI on request.' },
+                  { icon: Clock, title: '24/7 Emergency Line', desc: 'A licensed electrician answers.' },
+                  { icon: HardHat, title: 'In-House Crew', desc: 'Not subcontracted out.' },
+                  { icon: Award, title: 'First-Walk Inspections', desc: 'Pass on the first pass.' },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-3">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--onestop-navy)]/8">

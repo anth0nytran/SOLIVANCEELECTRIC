@@ -3,22 +3,22 @@ import { siteConfig } from '../config';
 import AboutPageClient from './AboutPageClient';
 
 export const metadata: Metadata = {
-  title: 'About Solivance Electric — Commercial Electrician in Houston TX',
+  title: 'About Solivance Electric — Licensed Texas Commercial Electrical Contractor',
   description:
-    'Solivance Electric LLC — licensed commercial electrical contractor serving Houston, Sugar Land, Richmond & Katy. Panel upgrades, generators, EV chargers. 24/7 emergency.',
+    'Licensed Texas commercial electrical contractor covering Houston, Cypress, Katy, and Memorial. In-house crew — not subcontracted out. Harris County permits pulled, CenterPoint cut-over coordinated, inspections passed on the first walk. 24/7 emergency line.',
   alternates: { canonical: '/about' },
   openGraph: {
-    title: 'About Solivance Electric — Commercial Electrician in Houston TX',
+    title: 'About Solivance Electric — Licensed Texas Commercial Electrical Contractor',
     description:
-      'Licensed commercial electrical contractor in Houston TX. Panel upgrades, generators, parking lot lighting, EV chargers. 24/7 emergency service.',
+      'Houston · Cypress · Katy · Memorial. Commercial and light-industrial electrical. Panel upgrades, standby generators, EV chargers, parking-lot lighting, warehouse builds. 24/7 emergency.',
     url: `${siteConfig.domain}/about`,
-    images: [{ url: '/placeholder.svg', width: 1200, height: 630, alt: 'Solivance Electric LLC — Commercial Electrician in Houston TX' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'About Solivance Electric LLC — Houston Commercial Electrical Contractor' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Solivance Electric — Commercial Electrician in Houston TX',
-    description: 'Licensed commercial electrical contractor serving Houston, Sugar Land, Richmond & Katy.',
-    images: ['/placeholder.svg'],
+    title: 'About Solivance Electric — Licensed Texas Electrical Contractor',
+    description: 'Houston, Cypress, Katy, Memorial. In-house crew. Permits pulled. Inspections passed on the first walk.',
+    images: ['/og-image.jpg'],
   },
 };
 
