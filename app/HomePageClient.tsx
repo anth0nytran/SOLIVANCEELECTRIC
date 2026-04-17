@@ -50,50 +50,51 @@ function HeroEstimateForm() {
     } catch { setFormStatus('error'); setFormError('Something went wrong. Please try again.'); }
   };
 
-  const inputClass = "w-full border border-slate-300 bg-white px-3 py-2.5 lg:py-3 text-sm lg:text-base text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/15";
+  const inputClass = "w-full border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/15 rounded-md";
+  const labelClass = "block text-[0.7rem] font-bold text-slate-600 mb-1 uppercase tracking-wide";
 
   return (
-    <form className="grid gap-3 lg:gap-4" action="/api/lead" method="POST" onSubmit={handleSubmit}>
+    <form className="grid gap-3" action="/api/lead" method="POST" onSubmit={handleSubmit}>
       <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <input type="hidden" name="_ts" value={formTimestamp} />
 
-      <div className="grid gap-3 lg:gap-4 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Full Name <span className="text-[var(--onestop-red)]">*</span></label>
+          <label className={labelClass}>Full Name <span className="text-[var(--onestop-red)]">*</span></label>
           <input required name="name" type="text" placeholder="John Doe" autoComplete="name" pattern="[A-Za-z\s\-']{2,50}" className={inputClass} />
         </div>
         <div>
-          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Phone <span className="text-[var(--onestop-red)]">*</span></label>
+          <label className={labelClass}>Phone <span className="text-[var(--onestop-red)]">*</span></label>
           <input required name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputClass} />
         </div>
       </div>
 
-      <div className="grid gap-3 lg:gap-4 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Email <span className="text-[var(--onestop-red)]">*</span></label>
+          <label className={labelClass}>Email <span className="text-[var(--onestop-red)]">*</span></label>
           <input required name="email" type="email" placeholder="you@example.com" autoComplete="email" className={inputClass} />
         </div>
         <div>
-          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Service Address <span className="text-[var(--onestop-red)]">*</span></label>
+          <label className={labelClass}>Service Address <span className="text-[var(--onestop-red)]">*</span></label>
           <input required name="address" type="text" placeholder="123 Main St, Cypress TX" autoComplete="street-address" className={inputClass} />
         </div>
       </div>
 
       <div>
-        <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Service Needed <span className="text-[var(--onestop-red)]">*</span></label>
+        <label className={labelClass}>Service Needed <span className="text-[var(--onestop-red)]">*</span></label>
         <select required name="service" defaultValue="" className={`${inputClass} appearance-none`}>
           <option value="" disabled>Select a service</option>
           {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
       </div>
 
-      <div className="grid gap-3 lg:gap-4 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2">
         <div>
-          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Preferred Date <span className="text-[var(--onestop-red)]">*</span></label>
+          <label className={labelClass}>Preferred Date <span className="text-[var(--onestop-red)]">*</span></label>
           <input required name="preferredDate" type="date" min={new Date().toISOString().split('T')[0]} className={inputClass} />
         </div>
         <div>
-          <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Time Window <span className="text-[var(--onestop-red)]">*</span></label>
+          <label className={labelClass}>Time Window <span className="text-[var(--onestop-red)]">*</span></label>
           <select required name="timeWindow" defaultValue="" className={`${inputClass} appearance-none`}>
             <option value="" disabled>Pick a window</option>
             <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
@@ -106,23 +107,23 @@ function HeroEstimateForm() {
       </div>
 
       <div>
-        <label className="block text-xs font-bold text-slate-600 mb-1 lg:mb-1.5 uppercase tracking-wide">Project Details <span className="text-slate-400 normal-case font-normal">(optional)</span></label>
+        <label className={labelClass}>Project Details <span className="text-slate-400 normal-case font-normal">(optional)</span></label>
         <textarea name="message" rows={2} maxLength={5000} placeholder="Site access notes, scope, equipment on order, or the best number to reach a foreman..." className={`${inputClass} resize-none`} />
       </div>
 
-      <label className="flex items-start gap-2.5 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-3 py-2.5">
-        <input type="checkbox" name="sms_consent" value="yes" className="mt-0.5 h-4 w-4 border-slate-300 text-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)] rounded-sm" />
-        <span className="text-[0.68rem] leading-[1.55] text-slate-600">
-          <span className="font-bold text-slate-700">Optional — SMS consent.</span> I agree to receive SMS text messages from <strong>Solivance Electric LLC</strong> about my quote request, scheduling, and appointment follow-up. Message frequency varies (typically 1–5 messages per request). Msg &amp; data rates may apply. Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help. See our <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a> and <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms of Service</a>.
+      <label className="flex items-start gap-2.5 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-3 py-2">
+        <input type="checkbox" name="sms_consent" value="yes" className="mt-[3px] h-4 w-4 border-slate-300 text-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)] rounded-sm shrink-0" />
+        <span className="text-[0.68rem] leading-[1.5] text-slate-600">
+          <span className="font-bold text-slate-700">SMS consent (optional).</span> I agree to receive SMS texts from Solivance Electric LLC about my quote, scheduling, and follow-up. 1–5 msgs/request. Msg &amp; data rates apply. Reply STOP to opt out. See our <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a> &amp; <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a>.
         </span>
       </label>
 
-      <button type="submit" disabled={formStatus === 'sending'} className="w-full bg-[var(--onestop-red)] py-3 lg:py-4 text-sm font-bold uppercase tracking-[0.15em] text-white transition-all hover:bg-[#a5311f] active:scale-[0.98] disabled:opacity-60">
-        {formStatus === 'sending' ? 'SENDING...' : 'GET YOUR FREE QUOTE'}
+      <button type="submit" disabled={formStatus === 'sending'} className="w-full bg-[var(--onestop-red)] py-3.5 text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white transition-all hover:bg-[#a5311f] active:scale-[0.98] disabled:opacity-60 rounded-md">
+        {formStatus === 'sending' ? 'SENDING…' : 'GET YOUR FREE QUOTE'}
       </button>
 
-      {formStatus === 'success' && <div role="status" aria-live="polite" className="border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 font-medium">Got it — we&apos;ll call you within 24 hours to schedule your free consultation.</div>}
-      {formStatus === 'error' && <div role="alert" aria-live="assertive" className="border border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-800 font-medium">{formError}</div>}
+      {formStatus === 'success' && <div role="status" aria-live="polite" className="border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 font-medium rounded-md">Got it — we&apos;ll call you within 24 hours.</div>}
+      {formStatus === 'error' && <div role="alert" aria-live="assertive" className="border border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-800 font-medium rounded-md">{formError}</div>}
     </form>
   );
 }
@@ -178,7 +179,7 @@ export default function HomePageClient() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "HowTo", "name": "How to Get Premium Commercial Electrical Work in Houston TX", "description": "Get licensed commercial electrical work from Solivance Electric LLC in 3 simple steps.", "totalTime": "PT1H", "step": [{ "@type": "HowToStep", "position": 1, "name": "Call for a Free Quote", "text": `Contact us at ${siteConfig.phone}. Describe your project.`, "url": `${siteConfig.domain}/contact` }, { "@type": "HowToStep", "position": 2, "name": "On-Site Evaluation & Quote", "text": "We visit your property and provide a transparent, competitive price." }, { "@type": "HowToStep", "position": 3, "name": "Licensed Install & Inspection", "text": "Our licensed crew handles the project from start to finish with code-compliant workmanship." }] }) }} />
 
       {/* ═══ HERO ═══ */}
-      <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] lg:min-h-[calc(100dvh-6.5rem)]">
+      <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)]">
         {/* Hero background */}
         <div className="absolute inset-0">
           <Image
@@ -195,35 +196,35 @@ export default function HomePageClient() {
         <div className="absolute inset-0 bg-black/60 lg:bg-transparent" />
         <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-black/75 via-black/55 to-black/35" />
 
-        <div className={`${shell} relative z-10 flex items-center lg:min-h-[calc(100dvh-6.5rem)]`}>
-          <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:gap-10 xl:gap-16 items-center w-full py-8 sm:py-12 lg:py-16">
+        <div className={`${shell} relative z-10`}>
+          <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-10 xl:gap-14 items-center w-full py-12 sm:py-14 lg:py-16">
 
             {/* Left — headline */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="text-white">
-              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-6 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-white/55">
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-white/55">
                 <span className="h-px w-6 bg-[var(--onestop-gold)]" />
                 Houston · Cypress · Katy · Memorial
               </motion.div>
 
-              <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }} className="text-[2.1rem] sm:text-[2.85rem] lg:text-[3.4rem] xl:text-[4rem] font-extrabold leading-[0.98] tracking-[-0.035em] text-white mb-5 sm:mb-7">
+              <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }} className="text-[2.1rem] sm:text-[2.75rem] lg:text-[3.15rem] xl:text-[3.6rem] font-extrabold leading-[1] tracking-[-0.035em] text-white mb-5 sm:mb-6">
                 Commercial electrical,<br/><span className="relative inline-block text-white">done right.<span aria-hidden className="absolute left-0 -bottom-1 h-[3px] w-full bg-[var(--onestop-red)]" /></span>
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base lg:text-[1.0625rem] leading-[1.65] text-white/65 max-w-[480px] mb-6 sm:mb-9">
-                200A through 3-phase switchgear. Standby generators with ATS commissioning. LED parking-lot retrofits to photometric spec. Level 2 and DC fast chargers. Warehouse builds, RV park pedestals, mobile-home hookups — across Houston, Cypress, Katy, and Memorial. Licensed. Insured. Line open 24/7.
+              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base leading-[1.65] text-white/65 max-w-[480px] mb-6 sm:mb-7">
+                200A through 3-phase switchgear. Standby generators with ATS commissioning. LED parking-lot retrofits. Level 2 and DC fast chargers. Warehouse builds, RV park pedestals, mobile-home hookups — across Houston, Cypress, Katy, and Memorial. Licensed. Insured. 24/7.
               </motion.p>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.35 }} className="flex flex-col sm:flex-row gap-3 mb-6 sm:mb-9">
-                <a href={`tel:${cleanPhone}`} className="group inline-flex items-center justify-center gap-2.5 bg-[var(--onestop-red)] h-12 sm:h-[52px] px-7 text-[0.75rem] sm:text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15] transition-colors duration-200">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.35 }} className="flex flex-col sm:flex-row gap-3 mb-6 sm:mb-7">
+                <a href={`tel:${cleanPhone}`} className="group inline-flex items-center justify-center gap-2.5 bg-[var(--onestop-red)] h-12 px-7 text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15] transition-colors duration-200">
                   <Phone className="h-4 w-4" />
                   <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem] font-medium">{siteConfig.phone}</span>
                 </a>
-                <Link href="/services" className="inline-flex items-center justify-center gap-2 border border-white/20 h-12 sm:h-[52px] px-7 text-[0.75rem] sm:text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-white/90 rounded-md hover:bg-white/[0.06] hover:border-white/30 transition-colors duration-200">
+                <Link href="/services" className="inline-flex items-center justify-center gap-2 border border-white/20 h-12 px-7 text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white/90 rounded-md hover:bg-white/[0.06] hover:border-white/30 transition-colors duration-200">
                   Our Services <ArrowRight className="h-4 w-4" />
                 </Link>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.45 }} className="flex items-center gap-4 sm:gap-5 text-[0.7rem] font-medium uppercase tracking-[0.12em] text-white/40">
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.45 }} className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.7rem] font-medium uppercase tracking-[0.12em] text-white/45">
                 <span className="flex items-center gap-1.5"><Shield className="h-3.5 w-3.5" /> Licensed &amp; Insured</span>
                 <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 24/7 Emergency</span>
                 <span className="hidden sm:flex items-center gap-1.5"><HardHat className="h-3.5 w-3.5" /> Commercial Expertise</span>
@@ -232,13 +233,13 @@ export default function HomePageClient() {
 
             {/* Right — floating form card */}
             <motion.div id="hero-form" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="scroll-mt-28">
-              <div className="bg-white p-5 sm:p-7 lg:p-10 rounded-md shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)] ring-1 ring-black/5">
-                <div className="mb-6 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-[var(--onestop-navy)]">
+              <div className="bg-white p-5 sm:p-6 lg:p-7 rounded-md shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)] ring-1 ring-black/5">
+                <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.22em] text-[var(--onestop-navy)]">
                   <span className="h-px w-6 bg-[var(--onestop-gold)]" />
                   Free Quote
                 </div>
-                <h2 className="text-xl sm:text-2xl lg:text-[1.7rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.025em] leading-tight mb-2">Tell us about your project.</h2>
-                <p className="text-[0.85rem] sm:text-sm text-slate-500 mb-6 lg:mb-7 leading-relaxed">Response within 24 hours. Faster for emergencies.</p>
+                <h2 className="text-xl sm:text-[1.4rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.025em] leading-tight mb-1.5">Tell us about your project.</h2>
+                <p className="text-[0.82rem] text-slate-500 mb-5 leading-snug">Response within 24 hours. Faster for emergencies.</p>
                 <HeroEstimateForm />
               </div>
             </motion.div>
