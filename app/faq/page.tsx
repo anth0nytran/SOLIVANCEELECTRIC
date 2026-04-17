@@ -82,27 +82,27 @@ export default function FaqPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
-      {/* ═══ COMPACT HERO ═══ */}
-      <section className="bg-[var(--onestop-navy-deep)] py-12 sm:py-16">
-        <div className={shell}>
-          <nav aria-label="Breadcrumb" className="mb-5 text-[0.72rem] text-white/50">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li aria-hidden>/</li>
-              <li className="text-white">FAQ</li>
+      {/* ═══ PAGE HERO ═══ */}
+      <section className="page-hero">
+        <div className={`${shell} relative z-10`}>
+          <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
+            <ol className="flex flex-wrap items-center gap-2 text-white/55">
+              <li><Link href="/" className="hover:text-[var(--onestop-gold)] transition-colors">Home</Link></li>
+              <li aria-hidden className="text-white/25">/</li>
+              <li className="text-white font-semibold">FAQ</li>
             </ol>
           </nav>
 
-          <div className="inline-flex items-center gap-2 bg-[var(--onestop-gold)]/15 text-[var(--onestop-gold)] px-3 py-1 rounded-sm text-[0.7rem] font-bold uppercase tracking-[0.12em] mb-5">
-            <HelpCircle className="h-3 w-3" />
-            Everything, one page
+          <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.24em] text-[var(--onestop-gold)]">
+            <HelpCircle className="h-3.5 w-3.5" />
+            Everything, One Page
           </div>
 
-          <h1 className="text-[2.4rem] sm:text-[3.2rem] lg:text-[3.75rem] font-extrabold text-white leading-[1.02] tracking-[-0.025em] max-w-3xl">
+          <h1 className="h-display text-white max-w-3xl">
             Frequently Asked Questions
           </h1>
 
-          <p className="mt-4 max-w-2xl text-[1rem] sm:text-[1.05rem] leading-[1.6] text-white/65">
+          <p className="mt-5 max-w-2xl text-[0.98rem] sm:text-base text-white/80 leading-[1.7]">
             The questions we get most often, organized by service and by city. Do not see yours?{' '}
             <a href={`tel:${siteConfig.cleanPhone}`} className="text-[var(--onestop-gold)] font-semibold hover:underline">{siteConfig.phone}</a>{' '}
             — a licensed electrician picks up any hour.
@@ -265,14 +265,14 @@ export default function FaqPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href={`tel:${siteConfig.cleanPhone}`}
-                className="inline-flex items-center justify-center gap-2.5 bg-[var(--onestop-red)] h-12 sm:h-[52px] px-7 text-[0.75rem] sm:text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15] transition-colors"
+                className="btn-solid inline-flex items-center justify-center gap-2.5 bg-[var(--onestop-red)] h-12 sm:h-[52px] px-7 text-[0.75rem] sm:text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15]"
               >
                 <Phone className="h-4 w-4" />
                 <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem]">{siteConfig.phone}</span>
               </a>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 border border-white/20 h-12 sm:h-[52px] px-7 text-[0.75rem] sm:text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-white/90 rounded-md hover:bg-white/[0.06] transition-colors"
+                className="btn-ghost-dark inline-flex items-center justify-center gap-2 h-12 sm:h-[52px] px-7 text-[0.75rem] sm:text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-white rounded-md"
               >
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>

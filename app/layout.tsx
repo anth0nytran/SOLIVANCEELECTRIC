@@ -159,6 +159,8 @@ export default function RootLayout({
                   { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Parking Lot Lighting", "description": "Commercial parking lot lighting design, installation, retrofit and LED upgrades for businesses and corporations" } },
                   { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "EV Chargers", "description": "Commercial EV charging station installation, Level 2 and DC fast chargers for businesses and workplaces" } },
                   { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "New Commercial Warehouses", "description": "Ground-up commercial warehouse electrical installation, lighting, power distribution and service" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "New Home Builds", "description": "Ground-up electrical for custom single-family homes, spec builds, and small-to-mid multi-family" } },
+                  { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "New Commercial & Shopping Centers", "description": "Ground-up electrical for retail pads, strip centers, mixed-use, and shopping-center developments" } },
                   { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pedestals", "description": "RV, marina and commercial power pedestal installation and service" } },
                   { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile Home Connections", "description": "Mobile and manufactured home electrical service connections, meter loops and feeders" } }
                 ]

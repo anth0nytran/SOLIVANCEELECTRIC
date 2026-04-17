@@ -19,6 +19,8 @@ import {
   Warehouse,
   Cable,
   Home as HomeIcon,
+  Hammer,
+  Store,
   Info,
   FileText,
   HelpCircle,
@@ -35,6 +37,8 @@ const childIconMap: Record<NonNullable<NavChild['icon']>, typeof Zap> = {
   warehouse: Warehouse,
   pedestal: Cable,
   'mobile-home': HomeIcon,
+  'home-build': Hammer,
+  retail: Store,
   'map-pin': MapPin,
   info: Info,
   phone: Phone,
@@ -86,24 +90,24 @@ export function Header() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="bg-[var(--onestop-navy-deep)] text-white"
       >
-        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between gap-3 py-2 text-[0.7rem] sm:text-xs">
-          <div className="hidden sm:flex items-center gap-4 text-white/70 font-medium">
+        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between gap-3 py-2 text-[0.68rem] sm:text-[0.72rem] font-[family-name:var(--font-app-mono)] uppercase tracking-[0.14em]">
+          <div className="hidden sm:flex items-center gap-4 text-white/75">
             <span className="inline-flex items-center gap-1.5">
               <Shield className="h-3 w-3 text-[var(--onestop-gold)]" />
               Licensed TX Contractor
             </span>
-            <span className="text-white/20">·</span>
+            <span className="h-3 w-px bg-white/20" aria-hidden />
             <span className="inline-flex items-center gap-1.5">
               <Clock className="h-3 w-3 text-[var(--onestop-gold)]" />
-              24/7 Emergency
+              24-Hour Response
             </span>
           </div>
-          <div className="flex items-center gap-2 mx-auto sm:mx-0">
-            <span className="font-bold tracking-wide text-white">
-              Serving Houston · Cypress · Katy · Memorial
+          <div className="flex items-center gap-3 mx-auto sm:mx-0">
+            <span className="font-semibold text-white/90">
+              Houston · Cypress · Katy · Memorial
             </span>
-            <span className="text-white/30 hidden sm:inline">|</span>
-            <a href={`tel:${siteConfig.cleanPhone}`} className="hidden sm:inline-flex items-center gap-1.5 font-extrabold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200">
+            <span className="h-3 w-px bg-white/25 hidden sm:inline-block" aria-hidden />
+            <a href={`tel:${siteConfig.cleanPhone}`} className="hidden sm:inline-flex items-center gap-1.5 font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal">
               <Phone className="h-3 w-3" /> {siteConfig.phone}
             </a>
           </div>
@@ -117,7 +121,7 @@ export function Header() {
         transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         className="sticky top-0 z-50"
       >
-        <div className={`bg-white transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-[0_1px_0_rgba(0,0,0,0.06)]'}`}>
+        <div className={`bg-white transition-all duration-300 ${scrolled ? 'shadow-[0_1px_0_rgba(15,40,71,0.08),0_4px_18px_-6px_rgba(15,40,71,0.18)]' : 'shadow-[0_1px_0_rgba(15,40,71,0.08)]'}`}>
           <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between h-16 sm:h-[4.5rem]">
 
             {/* Brand */}
@@ -304,12 +308,11 @@ export function Header() {
                 </div>
                 <span className="font-[family-name:var(--font-app-mono)] tracking-normal">{siteConfig.phone}</span>
               </a>
-              <Link href="/contact" className="relative bg-[var(--onestop-red)] px-5 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.15em] text-white rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-[var(--onestop-red)]/20 hover:-translate-y-px active:translate-y-0 group">
+              <Link href="/contact" className="btn-solid relative bg-[var(--onestop-red)] px-5 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.15em] text-white rounded-md overflow-hidden hover:bg-[#e55f15] group">
                 <span className="relative z-10 inline-flex items-center gap-1.5">
                   Free Quote
                   <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </span>
-                <span className="absolute inset-0 bg-[var(--onestop-navy-deep)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </motion.div>
 

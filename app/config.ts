@@ -10,6 +10,8 @@ export const siteConfig = {
     'Parking Lot Lighting',
     'EV Chargers',
     'New Commercial Warehouses',
+    'New Home Builds (Single & Multi-Family)',
+    'New Commercial & Shopping Centers',
     'RV Park Pedestals',
     'Mobile Home Connections',
   ],
@@ -52,15 +54,14 @@ export interface ServiceItem {
 }
 
 const PLACEHOLDER = '/placeholder.svg';
+const photo = (slug: string) => `/photos_new/${slug}.jpg`;
 
 export const serviceData: ServiceItem[] = [
   {
     slug: 'panel-upgrades',
     title: 'Panel Upgrades',
     media: [
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
+      { type: 'image', src: photo('panel-upgrades') },
     ],
     summary: '100A through 3-phase switchgear. Meter and main replaced, feeders pulled, labels legible. Inspection passes the first walk.',
     details: [
@@ -77,9 +78,7 @@ export const serviceData: ServiceItem[] = [
     slug: 'generator-installs',
     title: 'Generator Installs',
     media: [
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
+      { type: 'image', src: photo('generator-installs') },
     ],
     summary: 'Standby generators with ATS commissioning. Sized to the load, sited on a proper pad, fuel planned for the longest outage on record.',
     details: [
@@ -96,9 +95,7 @@ export const serviceData: ServiceItem[] = [
     slug: 'parking-lot-lighting',
     title: 'Parking Lot Lighting',
     media: [
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
+      { type: 'image', src: photo('parking-lot-lighting') },
     ],
     summary: 'LED pole and shoebox lighting to photometric spec. Trenching, conduit, photocells, timers — and the energy savings that pay for it.',
     details: [
@@ -115,9 +112,7 @@ export const serviceData: ServiceItem[] = [
     slug: 'ev-chargers',
     title: 'EV Chargers',
     media: [
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
+      { type: 'image', src: photo('ev-chargers') },
     ],
     summary: 'Level 2 and DC fast chargers for fleets, multi-tenant properties, and premium homes. Load-managed, submetered, ready to scale.',
     details: [
@@ -134,9 +129,7 @@ export const serviceData: ServiceItem[] = [
     slug: 'commercial-warehouses',
     title: 'New Commercial Warehouses',
     media: [
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
+      { type: 'image', src: photo('commercial-warehouses') },
     ],
     summary: 'Ground-up electrical for new commercial warehouses. Service entrance through high-bay LED, dock power, and office build-out.',
     details: [
@@ -153,8 +146,7 @@ export const serviceData: ServiceItem[] = [
     slug: 'pedestals',
     title: 'RV Park Pedestals',
     media: [
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
+      { type: 'image', src: photo('pedestals') },
     ],
     summary: 'RV park, mobile home park, and temp-service pedestals. 30A, 50A, 100A configurations installed to NEC 551/552 and utility spec.',
     details: [
@@ -171,8 +163,7 @@ export const serviceData: ServiceItem[] = [
     slug: 'mobile-home-connections',
     title: 'Mobile Home Connections',
     media: [
-      { type: 'image', src: PLACEHOLDER },
-      { type: 'image', src: PLACEHOLDER },
+      { type: 'image', src: photo('mobile-home-connections') },
     ],
     summary: 'Mobile and manufactured home service hookups. Disconnect, feeder, grounding, bonding — and the inspection signed on the first walk.',
     details: [
@@ -185,13 +176,47 @@ export const serviceData: ServiceItem[] = [
     longDescription: 'Mobile home connections look simple and fail inspection anyway. Three reasons: the grounding electrode conductor isn\'t sized right, the feeder isn\'t rated for the termination, or the service disconnect is in the wrong location. We handle the whole scope — service disconnect, feeder, grounding, bonding, utility coordination, permit, and inspection — so the tenant has power on move-in day, not two weeks later.',
     keywords: ['mobile home electrical Houston TX', 'manufactured home hookup Cypress TX', 'mobile home connection Katy TX', 'trailer electrical Memorial Houston'],
   },
+  {
+    slug: 'home-builds',
+    title: 'New Home Builds — Single & Multi-Family',
+    media: [
+      { type: 'image', src: photo('home-builds') },
+    ],
+    summary: 'Ground-up residential electrical for custom homes, spec builds, and small-to-mid multi-family. Rough-in through trim, EV make-ready in every garage.',
+    details: [
+      'Custom, spec, and multi-family new construction',
+      'Service entrance, panel, and sub-panel layout',
+      'Smokes/CO, AFCI, GFCI, and tamper-resistant to NEC 2023',
+      'Structured cabling and EV make-ready standard',
+    ],
+    turnaround: 'Typical single-family in 4–7 weeks on the GC schedule',
+    longDescription: 'New home construction lives or dies on the electrical being ready when drywall shows up. Solivance Electric handles single-family custom, production spec, townhome rows, and small-to-mid multi-family across Greater Houston — rough-in through trim, smart-home ready, EV make-ready in the garage. We work the GC schedule, not our own, and the final inspection passes the first walk.',
+    keywords: ['new construction electrician Houston TX', 'multi-family electrical contractor Cypress TX', 'custom home electrical Katy TX', 'home builder electrician Memorial Houston'],
+  },
+  {
+    slug: 'commercial-centers',
+    title: 'New Commercial & Shopping Centers',
+    media: [
+      { type: 'image', src: photo('commercial-centers') },
+    ],
+    summary: 'Ground-up retail pads, strip centers, and shopping-center builds. Service entrance, tenant metering, site lighting, signage — opening-night ready.',
+    details: [
+      'Service entrance and tenant meter banks',
+      'Vanilla-shell tenant rough-in',
+      'Site lighting, photocells, and pylon sign power',
+      'Phased tenant turnover and inspection walks',
+    ],
+    turnaround: 'Typical 20k sq ft strip center in 6–12 weeks',
+    longDescription: 'Shopping-center and retail-pad electrical is a coordination problem as much as a wiring problem — tenant meters, signage power, pylon circuits, site-lighting photometric, and the opening-day schedule all have to land on the same set of drawings. Solivance Electric handles ground-up electrical for retail pads, strip centers, mixed-use, and anchor-plus-satellite shopping centers across Houston, Cypress, Katy, and Memorial. Vanilla-shell rough-in through tenant turnover, every meter set on the lease start date.',
+    keywords: ['shopping center electrical contractor Houston TX', 'retail electrical Cypress TX', 'strip center electrical Katy TX', 'commercial construction electrician Memorial Houston'],
+  },
 ];
 
 export interface NavChild {
   label: string;
   href: string;
   description?: string;
-  icon?: 'panel' | 'generator' | 'lighting' | 'ev' | 'warehouse' | 'pedestal' | 'mobile-home' | 'map-pin' | 'info' | 'phone' | 'help' | 'file';
+  icon?: 'panel' | 'generator' | 'lighting' | 'ev' | 'warehouse' | 'pedestal' | 'mobile-home' | 'home-build' | 'retail' | 'map-pin' | 'info' | 'phone' | 'help' | 'file';
 }
 
 export interface NavLink {
@@ -212,13 +237,15 @@ export const navLinks: NavLink[] = [
       { label: 'Parking Lot Lighting',       href: '/services/parking-lot-lighting',     description: 'LED retrofit and ground-up, photometric.',    icon: 'lighting' },
       { label: 'EV Chargers',                href: '/services/ev-chargers',              description: 'Level 2 and DCFC, load-managed.',             icon: 'ev' },
       { label: 'New Commercial Warehouses',  href: '/services/commercial-warehouses',    description: 'Service entrance through high-bay LED.',      icon: 'warehouse' },
+      { label: 'New Home Builds',            href: '/services/home-builds',              description: 'Single & multi-family, rough to trim.',       icon: 'home-build' },
+      { label: 'Commercial & Shopping Centers', href: '/services/commercial-centers',    description: 'Retail pads, strip centers, tenant metering.', icon: 'retail' },
       { label: 'RV Park Pedestals',          href: '/services/pedestals',                description: '30A/50A/100A arrays to utility spec.',        icon: 'pedestal' },
       { label: 'Mobile Home Connections',    href: '/services/mobile-home-connections',  description: 'Service disconnect, feeder, bonding.',        icon: 'mobile-home' },
     ],
     featured: {
       heading: '24-hour emergency',
       body: 'A licensed electrician picks up any hour. Fixed-fee quotes inside a day.',
-      ctaLabel: 'See all seven services',
+      ctaLabel: 'See all services',
       ctaHref: '/services',
     },
   },

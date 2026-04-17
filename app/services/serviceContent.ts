@@ -5,7 +5,9 @@ export type ServiceIcon =
   | 'ev'
   | 'warehouse'
   | 'pedestal'
-  | 'mobile-home';
+  | 'mobile-home'
+  | 'home-build'
+  | 'retail';
 
 export interface ServiceContent {
   slug: string;
@@ -628,6 +630,176 @@ export const serviceContent: Record<string, ServiceContent> = {
       {
         q: 'Can you handle an emergency mobile home service failure?',
         a: 'Yes — our 24-hour emergency line covers mobile home service outages, burnt meter loops, and lost-feeder situations. A licensed electrician picks up any hour.',
+      },
+    ],
+  },
+  'home-builds': {
+    slug: 'home-builds',
+    icon: 'home-build',
+    eyebrowNumber: '08',
+    heroH1: 'New Home Builds — Single-Family & Multi-Family.',
+    heroLede:
+      'Ground-up residential electrical. Rough-in to trim, service entrance to final inspection. Custom homes, spec builds, and multi-family on one set of drawings.',
+    overview:
+      'New construction is where we do our best work — the drawings are clean, the trades are sequenced, and the inspector walks the same crew every time. Solivance Electric handles single-family custom and spec homes, townhome rows, duplexes, triplexes, and small-to-mid multi-family (garden apartments, stacked flats, build-to-rent) across Houston, Cypress, Katy, and Memorial. Full electrical scope from the service entrance through the trim plate — panel sizing, feeder and branch-circuit rough, smoke-and-CO detection per NFPA 72, smart-home and structured-cabling rough, EV make-ready in the garage, and the final inspection walk. We work to the GC schedule, not our own.',
+    cost: {
+      q: 'How much does new-construction electrical cost?',
+      a: 'Single-family new-build electrical typically runs $4.50–$9 per square foot for the full scope (service, rough, fixtures, trim, devices). A 3,000 sq ft custom home falls in the $13,500–$27,000 range depending on fixture package, smart-home add-ons, EV make-ready, and generator provisioning. Multi-family per-unit pricing compresses with scale — typical garden-apartment buildings run $3.50–$6 per sq ft. Final pricing is a design-build conversation against the plans.',
+      range: '$4.50 – $9 per sq ft',
+      note: 'Scales down on multi-family with volume.',
+    },
+    timeline: {
+      q: 'How long does new-construction electrical take?',
+      a: 'A typical 3,000 sq ft single-family home takes 4–7 weeks of on-site electrical work phased across the GC schedule — underground, rough-in after frame, trim after drywall and flooring. Multi-family buildings run 8–16 weeks per building depending on unit count, with multiple buildings sequenced back-to-back.',
+      phases: [
+        { label: 'Plan review + design', duration: '1–2 weeks' },
+        { label: 'Underground + rough-in', duration: '2–3 weeks' },
+        { label: 'Trim + devices', duration: '1–2 weeks' },
+        { label: 'Inspection + energize', duration: 'Same week' },
+      ],
+    },
+    process: [
+      {
+        step: '01',
+        title: 'Plan review + design-build',
+        detail:
+          'We read the architectural and MEP set, size the service, lay out the panel and sub-panels, and flag conflicts before the foundation is poured.',
+      },
+      {
+        step: '02',
+        title: 'Underground + rough-in',
+        detail:
+          'Service entrance conduit underground, outside lighting stubs, and garage EV make-ready. Rough wiring after frame — smokes, CO, branch circuits, structured cabling.',
+      },
+      {
+        step: '03',
+        title: 'Trim + devices',
+        detail:
+          'Fixtures hung, devices trimmed in, panels labeled, GFCIs tested, AFCIs verified. Smart-home and low-voltage tie-in with the integrator when one is on the job.',
+      },
+      {
+        step: '04',
+        title: 'Inspection + energize',
+        detail:
+          'AHJ inspection on the schedule. Clean blue-tag the first walk. CenterPoint meter set. Home ready for the owner or tenant on move-in day.',
+      },
+    ],
+    codeNotes: {
+      heading: 'Code, permit, and utility notes',
+      body:
+        'Residential new construction is built to the 2023 National Electrical Code with Texas amendments. NFPA 72 sets the smoke-and-CO detector placement and power requirements. NEC 210.52 covers receptacle placement, and the tamper-resistant, AFCI, and GFCI requirements run through the bedrooms, kitchens, and bathrooms. Multi-family adds NEC 220.84 demand-factor calculations and service-entrance sizing for common loads.',
+      chips: ['NEC 210', 'NEC 220.84', 'NFPA 72', 'Harris County Permits', 'CenterPoint Energy'],
+    },
+    relatedSlugs: ['panel-upgrades', 'ev-chargers', 'generator-installs'],
+    faqs: [
+      {
+        q: 'Do you do single-family custom homes and spec builds?',
+        a: 'Yes — custom high-end residential, production-builder spec homes, and in-between. Fixture packages range from builder-grade to designer-spec; the electrical scope and install quality is the same either way.',
+      },
+      {
+        q: 'What counts as multi-family in your scope?',
+        a: 'Duplexes, triplexes, fourplexes, townhome rows, garden-apartment buildings, stacked flats, and small-to-mid build-to-rent developments. Podium and high-rise are outside our usual scope.',
+      },
+      {
+        q: 'Do you handle smart-home and structured cabling rough?',
+        a: 'We rough Cat6/Cat6a, coax, HDMI-over-Cat6, and speaker wire on the same pass as branch-circuit rough. Smart-home integration (Control4, Savant, Lutron) is coordinated with the integrator on lighting control and distributed audio.',
+      },
+      {
+        q: 'Do you include EV make-ready in new-home builds?',
+        a: 'Standard on every build — 50A circuit roughed into the garage, NEMA 14-50 receptacle if the owner wants a plug-and-play charger, or hardwired terminations if they want a wall unit. No re-trenching in year three.',
+      },
+      {
+        q: 'Do you coordinate with the GC and the other trades?',
+        a: 'Every day. We work to the GC master schedule — underground before slab, rough after frame and before drywall, trim after paint and flooring. HVAC, plumbing, and low-voltage coordination is part of the job.',
+      },
+      {
+        q: 'Are you licensed for residential electrical in Texas?',
+        a: 'Yes. Solivance Electric LLC is a licensed Texas electrical contractor and pulls Harris County, City of Houston, or local AHJ permits depending on the jurisdiction. COI and license available on request.',
+      },
+    ],
+  },
+  'commercial-centers': {
+    slug: 'commercial-centers',
+    icon: 'retail',
+    eyebrowNumber: '09',
+    heroH1: 'New Commercial & Shopping Centers.',
+    heroLede:
+      'Ground-up electrical for retail pads, strip centers, mixed-use, and shopping-center builds. Service entrance through tenant turnover.',
+    overview:
+      'Shopping centers and new commercial builds are where service-entrance sizing, tenant metering, and signage power all have to land on the same set of drawings. Solivance Electric handles ground-up electrical for retail pads, strip centers, mixed-use developments, and shopping-center anchor-plus-satellite builds across Greater Houston. Service entrance and main switchgear, tenant meter banks, vanilla-shell rough-in, site lighting and photometric design, landscape power, signage and pylon power, and tenant turnover inspections. When the center opens, every box is lit, every meter is set, and every tenant has what their lease requires.',
+    cost: {
+      q: 'How much does new shopping-center electrical cost?',
+      a: 'Ground-up commercial retail electrical typically runs $5–$11 per square foot for the full scope — service entrance, distribution, tenant metering, site lighting, vanilla-shell rough-in. A 20,000 sq ft strip center falls in the $100,000–$220,000 range. Larger shopping centers with anchor tenants, pylon signs, and extensive site lighting push higher. Vanilla-shell versus fully-finished tenant turnover changes the number substantially.',
+      range: '$5 – $11 per sq ft',
+      note: 'Strip center to shopping center — scoped by drawings.',
+    },
+    timeline: {
+      q: 'How long does a shopping-center electrical build take?',
+      a: 'A 20,000 sq ft strip center typically takes 6–12 weeks of on-site electrical phased against the GC schedule — underground, service entrance, in-wall rough, tenant metering, site lighting, trim, and commissioning. Larger centers with phased tenant openings stretch to 4–6 months.',
+      phases: [
+        { label: 'Design-build drawings', duration: '3–5 weeks' },
+        { label: 'Underground + service', duration: '1–3 weeks on site' },
+        { label: 'Rough + metering', duration: '3–6 weeks on site' },
+        { label: 'Trim + tenant turnover', duration: '1–3 weeks' },
+      ],
+    },
+    process: [
+      {
+        step: '01',
+        title: 'Design-build against the MEP',
+        detail:
+          'Service entrance sizing against anchor loads, tenant meter bank layout, site-lighting photometric, signage power, landscape. Every line on the drawings reviewed before a trench opens.',
+      },
+      {
+        step: '02',
+        title: 'Underground + service entrance',
+        detail:
+          'Primary service from CenterPoint, main switchgear, tenant meter banks, sub-panels. Underground feeders to pylons, site lighting, and landscape. Stubs to every future tenant space.',
+      },
+      {
+        step: '03',
+        title: 'Vanilla-shell rough + trim',
+        detail:
+          'Tenant space electrical to vanilla-shell spec — panel, lighting rough, HVAC disconnects, RTU whips. Exterior wall packs and site lighting on photocell and timer control.',
+      },
+      {
+        step: '04',
+        title: 'Tenant turnover + final',
+        detail:
+          'Each tenant turns their space over to their own electrician or we complete the fit-out. Meters set, inspection walk passed, pylon sign energized the night before opening.',
+      },
+    ],
+    codeNotes: {
+      heading: 'Code, permit, and utility notes',
+      body:
+        'Shopping-center electrical falls under NEC Articles 220, 230, and 240 for service and feeder sizing, Article 410 for lighting, and Article 600 for electric signs and outline lighting. Tenant metering is coordinated with CenterPoint Energy on the primary service and with each tenant on the secondary. AIC ratings on tenant switchgear must match the CenterPoint feeder at the address.',
+      chips: ['NEC 220/230', 'NEC 410', 'NEC 600', 'Harris County Permits', 'CenterPoint Energy'],
+    },
+    relatedSlugs: ['commercial-warehouses', 'parking-lot-lighting', 'panel-upgrades'],
+    faqs: [
+      {
+        q: 'Do you handle tenant meter banks and sub-metering?',
+        a: 'Yes. Per-tenant meter sockets, CT-metered switchgear for larger tenants, and submetering back-end integration where the property manager needs real-time usage data. We coordinate the meter set with CenterPoint directly.',
+      },
+      {
+        q: 'Can you run signage and pylon power?',
+        a: 'Standard scope. Pylon sign feeders, tenant-identified backlit sign circuits on the exterior, photocell control, and the UL sign fitter coordination. Article 600 compliance is our problem, not yours.',
+      },
+      {
+        q: 'Do you design the site-lighting photometric?',
+        a: 'Yes — IES files, footcandle plot, fixture-count spec, pole heights, and AHJ cutoff review. Shopping-center parking is a liability conversation as much as a lighting one, and the photometric is where that conversation gets settled.',
+      },
+      {
+        q: 'What about the anchor tenant and satellite tenant fit-outs?',
+        a: 'Vanilla-shell is standard scope for every tenant space. Full fit-out on the anchor or any satellite is an additional line item — we scope it, bid it, and build it as a separate package inside the larger build.',
+      },
+      {
+        q: 'How do you handle a phased tenant opening schedule?',
+        a: 'We sequence the electrical so the anchor opens first, the rooftop equipment for the second-phase tenants is energized on schedule, and the final meter sets land on each lease start date. The center opens in phases without electrical being the bottleneck.',
+      },
+      {
+        q: 'Do you pull the Harris County or municipal permit for shopping centers?',
+        a: 'Every time. Commercial permit, plan review, rough-in inspection, underground inspection, above-ceiling inspection, trim inspection, and final. You are not chasing the city or county.',
       },
     ],
   },

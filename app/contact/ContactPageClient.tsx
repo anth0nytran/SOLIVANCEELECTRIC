@@ -27,7 +27,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
   return (
     <>
       {/* ═══ PAGE HEADER ═══ */}
-      <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] py-10 sm:py-14 lg:py-16">
+      <section className="page-hero">
         <div className="absolute inset-0">
           <Image
             src="/placeholder.svg"
@@ -36,45 +36,45 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-20"
+            className="object-cover opacity-15"
           />
         </div>
-        <div className="absolute inset-0 bg-[var(--onestop-navy-deep)]/80" />
+        <div className="absolute inset-0 bg-[var(--onestop-navy-deep)]/85" />
         <div className={`${shell} relative z-10`}>
-          <nav aria-label="Breadcrumb" className="mb-4">
-            <ol className="flex items-center gap-2 text-sm text-white/40">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li aria-hidden="true">/</li>
-              <li className="font-semibold text-white/70">Contact</li>
+          <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
+            <ol className="flex items-center gap-2 text-white/55">
+              <li><Link href="/" className="hover:text-[var(--onestop-gold)] transition-colors">Home</Link></li>
+              <li aria-hidden="true" className="text-white/25">/</li>
+              <li className="font-semibold text-white">Contact</li>
             </ol>
           </nav>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-[1.08] tracking-tight">
+          <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.24em] text-[var(--onestop-gold)]">
+            <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+            Get in Touch
+          </div>
+          <h1 className="h-display text-white">
             Walk a site. Get a number.
           </h1>
-          <p className="mt-3 text-base text-white/50 leading-relaxed max-w-lg">
+          <p className="mt-5 text-[0.98rem] sm:text-base text-white/80 leading-[1.7] max-w-2xl">
             Panel upgrade, standby generator, EV charger build, parking-lot retrofit,
             warehouse fit-out, RV park pedestal array, or a mobile home hookup —
             describe it below. We respond within 24 hours with an itemized, fixed-fee
             quote. Emergencies are handled by phone, any hour.
           </p>
-          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-white/40">
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-white/50" /> Free quotes
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-white/50" /> Response within 24 hrs
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-white/50" /> 24/7 Emergency
-            </span>
+          <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/75">
+            <span className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Free Quotes</span>
+            <span className="vrule text-white h-3" aria-hidden />
+            <span className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Response &lt; 24 Hrs</span>
+            <span className="vrule text-white h-3 hidden sm:block" aria-hidden />
+            <span className="hidden sm:flex items-center gap-2"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed &amp; Insured</span>
           </div>
 
           {/* Mobile phone CTA */}
           <div className="mt-6 sm:hidden">
             <a
               href={`tel:${siteConfig.cleanPhone}`}
-              className="inline-flex items-center justify-center gap-2.5 w-full bg-[var(--onestop-red)] py-4 text-sm font-bold uppercase tracking-wider text-white rounded-lg shadow-lg"
+              className="btn-solid inline-flex items-center justify-center gap-2.5 w-full bg-[var(--onestop-red)] h-12 text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white rounded-md"
             >
               <Phone className="h-4 w-4" /> Tap to Call: {siteConfig.phone}
             </a>
@@ -177,13 +177,15 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { icon: Shield, label: 'Licensed & Insured' },
-                  { icon: Clock, label: '24/7 Emergency' },
+                  { icon: Clock, label: '24-Hour Response' },
                   { icon: HardHat, label: 'Commercial & Residential' },
                   { icon: Zap, label: 'Free Quotes' },
                 ].map((item) => (
-                  <div key={item.label} className="flex items-center gap-2.5 bg-slate-50 rounded-lg px-3.5 py-3 border border-slate-100">
-                    <item.icon className="h-4 w-4 shrink-0 text-[var(--onestop-navy)]" />
-                    <span className="text-xs font-semibold text-slate-600">{item.label}</span>
+                  <div key={item.label} className="flex items-center gap-2.5 bg-white rounded-md px-3.5 py-3 shadow-[inset_0_0_0_1px_rgba(15,40,71,0.08),0_1px_2px_rgba(15,40,71,0.04)]">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy)]/[0.06]">
+                      <item.icon className="h-3.5 w-3.5 text-[var(--onestop-navy-deep)]" strokeWidth={1.9} />
+                    </div>
+                    <span className="text-[0.72rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.005em] leading-tight">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -259,14 +261,14 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
             <div className="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">
               <a
                 href={`tel:${siteConfig.cleanPhone}`}
-                className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-[var(--onestop-red)] px-8 py-4 text-sm font-bold uppercase tracking-wider text-white hover:brightness-110 transition-all shadow-lg shadow-[var(--onestop-red)]/20"
+                className="btn-solid inline-flex items-center justify-center gap-2.5 rounded-md bg-[var(--onestop-red)] px-7 h-12 text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15]"
               >
                 <Phone className="h-4 w-4" />
                 {siteConfig.phone}
               </a>
               <Link
                 href="/contact#form"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 px-8 py-4 text-sm font-bold uppercase tracking-wider text-white hover:bg-white/5 transition-all"
+                className="btn-ghost-dark inline-flex items-center justify-center gap-2 rounded-md px-7 h-12 text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white"
               >
                 Fill Out Form <ArrowRight className="h-4 w-4" />
               </Link>

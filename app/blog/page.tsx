@@ -73,20 +73,24 @@ export default function BlogPage() {
       />
 
       {/* ── Hero ── */}
-      <section className="bg-[var(--onestop-cream)] py-14 sm:py-18">
-        <div className={shell}>
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-slate-400">
-            <ol className="flex items-center gap-1.5">
-              <li><Link href="/" className="hover:text-[var(--onestop-navy-deep)] transition-colors">Home</Link></li>
-              <li aria-hidden="true">/</li>
-              <li className="font-semibold text-[var(--onestop-navy-deep)]">Blog</li>
+      <section className="page-hero">
+        <div className={`${shell} relative z-10`}>
+          <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
+            <ol className="flex items-center gap-2 text-white/55">
+              <li><Link href="/" className="hover:text-[var(--onestop-gold)] transition-colors">Home</Link></li>
+              <li aria-hidden="true" className="text-white/25">/</li>
+              <li className="font-semibold text-white">Blog</li>
             </ol>
           </nav>
           <div className="max-w-2xl">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--onestop-navy-deep)] leading-tight">
+            <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.24em] text-[var(--onestop-gold)]">
+              <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+              Field Notes &amp; Guides
+            </div>
+            <h1 className="h-display text-white">
               Electrical Insights from Solivance Electric
             </h1>
-            <p className="mt-3 text-base text-slate-500 leading-relaxed">
+            <p className="mt-5 text-[0.98rem] sm:text-base text-white/80 leading-[1.7]">
               Commercial electrical guides, cost breakdowns, and Houston-specific
               advice from the team at {siteConfig.businessName}.
             </p>
@@ -108,7 +112,7 @@ export default function BlogPage() {
               return (
                 <article
                   key={post.slug}
-                  className="group relative flex flex-col rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+                  className="group relative flex flex-col rounded-md bg-white overflow-hidden shadow-[inset_0_0_0_1px_rgba(15,40,71,0.08),0_1px_2px_rgba(15,40,71,0.04)] hover:shadow-[inset_0_0_0_1px_rgba(15,40,71,0.14),0_12px_28px_-10px_rgba(15,40,71,0.20)] hover:-translate-y-0.5 transition-all duration-300"
                 >
                   {/* Card body */}
                   <div className="flex flex-1 flex-col p-6 sm:p-7">
@@ -173,16 +177,16 @@ export default function BlogPage() {
               <h2 className="text-xl sm:text-2xl font-extrabold text-white">Need a commercial electrician?</h2>
               <p className="mt-1 text-sm text-white/50">Licensed commercial electrical work across Houston, Cypress, Katy &amp; Memorial.</p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-lg bg-[var(--onestop-red)] px-6 py-3 text-sm font-bold text-white hover:brightness-110 transition"
+                className="btn-solid inline-flex items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-7 h-12 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white hover:bg-[#e55f15]"
               >
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href={`tel:${siteConfig.cleanPhone}`}
-                className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-6 py-3 text-sm font-bold text-white hover:bg-white/5 transition"
+                className="btn-ghost-dark inline-flex items-center justify-center gap-2 rounded-md px-7 h-12 text-[0.82rem] font-bold text-white font-[family-name:var(--font-app-mono)]"
               >
                 {siteConfig.phone}
               </a>

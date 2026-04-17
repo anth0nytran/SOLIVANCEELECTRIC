@@ -28,7 +28,7 @@ export default function AboutPageClient() {
   return (
     <>
       {/* ═══ PAGE HEADER ═══ */}
-      <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] py-10 sm:py-14 lg:py-16">
+      <section className="page-hero">
         <div className="absolute inset-0">
           <Image
             src="/placeholder.svg"
@@ -37,39 +37,51 @@ export default function AboutPageClient() {
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-20"
+            className="object-cover opacity-15"
           />
         </div>
-        <div className="absolute inset-0 bg-[var(--onestop-navy-deep)]/80" />
+        <div className="absolute inset-0 bg-[var(--onestop-navy-deep)]/85" />
         <div className={`${shell} relative z-10`}>
-          <nav aria-label="Breadcrumb" className="mb-4">
-            <ol className="flex items-center gap-2 text-sm text-white/40">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li aria-hidden="true">/</li>
-              <li className="font-semibold text-white/70">About</li>
+          <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
+            <ol className="flex items-center gap-2 text-white/55">
+              <li><Link href="/" className="hover:text-[var(--onestop-gold)] transition-colors">Home</Link></li>
+              <li aria-hidden="true" className="text-white/25">/</li>
+              <li className="font-semibold text-white">About</li>
             </ol>
           </nav>
 
-          <h1 className="text-3xl font-extrabold leading-[1.06] text-white sm:text-4xl tracking-tight">
+          <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.24em] text-[var(--onestop-gold)]">
+            <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+            Company · Licensed TX Contractor
+          </div>
+          <h1 className="h-display text-white">
             About <span className="text-[var(--onestop-gold)]">Solivance Electric</span>
           </h1>
-          <p className="mt-3 text-base text-white/50 leading-relaxed max-w-xl">
+          <p className="mt-5 text-[0.98rem] sm:text-base text-white/80 leading-[1.7] max-w-2xl">
             Licensed Texas electrical contractor. Commercial, light-industrial, and
             premium residential across Houston, Cypress, Katy, and Memorial — panel
             upgrades through 3-phase switchgear, standby generators with ATS
             commissioning, LED parking-lot retrofits, EV charger builds, RV park
             pedestals, and ground-up warehouse electrical.
           </p>
+
+          <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/75">
+            <span className="flex items-center gap-2"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed &amp; Insured</span>
+            <span className="vrule text-white h-3" aria-hidden />
+            <span className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> 24-Hour Response</span>
+            <span className="vrule text-white h-3 hidden sm:block" aria-hidden />
+            <span className="hidden sm:flex items-center gap-2"><HardHat className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> {siteConfig.yearsInBusiness}+ Years in Houston</span>
+          </div>
         </div>
       </section>
 
       {/* ═══ STATS BAR ═══ */}
-      <section className="bg-white border-b border-slate-100">
+      <section className="bg-white border-b border-slate-200/70">
         <div className={shell}>
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-slate-100">
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-slate-200/70">
             {[
               { value: '2023', label: 'NEC Compliant' },
-              { value: '24/7', label: 'Emergency Line' },
+              { value: '24 hr', label: 'Response Line' },
               { value: 'In-House', label: 'Licensed Crew' },
               { value: '1st Walk', label: 'Inspection Pass' },
             ].map((stat) => (
@@ -79,10 +91,10 @@ export default function AboutPageClient() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUp}
-                className="py-10 px-6 text-center"
+                className="py-8 sm:py-10 px-4 sm:px-6 text-center"
               >
-                <div className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl">{stat.value}</div>
-                <div className="mt-1.5 text-xs font-semibold uppercase tracking-wider text-slate-400">{stat.label}</div>
+                <div className="text-2xl sm:text-3xl lg:text-[2.25rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.025em] leading-none">{stat.value}</div>
+                <div className="mt-2 text-[0.66rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-500 font-[family-name:var(--font-app-mono)]">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -237,13 +249,13 @@ export default function AboutPageClient() {
                 whileInView="visible"
                 viewport={{ once: true, margin: '-40px' }}
                 variants={fadeUp}
-                className="rounded-2xl border border-slate-200 bg-[var(--onestop-cream)] p-7 hover:shadow-md transition-shadow"
+                className="card-surface card-surface-interactive rounded-md p-6 sm:p-7"
               >
-                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[var(--onestop-navy-deep)]/10">
-                  <v.icon className="h-5 w-5 text-[var(--onestop-navy-deep)]" />
+                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-white ring-1 ring-[var(--onestop-navy)]/12 shadow-[inset_0_-1px_0_rgba(15,40,71,0.04),0_1px_2px_rgba(15,40,71,0.06)]">
+                  <v.icon className="h-5 w-5 text-[var(--onestop-navy-deep)]" strokeWidth={1.9} />
                 </div>
-                <h3 className="mt-4 text-base font-bold text-[var(--onestop-navy-deep)]">{v.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-500">{v.desc}</p>
+                <h3 className="mt-4 text-[0.95rem] sm:text-base font-bold text-[var(--onestop-navy-deep)] tracking-[-0.005em]">{v.title}</h3>
+                <p className="mt-2 text-[0.88rem] leading-[1.65] text-slate-600">{v.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -289,10 +301,10 @@ export default function AboutPageClient() {
               return (
                 <div
                   key={area}
-                  className={`flex items-center gap-2 rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold ${
+                  className={`flex items-center gap-2 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-[0.76rem] sm:text-[0.82rem] font-semibold transition-all ${
                     isPrimary
-                      ? 'bg-[var(--onestop-navy-deep)] text-white'
-                      : 'bg-white text-[var(--onestop-navy-deep)] border border-slate-200'
+                      ? 'bg-[var(--onestop-navy-deep)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_1px_2px_rgba(15,40,71,0.12)]'
+                      : 'bg-white text-[var(--onestop-navy-deep)] shadow-[inset_0_0_0_1px_rgba(15,40,71,0.10),0_1px_2px_rgba(15,40,71,0.04)]'
                   }`}
                 >
                   <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5 shrink-0 opacity-60" />
@@ -346,22 +358,24 @@ export default function AboutPageClient() {
             <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <a
                 href={`tel:${siteConfig.cleanPhone}`}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--onestop-red)] px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-white hover:brightness-110 transition-all whitespace-nowrap"
+                className="btn-solid inline-flex items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-7 h-12 text-xs sm:text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] whitespace-nowrap"
               >
                 <Phone className="h-4 w-4" /> Call {siteConfig.phone}
               </a>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 px-6 py-3 text-xs sm:text-sm font-bold text-white hover:bg-white/5 transition-all whitespace-nowrap"
+                className="btn-ghost-dark inline-flex items-center justify-center gap-2 rounded-md px-7 h-12 text-xs sm:text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white whitespace-nowrap"
               >
                 Free Quote <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[0.65rem] sm:text-xs font-semibold uppercase tracking-wider text-white/30">
-              <span className="flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed &amp; Insured</span>
-              <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> 24/7 Emergency</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Free Quotes</span>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-[0.66rem] sm:text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/70">
+              <span className="flex items-center gap-2"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed &amp; Insured</span>
+              <span className="vrule text-white h-3" aria-hidden />
+              <span className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> 24-Hour Response</span>
+              <span className="vrule text-white h-3" aria-hidden />
+              <span className="flex items-center gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Free Quotes</span>
             </div>
           </motion.div>
         </div>

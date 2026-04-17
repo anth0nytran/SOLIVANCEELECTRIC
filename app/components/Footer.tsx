@@ -15,6 +15,8 @@ const footerServices: { slug: string; label: string }[] = [
   { slug: 'parking-lot-lighting', label: 'Parking Lot Lighting' },
   { slug: 'ev-chargers', label: 'EV Chargers' },
   { slug: 'commercial-warehouses', label: 'New Commercial Warehouses' },
+  { slug: 'home-builds', label: 'New Home Builds' },
+  { slug: 'commercial-centers', label: 'Commercial & Shopping Centers' },
   { slug: 'pedestals', label: 'RV Park Pedestals' },
   { slug: 'mobile-home-connections', label: 'Mobile Home Connections' },
 ];
@@ -48,7 +50,7 @@ export function Footer() {
                 <div className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-white/40 mb-1">24/7 Emergency Service Available</div>
                 <a href={`tel:${siteConfig.cleanPhone}`} className="text-xl font-extrabold text-white hover:text-white transition-colors">{siteConfig.phone}</a>
               </div>
-              <Link href="/contact" className="inline-flex items-center justify-center bg-[var(--onestop-red)] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:brightness-110 transition-all rounded-lg">
+              <Link href="/contact" className="btn-solid inline-flex items-center justify-center bg-[var(--onestop-red)] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] rounded-md">
                 Get Free Quote
               </Link>
             </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowRight,
   Phone,
@@ -12,6 +13,8 @@ import {
   Warehouse as WarehouseIcon,
   Cable,
   Home as HomeIcon,
+  Hammer,
+  Store,
 } from 'lucide-react';
 import { siteConfig, type ServiceItem } from '../config';
 import { serviceContent, type ServiceIcon } from './serviceContent';
@@ -24,6 +27,8 @@ const iconMap: Record<ServiceIcon, typeof Zap> = {
   warehouse: WarehouseIcon,
   pedestal: Cable,
   'mobile-home': HomeIcon,
+  'home-build': Hammer,
+  retail: Store,
 };
 
 export default function ServicesPageClient({
@@ -35,25 +40,26 @@ export default function ServicesPageClient({
 }) {
   return (
     <>
-      {/* ═══ COMPACT HERO ═══ */}
-      <section className="bg-[var(--onestop-navy-deep)] py-12 sm:py-16">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-          <nav aria-label="Breadcrumb" className="mb-5 text-[0.72rem] text-white/50">
-            <ol className="flex items-center gap-2">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li aria-hidden>/</li>
-              <li className="text-white">Services</li>
+      {/* ═══ PAGE HERO ═══ */}
+      <section className="page-hero">
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 relative z-10">
+          <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
+            <ol className="flex items-center gap-2 text-white/55">
+              <li><Link href="/" className="hover:text-[var(--onestop-gold)] transition-colors">Home</Link></li>
+              <li aria-hidden className="text-white/25">/</li>
+              <li className="text-white font-semibold">Services</li>
             </ol>
           </nav>
 
-          <div className="inline-flex items-center gap-2 bg-[var(--onestop-gold)]/15 text-[var(--onestop-gold)] px-3 py-1 rounded-sm text-[0.7rem] font-bold uppercase tracking-[0.12em] mb-5">
-            Seven services &middot; one crew
+          <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.24em] text-[var(--onestop-gold)]">
+            <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+            Full Catalog · One Crew
           </div>
 
-          <h1 className="text-[2.4rem] sm:text-[3.2rem] lg:text-[3.75rem] font-extrabold text-white leading-[1.02] tracking-[-0.025em] max-w-3xl">
+          <h1 className="h-display text-white max-w-3xl">
             Commercial Electrical Services
           </h1>
-          <p className="mt-4 max-w-2xl text-[1rem] sm:text-[1.05rem] leading-[1.6] text-white/65">
+          <p className="mt-5 max-w-2xl text-[0.98rem] sm:text-base text-white/80 leading-[1.7]">
             Ten years of commercial electrical work across Houston, Cypress, Katy and Memorial. Permits pulled, utility coordinated, inspection passed on the first walk.
           </p>
         </div>
@@ -78,15 +84,29 @@ export default function ServicesPageClient({
             {services.map((service) => {
               const content = serviceContent[service.slug];
               const Icon = content ? iconMap[content.icon] : Zap;
+              const photoSrc = service.media.find((m) => m.type === 'image')?.src;
               return (
                 <Link
                   key={service.slug}
                   href={`/services/${service.slug}`}
-                  className="group flex flex-col rounded-md overflow-hidden bg-white border border-slate-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+                  className="group flex flex-col rounded-md overflow-hidden bg-white ring-1 ring-slate-200 hover:ring-[var(--onestop-navy-deep)]/25 hover:-translate-y-0.5 transition-all duration-300 shadow-[0_1px_0_rgba(15,40,71,0.04),0_1px_2px_rgba(15,40,71,0.04)] hover:shadow-[0_1px_0_rgba(15,40,71,0.06),0_12px_28px_-10px_rgba(15,40,71,0.22)]"
                 >
-                  {/* Image area (no photos yet — clean navy with icon) */}
-                  <div className="relative aspect-[4/3] bg-gradient-to-br from-[var(--onestop-navy-deep)] to-[var(--onestop-navy)] flex items-center justify-center">
-                    <Icon className="h-16 w-16 text-[var(--onestop-gold)]/80" strokeWidth={1.2} />
+                  {/* Service photo */}
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[var(--onestop-navy-deep)]">
+                    {photoSrc ? (
+                      <Image
+                        src={photoSrc}
+                        alt={service.title}
+                        fill
+                        sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                        className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[var(--onestop-navy-deep)] to-[var(--onestop-navy)] flex items-center justify-center">
+                        <Icon className="h-16 w-16 text-[var(--onestop-gold)]/80" strokeWidth={1.2} />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
                     <div className="absolute top-3 left-3 bg-[var(--onestop-gold)] text-[var(--onestop-navy-deep)] px-2.5 py-1 rounded-sm text-[0.65rem] font-extrabold uppercase tracking-[0.12em]">
                       Commercial
                     </div>
@@ -161,19 +181,19 @@ export default function ServicesPageClient({
           <p className="mt-3 text-[0.95rem] text-white/60 max-w-lg mx-auto leading-relaxed">
             No pressure tactics, no walk-in closing. Request a free on-site walk and fair price for any service.
           </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
+          <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-[var(--onestop-red)] h-11 px-6 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-white rounded-md hover:bg-[#e55f15] transition-colors"
+              className="btn-solid inline-flex items-center justify-center gap-2 bg-[var(--onestop-red)] h-12 px-7 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15]"
             >
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href={`tel:${siteConfig.cleanPhone}`}
-              className="inline-flex items-center gap-2 border border-white/20 h-11 px-6 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-white/90 rounded-md hover:bg-white/[0.06] transition-colors"
+              className="btn-ghost-dark inline-flex items-center justify-center gap-2 h-12 px-7 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white rounded-md"
             >
               <Phone className="h-4 w-4" />
-              <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.8rem]">{siteConfig.phone}</span>
+              <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem]">{siteConfig.phone}</span>
             </a>
           </div>
         </div>

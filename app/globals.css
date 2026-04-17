@@ -36,9 +36,103 @@ body {
   font-family: var(--font-app-body), -apple-system, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "ss01", "cv11";
+  font-feature-settings: "ss01", "cv11", "ss02";
   text-rendering: optimizeLegibility;
+  font-variant-ligatures: common-ligatures;
 }
+
+/* ── Elevation system — official, layered, never floaty ── */
+.elev-1 { box-shadow: 0 1px 0 rgba(15,40,71,0.04), 0 1px 2px rgba(15,40,71,0.06); }
+.elev-2 { box-shadow: 0 1px 0 rgba(15,40,71,0.05), 0 2px 6px rgba(15,40,71,0.08), 0 8px 24px -8px rgba(15,40,71,0.10); }
+.elev-3 { box-shadow: 0 1px 0 rgba(15,40,71,0.06), 0 4px 12px rgba(15,40,71,0.10), 0 24px 48px -16px rgba(15,40,71,0.22); }
+.elev-hairline { box-shadow: inset 0 0 0 1px rgba(15,40,71,0.08); }
+
+/* ── Button polish — top highlight + crisp shadow ── */
+.btn-solid {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 -1px 0 rgba(0,0,0,0.12),
+    0 1px 2px rgba(15,40,71,0.12);
+  transition: box-shadow 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+.btn-solid:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.16),
+    0 4px 10px rgba(15,40,71,0.18);
+  transform: translateY(-1px);
+}
+.btn-solid:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 1px 2px rgba(0,0,0,0.18),
+    0 1px 1px rgba(15,40,71,0.10);
+}
+
+.btn-ghost-dark {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14);
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+.btn-ghost-dark:hover {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.24);
+  background-color: rgba(255,255,255,0.04);
+}
+
+/* Vertical divider for inline metadata strips */
+.vrule { width: 1px; align-self: stretch; background: currentColor; opacity: 0.18; }
+
+/* ── Unified section padding — consistent vertical rhythm ── */
+.section-pad { padding-top: 3rem; padding-bottom: 3rem; }
+@media (min-width: 640px) { .section-pad { padding-top: 4.5rem; padding-bottom: 4.5rem; } }
+@media (min-width: 1024px) { .section-pad { padding-top: 6rem; padding-bottom: 6rem; } }
+
+.section-pad-sm { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+@media (min-width: 640px) { .section-pad-sm { padding-top: 3.5rem; padding-bottom: 3.5rem; } }
+@media (min-width: 1024px) { .section-pad-sm { padding-top: 4.5rem; padding-bottom: 4.5rem; } }
+
+/* ── Card surface — hairline ring + layered shadow ── */
+.card-surface {
+  background: #fff;
+  box-shadow:
+    inset 0 0 0 1px rgba(15,40,71,0.08),
+    0 1px 0 rgba(15,40,71,0.04),
+    0 1px 2px rgba(15,40,71,0.06);
+  transition: box-shadow 220ms ease, transform 220ms ease;
+}
+.card-surface-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 1px rgba(15,40,71,0.14),
+    0 1px 0 rgba(15,40,71,0.06),
+    0 12px 28px -10px rgba(15,40,71,0.20);
+}
+
+/* ── Page hero — consistent dark-navy intro band ── */
+.page-hero {
+  position: relative;
+  isolate: isolate;
+  background: var(--onestop-navy-deep);
+  color: #fff;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+  overflow: hidden;
+}
+@media (min-width: 640px) { .page-hero { padding-top: 4.5rem; padding-bottom: 4.5rem; } }
+@media (min-width: 1024px) { .page-hero { padding-top: 5.5rem; padding-bottom: 5.5rem; } }
+
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(242,107,31,0.35), transparent);
+}
+
+/* ── Responsive heading scale — consistent across every page ── */
+.h-display { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.05; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance; }
+.h-section { font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.08; letter-spacing: -0.025em; font-weight: 700; text-wrap: balance; }
+.h-sub     { font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.2; letter-spacing: -0.015em; font-weight: 700; }
+.lead      { font-size: clamp(0.95rem, 1.3vw, 1.05rem); line-height: 1.7; color: rgb(71 85 105); text-wrap: pretty; }
 
 .onestop-site h1,
 .onestop-site h2,

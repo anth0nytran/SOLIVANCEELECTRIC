@@ -5,7 +5,7 @@ import ServicesPageClient from './ServicesPageClient';
 export const metadata: Metadata = {
   title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Houston · Cypress · Katy · Memorial',
   description:
-    'Seven commercial electrical services across Greater Houston: panel upgrades through 3-phase switchgear, standby generator installs, LED parking-lot lighting, Level 2 and DCFC EV chargers, warehouse builds, RV park pedestals, mobile home connections. 24/7 emergency. (832) 965-9964.',
+    'Commercial electrical services across Greater Houston: panel upgrades through 3-phase switchgear, standby generator installs, LED parking-lot lighting, Level 2 and DCFC EV chargers, warehouse builds, new home construction, shopping centers, RV park pedestals, mobile home connections. 24/7 emergency. (832) 965-9964.',
   alternates: { canonical: '/services' },
   openGraph: {
     title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Houston · Cypress · Katy · Memorial',

@@ -181,51 +181,53 @@ export default async function BlogPostPage({
       )}
 
       {/* ── Hero ── */}
-      <section className="bg-[var(--onestop-cream)] py-14 sm:py-18">
-        <div className={shell}>
+      <section className="page-hero">
+        <div className={`${shell} relative z-10`}>
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-6 text-sm text-slate-500">
-            <ol className="flex flex-wrap items-center gap-1.5">
+          <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
+            <ol className="flex flex-wrap items-center gap-2 text-white/55">
               <li>
-                <Link href="/" className="hover:text-[var(--onestop-navy-deep)] transition-colors">
+                <Link href="/" className="hover:text-[var(--onestop-gold)] transition-colors">
                   Home
                 </Link>
               </li>
-              <li aria-hidden="true">/</li>
+              <li aria-hidden="true" className="text-white/25">/</li>
               <li>
-                <Link href="/blog" className="hover:text-[var(--onestop-navy-deep)] transition-colors">
+                <Link href="/blog" className="hover:text-[var(--onestop-gold)] transition-colors">
                   Blog
                 </Link>
               </li>
-              <li aria-hidden="true">/</li>
-              <li className="font-semibold text-[var(--onestop-navy-deep)] line-clamp-1">
+              <li aria-hidden="true" className="text-white/25">/</li>
+              <li className="font-semibold text-white line-clamp-1">
                 {post.title}
               </li>
             </ol>
           </nav>
 
           {/* Category */}
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 text-xs font-semibold text-[var(--onestop-navy-deep)] mb-5">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-[var(--onestop-gold)]/15 px-2.5 py-1 text-[0.66rem] font-[family-name:var(--font-app-mono)] font-bold uppercase tracking-[0.14em] text-[var(--onestop-gold)] mb-5">
             <Tag className="h-3 w-3" />
             {post.category}
           </span>
 
           {/* Title */}
-          <h1 className="font-[family-name:var(--font-app-display)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--onestop-navy-deep)] mb-5 max-w-4xl leading-tight">
+          <h1 className="font-[family-name:var(--font-app-display)] text-[2rem] sm:text-[2.5rem] lg:text-[3rem] font-bold text-white mb-5 max-w-4xl leading-[1.1] tracking-[-0.025em] text-balance">
             {post.title}
           </h1>
 
           {/* Meta */}
-          <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500">
-            <span className="flex items-center gap-1.5">
-              <Calendar className="h-4 w-4" />
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.78rem] font-medium text-white/70">
+            <span className="flex items-center gap-2">
+              <Calendar className="h-3.5 w-3.5 text-[var(--onestop-gold)]" />
               {formattedDate}
             </span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="h-4 w-4" />
+            <span className="vrule text-white h-3" aria-hidden />
+            <span className="flex items-center gap-2">
+              <Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" />
               {post.readTime}
             </span>
-            <span className="text-slate-400">By {siteConfig.businessName}</span>
+            <span className="vrule text-white h-3 hidden sm:block" aria-hidden />
+            <span className="hidden sm:inline text-white/55">By {siteConfig.businessName}</span>
           </div>
         </div>
       </section>
@@ -259,7 +261,7 @@ export default async function BlogPostPage({
                 <Link
                   key={related.slug}
                   href={`/blog/${related.slug}`}
-                  className="group flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+                  className="group flex flex-col rounded-md bg-white p-6 shadow-[inset_0_0_0_1px_rgba(15,40,71,0.08),0_1px_2px_rgba(15,40,71,0.04)] hover:shadow-[inset_0_0_0_1px_rgba(15,40,71,0.14),0_12px_28px_-10px_rgba(15,40,71,0.20)] hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-[var(--onestop-cream)] px-2.5 py-0.5 text-xs font-semibold text-[var(--onestop-navy-deep)] mb-3">
                     <Tag className="h-3 w-3" />
@@ -311,16 +313,16 @@ export default async function BlogPostPage({
             parking-lot lighting, warehouse electrical. Call or request a quote online —
             licensed electrician on the phone, not a scheduler.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--onestop-red)] px-7 py-3.5 font-semibold text-white shadow-lg hover:brightness-110 transition"
+              className="btn-solid inline-flex items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-7 h-12 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white hover:bg-[#e55f15]"
             >
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href={`tel:${siteConfig.cleanPhone}`}
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-white/20 px-7 py-3.5 font-semibold text-white hover:bg-white/10 transition"
+              className="btn-ghost-dark inline-flex items-center justify-center gap-2 rounded-md px-7 h-12 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white"
             >
               Call {siteConfig.phone}
             </a>

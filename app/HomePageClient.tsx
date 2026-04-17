@@ -118,7 +118,7 @@ function HeroEstimateForm() {
         </span>
       </label>
 
-      <button type="submit" disabled={formStatus === 'sending'} className="w-full bg-[var(--onestop-red)] py-3.5 text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white transition-all hover:bg-[#a5311f] active:scale-[0.98] disabled:opacity-60 rounded-md">
+      <button type="submit" disabled={formStatus === 'sending'} className="btn-solid w-full bg-[var(--onestop-red)] py-3.5 text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] disabled:opacity-60 rounded-md">
         {formStatus === 'sending' ? 'SENDING…' : 'GET YOUR FREE QUOTE'}
       </button>
 
@@ -183,7 +183,7 @@ export default function HomePageClient() {
         {/* Hero background */}
         <div className="absolute inset-0">
           <Image
-            src="/placeholder.svg"
+            src="/photos_new/hero.jpg"
             alt=""
             aria-hidden
             fill
@@ -192,9 +192,9 @@ export default function HomePageClient() {
             className="object-cover object-center lg:object-[center_40%]"
           />
         </div>
-        {/* Overlay — heavier on mobile for stacked text readability */}
-        <div className="absolute inset-0 bg-black/60 lg:bg-transparent" />
-        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-black/75 via-black/55 to-black/35" />
+        {/* Overlay — readable text without killing the image */}
+        <div className="absolute inset-0 bg-black/55 lg:bg-transparent" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-black/70 via-black/45 to-black/20" />
 
         <div className={`${shell} relative z-10`}>
           <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-10 xl:gap-14 items-center w-full py-12 sm:py-14 lg:py-16">
@@ -210,51 +210,73 @@ export default function HomePageClient() {
                 Commercial electrical,<br/><span className="relative inline-block text-white">done right.<span aria-hidden className="absolute left-0 -bottom-1 h-[3px] w-full bg-[var(--onestop-red)]" /></span>
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base leading-[1.65] text-white/65 max-w-[480px] mb-6 sm:mb-7">
+              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base leading-[1.7] text-white/80 max-w-[480px] mb-6 sm:mb-7">
                 200A through 3-phase switchgear. Standby generators with ATS commissioning. LED parking-lot retrofits. Level 2 and DC fast chargers. Warehouse builds, RV park pedestals, mobile-home hookups — across Houston, Cypress, Katy, and Memorial. Licensed. Insured. 24/7.
               </motion.p>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.35 }} className="flex flex-col sm:flex-row gap-3 mb-6 sm:mb-7">
-                <a href={`tel:${cleanPhone}`} className="group inline-flex items-center justify-center gap-2.5 bg-[var(--onestop-red)] h-12 px-7 text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15] transition-colors duration-200">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.35 }} className="flex flex-col sm:flex-row gap-3 mb-7 sm:mb-8">
+                <a href={`tel:${cleanPhone}`} className="btn-solid group inline-flex items-center justify-center gap-2.5 bg-[var(--onestop-red)] h-12 px-7 text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15]">
                   <Phone className="h-4 w-4" />
                   <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem] font-medium">{siteConfig.phone}</span>
                 </a>
-                <Link href="/services" className="inline-flex items-center justify-center gap-2 border border-white/20 h-12 px-7 text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white/90 rounded-md hover:bg-white/[0.06] hover:border-white/30 transition-colors duration-200">
+                <Link href="/services" className="btn-ghost-dark inline-flex items-center justify-center gap-2 h-12 px-7 text-[0.76rem] font-semibold uppercase tracking-[0.14em] text-white rounded-md">
                   Our Services <ArrowRight className="h-4 w-4" />
                 </Link>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.45 }} className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[0.7rem] font-medium uppercase tracking-[0.12em] text-white/45">
-                <span className="flex items-center gap-1.5"><Shield className="h-3.5 w-3.5" /> Licensed &amp; Insured</span>
-                <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 24/7 Emergency</span>
-                <span className="hidden sm:flex items-center gap-1.5"><HardHat className="h-3.5 w-3.5" /> Commercial Expertise</span>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.45 }} className="flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/75">
+                <span className="flex items-center gap-2"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed &amp; Insured</span>
+                <span className="vrule text-white h-3" aria-hidden />
+                <span className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> 24-Hour Response</span>
+                <span className="vrule text-white h-3 hidden sm:block" aria-hidden />
+                <span className="hidden sm:flex items-center gap-2"><HardHat className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> {siteConfig.yearsInBusiness}+ Years in Houston</span>
               </motion.div>
             </motion.div>
 
             {/* Right — floating form card */}
             <motion.div id="hero-form" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="scroll-mt-28">
-              <div className="bg-white p-5 sm:p-6 lg:p-7 rounded-md shadow-[0_30px_80px_-20px_rgba(0,0,0,0.5)] ring-1 ring-black/5">
-                <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.22em] text-[var(--onestop-navy)]">
-                  <span className="h-px w-6 bg-[var(--onestop-gold)]" />
-                  Free Quote
+              <div className="bg-white rounded-md overflow-hidden shadow-[0_1px_0_rgba(15,40,71,0.06),0_4px_12px_rgba(15,40,71,0.10),0_30px_80px_-20px_rgba(0,0,0,0.55)] ring-1 ring-black/5">
+                {/* Authority bar */}
+                <div className="flex items-center justify-between gap-3 bg-[var(--onestop-navy-deep)] px-5 sm:px-6 lg:px-7 py-2.5 text-white">
+                  <div className="flex items-center gap-2 font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.22em] text-white/70">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--onestop-gold)] animate-pulse" />
+                    Free Quote · No Obligation
+                  </div>
+                  <div className="font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.18em] text-[var(--onestop-gold)]">
+                    Response &lt; 24 hrs
+                  </div>
                 </div>
-                <h2 className="text-xl sm:text-[1.4rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.025em] leading-tight mb-1.5">Tell us about your project.</h2>
-                <p className="text-[0.82rem] text-slate-500 mb-5 leading-snug">Response within 24 hours. Faster for emergencies.</p>
-                <HeroEstimateForm />
+                <div className="p-5 sm:p-6 lg:p-7">
+                  <h2 className="text-xl sm:text-[1.4rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.025em] leading-tight mb-1.5">Tell us about your project.</h2>
+                  <p className="text-[0.82rem] text-slate-500 mb-5 leading-snug">A licensed electrician reviews every submission. Faster response for emergencies.</p>
+                  <HeroEstimateForm />
+                </div>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ═══ TRUST BAND ═══ */}
-      <section className="bg-white border-b border-slate-100">
-        <div className={`${shell} py-8 sm:py-10`}>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.22em] text-slate-500">
-            <span className="flex items-center gap-2.5"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed</span>
-            <span className="flex items-center gap-2.5"><CheckCircle2 className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Insured</span>
-            <span className="flex items-center gap-2.5"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> 24/7 Emergency</span>
-            <span className="flex items-center gap-2.5"><HardHat className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Commercial &amp; Residential</span>
+      {/* ═══ TRUST BAND — credentials strip ═══ */}
+      <section className="bg-white border-b border-slate-200/70">
+        <div className={`${shell} py-5 sm:py-6`}>
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-200/70">
+            {[
+              { icon: Shield, label: 'Licensed', value: 'Texas Electrical Contractor' },
+              { icon: CheckCircle2, label: 'Insured', value: 'COI on Request' },
+              { icon: Clock, label: '24-Hour Response', value: 'Emergencies Prioritized' },
+              { icon: HardHat, label: `${siteConfig.yearsInBusiness}+ Years`, value: 'Greater Houston Metro' },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-3 px-4 sm:px-5 first:pl-0 py-2 sm:py-1">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy)]/[0.06]">
+                  <item.icon className="h-4 w-4 text-[var(--onestop-navy-deep)]" strokeWidth={1.9} />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[0.78rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.005em] leading-tight truncate">{item.label}</div>
+                  <div className="text-[0.66rem] text-slate-500 font-medium leading-snug truncate uppercase tracking-[0.08em]">{item.value}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -269,14 +291,14 @@ export default function HomePageClient() {
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.03em] leading-[1.05]">What we do best.</h2>
             <p className="mt-5 text-[0.95rem] sm:text-base text-slate-500 leading-relaxed max-w-xl">
-              Seven services, one crew, one standard. Commercial, light-industrial, and premium residential electrical across the Greater Houston metro.
+              Nine services, one crew, one standard. Commercial, light-industrial, new construction, and premium residential electrical across the Greater Houston metro.
             </p>
           </div>
 
           {/* Top row — 3 equal cards */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 mb-3">
             {serviceData.slice(0, 3).map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`} className="group relative overflow-hidden rounded-xl bg-slate-100 aspect-[4/3] flex flex-col justify-end">
+              <Link key={s.slug} href={`/services/${s.slug}`} className="group relative overflow-hidden rounded-md bg-slate-100 aspect-[4/3] flex flex-col justify-end ring-1 ring-slate-200 hover:ring-[var(--onestop-navy-deep)]/20 hover:-translate-y-0.5 transition-all duration-300 shadow-[0_1px_0_rgba(15,40,71,0.04),0_1px_3px_rgba(15,40,71,0.06)] hover:shadow-[0_1px_0_rgba(15,40,71,0.06),0_8px_24px_-8px_rgba(15,40,71,0.22)]">
                 <Image src={getServicePreviewImage(s)} alt={s.title} fill className="object-cover group-hover:scale-[1.03] transition-transform duration-500" sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="relative z-10 p-5">
@@ -293,7 +315,7 @@ export default function HomePageClient() {
           {/* Bottom row — remaining cards */}
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {serviceData.slice(3).map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`} className="group relative overflow-hidden rounded-xl bg-slate-100 aspect-[4/3] flex flex-col justify-end">
+              <Link key={s.slug} href={`/services/${s.slug}`} className="group relative overflow-hidden rounded-md bg-slate-100 aspect-[4/3] flex flex-col justify-end ring-1 ring-slate-200 hover:ring-[var(--onestop-navy-deep)]/20 hover:-translate-y-0.5 transition-all duration-300 shadow-[0_1px_0_rgba(15,40,71,0.04),0_1px_3px_rgba(15,40,71,0.06)] hover:shadow-[0_1px_0_rgba(15,40,71,0.06),0_8px_24px_-8px_rgba(15,40,71,0.22)]">
                 <Image src={getServicePreviewImage(s)} alt={s.title} fill className="object-cover group-hover:scale-[1.03] transition-transform duration-500" sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="relative z-10 p-5">
@@ -314,9 +336,9 @@ export default function HomePageClient() {
             </p>
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 bg-[var(--onestop-navy-deep)] px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[var(--onestop-red)] transition-colors"
+              className="btn-solid inline-flex items-center gap-2 bg-[var(--onestop-navy-deep)] px-6 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[var(--onestop-red)]"
             >
-              View all seven services <ArrowRight className="h-3.5 w-3.5" />
+              View all services <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
@@ -345,7 +367,7 @@ export default function HomePageClient() {
                 <Link
                   key={area}
                   href={`/locations/${citySlug}`}
-                  className="group rounded-md bg-slate-50 p-6 hover:bg-[var(--onestop-navy-deep)] transition-colors"
+                  className="group rounded-md bg-white ring-1 ring-slate-200 p-6 hover:ring-[var(--onestop-navy-deep)] hover:bg-[var(--onestop-navy-deep)] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_1px_0_rgba(15,40,71,0.04)] hover:shadow-[0_1px_0_rgba(15,40,71,0.08),0_8px_24px_-8px_rgba(15,40,71,0.25)]"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <MapPin className="h-4 w-4 text-[var(--onestop-red)] group-hover:text-[var(--onestop-gold)] transition-colors" />
@@ -368,7 +390,7 @@ export default function HomePageClient() {
             </p>
             <Link
               href="/locations"
-              className="inline-flex items-center gap-2 bg-[var(--onestop-navy-deep)] px-5 py-2.5 text-[0.78rem] font-bold uppercase tracking-[0.12em] text-white rounded-md hover:bg-[var(--onestop-red)] transition-colors"
+              className="btn-solid inline-flex items-center gap-2 bg-[var(--onestop-navy-deep)] px-5 py-2.5 text-[0.78rem] font-bold uppercase tracking-[0.12em] text-white rounded-md hover:bg-[var(--onestop-red)]"
             >
               All service areas <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -416,20 +438,20 @@ export default function HomePageClient() {
                   { icon: Award, title: 'First-Walk Inspections', desc: 'Pass on the first pass.' },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--onestop-navy)]/8">
-                      <item.icon className="h-4 w-4 text-[var(--onestop-navy)]" />
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-white ring-1 ring-[var(--onestop-navy)]/12 shadow-[inset_0_-1px_0_rgba(15,40,71,0.04),0_1px_2px_rgba(15,40,71,0.06)]">
+                      <item.icon className="h-4 w-4 text-[var(--onestop-navy-deep)]" strokeWidth={1.9} />
                     </div>
                     <div>
-                      <div className="text-sm font-bold text-[var(--onestop-navy-deep)]">{item.title}</div>
-                      <div className="text-xs text-slate-500">{item.desc}</div>
+                      <div className="text-sm font-bold text-[var(--onestop-navy-deep)] tracking-[-0.005em]">{item.title}</div>
+                      <div className="text-xs text-slate-500 leading-snug mt-0.5">{item.desc}</div>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Link href="/about" className="inline-flex items-center justify-center gap-2 bg-[var(--onestop-red)] px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white rounded-lg hover:bg-[#a5311f] transition-colors">Our Story <ArrowRight className="h-3.5 w-3.5" /></Link>
-                <a href={`tel:${cleanPhone}`} className="inline-flex items-center justify-center gap-2 border border-[var(--onestop-navy-deep)]/15 bg-white px-6 py-3 text-xs font-bold text-[var(--onestop-navy-deep)] rounded-lg hover:bg-slate-50 transition-colors"><Phone className="h-3.5 w-3.5" /> {siteConfig.phone}</a>
+                <Link href="/about" className="btn-solid inline-flex items-center justify-center gap-2 bg-[var(--onestop-red)] px-6 py-3.5 text-xs font-bold uppercase tracking-[0.15em] text-white rounded-md hover:bg-[#e55f15]">Our Story <ArrowRight className="h-3.5 w-3.5" /></Link>
+                <a href={`tel:${cleanPhone}`} className="inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-xs font-bold text-[var(--onestop-navy-deep)] rounded-md hover:bg-slate-50 transition-colors shadow-[inset_0_0_0_1px_rgba(15,40,71,0.14),0_1px_2px_rgba(15,40,71,0.06)] uppercase tracking-[0.12em]"><Phone className="h-3.5 w-3.5" /> {siteConfig.phone}</a>
               </div>
             </div>
           </div>

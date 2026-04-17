@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import {
   ArrowRight,
@@ -14,6 +15,8 @@ import {
   Warehouse as WarehouseIcon,
   Cable,
   Home as HomeIcon,
+  Hammer,
+  Store,
 } from 'lucide-react';
 import { siteConfig, serviceData } from '../../config';
 import { serviceContent, getServiceContent, type ServiceIcon } from '../serviceContent';
@@ -26,6 +29,8 @@ const iconMap: Record<ServiceIcon, typeof Zap> = {
   warehouse: WarehouseIcon,
   pedestal: Cable,
   'mobile-home': HomeIcon,
+  'home-build': Hammer,
+  retail: Store,
 };
 
 export async function generateStaticParams() {
@@ -132,44 +137,44 @@ export default async function ServiceDetailPage({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
 
-      {/* ═══ COMPACT HERO ═══ */}
-      <section className="bg-[var(--onestop-navy-deep)] py-12 sm:py-16">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-          <nav aria-label="Breadcrumb" className="mb-5 text-[0.72rem] text-white/50">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li aria-hidden>/</li>
-              <li><Link href="/services" className="hover:text-white transition-colors">Services</Link></li>
-              <li aria-hidden>/</li>
-              <li className="text-white">{service.title}</li>
+      {/* ═══ PAGE HERO ═══ */}
+      <section className="page-hero">
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 relative z-10">
+          <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
+            <ol className="flex flex-wrap items-center gap-2 text-white/55">
+              <li><Link href="/" className="hover:text-[var(--onestop-gold)] transition-colors">Home</Link></li>
+              <li aria-hidden className="text-white/25">/</li>
+              <li><Link href="/services" className="hover:text-[var(--onestop-gold)] transition-colors">Services</Link></li>
+              <li aria-hidden className="text-white/25">/</li>
+              <li className="text-white font-semibold">{service.title}</li>
             </ol>
           </nav>
 
-          <div className="inline-flex items-center gap-2 bg-[var(--onestop-gold)]/15 text-[var(--onestop-gold)] px-3 py-1 rounded-sm text-[0.7rem] font-bold uppercase tracking-[0.12em] mb-5">
-            <Icon className="h-3 w-3" />
-            Commercial &middot; Average {service.turnaround.split('·')[0].trim().toLowerCase()}
+          <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.24em] text-[var(--onestop-gold)]">
+            <Icon className="h-3.5 w-3.5" />
+            Commercial · Average {service.turnaround.split('·')[0].trim().toLowerCase()}
           </div>
 
-          <h1 className="text-[2.4rem] sm:text-[3.2rem] lg:text-[3.75rem] font-extrabold text-white leading-[1.02] tracking-[-0.025em] max-w-4xl">
+          <h1 className="h-display text-white max-w-4xl">
             {service.title}
           </h1>
-          <p className="mt-4 text-[1rem] sm:text-[1.05rem] leading-[1.6] text-white/65 max-w-2xl">
+          <p className="mt-5 text-[0.98rem] sm:text-base text-white/80 leading-[1.7] max-w-2xl">
             {content.heroLede}
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-col sm:flex-row gap-3">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-[var(--onestop-red)] h-11 px-5 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-white rounded-md hover:bg-[#e55f15] transition-colors"
+              className="btn-solid inline-flex items-center justify-center gap-2 bg-[var(--onestop-red)] h-12 px-7 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15]"
             >
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href={`tel:${siteConfig.cleanPhone}`}
-              className="inline-flex items-center gap-2 border border-white/20 h-11 px-5 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-white/90 rounded-md hover:bg-white/[0.06] transition-colors"
+              className="btn-ghost-dark inline-flex items-center justify-center gap-2 h-12 px-7 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white rounded-md"
             >
               <Phone className="h-4 w-4" />
-              <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.8rem]">{siteConfig.phone}</span>
+              <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem]">{siteConfig.phone}</span>
             </a>
           </div>
         </div>
@@ -282,9 +287,16 @@ export default async function ServiceDetailPage({
 
             {/* ── RIGHT: sticky overview sidebar ── */}
             <aside className="lg:sticky lg:top-28 h-fit space-y-4">
-              {/* "Photo" placeholder card — navy gradient w/ icon */}
-              <div className="relative aspect-[4/3] rounded-md overflow-hidden bg-gradient-to-br from-[var(--onestop-navy-deep)] to-[var(--onestop-navy)] flex items-center justify-center">
-                <Icon className="h-20 w-20 text-[var(--onestop-gold)]/80" strokeWidth={1.2} />
+              {/* Service photo */}
+              <div className="relative aspect-[4/3] rounded-md overflow-hidden bg-[var(--onestop-navy-deep)]">
+                <Image
+                  src={service.media[0]?.src ?? '/placeholder.svg'}
+                  alt={service.title}
+                  fill
+                  sizes="(min-width: 1024px) 340px, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                 <div className="absolute top-3 left-3 bg-[var(--onestop-gold)] text-[var(--onestop-navy-deep)] px-2.5 py-1 rounded-sm text-[0.65rem] font-extrabold uppercase tracking-[0.12em]">
                   Commercial
                 </div>
@@ -320,7 +332,7 @@ export default async function ServiceDetailPage({
 
                 <Link
                   href="/contact"
-                  className="mt-5 inline-flex items-center justify-center gap-2 w-full bg-[var(--onestop-red)] h-11 px-5 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-white rounded-md hover:bg-[#e55f15] transition-colors"
+                  className="btn-solid mt-5 inline-flex items-center justify-center gap-2 w-full bg-[var(--onestop-red)] h-11 px-5 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15]"
                 >
                   Request a Quote <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -354,7 +366,7 @@ export default async function ServiceDetailPage({
               Other services we offer
             </h2>
             <Link href="/services" className="text-[0.78rem] font-bold uppercase tracking-[0.12em] text-[var(--onestop-red)] hover:underline inline-flex items-center gap-1">
-              View all seven <ArrowRight className="h-3.5 w-3.5" />
+              View full catalog <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
 
@@ -366,10 +378,10 @@ export default async function ServiceDetailPage({
                 <Link
                   key={rel.slug}
                   href={`/services/${rel.slug}`}
-                  className="group flex items-start gap-4 rounded-md bg-white p-5 hover:shadow-md transition-shadow"
+                  className="group flex items-start gap-4 rounded-md bg-white p-5 shadow-[inset_0_0_0_1px_rgba(15,40,71,0.08),0_1px_2px_rgba(15,40,71,0.04)] hover:shadow-[inset_0_0_0_1px_rgba(15,40,71,0.14),0_12px_28px_-10px_rgba(15,40,71,0.20)] hover:-translate-y-0.5 transition-all duration-300"
                 >
-                  <div className="rounded-sm bg-[var(--onestop-navy-deep)]/5 p-2 shrink-0">
-                    <RelIcon className="h-5 w-5 text-[var(--onestop-navy-deep)]" strokeWidth={1.6} />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-white ring-1 ring-[var(--onestop-navy)]/12 shadow-[inset_0_-1px_0_rgba(15,40,71,0.04),0_1px_2px_rgba(15,40,71,0.06)]">
+                    <RelIcon className="h-4 w-4 text-[var(--onestop-navy-deep)]" strokeWidth={1.9} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-[0.95rem] font-bold text-[var(--onestop-navy-deep)] leading-tight mb-1 group-hover:text-[var(--onestop-red)] transition-colors">
@@ -389,25 +401,25 @@ export default async function ServiceDetailPage({
       {/* ═══ BOTTOM CTA ═══ */}
       <section className="bg-[var(--onestop-navy-deep)] py-14 sm:py-16">
         <div className="mx-auto w-full max-w-3xl px-5 sm:px-8 text-center">
-          <h2 className="text-[1.75rem] sm:text-[2.1rem] font-bold text-white leading-[1.15] tracking-[-0.015em]">
+          <h2 className="h-section text-white">
             Ready to get started?
           </h2>
-          <p className="mt-3 text-[0.95rem] text-white/60 max-w-lg mx-auto leading-relaxed">
+          <p className="mt-4 text-[0.95rem] text-white/70 max-w-lg mx-auto leading-[1.7]">
             Free site walk. Fixed-fee quote in 24 hours. Permits pulled and inspections passed on the first walk.
           </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
+          <div className="mt-7 flex flex-col sm:flex-row justify-center gap-3">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-[var(--onestop-red)] h-11 px-6 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-white rounded-md hover:bg-[#e55f15] transition-colors"
+              className="btn-solid inline-flex items-center justify-center gap-2 bg-[var(--onestop-red)] h-12 px-7 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15]"
             >
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href={`tel:${siteConfig.cleanPhone}`}
-              className="inline-flex items-center gap-2 border border-white/20 h-11 px-6 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-white/90 rounded-md hover:bg-white/[0.06] transition-colors"
+              className="btn-ghost-dark inline-flex items-center justify-center gap-2 h-12 px-7 text-[0.78rem] font-bold uppercase tracking-[0.14em] text-white rounded-md"
             >
               <Phone className="h-4 w-4" />
-              <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.8rem]">{siteConfig.phone}</span>
+              <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem]">{siteConfig.phone}</span>
             </a>
           </div>
         </div>
