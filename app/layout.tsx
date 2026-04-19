@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { MobileCTA } from "./components/MobileCTA";
+import { reviews, reviewStats } from "./reviews";
 import "./globals.css";
 
 const bodyFont = Geist({
@@ -87,6 +88,33 @@ export const metadata: Metadata = {
     shortcut: '/favicon.ico',
     apple: '/logo/logo_vertical.PNG',
   },
+  authors: [{ name: 'Solivance Electric LLC', url: 'https://solivanceelectric.com' }],
+  creator: 'Solivance Electric LLC',
+  publisher: 'Solivance Electric LLC',
+  category: 'Electrical Contractor',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true,
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#0f2847',
 };
 
 export default function RootLayout({
@@ -113,7 +141,7 @@ export default function RootLayout({
               "url": "https://solivanceelectric.com",
               "telephone": "+18329659964",
               "email": "service@solivanceelectric.com",
-              "description": "Licensed Texas commercial electrical contractor serving Houston, Cypress, Katy, Memorial and the surrounding Harris and Fort Bend County metro. Panel upgrades, standby generator installs, parking-lot lighting, EV chargers, warehouse electrical, RV park pedestals and mobile home connections. 24hr emergency service.",
+              "description": "Licensed Texas commercial electrical contractor serving Houston, Cypress, Katy, Memorial, Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring — and surrounding Texas on a call. Panel upgrades, standby generator installs, parking-lot lighting, EV chargers, warehouse electrical, RV park pedestals and mobile home connections. 24-hour emergency response.",
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Houston",
@@ -131,12 +159,17 @@ export default function RootLayout({
                 { "@type": "City", "name": "Cypress", "sameAs": "https://en.wikipedia.org/wiki/Cypress,_Texas" },
                 { "@type": "City", "name": "Katy", "sameAs": "https://en.wikipedia.org/wiki/Katy,_Texas" },
                 { "@type": "Place", "name": "Memorial", "description": "Memorial area of West Houston including Memorial Villages, Hedwig Village, Piney Point, Hunters Creek and Bunker Hill" },
-                { "@type": "City", "name": "Spring" },
-                { "@type": "City", "name": "Jersey Village" },
-                { "@type": "City", "name": "Tomball" },
-                { "@type": "City", "name": "Bellaire" },
                 { "@type": "City", "name": "Sugar Land" },
-                { "@type": "City", "name": "Missouri City" }
+                { "@type": "City", "name": "Stafford" },
+                { "@type": "City", "name": "Missouri City" },
+                { "@type": "City", "name": "Magnolia" },
+                { "@type": "City", "name": "Conroe" },
+                { "@type": "City", "name": "Spring" },
+                { "@type": "City", "name": "The Woodlands" },
+                { "@type": "City", "name": "Tomball" },
+                { "@type": "City", "name": "Jersey Village" },
+                { "@type": "City", "name": "Bellaire" },
+                { "@type": "State", "name": "Texas" }
               ],
               "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",
@@ -150,6 +183,39 @@ export default function RootLayout({
               "paymentAccepted": "Cash, Credit Card, Check, Zelle",
               "currenciesAccepted": "USD",
               "slogan": "Commercial Electrical. Done Right the First Time.",
+              "hasCredential": {
+                "@type": "EducationalOccupationalCredential",
+                "credentialCategory": "license",
+                "name": "Texas State Electrical Contractor License",
+                "recognizedBy": { "@type": "State", "name": "Texas" }
+              },
+              "sameAs": [
+                "https://share.google/Qf4euLHsfdyaZ2b6U",
+                "https://www.thumbtack.com/tx/houston/electrical-repairs/solivance-electric/service/480274825210142737",
+                "https://www.yelp.com/biz/solivance-electric-houston",
+                "https://www.bizapedia.com/tx/solivance-electric-llc.html",
+                "https://www.instagram.com/solivance_electric"
+              ],
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": reviewStats.average.toFixed(1),
+                "reviewCount": reviewStats.count,
+                "bestRating": "5",
+                "worstRating": "1"
+              },
+              "review": reviews.map((r) => ({
+                "@type": "Review",
+                "author": { "@type": "Person", "name": r.author },
+                "datePublished": r.date,
+                "reviewRating": {
+                  "@type": "Rating",
+                  "ratingValue": r.stars,
+                  "bestRating": "5",
+                  "worstRating": "1"
+                },
+                "publisher": { "@type": "Organization", "name": r.source },
+                "reviewBody": r.quote
+              })),
               "hasOfferCatalog": {
                 "@type": "OfferCatalog",
                 "name": "Commercial Electrical Services",
@@ -177,6 +243,40 @@ export default function RootLayout({
               "name": "Solivance Electric LLC",
               "alternateName": ["Solivance Electric", "Solivance"],
               "url": "https://solivanceelectric.com"
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "@id": "https://solivanceelectric.com/#organization",
+              "name": "Solivance Electric LLC",
+              "alternateName": ["Solivance Electric", "Solivance"],
+              "url": "https://solivanceelectric.com",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://solivanceelectric.com/logo/logo_horzontial.PNG",
+                "width": 600,
+                "height": 400
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+18329659964",
+                "contactType": "customer service",
+                "email": "service@solivanceelectric.com",
+                "areaServed": "US-TX",
+                "availableLanguage": ["English", "Spanish"]
+              },
+              "sameAs": [
+                "https://share.google/Qf4euLHsfdyaZ2b6U",
+                "https://www.thumbtack.com/tx/houston/electrical-repairs/solivance-electric/service/480274825210142737",
+                "https://www.yelp.com/biz/solivance-electric-houston",
+                "https://www.bizapedia.com/tx/solivance-electric-llc.html",
+                "https://www.instagram.com/solivance_electric"
+              ]
             })
           }}
         />

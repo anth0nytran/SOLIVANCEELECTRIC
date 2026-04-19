@@ -20,6 +20,31 @@ import {
 } from 'lucide-react';
 import { siteConfig, serviceData } from '../../config';
 import { serviceContent, getServiceContent, type ServiceIcon } from '../serviceContent';
+import { reviews } from '../../reviews';
+import { Stars } from '../../components/Stars';
+
+const reviewSlugMap: Record<string, string> = {
+  'panel-upgrades': 'tonya-n',
+  'generator-installs': 'yeny-v',
+  'ev-chargers': 'gabriella-o',
+  'parking-lot-lighting': 'sandra-g',
+};
+
+function parseTurnaroundToISO(turnaround: string): string {
+  // Try to parse a number of days/weeks out of turnaround, default PT3D
+  const lower = turnaround.toLowerCase();
+  const dayMatch = lower.match(/(\d+)\s*(?:–|-|to)?\s*(\d+)?\s*(business\s*day|working\s*day|day)/);
+  if (dayMatch) {
+    const upper = dayMatch[2] || dayMatch[1];
+    return `P${upper}D`;
+  }
+  const weekMatch = lower.match(/(\d+)\s*(?:–|-|to)?\s*(\d+)?\s*week/);
+  if (weekMatch) {
+    const upper = weekMatch[2] || weekMatch[1];
+    return `P${upper}W`;
+  }
+  return 'P3D';
+}
 
 const iconMap: Record<ServiceIcon, typeof Zap> = {
   panel: Zap,
@@ -122,6 +147,21 @@ export default async function ServiceDetailPage({
     '@type': 'HowTo',
     name: `How ${service.title} work with Solivance Electric`,
     description: content.heroLede,
+    totalTime: parseTurnaroundToISO(service.turnaround),
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: content.cost.range,
+    },
+    tool: [
+      { '@type': 'HowToTool', name: 'Licensed Texas electrical crew' },
+      { '@type': 'HowToTool', name: 'NEC 2023 code reference' },
+      { '@type': 'HowToTool', name: 'Harris County / City of Houston permit coordination' },
+    ],
+    supply: [
+      { '@type': 'HowToSupply', name: 'Code-compliant materials (panels, conduit, feeders)' },
+      { '@type': 'HowToSupply', name: 'Fixed-fee quote after site walk' },
+    ],
     step: content.process.map((p, i) => ({
       '@type': 'HowToStep',
       position: i + 1,
@@ -129,6 +169,9 @@ export default async function ServiceDetailPage({
       text: p.detail,
     })),
   };
+
+  const reviewId = reviewSlugMap[slug] ?? 'yeny-v';
+  const featuredReview = reviews.find((r) => r.id === reviewId) ?? reviews[0];
 
   return (
     <>
@@ -139,6 +182,17 @@ export default async function ServiceDetailPage({
 
       {/* ═══ PAGE HERO ═══ */}
       <section className="page-hero">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={service.media[0]?.src ?? '/placeholder.svg'}
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className="object-cover opacity-60"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+        </div>
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 relative z-10">
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex flex-wrap items-center gap-2 text-white/55">
@@ -211,6 +265,27 @@ export default async function ServiceDetailPage({
                   ))}
                 </ul>
               </div>
+
+              {/* Client review */}
+              {featuredReview && (
+                <figure className="mt-12 rounded-md bg-slate-50 p-6 ring-1 ring-slate-200">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <Stars count={featuredReview.stars} />
+                    <span className="font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.14em] text-slate-500">
+                      {featuredReview.source} review
+                    </span>
+                  </div>
+                  <blockquote className="text-[0.95rem] leading-[1.7] text-slate-700">
+                    &ldquo;{featuredReview.quote}&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-4 text-[0.82rem] font-semibold text-[var(--onestop-navy-deep)]">
+                    {featuredReview.author}
+                    {featuredReview.scope && (
+                      <span className="ml-2 font-normal text-slate-500">· {featuredReview.scope}</span>
+                    )}
+                  </figcaption>
+                </figure>
+              )}
 
               {/* How It Works */}
               <div className="mt-14">
@@ -361,6 +436,22 @@ export default async function ServiceDetailPage({
       {/* ═══ OTHER SERVICES ═══ */}
       <section className="bg-slate-50 py-14 sm:py-20 border-t border-slate-200">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          {/* Also serving cross-link strip */}
+          <div className="mb-10 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-md bg-white px-5 py-4 ring-1 ring-slate-200">
+            <span className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-slate-500 font-[family-name:var(--font-app-mono)]">
+              {service.title} available in
+            </span>
+            {siteConfig.serviceAreas.map((city) => (
+              <Link
+                key={city}
+                href={`/locations/${city.toLowerCase()}`}
+                className="text-[0.88rem] font-semibold text-[var(--onestop-navy-deep)] hover:text-[var(--onestop-red)] transition-colors"
+              >
+                {city}
+              </Link>
+            ))}
+          </div>
+
           <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
             <h2 className="text-[1.5rem] sm:text-[1.8rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.015em]">
               Other services we offer
@@ -370,7 +461,7 @@ export default async function ServiceDetailPage({
             </Link>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((rel) => {
               const relContent = serviceContent[rel.slug];
               const RelIcon = relContent ? iconMap[relContent.icon] : Zap;

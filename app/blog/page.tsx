@@ -9,7 +9,14 @@ export const metadata: Metadata = {
   title: 'Blog — Commercial Electrical Insights & Guides | Solivance Electric',
   description:
     'Commercial electrical guides, cost breakdowns, and Houston-specific advice from Solivance Electric LLC — panel upgrades, EV chargers, generators, and more.',
-  alternates: { canonical: '/blog' },
+  alternates: {
+    canonical: '/blog',
+    types: {
+      'application/rss+xml': [
+        { url: '/blog/rss.xml', title: 'Solivance Electric Blog RSS' },
+      ],
+    },
+  },
   openGraph: {
     title: 'Blog — Commercial Electrical Insights & Guides | Solivance Electric',
     description:
@@ -74,6 +81,17 @@ export default function BlogPage() {
 
       {/* ── Hero ── */}
       <section className="page-hero">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/photos_new/subhero-blog.jpg"
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className="object-cover opacity-55"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+        </div>
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex items-center gap-2 text-white/55">
@@ -99,7 +117,8 @@ export default function BlogPage() {
       </section>
 
       {/* ── Post Grid ── */}
-      <section className="py-16 sm:py-20 bg-white">
+      <section className="num-host py-16 sm:py-20 bg-white overflow-hidden">
+        <div className="beam-layer beam-diagonal -top-16 -right-48 hidden md:block" aria-hidden />
         <div className={shell}>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {blogPosts.map((post) => {

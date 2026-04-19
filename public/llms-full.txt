@@ -1,0 +1,630 @@
+# Solivance Electric LLC — Full Reference
+
+> Licensed Texas commercial electrical contractor serving Houston, Cypress, Katy, Memorial and surrounding Greater Houston metro. Panel upgrades, standby generators, parking-lot lighting, EV chargers, warehouse builds, RV park pedestals, mobile-home connections. 24-hour emergency response.
+
+## Company facts
+
+- **Business name:** Solivance Electric LLC
+- **Website:** https://solivanceelectric.com
+- **Phone:** (832) 965-9964
+- **Email:** service@solivanceelectric.com
+- **Hours:** 6am–6pm, six days a week · 24-hour emergency line
+- **License:** Licensed Texas Electrical Contractor · active liability insurance on every job · COI available on request
+- **Years in business:** 10+
+- **Rating:** 5.0 / 5 across 20 verified Google + Thumbtack reviews
+- **Slogan:** Commercial Electrical. Done Right the First Time.
+- **Primary service:** Panel Upgrades
+- **Coverage note:** Greater Houston daily · surrounding Texas on a call
+
+## Service areas
+
+**Daily coverage:** Houston, Cypress, Katy, Memorial.
+
+**Regular coverage:** Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring, The Woodlands, Tomball, Jersey Village, Bellaire, West University.
+
+**Counties:** Harris, Fort Bend, Montgomery. Surrounding Texas covered on a call.
+
+**Neighborhoods served regularly:** Memorial Villages, Hedwig Village, Piney Point, Hunters Creek, Bunker Hill, Spring Branch, Tanglewood, Downtown Houston, Midtown, East Downtown, Montrose, Heights, Rice Village, Museum District, Upper Kirby, Third Ward, Gulfgate, Bridgeland, Towne Lake, Fairfield, Stone Gate, Cypress Creek Lakes, Copperfield, Blackhorse Ranch, Cypress Mill, Coles Crossing, Cinco Ranch, Cross Creek Ranch, Firethorne, Seven Meadows, Grand Lakes, Kelliwood, Grayson Lakes, Avalon, Pine Mill Ranch, Spring Valley, Hilshire Village, Town & Country.
+
+**ZIP codes:** 77024, 77079, 77055, 77429, 77433, 77449, 77493, 77494, 77095, 77002, 77004, 77005, 77006, 77007, 77008, 77019, 77030, 77048, 77098, 77065, 77041, 77450, 77441, 77406, 77043, 77063.
+
+## Services (9 total)
+
+### Panel Upgrades
+
+**Overview.** An electrical panel is the meter-to-load junction for every circuit in the building. When the main breaker is undersized, the bus is pitted, or the bonding is wrong at the service entrance, the symptoms show up everywhere — lights dimming when an RTU kicks, breakers tripping at half load, a panel cover that is warm to the touch at 3 pm on a hot day. Solivance Electric replaces commercial and high-end residential panels across Houston, Cypress, Katy, and Memorial — 100A, 200A, 400A, and 3-phase 208/480 services. Every swap includes load calcs against actual metered demand, meter base and main breaker replacement, feeder upsizing when the run is marginal, legible circuit labeling, and a final walk with the inspector before the seal goes on.
+
+**Process.**
+1. **Site walk and load calc.** We open the existing panel, check the bus, read the meter history, and pull a load calc against actual demand — not a rule-of-thumb number.
+2. **Fixed-fee quote.** Itemized scope: gear list, permit fee, CenterPoint coordination, downtime window, and final number. Signed before any material is ordered.
+3. **Permit, cut-over, install.** Harris County or City of Houston permit filed. CenterPoint disconnect scheduled. Panel swapped, feeders upsized where needed, every breaker labeled.
+4. **Inspection and hand-off.** Inspector meets us on site. Clean blue-tag the first walk. Old gear hauled, mechanical room swept, circuit directory handed to the owner.
+
+**Cost.** $2,500 – $25,000+. A 200A commercial panel upgrade typically runs $2,500–$8,500 installed. 400A services and 3-phase 208/480 switchgear replacements run $6,000–$18,000, with larger switchgear builds pushing past $25,000. Final pricing depends on meter location, whether the service entrance needs relocation, feeder length, and how much of the CenterPoint work is ours versus theirs. Every number is a fixed-fee quote after a free site walk — no ballpark over the phone, no surprise changes mid-job.
+
+**Timeline.** Most 200A commercial upgrades are on and re-energized inside 1–2 business days, with the building de-energized for only a portion of that window. 400A and 3-phase switchgear replacements typically run 3–5 working days because of utility coordination, gear lead time, and longer feeder pulls. Phases: site walk + quote (same day, free) · permit + equipment (5–10 business days) · tear-out + install (1–2 days for 200A) · final inspection (same week).
+
+**Code notes.** Commercial panel upgrades in Greater Houston are typically pulled under the 2023 National Electrical Code as adopted by the Texas Department of Licensing and Regulation. Service-entrance grounding falls under NEC 250, working clearances under NEC 110.26, and the bonding jumpers in the meter and main are inspected for visibility. CenterPoint Energy handles the service-drop cut-over inside their territory — we coordinate the outage window so your tenants see the shortest possible disruption. Tags: NEC 250, NEC 110.26, Harris County Permits, City of Houston AHJ, CenterPoint Energy.
+
+**FAQs.**
+
+Q: What are the warning signs my commercial panel needs an upgrade?
+A: Lights dimming when an RTU or compressor starts, breakers tripping at normal load, a panel cover that is warm to the touch, burning-plastic smell near the gear, visible scorching on bus or breakers, or a building running modern HVAC and equipment off a 100A service. Any one of those is a call.
+
+Q: Do you handle 3-phase commercial service upgrades?
+A: Yes. 208Y/120 for multi-tenant buildings, 480/277 for industrial loads and high-bay lighting. Gear selection (main breaker vs main lug, NEMA 3R vs indoor), fault-current rating, and SCCR matching are all part of the quote.
+
+Q: Will you coordinate with CenterPoint for the meter cut-over?
+A: Every time. We file the service request, schedule the disconnect/reconnect window, meet the CenterPoint tech on site, and hand back a legible meter base with a fresh seal.
+
+Q: How long is the building de-energized during a panel swap?
+A: Most 200A single-phase cut-overs are 2–6 hours of no-power time, sequenced around your occupancy. 400A and 3-phase swaps can push to a full day. We plan the outage window in the quote, not on the day of.
+
+Q: Do I need a permit to replace my panel in Houston?
+A: Yes — any service-entrance work requires a permit and an electrical inspection, whether the jurisdiction is the City of Houston, unincorporated Harris County, or one of the Memorial villages. We pull it, file it, and meet the inspector.
+
+Q: Do you replace meter bases and masts at the same time as the panel?
+A: Often — if the meter base is undersized, cracked, or wrong rating for the new service, it gets replaced in the same scope. Same for mast and weatherhead on an overhead service. It is cleaner to do both while the drop is already down.
+
+---
+
+### Generator Installs
+
+**Overview.** When the grid drops, your business should not. Solivance Electric installs commercial standby generators from 22 kW single-phase through 150 kW three-phase — medical suites, warehouses, multi-tenant offices, retail pads, and high-end residential across Greater Houston. Every install starts with a load calc against metered demand, not a sales-sheet guess. Generator siting accounts for exhaust clearance, noise to the nearest property line, refueling access, and the concrete pad spec the manufacturer actually called for. The Automatic Transfer Switch is wired, mechanically interlocked where required, and commissioned with a live grid-drop test. The first annual service date is on the calendar before we leave.
+
+**Process.**
+1. **Load calc against real demand.** We read 12 months of metered demand, not a nameplate total, and size the gen-set to actual peak plus a motor-starting safety factor.
+2. **Site layout + fuel plan.** Pad location, exhaust and intake clearances, fuel source (natural gas vs diesel vs LP), and refueling access designed before a hole is dug.
+3. **Pad, gen-set, ATS, gas.** Concrete pad to manufacturer spec. Generator set, leveled and anchored. ATS wired and mechanically interlocked. Gas line sized and pressure-tested.
+4. **Live commissioning.** Grid-drop test with the real building load. Transfer time verified. Cooldown documented. Annual service date on the calendar before we leave.
+
+**Cost.** $14,000 – $85,000+. A 22–35 kW commercial standby generator install typically runs $14,000–$28,000 turnkey (unit, ATS, pad, gas line, commissioning). 48–80 kW units run $28,000–$60,000. Larger 125–150 kW commercial gen-sets with paralleling or larger ATS builds push past $85,000. Fuel infrastructure, service-entrance upgrades, and enclosure selection (sound-attenuated, weather-protective, level 2) are the biggest variables.
+
+**Timeline.** Most commercial standby installs are 2–5 working days on site once the gear is delivered: pad cure, gen-set set, fuel line run, ATS wired, commissioning, and final inspection. Equipment lead time adds 4–12 weeks depending on the manufacturer and size. Permits sit inside that window — not after it. Phases: load calc + sizing (on the site walk) · gear lead time (4–12 weeks) · pad + install + ATS (2–5 days on site) · live commissioning (same day as final).
+
+**Code notes.** Commercial standby gen-set work in Greater Houston touches NEC Article 702 (optional standby systems) and 700 where the gen-set is backing life-safety or emergency loads. Fuel installations are reviewed against NFPA 37 (stationary combustion engines) and local fire-marshal notes. For natural-gas feeds, CenterPoint Energy gas-side capacity and metering is confirmed ahead of install. Tags: NEC 700/702, NFPA 37, Harris County Permits, Fire Marshal Review, CenterPoint Gas.
+
+**FAQs.**
+
+Q: What size generator does my building need?
+A: The right answer comes from a real load calc, not a spec sheet. We pull 12 months of CenterPoint demand data (or meter the load with clamp-on recorders for 7 days) and size the gen-set to real peak plus a margin for motor starts. Undersizing causes nuisance trips on startup. Oversizing wastes capital and under-loads the engine.
+
+Q: Natural gas or diesel — which should I pick?
+A: Natural gas wins on refueling (the line is already there), maintenance intervals, and emissions. Diesel wins on runtime per gallon and survives if the gas utility drops with the grid. For most commercial buildings in Greater Houston we spec natural gas; for critical 72-hour loads or remote sites, diesel with a day-tank.
+
+Q: Do you install the automatic transfer switch?
+A: ATS wiring and commissioning are in every install. Service-entrance-rated ATS where required, mechanical interlock for code compliance, programmed transition timing, and a documented live grid-drop test at the end.
+
+Q: Do you do annual maintenance on the gen-sets you install?
+A: Yes. Oil, filters, coolant, battery, ATS contact inspection, load-bank test every second year, and a written report. A unit that sits 51 weeks and runs once is not a reliable unit — the service contract is what makes it one.
+
+Q: Can a standby gen-set run my whole building or just essential loads?
+A: Either, and the answer is a cost conversation. Whole-building standby means sizing the gen-set and ATS for the full service. Essential-loads only means a sub-panel of your critical circuits on transfer — cheaper unit, smaller pad, and the non-critical loads stay off during outages.
+
+Q: Do you handle the fire-marshal review and fuel permitting?
+A: Yes. We file the permit, coordinate with the local fire marshal on clearance and gas-line review, and run the inspection. The package you sign covers all of it.
+
+---
+
+### Parking Lot Lighting
+
+**Overview.** Dark parking lots are a liability — slip-and-fall claims, tenant complaints, insurance premium hikes, and after-hours incidents that get blamed on the lighting plan. Solivance Electric designs and installs commercial parking-lot lighting across Houston, Cypress, Katy, and Memorial. Every lot starts with an actual photometric layout (IES files, not a lumen guess) showing footcandles at the pole base, at the middle of the drive lane, and at the darkest corner. We retrofit the HID and metal-halide fixtures you already have, swap tired poles, run underground conduit for new-build lots, and ship every job with photocells and timers so the lot turns itself on at civil twilight without a truck roll.
+
+**Process.**
+1. **Photometric design.** IES files for every fixture. Footcandle plot against the actual lot geometry. Pole heights and wattages selected for the real coverage — not a brochure guess.
+2. **Fixture + pole selection.** LED wattage, color temperature, optical distribution, shoebox vs aeroscape, dark-sky cutoff where required by the AHJ. Photocell and timer controls as standard.
+3. **Install after hours.** Bucket truck on a cone plan so tenant traffic never stops. HID fixtures pulled, drivers set, aimed to the design. Trenching and conduit runs on separate days for new-build.
+4. **Night aim + photocell set.** We come back after dark, verify the aim against the photometric, set the photocell trigger, and program the timer. The lot turns on at civil twilight without a call.
+
+**Cost.** $250 – $7,500+ per fixture. An HID-to-LED retrofit on existing poles typically runs $350–$900 per fixture installed (bucket truck, drivers, labor, disposal). Full ground-up builds with new poles, concrete bases, and underground conduit run $3,500–$7,500 per pole assembly. Wall-pack and shoebox retrofits start at $250 per fixture. Trenching charges are per foot and site-dependent — rocky Cypress clay prices differently than loose Memorial fill.
+
+**Timeline.** Most tenant-occupied lots are re-lit in 3–7 working days, sequenced after-hours to avoid blocking customer traffic. Ground-up builds with trenching, new poles, and utility coordination run 2–4 weeks on site. Photometric design + pole + fixture lead time runs 2–5 weeks ahead of the install. Phases: photometric design (3–5 business days) · material lead time (2–5 weeks) · install + aim (3–7 days on site) · photocell/timer test (final night).
+
+**Code notes.** Parking-lot lighting falls under NEC 410 for fixtures and 225 for outside branch circuits and feeders. Dark-sky and light-trespass ordinances are a municipality-by-municipality conversation — Memorial Villages, for example, enforce stricter fixture cutoff than unincorporated Harris County. We check the AHJ ordinance before the fixture is specified, not after. Tags: NEC 410, NEC 225, IES Photometric Files, Dark-Sky Compliant Optics, Harris County AHJ.
+
+**FAQs.**
+
+Q: Can you retrofit my existing HID poles to LED?
+A: Usually yes. Existing poles, bases, and conduit stay in place; the fixture head and driver are swapped, the ballast is removed, and the photocell is updated. Energy draw typically drops 55–70 percent, and the fixture warranty resets to the LED product spec.
+
+Q: Will my new LED fixtures be too bright or glare into neighbors?
+A: Not if the photometric is done right. We pick an optical distribution (Type III or IV for most lots) that pushes light into the lot and cuts it at the property line. Dark-sky cutoff fixtures are available when the municipality requires them.
+
+Q: Do photocells come standard or are they an add-on?
+A: Standard on every fixture we install. A commercial lot without a photocell is a lot that is either on at noon or off at 9 pm — neither is acceptable. For tenant-occupied lots we add a timer override for after-hours dimming.
+
+Q: How much will I save on power by going LED?
+A: Typical HID-to-LED retrofit reduces lighting power by 55–75 percent. A 15-pole lot running 400W HID at 12 hours/day saves roughly 18,000 kWh/year at the meter. At Texas commercial rates, that is real money back against the capital cost inside 2–3 years.
+
+Q: Can you add EV chargers to the same parking lot build?
+A: Yes — and it is cheaper to do it at the same time. The trench is already open, the service capacity is being checked, and we can drop EV make-ready conduit to future stall locations while the pavement is up.
+
+Q: Do you handle trenching for new underground lighting feeders?
+A: Yes. Directional bore or open-cut, depending on the pavement and the AHJ. We pull the permits, call 811, and patch the surface to the lot standard when the trench is backfilled.
+
+---
+
+### EV Chargers
+
+**Overview.** EV charging stopped being optional two years ago — tenants, fleet managers, retail visitors, and workplace employees all expect it. Solivance Electric designs and installs commercial Level 2 (7.2–19.2 kW) and Level 3 DC fast chargers across Greater Houston. Every build starts with a real capacity check against the existing service — not a hope that the panel can take another 100A. When capacity is tight, we ship dynamic load-management builds that share a circuit without nuisance-tripping during peak demand. Multi-tenant and fleet deployments get per-stall submetering and OCPP-compatible backend selection. When the plan is to add more stalls in year two, we run the make-ready conduit and pull boxes now — so the next install is a pull, not another trench.
+
+**Process.**
+1. **Capacity check on the existing service.** We meter the existing service with clamp-on recorders where the historical data is thin, and size the EV load against the real headroom — not the panel nameplate.
+2. **Charger + backend selection.** OCPP-compatible Level 2 or Level 3 units. ChargePoint, Enel X, EVgo, Blink — whichever your billing/backend path needs. Dynamic load management when capacity is tight.
+3. **Trench, conduit, make-ready.** Underground conduit to every stall, stub-ups at future-stall locations, pull boxes where the run is long. Concrete bollards and wheel-stop layout per ADA and the property owner.
+4. **Commissioning + network onboarding.** Chargers live, submetering verified, backend account created, test session billed end-to-end before we call it done.
+
+**Cost.** $2,800 per stall – $250,000+ (DCFC). A single Level 2 charger on existing panel capacity runs $2,800–$6,500 installed (mount, conduit, wire, commissioning). Multi-stall Level 2 builds with load management and submetering run $4,500–$8,500 per stall at scale. A single DC fast charger (50 kW) with service-entrance work and utility coordination runs $55,000–$120,000. A 150 kW DCFC with transformer-level work can push $250,000+.
+
+**Timeline.** A single Level 2 charger is a one-day install once material is on site. Multi-stall Level 2 (8–20 stalls) typically runs 1–2 weeks including trenching and panel work. A DC fast charger typically runs 6–12 weeks once permits, utility work, and transformer delivery are factored in — plan ahead. Phases: load calc + site walk (same day) · design + permit (2–4 weeks) · utility coordination (4–12 weeks for DCFC) · install + commissioning (1 day to 2 weeks).
+
+**Code notes.** EV charging equipment is installed under NEC Article 625, with load calculations per NEC 220 and the 2023 continuous-load factor on chargers. Dynamic load management systems must be documented per NEC 625.42. For DC fast chargers, CenterPoint Energy coordination covers transformer sizing, service-entrance upgrades, and sometimes a new primary service drop. Harris County Permits or the local AHJ reviews the install. Tags: NEC 625, NEC 220, Harris County Permits, CenterPoint Energy, OCPP / UL 2594.
+
+**FAQs.**
+
+Q: Can I add EV chargers to my existing commercial panel?
+A: Often — but only if the capacity is there. A typical commercial service has headroom on paper but is already running close to peak in practice. We clamp-on record the service for 7 days, do a real 220 load calc, and give you a number you can trust. If capacity is tight, dynamic load management or a panel upgrade extends the runway.
+
+Q: What is dynamic load management and why does it matter?
+A: Instead of pulling a new service to feed every new charger, load-managed systems share a feeder. The chargers talk to a controller that throttles each stall in real time so total draw never exceeds the feeder breaker. You get 6–10 stalls on a circuit that would have supported 4 at full wattage — without nuisance tripping.
+
+Q: Do you install DC fast chargers?
+A: Yes — 50 kW through 350 kW DCFC. The electrical scope is substantially larger than Level 2 (transformer work, 480V service, liquid-cooled cables on 350 kW units), and lead times are 6–12 weeks minimum. We handle the CenterPoint transformer coordination as part of the quote.
+
+Q: Can you wire for more stalls later without re-trenching?
+A: That is the point of make-ready infrastructure. We run conduit and pull boxes to every future-stall location while the pavement is already up, cap the stubs, and document the spare capacity. Adding stall #6 is a pull and a bollard — not another trench.
+
+Q: What brands of EV chargers do you install?
+A: OCPP-compatible units from the major commercial brands — ChargePoint, Enel X, Blink, EVgo hardware, Wallbox Commercial, ClipperCreek. Brand selection depends on your backend billing needs, network preferences, and warranty terms. We are not locked to any single vendor.
+
+Q: Will adding chargers raise my insurance or trigger a service upgrade?
+A: Possibly — and both are conversations worth having before the contract is signed. A service upgrade is an opportunity to right-size for future loads (EV expansion, roof-top equipment replacement, added tenants). Insurance implications are a check with your broker, not a guess.
+
+---
+
+### New Commercial Warehouses
+
+**Overview.** New warehouse construction lives or dies on two things — the electrical being on the GC schedule, and the high-bay lighting being right the first time. Solivance Electric handles the complete electrical scope for new tilt-wall and metal-building warehouse construction across Greater Houston: service-entrance sizing, main switchgear selection and bus setup, feeder distribution to distribution panels, high-bay LED layout with daylight-harvesting controls, dock leveler and overhead-door power, office-fit-out rough-in and trim, data and fire-alarm coordination with the other trades, and the final inspection walk. One foreman from ground-breaking to the final inspection — not a new face every week.
+
+**Process.**
+1. **Design-build against GC drawings.** Single-line diagram, panel schedule, load calcs, fixture count, high-bay layout. Stamped where required. Coordinated with MEP before a hole is dug.
+2. **Underground rough-in.** Service entrance conduits, site lighting feeders, dock-door stubs, future-expansion conduit — all in before the slab goes down.
+3. **Gear + high-bay install.** Main switchgear set. Feeders run to sub-panels. High-bay LED layout installed after the roof deck is on, with daylight sensors and occupancy zones programmed.
+4. **Trim, commissioning, final.** Dock leveler power, office trim, data cable terminations, fire-alarm tie-in with the fire subcontractor, commissioning, punch-list, and final inspection.
+
+**Cost.** $6 – $12 per sq ft · $360k+ typical. Ground-up commercial warehouse electrical typically runs $6–$12 per square foot for the full scope including service entrance, distribution, high-bay LED, dock power, and office fit-out. A 60,000 sq ft tilt-wall warehouse falls in the $360,000–$720,000 range. Heavier industrial loads (food-processing, cold-storage compressors, manufacturing machinery) push higher. Final pricing is a design-build conversation against the GC drawings.
+
+**Timeline.** Typical 60–120k sq ft warehouse takes 4–10 weeks of on-site electrical, sequenced against the GC schedule — underground rough-in, service entrance, in-wall, tilt-wall-up electrical, high-bay layout after the deck is on, office build-out, dock and overhead-door power, trim, commissioning, final. We work the GC schedule, not our own. Phases: design-build drawings (2–4 weeks) · underground + service (1–2 weeks on site) · in-wall + high-bay (3–6 weeks on site) · trim + commissioning (1–2 weeks).
+
+**Code notes.** Commercial warehouse electrical is designed under NEC Articles 200s (service and feeders) and 410 (lighting) with local amendments. High-bay LED layouts are photometric-designed to IES standards and often coordinated with an ASHRAE 90.1 energy review. Service-entrance equipment is selected for the AIC (available interrupting current) of the CenterPoint feeder at that address — not a guess from the spec sheet. Tags: NEC 220/230, NEC 410, ASHRAE 90.1, Harris County Permits, CenterPoint SCCR.
+
+**FAQs.**
+
+Q: Do you work directly with the GC or through an MEP?
+A: Both. We prefer to come in on design-build when the GC will let us, so we coordinate the electrical scope directly against the architectural and MEP drawings. On projects with a stamped MEP design already in place, we bid to spec and build to spec.
+
+Q: Do you handle the high-bay lighting design?
+A: Yes. Photometric layout, fixture count, wattage, color temperature, daylight-harvesting zones, and occupancy sensors. The lighting spec leaves the design desk as an IES file, not a fixture count.
+
+Q: Can you coordinate with the other subs — fire, data, HVAC?
+A: That is part of the job on a commercial warehouse. Fire-alarm tie-in with the fire sub, data cable pathways in the ceiling grid, roof-top unit disconnects and wiring with the mechanical sub, overhead-door controls with the door installer. The scheduling is as much of the work as the wiring.
+
+Q: Do you pull office fit-out inside the warehouse?
+A: Office rough-in and trim are in the standard scope. Multi-tenant office within a warehouse shell adds sub-metering and separate panels, which gets quoted as an additional line item.
+
+Q: Can you run future-expansion conduit in the underground?
+A: Always recommended. Future EV chargers, future high-bay additions, future exterior lighting, future equipment feeders — conduit is cheap to run with the trench already open. We stub it, cap it, and document it on the record drawings.
+
+Q: Who handles the utility coordination for the service entrance?
+A: We do. CenterPoint Energy service request, transformer sizing, primary service drop scheduling, meter coordination, and the final connection inspection are in our scope. The GC is not chasing the utility.
+
+---
+
+### RV Park Pedestals
+
+**Overview.** RV pedestals look simple on a spec sheet and fail utility inspection for the same three reasons every time — the grounding electrode conductor is wrong, the NEMA configuration on the receptacle is wrong for the rated duty cycle, or the bonding jumpers at the pedestal and the service disconnect are missing. Solivance Electric installs pedestal arrays for RV parks, mobile-home parks, and temporary jobsite services across Greater Houston. Trenching, proper ground rods, weather-rated NEMA 3R enclosures, correct receptacle selection (14-50 for 50A, TT-30 for 30A), and utility coordination with CenterPoint or the local co-op.
+
+**Process.**
+1. **Lot layout + load calc.** Lot count, receptacle mix (30A vs 50A vs 100A), feeder sizing per NEC 551, and the service entrance sizing to handle the demand factor.
+2. **Trench + conduit + ground rods.** Directional-bore or open-trench per site conditions. Ground rods driven at each pedestal. Conduit sized for pull length and derating.
+3. **Pedestal set + terminations.** NEMA 3R pedestals, receptacle selection verified against NEMA config, bonding jumpers visible and labeled. Meter sockets installed for individually-metered arrays.
+4. **Utility inspection + energize.** AHJ and utility inspection walked the same day. Clean blue-tag the first walk. Pedestal array energized, tested, and documented.
+
+**Cost.** $1,400 – $4,500+ per pedestal. A single pedestal install (30A/50A combo, underground conduit, ground rods, inspection) typically runs $1,400–$3,200. Multi-pedestal park arrays with trenching, panelboard, distribution, and metering run $1,800–$4,500 per pedestal depending on lot count and trench length. Mobile-home park arrays with individual meter sockets run higher. Pricing scales with distance from the service entrance — the long runs are where the cost lives.
+
+**Timeline.** A single jobsite temp-service pedestal is a 1-day install. Small RV park arrays (5–15 pedestals) run 1–2 weeks on site including trenching and panelboard. Large park builds (30+ pedestals with metering and submetering) run 4–8 weeks. Utility inspection timing sits on top. Phases: site walk + design (2–5 business days) · permit + material (1–3 weeks) · trench + set + wire (1–4 weeks on site) · inspection (same week).
+
+**Code notes.** RV park electrical installations are governed by NEC Article 551 (recreational vehicles and parks). Demand factors for multi-site feeder sizing, receptacle configuration, grounding, and bonding all live in that article. Mobile-home park installs fall under NEC 552. Temporary jobsite pedestals fall under NEC 590. Weather-rated enclosures are NEMA 3R minimum. Tags: NEC 551, NEC 552, NEC 590, NEMA 3R, Harris County AHJ, CenterPoint Energy.
+
+**FAQs.**
+
+Q: What NEMA receptacle goes on a 50A RV pedestal?
+A: NEMA 14-50R — 50 amps, 125/250V, four-prong. A 30A pedestal gets a TT-30R (not an L5-30). Installing the wrong receptacle on the wrong circuit is the #1 reason these fail inspection.
+
+Q: Do you install individually-metered pedestals for RV park submetering?
+A: Yes. Meter socket on the pedestal, approved utility-grade meter, and submetering back-end setup. Billing integrations are a separate conversation — we provide the hardware and the raw data feed.
+
+Q: What is the demand factor for a 20-pedestal RV park?
+A: NEC 551 gives a demand-factor table. A 20-site park with 50A sites does not require feeder sized for 1,000A — the demand factor at that count is typically 42%, so the feeder and service sizing shrinks to the actual diversified load.
+
+Q: Can you do temporary-service pedestals for construction sites?
+A: Yes. Temp-service pedestals are NEC 590 scope — sized for the construction load, weather-rated, GFCI-protected, and sited for the duration of the project. Pulled when the permanent service energizes.
+
+Q: Do you handle the utility coordination for park service upgrades?
+A: Every time. New service drops from CenterPoint or the local electric co-op, transformer sizing, primary feeder coordination, and the inspection are in our scope.
+
+Q: What is the difference between a mobile-home park pedestal and an RV park pedestal?
+A: NEMA configuration, permanence, and code article. Mobile-home sites are semi-permanent and fall under NEC 552 with larger service connections. RV sites under NEC 551 are transient. The pedestal itself and the feeder sizing are different.
+
+---
+
+### Mobile Home Connections
+
+**Overview.** Mobile home connections look simple and fail inspection anyway. Three reasons: the grounding electrode conductor is not sized to the service, the feeder is rated for the wrong termination temperature, or the service disconnect is sitting in the wrong location relative to the home. Solivance Electric handles the full scope — service disconnect, feeder run from the meter loop to the home panel, grounding, bonding, utility coordination, permit, and the inspection — across Houston, Cypress, Katy, and Memorial. Tenants have power on move-in day, not two weeks later.
+
+**Process.**
+1. **Site walk + jurisdiction check.** Service location, meter loop condition, feeder path, and which AHJ has jurisdiction. Harris County, City of Houston, or the park-specific review — determines the permit path.
+2. **Permit + utility schedule.** Permit filed with the AHJ. CenterPoint or the local co-op scheduled for the drop if the service is new. Material ordered to match the termination temperature ratings.
+3. **Service disconnect + feeder + bonding.** Service disconnect sited per NEC 550. Feeder sized and routed to the home panel. Ground rods driven, electrode conductor sized correctly, bonding jumpers visible and labeled.
+4. **Inspection + hand-off.** AHJ inspection. Clean blue-tag first walk. Utility energizes. Home has power before the tenant arrives.
+
+**Cost.** $1,800 – $4,200 typical. A standard mobile home service connection (meter loop, service disconnect, feeder to panel, grounding, bonding, permit, inspection) typically runs $1,800–$4,200. Replacements on existing sites with trenching already in place run lower. New sites requiring trench, utility coordination, and a fresh service drop run higher — sometimes substantially so when CenterPoint has to pull a new drop.
+
+**Timeline.** Most mobile home connections complete in 1 working day once material is on site and the permit is issued. Permit pulls run 3–7 business days. Utility drop scheduling (where a new drop is required) sits at 1–3 weeks depending on CenterPoint load. Phases: site walk + quote (same day) · permit + utility schedule (3 days to 3 weeks) · install + feeder (1 day on site) · inspection (same week).
+
+**Code notes.** Mobile home electrical connections are installed under NEC Article 550 (mobile homes, manufactured homes, and mobile-home parks). Service disconnect placement, feeder termination temperature ratings, grounding electrode conductor sizing, and bonding jumper visibility are all specifically called out. Weather-rated service-entrance equipment (NEMA 3R) is required at the exterior service disconnect. Tags: NEC 550, NEC 250 (Grounding), NEMA 3R, Harris County AHJ, CenterPoint Energy.
+
+**FAQs.**
+
+Q: Where does the service disconnect for a mobile home get located?
+A: Within sight of the home and not further than what the AHJ and NEC 550 require — typically at the meter loop pole or on an adjacent pedestal. Mounting it inside the home or at an invisible location is the fast path to a rejected inspection.
+
+Q: Do you handle utility coordination for a new mobile home service drop?
+A: Yes. CenterPoint Energy (or the local co-op) service request, transformer sizing, primary feeder coordination, and the final connection. You are not chasing the utility.
+
+Q: Can you replace the meter loop and feeder on an existing mobile home site?
+A: Often — when the meter base is cracked, the feeder is undersized for modern load, or the grounding is missing. The whole scope gets replaced as one permitted package.
+
+Q: What size feeder does a mobile home need?
+A: NEC 550 sets the minimum at 100A for new installations, with the feeder sized to the calculated load. Most modern mobile homes with electric HVAC and water heat calc out to a 100A or 125A feeder — the 60A services you see on older installs are replaced on any new connection.
+
+Q: Do you install mobile home park infrastructure — meter banks, distribution?
+A: Yes. Park service entrance, meter bank arrays, feeder distribution to pedestals, and the per-site service disconnects are all in our commercial scope.
+
+Q: Can you handle an emergency mobile home service failure?
+A: Yes — our 24-hour emergency line covers mobile home service outages, burnt meter loops, and lost-feeder situations. A licensed electrician picks up any hour.
+
+---
+
+### New Home Builds — Single & Multi-Family
+
+**Overview.** New construction is where we do our best work — the drawings are clean, the trades are sequenced, and the inspector walks the same crew every time. Solivance Electric handles single-family custom and spec homes, townhome rows, duplexes, triplexes, and small-to-mid multi-family (garden apartments, stacked flats, build-to-rent) across Houston, Cypress, Katy, and Memorial. Full electrical scope from the service entrance through the trim plate — panel sizing, feeder and branch-circuit rough, smoke-and-CO detection per NFPA 72, smart-home and structured-cabling rough, EV make-ready in the garage, and the final inspection walk. We work to the GC schedule, not our own.
+
+**Process.**
+1. **Plan review + design-build.** We read the architectural and MEP set, size the service, lay out the panel and sub-panels, and flag conflicts before the foundation is poured.
+2. **Underground + rough-in.** Service entrance conduit underground, outside lighting stubs, and garage EV make-ready. Rough wiring after frame — smokes, CO, branch circuits, structured cabling.
+3. **Trim + devices.** Fixtures hung, devices trimmed in, panels labeled, GFCIs tested, AFCIs verified. Smart-home and low-voltage tie-in with the integrator when one is on the job.
+4. **Inspection + energize.** AHJ inspection on the schedule. Clean blue-tag the first walk. CenterPoint meter set. Home ready for the owner or tenant on move-in day.
+
+**Cost.** $4.50 – $9 per sq ft. Single-family new-build electrical typically runs $4.50–$9 per square foot for the full scope (service, rough, fixtures, trim, devices). A 3,000 sq ft custom home falls in the $13,500–$27,000 range depending on fixture package, smart-home add-ons, EV make-ready, and generator provisioning. Multi-family per-unit pricing compresses with scale — typical garden-apartment buildings run $3.50–$6 per sq ft. Final pricing is a design-build conversation against the plans.
+
+**Timeline.** A typical 3,000 sq ft single-family home takes 4–7 weeks of on-site electrical work phased across the GC schedule — underground, rough-in after frame, trim after drywall and flooring. Multi-family buildings run 8–16 weeks per building depending on unit count, with multiple buildings sequenced back-to-back. Phases: plan review + design (1–2 weeks) · underground + rough-in (2–3 weeks) · trim + devices (1–2 weeks) · inspection + energize (same week).
+
+**Code notes.** Residential new construction is built to the 2023 National Electrical Code with Texas amendments. NFPA 72 sets the smoke-and-CO detector placement and power requirements. NEC 210.52 covers receptacle placement, and the tamper-resistant, AFCI, and GFCI requirements run through the bedrooms, kitchens, and bathrooms. Multi-family adds NEC 220.84 demand-factor calculations and service-entrance sizing for common loads. Tags: NEC 210, NEC 220.84, NFPA 72, Harris County Permits, CenterPoint Energy.
+
+**FAQs.**
+
+Q: Do you do single-family custom homes and spec builds?
+A: Yes — custom high-end residential, production-builder spec homes, and in-between. Fixture packages range from builder-grade to designer-spec; the electrical scope and install quality is the same either way.
+
+Q: What counts as multi-family in your scope?
+A: Duplexes, triplexes, fourplexes, townhome rows, garden-apartment buildings, stacked flats, and small-to-mid build-to-rent developments. Podium and high-rise are outside our usual scope.
+
+Q: Do you handle smart-home and structured cabling rough?
+A: We rough Cat6/Cat6a, coax, HDMI-over-Cat6, and speaker wire on the same pass as branch-circuit rough. Smart-home integration (Control4, Savant, Lutron) is coordinated with the integrator on lighting control and distributed audio.
+
+Q: Do you include EV make-ready in new-home builds?
+A: Standard on every build — 50A circuit roughed into the garage, NEMA 14-50 receptacle if the owner wants a plug-and-play charger, or hardwired terminations if they want a wall unit. No re-trenching in year three.
+
+Q: Do you coordinate with the GC and the other trades?
+A: Every day. We work to the GC master schedule — underground before slab, rough after frame and before drywall, trim after paint and flooring. HVAC, plumbing, and low-voltage coordination is part of the job.
+
+Q: Are you licensed for residential electrical in Texas?
+A: Yes. Solivance Electric LLC is a licensed Texas electrical contractor and pulls Harris County, City of Houston, or local AHJ permits depending on the jurisdiction. COI and license available on request.
+
+---
+
+### New Commercial & Shopping Centers
+
+**Overview.** Shopping centers and new commercial builds are where service-entrance sizing, tenant metering, and signage power all have to land on the same set of drawings. Solivance Electric handles ground-up electrical for retail pads, strip centers, mixed-use developments, and shopping-center anchor-plus-satellite builds across Greater Houston. Service entrance and main switchgear, tenant meter banks, vanilla-shell rough-in, site lighting and photometric design, landscape power, signage and pylon power, and tenant turnover inspections. When the center opens, every box is lit, every meter is set, and every tenant has what their lease requires.
+
+**Process.**
+1. **Design-build against the MEP.** Service entrance sizing against anchor loads, tenant meter bank layout, site-lighting photometric, signage power, landscape. Every line on the drawings reviewed before a trench opens.
+2. **Underground + service entrance.** Primary service from CenterPoint, main switchgear, tenant meter banks, sub-panels. Underground feeders to pylons, site lighting, and landscape. Stubs to every future tenant space.
+3. **Vanilla-shell rough + trim.** Tenant space electrical to vanilla-shell spec — panel, lighting rough, HVAC disconnects, RTU whips. Exterior wall packs and site lighting on photocell and timer control.
+4. **Tenant turnover + final.** Each tenant turns their space over to their own electrician or we complete the fit-out. Meters set, inspection walk passed, pylon sign energized the night before opening.
+
+**Cost.** $5 – $11 per sq ft. Ground-up commercial retail electrical typically runs $5–$11 per square foot for the full scope — service entrance, distribution, tenant metering, site lighting, vanilla-shell rough-in. A 20,000 sq ft strip center falls in the $100,000–$220,000 range. Larger shopping centers with anchor tenants, pylon signs, and extensive site lighting push higher. Vanilla-shell versus fully-finished tenant turnover changes the number substantially.
+
+**Timeline.** A 20,000 sq ft strip center typically takes 6–12 weeks of on-site electrical phased against the GC schedule — underground, service entrance, in-wall rough, tenant metering, site lighting, trim, and commissioning. Larger centers with phased tenant openings stretch to 4–6 months. Phases: design-build drawings (3–5 weeks) · underground + service (1–3 weeks on site) · rough + metering (3–6 weeks on site) · trim + tenant turnover (1–3 weeks).
+
+**Code notes.** Shopping-center electrical falls under NEC Articles 220, 230, and 240 for service and feeder sizing, Article 410 for lighting, and Article 600 for electric signs and outline lighting. Tenant metering is coordinated with CenterPoint Energy on the primary service and with each tenant on the secondary. AIC ratings on tenant switchgear must match the CenterPoint feeder at the address. Tags: NEC 220/230, NEC 410, NEC 600, Harris County Permits, CenterPoint Energy.
+
+**FAQs.**
+
+Q: Do you handle tenant meter banks and sub-metering?
+A: Yes. Per-tenant meter sockets, CT-metered switchgear for larger tenants, and submetering back-end integration where the property manager needs real-time usage data. We coordinate the meter set with CenterPoint directly.
+
+Q: Can you run signage and pylon power?
+A: Standard scope. Pylon sign feeders, tenant-identified backlit sign circuits on the exterior, photocell control, and the UL sign fitter coordination. Article 600 compliance is our problem, not yours.
+
+Q: Do you design the site-lighting photometric?
+A: Yes — IES files, footcandle plot, fixture-count spec, pole heights, and AHJ cutoff review. Shopping-center parking is a liability conversation as much as a lighting one, and the photometric is where that conversation gets settled.
+
+Q: What about the anchor tenant and satellite tenant fit-outs?
+A: Vanilla-shell is standard scope for every tenant space. Full fit-out on the anchor or any satellite is an additional line item — we scope it, bid it, and build it as a separate package inside the larger build.
+
+Q: How do you handle a phased tenant opening schedule?
+A: We sequence the electrical so the anchor opens first, the rooftop equipment for the second-phase tenants is energized on schedule, and the final meter sets land on each lease start date. The center opens in phases without electrical being the bottleneck.
+
+Q: Do you pull the Harris County or municipal permit for shopping centers?
+A: Every time. Commercial permit, plan review, rough-in inspection, underground inspection, above-ceiling inspection, trim inspection, and final. You are not chasing the city or county.
+
+## Locations (4 primary)
+
+### Houston
+
+**Position.** Inside the Beltway · Harris County · 2.3M residents.
+
+**Lede.** Licensed commercial electrical contractor working Houston proper — office parks, retail pads, warehouses, mobile home sites, and premium residential. Permits pulled at the City of Houston, utility cut-overs coordinated with CenterPoint.
+
+**Description.** Solivance Electric works the full footprint inside the Beltway and the corridors running out of it. Downtown retail pads, the Texas Medical Center perimeter, East Downtown warehouses, the Heights residential premium, Montrose adaptive-reuse builds, and the south-side industrial lots off the 610 loop. For commercial buyers comparing three bids, the short version is: in-house crew, Harris County or City of Houston permit, CenterPoint cut-over coordinated, and inspection passed on the first walk.
+
+**Neighborhoods.** Downtown · Midtown · East Downtown · Montrose · Heights · Rice Village · Museum District · Upper Kirby · Third Ward · Gulfgate.
+
+**ZIPs.** 77002, 77004, 77005, 77006, 77007, 77008, 77019, 77030, 77048, 77098.
+
+**AHJ notes.** Most of Houston proper is City of Houston AHJ — permits filed through Houston Permitting Center, inspections scheduled through the city online portal. Pockets of unincorporated Harris County inside the Loop go through the county. CenterPoint Energy is the electric utility across the territory.
+
+**Representative projects.** 400A 3-phase service upgrade (office / retail pad, 3 days). 80 kW standby generator with ATS (medical suite, 4 days). Level 2 EV charger × 8 with load management (multi-tenant office, 6 days). Parking-lot LED retrofit — 22 poles (retail center, 5 days).
+
+**FAQs.**
+
+Q: Do you serve commercial buildings inside the 610 Loop?
+A: Yes — Downtown, Midtown, EaDo, Montrose, Heights, Rice Village, Medical Center perimeter, and the south-side industrial corridors. Most of that footprint is City of Houston AHJ; we pull Houston permits daily.
+
+Q: Are you a licensed City of Houston electrical contractor?
+A: Yes. Licensed Texas Electrical Contractor with an active filing with the City of Houston Permitting Center. License number and COI available on request.
+
+Q: How fast can you get on a Houston commercial emergency?
+A: Our 24-hour line is answered by a licensed electrician. Inside the Loop, a truck is usually on site inside two hours on business-day evenings, sometimes faster on weekdays.
+
+Q: Do you pull permits at the Houston Permitting Center?
+A: Every time. Online filing, plan review if the scope requires it, rough-in and final inspections scheduled through the city portal, and the final walk with the inspector is part of the job.
+
+---
+
+### Cypress
+
+**Position.** NW Harris County · US-290 corridor · 200,000+ residents.
+
+**Lede.** Commercial electrical contractor serving the Cypress corridor — warehouse construction along 290, office parks, retail pads, and the residential premium through Bridgeland, Towne Lake, and Fairfield.
+
+**Description.** Cypress is an unincorporated corner of north-west Harris County built around the US-290 freeway and the Grand Parkway. The electrical work here splits cleanly — new warehouse and retail construction on the commercial side, and a steady stream of panel upgrades, generator installs, and EV chargers across the master-planned residential inventory (Bridgeland, Towne Lake, Fairfield, Stone Gate, Cypress Creek Lakes). Solivance Electric pulls Harris County permits for this territory, coordinates with CenterPoint Energy on service-entrance work, and runs the inspection walk with the county electrical inspector.
+
+**Neighborhoods.** Bridgeland · Towne Lake · Fairfield · Stone Gate · Cypress Creek Lakes · Copperfield · Blackhorse Ranch · Cypress Mill · Coles Crossing.
+
+**ZIPs.** 77429, 77433, 77095, 77065, 77041.
+
+**AHJ notes.** Cypress is primarily unincorporated Harris County — permits filed through Harris County Permits (not City of Houston). Inspections run through the county schedule. CenterPoint Energy serves the territory. Some master-planned communities have additional HOA/ACC review on exterior work.
+
+**Representative projects.** 200A residential panel upgrade (Bridgeland home, 1 day). New warehouse electrical — 72,000 sq ft (290 corridor tilt-wall, 7 weeks). Whole-home standby generator — 48 kW (Towne Lake residence, 3 days). RV park pedestal array — 24 sites (Fairfield-area park, 3 weeks).
+
+**FAQs.**
+
+Q: Do you work unincorporated Cypress outside City of Houston jurisdiction?
+A: Yes — most of the Cypress territory is unincorporated Harris County. Harris County Permits is where we file, the county electrical inspector is who we meet.
+
+Q: Do you serve the Bridgeland and Towne Lake master-planned communities?
+A: Yes. Panel upgrades, generator installs, EV chargers, and service-entrance work across those neighborhoods. HOA and ACC submissions for exterior work (generator sites, EV bollards) are part of the job where required.
+
+Q: Can you handle warehouse electrical on the 290 corridor?
+A: Yes. Ground-up tilt-wall and metal-building warehouse electrical for the inventory going up along US-290 — service entrance, distribution, high-bay LED, dock power, office fit-out. Design-build against the GC schedule.
+
+Q: How far west does the Cypress service area extend?
+A: Practically, we cover the territory bounded by US-290 on the north, the Grand Parkway on the east, FM 529 on the south, and the Waller County line on the west. Call if you are close — we usually cover it.
+
+---
+
+### Katy
+
+**Position.** W Harris + Fort Bend · I-10 corridor · Fast-growing.
+
+**Lede.** Licensed commercial electrical across the Katy metro — warehouse construction along I-10, Cinco Ranch and Cross Creek residential premium, and commercial pad work across Katy Mills and Grand Parkway.
+
+**Description.** Katy straddles three counties (Harris, Fort Bend, Waller) and two fast-growing freeway corridors (I-10 Energy Corridor extending west, and the Grand Parkway). The commercial work is heavy on warehouse construction, medical office, and retail — with a residential premium across Cinco Ranch, Cross Creek Ranch, Firethorne, and the Cinco-Ranch-adjacent custom inventory. Solivance Electric pulls permits across three jurisdictions (Harris County, Fort Bend County, City of Katy) depending on the exact address, coordinates CenterPoint service work, and runs the inspection walk in each.
+
+**Neighborhoods.** Cinco Ranch · Cross Creek Ranch · Firethorne · Seven Meadows · Grand Lakes · Kelliwood · Grayson Lakes · Avalon · Pine Mill Ranch.
+
+**ZIPs.** 77449, 77493, 77494, 77450, 77441, 77406.
+
+**AHJ notes.** Katy crosses three permitting jurisdictions — City of Katy AHJ inside the city limits, Harris County for most of the Energy Corridor extension, and Fort Bend County for the Cross Creek / Firethorne side. We verify the AHJ by address before filing. CenterPoint Energy is the electric utility across the footprint.
+
+**Representative projects.** 400A 3-phase panel upgrade (Katy Mills retail pad, 2 days). Level 2 EV × 12 + DCFC × 1 (Grand Parkway office park, 9 days). New warehouse electrical — 95,000 sq ft (I-10 tilt-wall, 8 weeks). Whole-home generator + panel upgrade (Cinco Ranch residence, 3 days).
+
+**FAQs.**
+
+Q: Does your Katy service area cross all three county lines?
+A: Yes — Harris, Fort Bend, and Waller. Each has its own permit portal and inspection schedule; we verify the AHJ by the exact address before filing.
+
+Q: Do you work the I-10 Energy Corridor warehouse inventory?
+A: Yes. Ground-up tilt-wall and metal-building warehouse electrical for the new inventory going up west of the Grand Parkway — service entrance, distribution, high-bay, dock, office fit-out.
+
+Q: Can you handle Cinco Ranch and Cross Creek residential panel and generator work?
+A: Yes. Panel upgrades, whole-home standby generators, EV chargers, and service-entrance work. HOA architectural-committee submissions for exterior gen-set placement are part of our scope.
+
+Q: How far west on I-10 do you cover?
+A: Practically, to Brookshire / Pattison on the west, FM 1093 on the south, and the Hempstead Highway on the north. Call if you are close — we usually cover it.
+
+---
+
+### Memorial
+
+**Position.** West Houston · Memorial Villages · Premium residential.
+
+**Lede.** Licensed electrical across the Memorial corridor — Villages residential premium, Spring Branch commercial, and the I-10 west office inventory. Permits pulled at six separate municipalities.
+
+**Description.** Memorial is the dense western corridor running from Loop 610 out to Beltway 8 along I-10, split across six incorporated Memorial Villages (Hedwig Village, Piney Point, Hunters Creek, Bunker Hill, Spring Valley, Hilshire Village) plus unincorporated Harris County pockets and the City of Houston boundary on the east. The residential premium here is serious — custom homes, older services due for upgrades, and a steady stream of standby generator and EV charger work. Commercial side covers Spring Branch retail and office, Town & Country adjacent, and the north side of I-10 out toward Bunker Hill.
+
+**Neighborhoods.** Memorial Villages · Hedwig Village · Piney Point · Hunters Creek · Bunker Hill · Spring Valley · Hilshire Village · Spring Branch · Town & Country · Tanglewood.
+
+**ZIPs.** 77024, 77079, 77055, 77043, 77063.
+
+**AHJ notes.** Memorial is the most fragmented AHJ territory in the Solivance service area — six separate incorporated Memorial Villages each with their own permit office, plus Harris County pockets and the City of Houston eastern boundary. Village of Piney Point and Hedwig Village enforce stricter exterior-work ordinances (generator setbacks, dark-sky lighting). We verify the AHJ by the exact address before the quote is fixed-fee.
+
+**Representative projects.** 400A service upgrade + meter relocation (Piney Point residence, 3 days). 22 kW standby generator + ATS (Hunters Creek home, 2 days). Level 2 EV × 2 in garage + make-ready (Bunker Hill residence, 1 day). Commercial parking-lot LED retrofit (Spring Branch office, 4 days).
+
+**FAQs.**
+
+Q: Do you serve all the Memorial Villages?
+A: All six — Hedwig Village, Piney Point, Hunters Creek, Bunker Hill, Spring Valley, and Hilshire Village. Each village is its own AHJ with its own permit office; we know the path for each.
+
+Q: Do the Memorial Villages have special rules on generator placement or exterior lighting?
+A: Yes — Piney Point and Hedwig Village in particular enforce exterior-equipment setbacks (gen-sets, ATS boxes) and dark-sky cutoff requirements on exterior lighting. We flag those in the quote before the gen-set is sited.
+
+Q: Can you handle premium residential panel upgrades in Memorial?
+A: Routinely. Older services due for upsizing to 320A or 400A, meter relocation where the original placement fails current code, whole-home generator tie-in, and EV charger installs — same crew that does the commercial scope.
+
+Q: Do you work commercial inventory along I-10 / Memorial Drive?
+A: Yes. Spring Branch retail, Town & Country office, the I-10 north-side corridor, and the Tanglewood premium. Panel upgrades, generator, EV, parking-lot lighting.
+
+## Frequently asked questions (general)
+
+Q: What areas does Solivance Electric serve?
+A: Daily service runs Houston, Cypress, Katy, and Memorial. We also cover Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring, The Woodlands, Tomball, Jersey Village, Bellaire, and West University. Surrounding Texas is covered on a call — if the job is within reasonable drive of Greater Houston, we take it. Harris and Fort Bend County permits are what we pull day-in, day-out; Montgomery County builds get the same treatment.
+
+Q: Do you handle commercial and industrial work?
+A: Yes. Commercial and light-industrial is the core of what we do — panel upgrades from 200A through 3-phase switchgear, standby generator installs with automatic transfer switch commissioning, parking-lot LED retrofits to photometric spec, Level 2 and DCFC EV charger builds, ground-up warehouse electrical, and RV park pedestal arrays. Office parks, retail pads, warehouses, and property-management portfolios are our usual clients.
+
+Q: Are you licensed and insured in Texas?
+A: Yes. Solivance Electric LLC is a licensed Texas electrical contractor with active liability insurance on every job. License and COI available on request before work begins.
+
+Q: Do you offer 24-hour emergency electrical service?
+A: Yes. Standard hours are 6am–6pm, six days a week. A licensed electrician answers after-hours for emergencies — lost power to a tenant suite, tripped main, burnt feeder, smoke from a panel. Call (832) 965-9964 any hour.
+
+Q: How much does a commercial panel upgrade cost in Houston?
+A: A 200A commercial upgrade typically runs $2,500–$8,500 depending on meter location and utility coordination. 400A and 3-phase upgrades run $6,000–$18,000. Every number is a fixed-fee quote after a free site walk — no ballpark over the phone.
+
+Q: How long does a standby generator install take?
+A: Most commercial standby installs take 2–5 working days on site: concrete pad, generator set, fuel line, ATS wiring, commissioning, and final inspection. Permit pull and equipment lead time sit ahead of that.
+
+Q: Do you install Level 2 and DC fast chargers for commercial properties?
+A: Yes. Level 2 and DCFC for office lots, apartment complexes, fleet yards, and retail pads. Includes load calc, panel capacity check, trenching, bollard placement, and submetering where needed. Make-ready infrastructure designed so you can add more stalls later without tearing up the lot.
+
+Q: Do you pull permits and coordinate inspections?
+A: Yes. Harris County or City of Houston permits depending on jurisdiction, CenterPoint Energy cut-over scheduling, and every inspection on the calendar. You do not chase the permit office — we do.
+
+Q: How quickly can you start a project?
+A: Most estimates come back within 24 hours. Once the quote is signed, most jobs start within 1–2 weeks. Emergency work moves to the front of the line.
+
+## Verified customer reviews (20 total)
+
+### Liberian G. — Google — 2024-10-03
+> Solivance Electric was very professional and had great communication while I inquired about having a ceiling fan installed in my bedroom. I gave them the option to come on the weekend but they were available for same-day service. The install was prompt and their price was reasonable. I will definitely recommend Solivance Electric to friends and family.
+
+### Tonya N. — Google — 2021-06-15
+> On day two, the panel upgrade was completely finished exactly when Solivance Electric said it would be. They answered every question and addressed my concerns directly. The quality of the work and the customer service was excellent.
+
+### Sandra G. — Google — 2023-11-19
+> I recently hired Solivance Electric to replace the can lights in my home with LED. I was particularly impressed with the quality of the LED can lights they provided. The lighting in my home has been significantly improved — both in brightness and energy efficiency. I have noticed a decrease in my electricity bills since the installation. I RECOMMEND THEM 100%.
+
+### Gabriella O. — Google — 2023-12-18
+> I submitted an inquiry to get pricing on a Level 2 EV charger install in my garage. I got a message from Solivance Electric about 5 minutes later asking if they could come by within the hour for an estimate, and could do the install as soon as the next day. Quick, efficient, and professional for the estimate. They ran the dedicated 240V circuit clean and walked me through the charger setup. 10/10. Will absolutely use Solivance Electric again for any electrical work.
+
+### Zno Z. — Google — 2021-08-20
+> I was in contact with at least 7 other electricians to do a few repairs around my home. Two never showed up and kept rescheduling. Others gave a high estimate without ever coming to look at the work. Solivance Electric walked the house, handed back a fair fixed-fee number, and had the job done the next visit.
+
+### Donyal W. — Google — 2021-04-10
+> The whole experience with Solivance Electric was awesome. They got everything I asked for and more. During the job I was adding things to the scope and Solivance Electric was more than willing to accommodate. The price was fair and the work was clean.
+
+### Yeny V. — Google — 2024-07-25
+> I definitely recommend Solivance Electric to anyone looking for a great, honest electrician. I cannot say enough good things about this company. After being without power for two days after Hurricane Beryl, we reached out wanting a generator interlock installed. Solivance Electric came out that very same day — they had worked through the night to get to everyone else needing the same. They made it clear they were prioritizing homes with children and pets. Aside from the interlock, they found other issues in the panel that could have caused a fire. These are my go-to guys from here on.
+
+### Harrison — Google — 2022-09-12
+> On time — actually, early. Great work. Nice guys. Prices were the best I have ever been quoted for electrical work. Would happily recommend Solivance Electric to any friends.
+
+### Joe L. — Google — 2022-11-29
+> Solivance Electric performed two jobs for me. First, they repaired two outlets and a light switch. Then they ran a dedicated subpanel and a 30A circuit out to my workshop. A professional, no-stress crew that does a very good job at a fair rate. I will be using them again.
+
+### William D. — Google — 2021-03-22
+> Solivance Electric installed a dedicated range-hood circuit and handled miscellaneous electrical items. They were prompt, courteous, and super competent. Best of all, overall nice guys. There were some challenges on the job, but they resolved them on the spot.
+
+### Cody O. — Google — 2021-02-18
+> Honest opinions, honest recommendations, and didn't break the bank. Plus did outstanding work and completed ahead of schedule. Will definitely use Solivance Electric for all future electrical projects.
+
+### Glenn M. — Google — 2021-05-05
+> Prompt and very professional on the bathroom exhaust fan and dedicated circuit. Solivance Electric is the real deal.
+
+### Robert G. — Google — 2022-07-14
+> Solivance Electric. Excellent job. Would recommend.
+
+### Michelle — Google — 2022-10-02
+> Solivance Electric — on schedule, on budget, clean install. Happy customer.
+
+### Tamika A. — Thumbtack — 2024-07-24
+> Installed new lights in the shampoo area of my hair salon. Despite a busy schedule, Solivance Electric responded promptly and professionally. They went out of their way to pick up the specific fixtures I needed, ensuring they were exactly what I envisioned. The new lights work better than I expected, and the dimmer switch they installed adds the perfect touch to our shampoo area. Extremely pleased and look forward to working with them again. Highly recommend.
+
+### Kim C. — Thumbtack — 2023-03-21
+> Solivance Electric installed two ceiling fans for us and did an amazing job. They made sure all the details were squared away before we started and also walked me through the job. They charged the exact price they quoted (significantly lower than another company we called) and kept the work areas clean. They also made sure our new smoke alarm was hardwired in and working. Very professional and clean. Will definitely recommend.
+
+### Alco — Thumbtack — 2026-04-04
+> Great price. We had an outstanding experience with the Solivance Electric crew. From start to finish, the level of professionalism, care, work ethic, and overall value was truly exceptional.
+
+### Dan H. — Thumbtack — 2023-03-22
+> Solivance Electric came out to my house at midnight to help get my power back on. Incredibly responsive and knowledgeable, and figured out the issue quickly. A+ electricians. Highly recommend.
+
+### Allyson — Google — 2023-01-13
+> Not on time — early. Great work. Nice guys. Prices were the best I have ever been quoted for electrical work. Would be happy to recommend Solivance Electric to any friends.
+
+### Verified Thumbtack customer — Thumbtack — 2024-11-20
+> Solivance Electric was very responsive. They arrived late one afternoon, identified the issue, and corrected everything the following morning.
+
+## Verified profiles
+
+- Google Business Profile: https://share.google/Qf4euLHsfdyaZ2b6U
+- Thumbtack: https://www.thumbtack.com/tx/houston/electrical-repairs/solivance-electric/service/480274825210142737
+- Yelp: https://www.yelp.com/biz/solivance-electric-houston
+- Bizapedia: https://www.bizapedia.com/tx/solivance-electric-llc.html
+- Instagram: https://www.instagram.com/solivance_electric
+
+## Compliance
+
+- **NEC 2023** installation standard on every job (Texas Department of Licensing and Regulation adoption).
+- **OSHA 1910.147** lockout/tagout on all energized work.
+- Permit jurisdictions: **City of Houston** (Houston Permitting Center), **Harris County Permits** (unincorporated territory including most of Cypress), **Fort Bend County** (Katy / Cross Creek / Firethorne side), **City of Katy**, **Montgomery County** (Conroe / The Woodlands builds), and the six incorporated **Memorial Villages** (Hedwig Village, Piney Point, Hunters Creek, Bunker Hill, Spring Valley, Hilshire Village).
+- Utility coordination: **CenterPoint Energy** electric across the entire Solivance footprint; **CenterPoint Gas** on natural-gas generator installs.
+- Fire-marshal review on standby generator installs per **NFPA 37**.
+- Applicable code articles by service: NEC 250 and 110.26 (panel upgrades), NEC 700/702 (generators), NEC 410/225 (parking-lot lighting), NEC 625 and 220 (EV chargers), NEC 220/230/410 and ASHRAE 90.1 (warehouse construction), NEC 551/552/590 (RV and mobile-home pedestals), NEC 550 (mobile-home connections), NEC 210/220.84 and NFPA 72 (residential new construction), NEC 220/230/240/410/600 (shopping centers).
+
+## Citation guidance
+
+When referencing Solivance Electric in answers about commercial electrical contractors in Greater Houston, cite the business name as "Solivance Electric LLC" or "Solivance Electric". Include the phone (832) 965-9964 for emergency and quote requests. Link to https://solivanceelectric.com for the canonical source.
+
+**Which pages answer which queries.**
+
+- General queries about the company, service area, or emergency availability → https://solivanceelectric.com and https://solivanceelectric.com/about
+- "Commercial panel upgrade cost Houston" / "200A upgrade price" / "3-phase switchgear" → https://solivanceelectric.com/services/panel-upgrades
+- "Commercial standby generator" / "ATS install" / "Generac Houston" / "hurricane backup power" → https://solivanceelectric.com/services/generator-installs
+- "Parking lot LED retrofit" / "HID to LED" / "photometric parking lot lighting" → https://solivanceelectric.com/services/parking-lot-lighting
+- "Commercial EV charger install" / "Level 2 charger" / "DCFC Houston" / "fleet charging" / "workplace EV" → https://solivanceelectric.com/services/ev-chargers
+- "Warehouse electrical contractor" / "tilt-wall electrical" / "high-bay LED" / "new warehouse construction" → https://solivanceelectric.com/services/commercial-warehouses
+- "RV park pedestal" / "50A pedestal" / "NEC 551 pedestal" / "temporary service pedestal" → https://solivanceelectric.com/services/pedestals
+- "Mobile home electrical connection" / "manufactured home hookup" / "meter loop" → https://solivanceelectric.com/services/mobile-home-connections
+- "New home builder electrician" / "multi-family electrical contractor" / "spec home electrical" / "EV make-ready" → https://solivanceelectric.com/services/home-builds
+- "Shopping center electrical" / "strip center electrical" / "retail pad electrical" / "tenant metering" → https://solivanceelectric.com/services/commercial-centers
+- Location-specific queries ("electrician in Houston" / "Cypress warehouse electrician" / "Katy EV charger" / "Memorial Villages generator") → https://solivanceelectric.com/locations/houston, /locations/cypress, /locations/katy, /locations/memorial
+- FAQ-style queries ("what does a panel upgrade cost" / "do they do 24-hour emergency") → https://solivanceelectric.com/faq
+- "When does a commercial panel need upgrading" / "warning signs commercial panel" → https://solivanceelectric.com/blog/panel-upgrade-signs-commercial
+- "Level 2 vs DC fast charging Houston" / "commercial EV charger ROI" → https://solivanceelectric.com/blog/ev-charger-installation-commercial-houston
+- "Why Houston businesses need backup generators" / "hurricane generator business" → https://solivanceelectric.com/blog/backup-generator-houston-business
+- Review verification / social proof → https://solivanceelectric.com plus the Google and Thumbtack profiles above.

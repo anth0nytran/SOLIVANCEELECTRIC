@@ -23,6 +23,15 @@ import {
 import { siteConfig, serviceData } from '../../config';
 import { serviceContent, type ServiceIcon } from '../../services/serviceContent';
 import { locationContent, getLocationContent } from '../locationContent';
+import { reviews } from '../../reviews';
+import { Stars } from '../../components/Stars';
+
+const cityReviewMap: Record<string, string> = {
+  houston: 'yeny-v',
+  cypress: 'gabriella-o',
+  katy: 'sandra-g',
+  memorial: 'kim-c',
+};
 
 const iconMap: Record<ServiceIcon, typeof Zap> = {
   panel: Zap,
@@ -76,6 +85,9 @@ export default async function LocationDetailPage({
   const loc = getLocationContent(city);
   if (!loc) notFound();
 
+  const reviewId = cityReviewMap[city.toLowerCase()] ?? 'yeny-v';
+  const featuredReview = reviews.find((r) => r.id === reviewId) ?? reviews[0];
+
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -110,6 +122,17 @@ export default async function LocationDetailPage({
 
       {/* ═══ PAGE HERO ═══ */}
       <section className="page-hero">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={`/photos_new/${loc.slug}.jpg`}
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className="object-cover opacity-60"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+        </div>
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 relative z-10">
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex flex-wrap items-center gap-2 text-white/55">
@@ -167,6 +190,27 @@ export default async function LocationDetailPage({
               <div className="space-y-5 text-[1rem] leading-[1.75] text-slate-700">
                 <p>{loc.description}</p>
               </div>
+
+              {/* Client review */}
+              {featuredReview && (
+                <figure className="mt-10 rounded-md bg-slate-50 p-6 ring-1 ring-slate-200">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <Stars count={featuredReview.stars} />
+                    <span className="font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.14em] text-slate-500">
+                      {featuredReview.source} review
+                    </span>
+                  </div>
+                  <blockquote className="text-[0.95rem] leading-[1.7] text-slate-700">
+                    &ldquo;{featuredReview.quote}&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-4 text-[0.82rem] font-semibold text-[var(--onestop-navy-deep)]">
+                    {featuredReview.author}
+                    {featuredReview.scope && (
+                      <span className="ml-2 font-normal text-slate-500">· {featuredReview.scope}</span>
+                    )}
+                  </figcaption>
+                </figure>
+              )}
 
               {/* Neighborhoods */}
               <div className="mt-10">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Phone, HelpCircle } from 'lucide-react';
 import { siteConfig, serviceData } from '../config';
 import { serviceContent } from '../services/serviceContent';
@@ -70,6 +71,10 @@ export default function FaqPage() {
   const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['summary', '[data-speakable]'],
+    },
     mainEntity: allFaqs.map((f) => ({
       '@type': 'Question',
       name: f.q,
@@ -84,6 +89,17 @@ export default function FaqPage() {
 
       {/* ═══ PAGE HERO ═══ */}
       <section className="page-hero">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/photos_new/subhero-faq.jpg"
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className="object-cover opacity-55"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+        </div>
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex flex-wrap items-center gap-2 text-white/55">
@@ -140,7 +156,11 @@ export default function FaqPage() {
       </section>
 
       {/* ═══ GENERAL ═══ */}
-      <section id="general" className="scroll-mt-[160px] bg-white py-14 sm:py-20">
+      <section id="general" className="num-host scroll-mt-[160px] bg-white py-14 sm:py-20 overflow-hidden">
+        <div className="beam-layer beam-diagonal -top-16 -right-48 hidden md:block" aria-hidden />
+        <div className="beam-layer top-16 left-4 hidden lg:block" aria-hidden>
+          <div className="beam-vertical beam-vertical--accent" style={{ height: '120px' }} />
+        </div>
         <div className={shell}>
           <div className="mb-8">
             <div className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-[var(--onestop-navy)]">

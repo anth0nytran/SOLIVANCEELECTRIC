@@ -42,6 +42,17 @@ export default function ServicesPageClient({
     <>
       {/* ═══ PAGE HERO ═══ */}
       <section className="page-hero">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/photos_new/subhero-services.jpg"
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className="object-cover opacity-55"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+        </div>
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 relative z-10">
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex items-center gap-2 text-white/55">
@@ -66,7 +77,11 @@ export default function ServicesPageClient({
       </section>
 
       {/* ═══ SERVICES GRID ═══ */}
-      <section className="bg-white py-14 sm:py-20">
+      <section className="num-host bg-white py-14 sm:py-20 overflow-hidden">
+        <div className="beam-layer beam-diagonal beam-diagonal--orange -top-24 -right-48 hidden md:block" aria-hidden />
+        <div className="beam-layer top-20 left-8 hidden lg:block" aria-hidden>
+          <div className="beam-vertical beam-vertical--accent" style={{ height: '140px' }} />
+        </div>
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="mb-10">
             <div className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[var(--onestop-red)] mb-3">

@@ -29,18 +29,18 @@ export default function AboutPageClient() {
     <>
       {/* ═══ PAGE HEADER ═══ */}
       <section className="page-hero">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg"
+            src="/photos_new/subhero-blog.jpg"
             alt=""
             aria-hidden
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-15"
+            className="object-cover opacity-55"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
         </div>
-        <div className="absolute inset-0 bg-[var(--onestop-navy-deep)]/85" />
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex items-center gap-2 text-white/55">
@@ -102,7 +102,11 @@ export default function AboutPageClient() {
       </section>
 
       {/* ═══ STORY ═══ */}
-      <section className="bg-white py-14 sm:py-28">
+      <section className="num-host bg-white py-14 sm:py-28 overflow-hidden">
+        <div className="beam-layer beam-diagonal -top-16 -right-48 hidden md:block" aria-hidden />
+        <div className="beam-layer top-24 left-8 hidden lg:block" aria-hidden>
+          <div className="beam-vertical beam-vertical--accent" style={{ height: '160px' }} />
+        </div>
         <div className={shell}>
           <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-start">
             <motion.div
@@ -216,7 +220,11 @@ export default function AboutPageClient() {
       ) : null}
 
       {/* ═══ VALUES ═══ */}
-      <section className="bg-white py-14 sm:py-28">
+      <section className="num-host bg-white py-14 sm:py-28 overflow-hidden">
+        <div className="beam-layer block-anchor block-anchor--orange top-0 right-0 hidden md:block" style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 0 100%)' }} aria-hidden />
+        <div className="beam-layer bar-rack bottom-12 right-6 sm:right-12 hidden lg:grid" aria-hidden>
+          <span /><span /><span /><span />
+        </div>
         <div className={shell}>
           <motion.div
             initial="hidden"
@@ -277,15 +285,16 @@ export default function AboutPageClient() {
               03 — Where we work
             </div>
             <h2 className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl leading-tight">
-              Houston, Cypress, Katy, Memorial —<br/>and the metro around them.
+              Greater Houston, south to Sugar Land,<br/>north to Conroe, and beyond.
             </h2>
             <p className="mt-4 text-base text-slate-500 leading-relaxed">
               <Users className="inline h-4 w-4 mr-1 align-[-2px]" />
-              Core service area is the north-west and west side of Greater Houston —
-              I-10 corridor, US-290 corridor, Memorial Villages, and the Katy-Cypress
-              fringe. Harris County and Fort Bend County permits are what we pull
-              day-in, day-out. If your address is inside the Beltway or along those
-              corridors, we cover it.
+              Houston, Cypress, Katy, and Memorial are the daily footprint. We also
+              run Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring, The
+              Woodlands, Tomball, Jersey Village, and Bellaire on a regular cycle.
+              Harris, Fort Bend, and Montgomery County permits are what we pull
+              day-in, day-out. Surrounding Texas is covered on a call — if the job
+              is within reasonable drive, we take it.
             </p>
           </motion.div>
 
@@ -297,7 +306,7 @@ export default function AboutPageClient() {
             className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3"
           >
             {siteConfig.allServiceAreas.map((area, i) => {
-              const isPrimary = i < 5;
+              const isPrimary = i < 4;
               return (
                 <div
                   key={area}
@@ -358,13 +367,13 @@ export default function AboutPageClient() {
             <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <a
                 href={`tel:${siteConfig.cleanPhone}`}
-                className="btn-solid inline-flex items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-7 h-12 text-xs sm:text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] whitespace-nowrap"
+                className="btn-solid inline-flex items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-5 sm:px-7 h-12 text-[0.72rem] sm:text-[0.78rem] font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] text-white hover:bg-[#e55f15]"
               >
                 <Phone className="h-4 w-4" /> Call {siteConfig.phone}
               </a>
               <Link
                 href="/contact"
-                className="btn-ghost-dark inline-flex items-center justify-center gap-2 rounded-md px-7 h-12 text-xs sm:text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white whitespace-nowrap"
+                className="btn-ghost-dark inline-flex items-center justify-center gap-2 rounded-md px-5 sm:px-7 h-12 text-[0.72rem] sm:text-[0.78rem] font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] text-white"
               >
                 Free Quote <ArrowRight className="h-4 w-4" />
               </Link>

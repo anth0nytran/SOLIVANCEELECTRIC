@@ -15,6 +15,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import { siteConfig, serviceData } from './config';
+import { reviews, reviewStats } from './reviews';
 import { Stars } from './components/Stars';
 
 /* ─── COMPACT HERO FORM ─── */
@@ -134,38 +135,97 @@ const getServicePreviewImage = (service: (typeof serviceData)[number]) =>
 
 function ReviewsSection() {
   const shell = 'mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10';
-  const allReviews = siteConfig.testimonials;
+  const featured = reviews.slice(0, 6);
 
-  if (allReviews.length === 0) {
-    return (
-      <section id="reviews" className="scroll-mt-20 bg-[var(--onestop-navy-deep)] py-16 sm:py-24">
-        <div className={`${shell}`}>
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl font-extrabold text-white sm:text-3xl uppercase tracking-tight">Customer Reviews</h2>
-            <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-10 sm:px-10 sm:py-12 backdrop-blur-sm">
-              <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--onestop-red)]/15">
-                <Stars count={5} size="h-5 w-5 text-[#FBBC05]" />
+  const formatDate = (iso: string) =>
+    new Date(iso).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+  return (
+    <section id="reviews" className="num-host scroll-mt-20 bg-[var(--onestop-navy-deep)] py-16 sm:py-24 overflow-hidden">
+      <span className="num-anchor num-anchor--dark top-6 -left-6 sm:top-10 sm:-left-10" aria-hidden>03</span>
+      <div className="beam-layer bar-rack bar-rack--dark top-20 right-6 sm:right-12 hidden lg:grid" aria-hidden>
+        <span /><span /><span /><span /><span />
+      </div>
+      <div className="beam-layer bottom-0 right-0 w-1 h-[70%] bg-[var(--onestop-red)] opacity-30 hidden md:block" aria-hidden />
+      <div className={shell}>
+        {/* Header */}
+        <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-14 items-end mb-10 sm:mb-14">
+          <div>
+            <div className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-[var(--onestop-gold)]">
+              <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+              03 — What clients say
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white tracking-[-0.03em] leading-[1.05]">
+              Real reviews from <br className="hidden sm:block" />Google and Thumbtack.
+            </h2>
+          </div>
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-4 lg:items-end lg:text-right">
+            <div className="inline-flex items-center gap-3 rounded-md bg-white/5 ring-1 ring-white/10 px-4 py-3">
+              <Stars count={5} size="h-4 w-4" />
+              <div className="leading-tight">
+                <div className="text-white font-extrabold text-lg tabular-nums font-[family-name:var(--font-app-mono)]">
+                  {reviewStats.average.toFixed(1)}
+                </div>
+                <div className="text-[0.68rem] uppercase tracking-[0.14em] text-white/55 font-semibold">
+                  {reviewStats.count} verified reviews
+                </div>
               </div>
-              <h3 className="text-lg font-extrabold text-white sm:text-xl">Your review could go here.</h3>
-              <p className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base">
-                Solivance Electric is building out a Google review base one finished job at a time.
-                If we pull the feeder, wire the panel, or commission the generator on your property,
-                an honest review after the inspector signs off goes a long way.
-              </p>
-              <Link
-                href="/contact"
-                className="mt-7 inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--onestop-red)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:brightness-110 transition-all"
-              >
-                Get a Free Quote <ArrowRight className="h-4 w-4" />
-              </Link>
+            </div>
+            <div className="text-[0.68rem] uppercase tracking-[0.14em] text-white/45 font-[family-name:var(--font-app-mono)]">
+              {reviewStats.googleCount} Google · {reviewStats.thumbtackCount} Thumbtack
             </div>
           </div>
         </div>
-      </section>
-    );
-  }
 
-  return null;
+        {/* Grid */}
+        <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {featured.map((r) => (
+            <figure
+              key={r.id}
+              className="flex flex-col rounded-md bg-white/[0.04] ring-1 ring-white/10 p-6 sm:p-7 hover:bg-white/[0.06] hover:ring-white/20 transition-colors"
+            >
+              <div className="flex items-center justify-between gap-3 mb-4">
+                <Stars count={r.stars} size="h-3.5 w-3.5" />
+                <span className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[var(--onestop-gold)] font-[family-name:var(--font-app-mono)]">
+                  {r.source}
+                </span>
+              </div>
+              <blockquote className="flex-1 text-[0.92rem] leading-[1.7] text-white/80">
+                &ldquo;{r.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-5 pt-5 border-t border-white/10 flex items-center justify-between">
+                <div className="text-[0.82rem] font-bold text-white">{r.author}</div>
+                <div className="text-[0.68rem] uppercase tracking-[0.12em] text-white/45 font-[family-name:var(--font-app-mono)]">
+                  {formatDate(r.date)}
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        {/* Footer CTA */}
+        <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-between gap-5 pt-8 border-t border-white/10">
+          <p className="text-[0.88rem] text-white/55 leading-relaxed max-w-md text-center sm:text-left">
+            Honest reviews from real jobs — panel upgrades, generator installs, EV chargers, emergency call-outs across Greater Houston.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href="/reviews"
+              className="btn-ghost-dark inline-flex items-center justify-center gap-2 h-11 px-6 text-[0.74rem] font-bold uppercase tracking-[0.14em] text-white rounded-md"
+            >
+              Read all {reviewStats.count} <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <Link
+              href="/contact"
+              className="btn-solid inline-flex items-center justify-center gap-2 bg-[var(--onestop-red)] h-11 px-6 text-[0.74rem] font-bold uppercase tracking-[0.14em] text-white rounded-md hover:bg-[#e55f15]"
+            >
+              Get a Free Quote <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default function HomePageClient() {
@@ -260,20 +320,20 @@ export default function HomePageClient() {
       {/* ═══ TRUST BAND — credentials strip ═══ */}
       <section className="bg-white border-b border-slate-200/70">
         <div className={`${shell} py-5 sm:py-6`}>
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-200/70">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-4 md:gap-y-0 md:divide-x md:divide-slate-200/70">
             {[
               { icon: Shield, label: 'Licensed', value: 'Texas Electrical Contractor' },
               { icon: CheckCircle2, label: 'Insured', value: 'COI on Request' },
               { icon: Clock, label: '24-Hour Response', value: 'Emergencies Prioritized' },
               { icon: HardHat, label: `${siteConfig.yearsInBusiness}+ Years`, value: 'Greater Houston Metro' },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3 px-4 sm:px-5 first:pl-0 py-2 sm:py-1">
+              <div key={i} className="flex items-center gap-3 px-3 sm:px-4 md:px-5 md:first:pl-0 py-1">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy)]/[0.06]">
                   <item.icon className="h-4 w-4 text-[var(--onestop-navy-deep)]" strokeWidth={1.9} />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-[0.78rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.005em] leading-tight truncate">{item.label}</div>
-                  <div className="text-[0.66rem] text-slate-500 font-medium leading-snug truncate uppercase tracking-[0.08em]">{item.value}</div>
+                  <div className="text-[0.78rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.005em] leading-tight">{item.label}</div>
+                  <div className="text-[0.66rem] text-slate-500 font-medium leading-snug uppercase tracking-[0.08em]">{item.value}</div>
                 </div>
               </div>
             ))}
@@ -282,7 +342,12 @@ export default function HomePageClient() {
       </section>
 
       {/* ═══ SERVICES ═══ */}
-      <section id="services" className="scroll-mt-20 bg-white pt-16 sm:pt-24 pb-16 sm:pb-24">
+      <section id="services" className="num-host scroll-mt-20 bg-white pt-16 sm:pt-24 pb-16 sm:pb-24 overflow-hidden">
+        <span className="num-anchor top-4 -right-6 sm:top-8 sm:-right-10" aria-hidden>01</span>
+        <div className="beam-layer beam-diagonal -top-20 -right-40 hidden md:block" aria-hidden />
+        <div className="beam-layer top-24 left-8 hidden lg:block" aria-hidden>
+          <div className="beam-vertical beam-vertical--accent" style={{ height: '180px' }} />
+        </div>
         <div className={shell}>
           <div className="max-w-2xl mb-10 sm:mb-14">
             <div className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-[var(--onestop-navy)]">
@@ -345,7 +410,8 @@ export default function HomePageClient() {
       </section>
 
       {/* ═══ SERVICE AREAS — clean professional ═══ */}
-      <section className="bg-white py-16 sm:py-24 border-t border-slate-100">
+      <section className="num-host bg-white py-16 sm:py-24 border-t border-slate-100 overflow-hidden">
+        <div className="beam-layer block-anchor block-anchor--orange top-0 right-0 hidden md:block" style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 0 100%)' }} aria-hidden />
         <div className={shell}>
           <div className="max-w-2xl mb-10 sm:mb-12">
             <div className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[var(--onestop-red)] mb-3">
@@ -386,7 +452,7 @@ export default function HomePageClient() {
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-slate-200">
             <p className="text-sm text-slate-500 max-w-md">
-              Plus Spring, Jersey Village, Tomball, Bellaire, Sugar Land, Missouri City and the surrounding metro.
+              Plus Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring, The Woodlands, Tomball, Jersey Village, and Bellaire. Surrounding Texas on a call.
             </p>
             <Link
               href="/locations"
@@ -399,7 +465,12 @@ export default function HomePageClient() {
       </section>
 
       {/* ═══ ABOUT / WHY US ═══ */}
-      <section id="about" className="scroll-mt-20 bg-[var(--onestop-cream)] py-14 sm:py-24">
+      <section id="about" className="num-host scroll-mt-20 bg-[var(--onestop-cream)] py-14 sm:py-24 overflow-hidden">
+        <span className="num-anchor top-6 -left-6 sm:top-10 sm:-left-10" aria-hidden>02</span>
+        <div className="beam-layer beam-diagonal beam-diagonal--orange -bottom-32 -left-32 hidden md:block" aria-hidden />
+        <div className="beam-layer bar-rack bar-rack--accent top-20 right-6 sm:right-12 hidden lg:grid" aria-hidden>
+          <span /><span /><span /><span /><span /><span />
+        </div>
         <div className={shell}>
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-center">
             {/* Left — company photo */}
@@ -462,12 +533,17 @@ export default function HomePageClient() {
       <ReviewsSection />
 
       {/* ═══ FAQ ═══ */}
-      <section id="faq" className="scroll-mt-20 bg-white py-16 sm:py-24">
+      <section id="faq" className="num-host scroll-mt-20 bg-white py-16 sm:py-24 overflow-hidden">
+        <span className="num-anchor top-8 -right-6 sm:top-12 sm:-right-10" aria-hidden>04</span>
+        <div className="beam-layer block-anchor bottom-0 left-0 hidden md:block" aria-hidden />
+        <div className="beam-layer top-16 left-8 hidden lg:block" aria-hidden>
+          <div className="beam-vertical beam-vertical--accent" style={{ height: '140px' }} />
+        </div>
         <div className={`${shell} grid gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16`}>
           <div>
             <div className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-[var(--onestop-navy)]">
               <span className="h-px w-6 bg-[var(--onestop-gold)]" />
-              03 — FAQ
+              04 — FAQ
             </div>
             <h2 className="text-3xl font-bold text-[var(--onestop-navy-deep)] sm:text-4xl tracking-[-0.03em] leading-[1.08]">Questions, answered.</h2>
             <p className="mt-4 text-[0.95rem] text-slate-500 leading-relaxed">Don&apos;t see yours? Call us — we&apos;re happy to help.</p>
@@ -492,15 +568,15 @@ export default function HomePageClient() {
       <section className="relative isolate overflow-hidden bg-slate-950 py-20 sm:py-28">
         <div className="absolute inset-0">
           <Image
-            src="/placeholder.svg"
+            src="/photos_new/cta-footer.jpg"
             alt=""
             aria-hidden
             fill
             sizes="100vw"
-            className="object-cover opacity-20 mix-blend-luminosity"
+            className="object-cover opacity-35"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-slate-950/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/70 to-slate-950/40" />
 
         <div className={`${shell} relative z-10`}>
           <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16 lg:items-center">

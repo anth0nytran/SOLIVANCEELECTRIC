@@ -28,18 +28,18 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
     <>
       {/* ═══ PAGE HEADER ═══ */}
       <section className="page-hero">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg"
+            src="/photos_new/subhero-contact.jpg"
             alt=""
             aria-hidden
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-15"
+            className="object-cover opacity-55"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
         </div>
-        <div className="absolute inset-0 bg-[var(--onestop-navy-deep)]/85" />
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex items-center gap-2 text-white/55">
@@ -83,7 +83,8 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
       </section>
 
       {/* ═══ FORM + SIDEBAR ═══ */}
-      <section id="form" className="scroll-mt-20 bg-white py-14 sm:py-20">
+      <section id="form" className="num-host scroll-mt-20 bg-white py-14 sm:py-20 overflow-hidden">
+        <div className="beam-layer beam-diagonal -top-16 -right-48 hidden md:block" aria-hidden />
         <div className={shell}>
           <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-16 items-start">
 
@@ -195,7 +196,10 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
       </section>
 
       {/* ═══ FAQ — two-column layout ═══ */}
-      <section className="py-14 sm:py-24 bg-[var(--onestop-cream)]">
+      <section className="num-host py-14 sm:py-24 bg-[var(--onestop-cream)] overflow-hidden">
+        <div className="beam-layer bar-rack top-16 right-6 sm:right-12 hidden lg:grid" aria-hidden>
+          <span /><span /><span /><span /><span />
+        </div>
         <div className={shell}>
           <div className="grid lg:grid-cols-[1fr_1.5fr] gap-10 lg:gap-16 items-start">
             <motion.div

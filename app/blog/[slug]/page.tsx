@@ -229,6 +229,9 @@ export default async function BlogPostPage({
             <span className="vrule text-white h-3 hidden sm:block" aria-hidden />
             <span className="hidden sm:inline text-white/55">By {siteConfig.businessName}</span>
           </div>
+          <div className="mt-2">
+            <span className="text-sm text-slate-500">By <strong className="text-[var(--onestop-navy-deep)]">Solivance Electric</strong></span>
+          </div>
         </div>
       </section>
 
@@ -245,7 +248,8 @@ export default async function BlogPostPage({
       </section>
 
       {/* ── Related Posts ── */}
-      <section className="bg-slate-50 py-14 sm:py-18 border-t border-slate-200">
+      <section className="num-host bg-slate-50 py-14 sm:py-18 border-t border-slate-200 overflow-hidden">
+        <div className="beam-layer block-anchor block-anchor--orange top-0 right-0 hidden md:block" style={{ clipPath: 'polygon(40% 0, 100% 0, 100% 100%, 0 100%)' }} aria-hidden />
         <div className={shell}>
           <h2 className="font-[family-name:var(--font-app-display)] text-2xl sm:text-3xl font-bold text-[var(--onestop-navy-deep)] mb-8">
             More from Our Blog

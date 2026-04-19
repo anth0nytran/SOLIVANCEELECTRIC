@@ -6,8 +6,41 @@ import {
   Shield,
   Clock,
   Building2,
+  Instagram,
+  Star,
 } from 'lucide-react';
 import { siteConfig } from '../config';
+
+const socialLinks = [
+  {
+    label: 'Google Business Profile',
+    href: siteConfig.socials.google,
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
+        <path d="M21.35 11.1h-9.17v2.98h5.27c-.23 1.46-1.7 4.28-5.27 4.28-3.17 0-5.76-2.63-5.76-5.86s2.59-5.86 5.76-5.86c1.8 0 3.01.77 3.7 1.43l2.52-2.43C16.83 3.93 14.77 3 12.18 3 7.07 3 2.95 7.12 2.95 12.5S7.07 22 12.18 22c6.67 0 9.17-4.69 9.17-9.06 0-.61-.07-1.08-.17-1.84z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Yelp',
+    href: siteConfig.socials.yelp,
+    icon: <Star className="h-3.5 w-3.5 fill-current" strokeWidth={0} />,
+  },
+  {
+    label: 'Thumbtack',
+    href: siteConfig.socials.thumbtack,
+    icon: (
+      <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden>
+        <path d="M12 2 4 10l3 3 3-3v6l2 2 2-2v-6l3 3 3-3-8-8z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'Instagram',
+    href: siteConfig.socials.instagram,
+    icon: <Instagram className="h-3.5 w-3.5" strokeWidth={1.8} />,
+  },
+];
 
 const footerServices: { slug: string; label: string }[] = [
   { slug: 'panel-upgrades', label: 'Panel Upgrades' },
@@ -43,7 +76,7 @@ export function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm text-white/50 max-w-md leading-relaxed font-medium">
-              Licensed Texas electrical contractor covering Houston, Cypress, Katy, Memorial and the surrounding Harris and Fort Bend metro. Commercial, light-industrial, and premium residential. 24-hour emergency line answered by a licensed electrician.
+              Licensed Texas electrical contractor covering Houston, Cypress, Katy, Memorial, Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring — and surrounding Texas on a call. Commercial, light-industrial, and premium residential. 24-hour line answered by a licensed electrician.
             </p>
             <div className="mt-6 space-y-4">
               <div>
@@ -94,7 +127,7 @@ export function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-[0.25em] text-white/50 mb-6">Company</h4>
             <ul className="space-y-4 text-sm text-white/50 font-medium">
               <li><Link href="/about" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> About Solivance Electric</Link></li>
-              <li><Link href="/#reviews" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> Customer Reviews</Link></li>
+              <li><Link href="/reviews" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> Customer Reviews</Link></li>
               <li><Link href="/blog" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> Blog</Link></li>
               <li><Link href="/contact" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> Contact &amp; Free Quote</Link></li>
             </ul>
@@ -107,6 +140,31 @@ export function Footer() {
             </div>
           </div>
 
+        </div>
+      </div>
+
+      {/* SOCIAL ROW */}
+      <div className="border-t border-white/10">
+        <div className={`${shell} py-5 flex flex-col sm:flex-row items-center justify-between gap-4`}>
+          <div className="flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-white/40 font-[family-name:var(--font-app-mono)]">
+            <span className="h-px w-6 bg-[var(--onestop-gold)]" />
+            Find us online
+          </div>
+          <div className="flex items-center gap-2">
+            {socialLinks.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer me"
+                aria-label={s.label}
+                title={s.label}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/70 ring-1 ring-white/10 hover:bg-[var(--onestop-red)] hover:text-white hover:ring-[var(--onestop-red)] transition-all"
+              >
+                {s.icon}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 

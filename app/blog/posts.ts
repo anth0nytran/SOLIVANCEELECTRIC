@@ -78,7 +78,7 @@ export const blogPosts: BlogPost[] = [
 <p>If your building still has a fuse box or a panel brand with known failure history (Federal Pacific, Zinsco, certain Challenger panels), insurance carriers are increasingly refusing to cover the property until it is replaced. A panel upgrade solves the safety and insurability issue in one step.</p>
 
 <h2>What a Panel Upgrade Actually Does</h2>
-<p>When Solivance Electric performs a <a href="/services#panel-upgrades">commercial panel upgrade</a>, we replace the service entrance cable, meter base, main breaker, and panel as a single, code-compliant system. The outcome:</p>
+<p>When Solivance Electric performs a <a href="/services/panel-upgrades">commercial panel upgrade</a>, we replace the service entrance cable, meter base, main breaker, and panel as a single, code-compliant system. The outcome:</p>
 <ul>
   <li>Higher capacity (typical upgrades go from 100A to 200A, 200A to 400A, or to custom switchgear configurations)</li>
   <li>Modern arc-fault and ground-fault protection where code requires</li>
@@ -150,7 +150,7 @@ export const blogPosts: BlogPost[] = [
     ],
     content: `
 <p>Commercial EV charging is no longer a perk &mdash; it is infrastructure your tenants, employees, and customers expect. Houston commercial property owners who installed chargers in 2022 are seeing higher lease-up rates, longer tenant stays, and real revenue from session fees. Those who wait are competing for tenants with a visibly shorter amenity list.</p>
-<p>At <strong>Solivance Electric LLC</strong>, we design and install <a href="/services#ev-chargers">commercial EV charging systems</a> across Houston, Cypress, Katy, and Memorial. This guide covers what property owners actually need to know before calling for a quote.</p>
+<p>At <strong>Solivance Electric LLC</strong>, we design and install <a href="/services/ev-chargers">commercial EV charging systems</a> across Houston, Cypress, Katy, and Memorial. This guide covers what property owners actually need to know before calling for a quote.</p>
 
 <h2>Level 2 vs DC Fast Charging &mdash; Which Fits Your Property?</h2>
 <p>The right charger type depends entirely on how long cars sit at your property.</p>
@@ -185,7 +185,7 @@ export const blogPosts: BlogPost[] = [
 <h2>Load Calculation &mdash; The Step Most Contractors Skip</h2>
 <p>The biggest mistake we see on commercial EV projects is contractors quoting charger installs without running a real NEC Article 220 load calculation. That is how buildings end up with nuisance trips six months later, or with a stranded panel that cannot support anything else.</p>
 <p>A proper load study looks at existing metered demand over 12 months, applies the correct diversity factors, and confirms whether load management (which throttles charger output during peak building load) can keep you under service capacity. Many commercial buildings can add four to eight Level 2 ports without upgrading the main service when load management is deployed correctly.</p>
-<p>When the calculation shows the service cannot support the planned load, the honest answer is a <a href="/services#panel-upgrades">panel upgrade</a> alongside the chargers. We build that into the quote rather than discovering it mid-install.</p>
+<p>When the calculation shows the service cannot support the planned load, the honest answer is a <a href="/services/panel-upgrades">panel upgrade</a> alongside the chargers. We build that into the quote rather than discovering it mid-install.</p>
 
 <h2>Permitting &mdash; What to Expect in Houston</h2>
 <p>Every commercial EV charger install in the City of Houston, Cypress, Katy, and Memorial requires an electrical permit and inspection. On DC fast-charging projects, you will also coordinate with CenterPoint on service size and transformer capacity, which can add weeks to the timeline.</p>
@@ -255,7 +255,7 @@ export const blogPosts: BlogPost[] = [
     ],
     content: `
 <p>Houston is one of the most power-disrupted commercial markets in the country. Hurricanes, tropical storms, derechos, ice storms, and everyday grid events routinely take parts of the metro offline for hours or days. Every hour your business is dark costs you &mdash; in spoiled inventory, lost sales, payroll for idle staff, comfort-of-stay tenant complaints, and reputation with customers who simply went somewhere else.</p>
-<p>A properly sized, professionally installed standby generator eliminates that risk. At <strong>Solivance Electric LLC</strong>, we install <a href="/services#generator-installs">commercial standby generators</a> across Houston, Cypress, Katy, and Memorial &mdash; sized and commissioned so the lights come back on 10 seconds after the grid drops, without anyone having to touch a thing.</p>
+<p>A properly sized, professionally installed standby generator eliminates that risk. At <strong>Solivance Electric LLC</strong>, we install <a href="/services/generator-installs">commercial standby generators</a> across Houston, Cypress, Katy, and Memorial &mdash; sized and commissioned so the lights come back on 10 seconds after the grid drops, without anyone having to touch a thing.</p>
 
 <h2>The Gulf Coast Problem</h2>
 <p>Three realities make Houston uniquely risky for commercial power:</p>

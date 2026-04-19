@@ -8,7 +8,7 @@ import { locationContent, locationOrder } from './locationContent';
 export const metadata: Metadata = {
   title: 'Service Areas — Houston, Cypress, Katy, Memorial',
   description:
-    'Solivance Electric works Houston, Cypress, Katy, and Memorial — plus the surrounding Harris and Fort Bend County metro. Licensed Texas electrical contractor. 24/7 emergency line.',
+    'Solivance Electric works Houston, Cypress, Katy, Memorial, Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring — plus surrounding Texas on a call. Licensed Texas electrical contractor. 24-hour response.',
   alternates: { canonical: '/locations' },
   openGraph: {
     title: 'Service Areas — Solivance Electric',
@@ -46,6 +46,17 @@ export default function LocationsIndexPage() {
 
       {/* ═══ PAGE HERO ═══ */}
       <section className="page-hero">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/photos_new/subhero-locations.jpg"
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className="object-cover opacity-55"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+        </div>
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 relative z-10">
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex flex-wrap items-center gap-2 text-white/55">
@@ -64,13 +75,14 @@ export default function LocationsIndexPage() {
             Serving four home markets across Greater Houston.
           </h1>
           <p className="mt-5 max-w-2xl text-[0.98rem] sm:text-base text-white/80 leading-[1.7]">
-            Houston, Cypress, Katy, and Memorial are the daily footprint. Harris and Fort Bend County permits are what we pull day-in, day-out. The surrounding metro is covered on a call.
+            Houston, Cypress, Katy, and Memorial are the daily footprint. Harris, Fort Bend, and Montgomery County permits are what we pull day-in, day-out. Surrounding Texas is covered on a call.
           </p>
         </div>
       </section>
 
       {/* ═══ CITY CARD GRID ═══ */}
-      <section className="bg-white py-14 sm:py-20">
+      <section className="num-host bg-white py-14 sm:py-20 overflow-hidden">
+        <div className="beam-layer beam-diagonal -top-20 -right-48 hidden md:block" aria-hidden />
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="mb-10">
             <div className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[var(--onestop-red)] mb-3">
@@ -141,7 +153,10 @@ export default function LocationsIndexPage() {
       </section>
 
       {/* ═══ SECONDARY AREAS ═══ */}
-      <section className="bg-slate-50 py-14 sm:py-16 border-t border-slate-200">
+      <section className="num-host bg-slate-50 py-14 sm:py-16 border-t border-slate-200 overflow-hidden">
+        <div className="beam-layer bar-rack top-12 right-6 sm:right-12 hidden lg:grid" aria-hidden>
+          <span /><span /><span /><span />
+        </div>
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
             <div>
@@ -149,10 +164,10 @@ export default function LocationsIndexPage() {
                 Also covered
               </div>
               <h2 className="text-[1.5rem] sm:text-[1.85rem] font-bold text-[var(--onestop-navy-deep)] leading-[1.15] tracking-[-0.02em]">
-                Surrounding Harris &amp; Fort Bend metro.
+                Harris, Fort Bend, Montgomery &amp; beyond.
               </h2>
               <p className="mt-3 text-[0.92rem] text-slate-600 leading-[1.65]">
-                Call if you are close — we probably cover it.
+                Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring — we run these cities regularly. Call if you are elsewhere in Texas, we probably cover it.
               </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 self-center">
