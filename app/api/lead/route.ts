@@ -409,5 +409,130 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: errorMessage }, { status: 500 });
   }
 
+  const emailIsValid = !!email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (emailIsValid) {
+    const brandPhoneDisplay = '(832) 965-9964';
+    const brandPhoneHref = '+18329659964';
+    const customerFirstName = (safeName.split(/\s+/)[0] || 'there').replace(/[^A-Za-z\-']/g, '');
+    const customerSubject = `We received your request — ${brandName}`;
+
+    const customerText = [
+      `Hi ${customerFirstName},`,
+      '',
+      `Thanks for reaching out to ${brandName}. We've received your request and a member of our team will reach out very soon.`,
+      '',
+      'Please keep your phone nearby. If you would prefer to call us directly, our number is ' + brandPhoneDisplay + '.',
+      '',
+      'Here is a quick copy of what you sent:',
+      service ? `  Service: ${service}` : '',
+      address ? `  Address: ${address}` : '',
+      preferredDate ? `  Preferred Date: ${preferredDate}` : '',
+      timeline ? `  Time Window: ${timeline}` : '',
+      urgency ? `  Urgency: ${urgency}` : '',
+      message ? `  Notes: ${message}` : '',
+      '',
+      '— The Solivance Electric Team',
+      `${brandAddress} · Licensed & Insured · 24/7 Emergency Service`,
+    ].filter(Boolean).join('\n');
+
+    const detailsRow = (label: string, value: string) =>
+      value
+        ? `<tr><td style="padding:8px 0;color:#64748b;width:130px;font-size:13px;">${label}</td><td style="padding:8px 0;color:#0f172a;font-weight:700;font-size:13px;">${escapeHtml(value)}</td></tr>`
+        : '';
+
+    const customerHtml = `
+    <div style="background-color:#e2e8f0;margin:0;padding:24px 12px;font-family:'Barlow','Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#0f172a;">
+      <span style="display:none!important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;overflow:hidden;">
+        We received your request. A Solivance Electric team member will reach out very soon.
+      </span>
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:620px;margin:0 auto;background:#ffffff;border:1px solid #cbd5e1;border-radius:16px;box-shadow:0 14px 36px rgba(2,6,23,0.18);overflow:hidden;">
+        <tr>
+          <td style="background:${brandPrimary};color:#ffffff;padding:22px 24px;border-bottom:4px solid ${brandAccent};text-align:center;">
+            <div style="font-size:12px;font-weight:800;letter-spacing:2.4px;text-transform:uppercase;color:#ffffff;opacity:0.75;">${brandName}</div>
+            <div style="font-size:24px;font-weight:800;letter-spacing:-0.3px;margin-top:6px;color:#ffffff;">Request Received</div>
+            <div style="display:inline-block;margin-top:10px;background:${brandAccent};color:#ffffff;font-weight:800;font-size:11px;padding:6px 12px;border-radius:999px;letter-spacing:1.4px;">CONFIRMATION</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:26px 24px 8px;">
+            <div style="font-size:18px;font-weight:800;color:#0f172a;margin-bottom:10px;">Hi ${escapeHtml(customerFirstName)},</div>
+            <p style="margin:0 0 14px;font-size:15px;line-height:1.65;color:#334155;">
+              Thanks for reaching out to <strong>${brandName}</strong>. Your request came through and a team member will reach out very soon.
+            </p>
+            <p style="margin:0 0 14px;font-size:15px;line-height:1.65;color:#334155;">
+              Please keep your phone nearby — calls and texts come from a local Houston number.
+            </p>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:6px 24px 20px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
+              <tr>
+                <td style="padding:14px 16px 4px;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:${brandPrimary};">Prefer to call?</td>
+              </tr>
+              <tr>
+                <td style="padding:0 16px 14px;">
+                  <a href="tel:${brandPhoneHref}" style="display:block;background:${brandAccent};color:#ffffff;text-decoration:none;font-weight:800;font-size:16px;text-align:center;padding:14px 18px;border-radius:10px;letter-spacing:0.4px;">
+                    Call ${brandPhoneDisplay}
+                  </a>
+                  <div style="margin-top:8px;font-size:12px;color:#64748b;text-align:center;">
+                    24/7 emergency service — also on this line.
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:0 24px 22px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #dbe5f3;border-radius:12px;overflow:hidden;">
+              <tr>
+                <td style="background:#eff6ff;padding:12px 16px;font-weight:800;border-bottom:1px solid #dbe5f3;color:${brandPrimary};font-size:13px;letter-spacing:0.3px;">Copy of Your Request</td>
+              </tr>
+              <tr>
+                <td style="padding:4px 16px 8px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                    ${detailsRow('Name', safeName)}
+                    ${detailsRow('Service', safeService)}
+                    ${detailsRow('Address', address)}
+                    ${detailsRow('Preferred Date', preferredDate)}
+                    ${detailsRow('Time Window', timeline)}
+                    ${detailsRow('Urgency', urgency)}
+                    ${message ? `<tr><td style="padding:8px 0;color:#64748b;width:130px;font-size:13px;vertical-align:top;">Notes</td><td style="padding:8px 0;color:#0f172a;font-size:13px;line-height:1.55;">${escapeHtml(message).replace(/\n/g, '<br />')}</td></tr>` : ''}
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:0 24px 24px;">
+            <div style="border-left:4px solid ${brandAccent};padding:12px 14px;background:#f8fafc;border-radius:8px;font-size:12px;color:#475569;line-height:1.6;">
+              <div style="font-weight:800;color:${brandPrimary};letter-spacing:0.2px;margin-bottom:4px;">— The Solivance Electric Team</div>
+              ${brandAddress} &middot; Licensed &amp; Insured &middot; 24/7 Emergency Service
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div style="max-width:620px;margin:12px auto 0;text-align:center;font-size:11px;color:#94a3b8;line-height:1.5;">
+        You received this because you submitted a request on solivanceelectric.com.
+      </div>
+    </div>
+    `;
+
+    await resend.emails.send({
+      from: fromEmail,
+      to: [email],
+      subject: customerSubject,
+      text: customerText,
+      html: customerHtml,
+    }).catch(() => { /* don't fail the lead if confirmation send fails */ });
+  }
+
   return NextResponse.json({ ok: true }, { status: 200 });
 }
