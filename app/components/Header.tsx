@@ -104,7 +104,7 @@ export function Header() {
           </div>
           <div className="flex items-center gap-3 mx-auto sm:mx-0">
             <span className="font-semibold text-white/90">
-              Houston · Cypress · Katy · Memorial
+              SW Houston · Heights · Bellaire · Memorial Villages
             </span>
             <span className="h-3 w-px bg-white/25 hidden sm:inline-block" aria-hidden />
             <a href={`tel:${siteConfig.cleanPhone}`} className="hidden sm:inline-flex items-center gap-1.5 font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal">

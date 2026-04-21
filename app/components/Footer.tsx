@@ -76,8 +76,20 @@ export function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm text-white/50 max-w-md leading-relaxed font-medium">
-              Licensed Texas electrical contractor covering Houston, Cypress, Katy, Memorial, Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring — and surrounding Texas on a call. Commercial, light-industrial, and premium residential. 24-hour line answered by a licensed electrician.
+              Licensed Texas electrical contractor. Commercial and residential across Southwest Houston, the Heights, Bellaire, and the Memorial Villages. 24-hour line answered by a licensed electrician.
             </p>
+            <address className="mt-5 not-italic text-sm text-white/60 leading-relaxed">
+              <div className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-white/40 mb-1">Office &amp; Shop</div>
+              <a
+                href={siteConfig.address.googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-[var(--onestop-gold)] transition-colors font-semibold"
+              >
+                {siteConfig.address.street}<br />
+                {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}
+              </a>
+            </address>
             <div className="mt-6 space-y-4">
               <div>
                 <div className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-white/40 mb-1">24/7 Emergency Service Available</div>

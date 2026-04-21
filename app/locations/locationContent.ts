@@ -13,6 +13,171 @@ export interface LocationContent {
 }
 
 export const locationContent: Record<string, LocationContent> = {
+  'southwest-houston': {
+    slug: 'southwest-houston',
+    name: 'Southwest Houston',
+    fullName: 'Southwest Houston, TX',
+    positionLine: 'S Post Oak Rd HQ · Med Center to Sugar Land · 77045',
+    heroLede:
+      'Licensed commercial and residential electrical contractor headquartered at 13035 S Post Oak Rd Suite I, 77045. Permits pulled at City of Houston, Bellaire, West U, and Fort Bend AHJs; CenterPoint cut-overs coordinated day-in, day-out.',
+    description:
+      'Southwest Houston is the primary service footprint — the shop sits on S Post Oak Rd in 77045, ten minutes to the Medical Center, five minutes to Meyerland, ten to Bellaire and West University. The commercial mix here is retail pads along 610 and 90, medical office around TMC and NRG, strip-center property management portfolios, warehouse inventory down toward Stafford and Missouri City, and tenant finish-out through Westchase. The residential mix is serious too — older 100A and 150A services due for 200A upgrades across Westbury, Meyerland, and Braeswood; whole-home Generac installs through Bellaire and West U; Tesla wall connector and Level 2 EV charger builds on a weekly basis. Trucks leave the shop every morning going north to the Heights and west to the Villages; Southwest Houston is the neighborhood we cover twice a day.',
+    zipCodes: ['77045', '77035', '77096', '77401', '77005', '77030', '77025', '77477'],
+    neighborhoods:
+      'Westbury · Meyerland · Bellaire · West University · Braeswood · Medical Center · Sharpstown · Stafford · Sugar Land',
+    ahjNotes:
+      'Most of the Southwest Houston footprint is City of Houston AHJ — permits filed through the Houston Permitting Center, inspections booked through the city portal. Bellaire and West University Place are their own AHJs with their own permit offices. Stafford, Missouri City, and Sugar Land sit in Fort Bend County with their own city-level permit routes. CenterPoint Energy is the electric utility across the territory. We verify AHJ by address before the quote is fixed-fee.',
+    projects: [
+      { scope: '400A 3-phase service upgrade', building: 'Medical office near TMC', days: '3 days' },
+      { scope: '200A residential panel upgrade + whole-home surge', building: 'Westbury 1960s ranch', days: '1 day' },
+      { scope: '48 kW whole-home Generac with ATS', building: 'Bellaire custom home', days: '2 days' },
+      { scope: 'Tesla Wall Connector × 2 + panel capacity upgrade', building: 'West University residence', days: '1 day' },
+      { scope: 'Parking-lot LED retrofit — 18 poles', building: 'Meyerland retail center', days: '4 days' },
+      { scope: 'Level 2 EV × 8 + DCFC × 1', building: 'Sugar Land office park', days: '8 days' },
+    ],
+    faqs: [
+      {
+        q: 'Where is Solivance Electric physically located in Southwest Houston?',
+        a: 'The shop is at 13035 S Post Oak Rd Suite I, Houston, TX 77045 — off S Post Oak between Fondren Southwest and West Bellfort, a short drive to Westbury, Meyerland, the Medical Center, and NRG. Trucks dispatch from that address daily.',
+      },
+      {
+        q: 'Do you serve both commercial and residential in Southwest Houston?',
+        a: 'Yes. Commercial is the bulk of the work — panel upgrades up to 3-phase, parking-lot lighting, EV charger builds for office lots and multi-tenant retail, and warehouse electrical toward Stafford and Sugar Land. Residential runs in parallel: 200A and 320A service upgrades on older Westbury/Meyerland homes, whole-home standby generators through Bellaire and West U, and Tesla/Level 2 EV installs on a weekly basis.',
+      },
+      {
+        q: 'How fast can you get to a Southwest Houston emergency?',
+        a: 'Inside the 610/Beltway triangle around 77045, a truck is usually on site inside 45 minutes on a business day, faster after hours when traffic clears. The 24-hour line is answered by a licensed electrician.',
+      },
+      {
+        q: 'Do you pull City of Houston, Bellaire, West U, and Fort Bend permits?',
+        a: 'Every week. Houston Permitting Center for the City of Houston footprint (77045, 77035, 77096, 77025, 77074, 77036, 77042, 77054, 77030). Bellaire and West University Place each have their own AHJ and we file through them. Fort Bend County cities (Stafford, Missouri City, Sugar Land) get their own routing. We confirm jurisdiction by address before the quote goes out.',
+      },
+      {
+        q: 'Do you work the Medical Center and NRG area?',
+        a: 'Yes. Medical office panel upgrades, standby generator installs for clinics and imaging suites, parking-structure lighting retrofits, and EV charging station builds for clinic campuses and NRG-adjacent lots.',
+      },
+    ],
+  },
+  heights: {
+    slug: 'heights',
+    name: 'The Heights',
+    fullName: 'Houston Heights, TX',
+    positionLine: 'Houston Heights · Garden Oaks · Oak Forest · Timbergrove',
+    heroLede:
+      'Licensed electrical contractor working the Heights corridor — Houston Heights, Garden Oaks, Oak Forest, Timbergrove. City of Houston permits pulled, HAHC historic district overlay handled, inspections passed on the first walk.',
+    description:
+      'The Heights is a mix most electricians underestimate — historic bungalows and craftsman homes with original 60A–150A services, new construction infill on every other lot, a White Oak and 19th Street retail corridor that runs tenant finish-out year-round, and a commercial strip along I-10 and 610 that never slows down. Solivance Electric runs the Heights corridor daily from the 77045 shop, pulling City of Houston permits, coordinating CenterPoint cut-overs, and handling the HAHC (Houston Archaeological and Historical Commission) overlay where it applies on Heights historic district addresses.',
+    zipCodes: ['77008', '77009', '77007', '77018', '77092', '77022'],
+    neighborhoods:
+      'Houston Heights · Woodland Heights · Norhill · Garden Oaks · Oak Forest · Timbergrove · Shady Acres',
+    ahjNotes:
+      'The Heights corridor is City of Houston AHJ — permits through the Houston Permitting Center, inspections on the city portal. Heights historic district addresses fall under HAHC overlay for exterior work (service mast relocation, exterior conduit routing) and we handle that submission as part of the scope. CenterPoint Energy is the utility.',
+    projects: [
+      { scope: '200A service upgrade + meter relocation', building: '1925 Heights bungalow', days: '2 days' },
+      { scope: '22 kW standby generator + ATS', building: 'Woodland Heights custom home', days: '2 days' },
+      { scope: 'Tenant finish-out electrical', building: 'White Oak retail suite', days: '6 days' },
+      { scope: 'Full rewire + panel upgrade', building: 'Norhill 1930s home', days: '5 days' },
+      { scope: 'Parking-lot LED retrofit', building: 'Oak Forest strip center', days: '3 days' },
+    ],
+    faqs: [
+      {
+        q: 'Do you work Heights historic district addresses under HAHC overlay?',
+        a: 'Yes. Service mast relocation, meter placement, and exterior conduit routing on HAHC-protected addresses need a certificate of appropriateness before permitting. We handle the HAHC submission as part of the scope — no passing that paperwork back to the homeowner.',
+      },
+      {
+        q: 'Can you upgrade the 60A/100A services common on older Heights bungalows?',
+        a: 'Routinely. Most 1920s–1940s Heights homes are on original or mid-century services that cannot carry a modern kitchen, mini-split HVAC, and EV charger on the same day. The typical upgrade path is 60A → 200A with a new meter loop, main panel, and dedicated circuits for the kitchen and HVAC. Inspection passes the first walk.',
+      },
+      {
+        q: 'Do you handle tenant finish-out for Heights retail and restaurant spaces?',
+        a: 'Yes. White Oak, 19th Street, Studewood, and the Heights Mercantile corridor get regular tenant finish-out scope — panel sizing, sub-panels, hood and kitchen equipment circuits, data/POS rough-in, and final inspection tied to the opening date.',
+      },
+      {
+        q: 'Do you cover Garden Oaks, Oak Forest, and Timbergrove too?',
+        a: 'Yes — same route. Older mid-century homes across Garden Oaks and Oak Forest have the same panel-upgrade demand as the Heights proper, and Timbergrove sees steady whole-home generator and EV install work.',
+      },
+    ],
+  },
+  bellaire: {
+    slug: 'bellaire',
+    name: 'Bellaire',
+    fullName: 'Bellaire, TX',
+    positionLine: 'Bellaire · West University Place · Braeswood · Premium residential + retail',
+    heroLede:
+      'Licensed electrical contractor working Bellaire, West University Place, and the Braeswood corridor. Bellaire and West U permits pulled directly, CenterPoint cut-overs coordinated, inspections passed the first walk.',
+    description:
+      'Bellaire and West University Place are their own incorporated cities with their own AHJs — smaller, faster permit offices than City of Houston, and inspectors who know which licensed contractors actually show up. The residential footprint here is premium: custom-built and teardown-rebuild homes, 400A services on new builds, whole-home Generac installs on roughly half the new construction in West U, and EV charger demand that has doubled year over year. Commercial work runs the Bellaire Blvd retail corridor and the office/medical inventory between Bellaire and the Medical Center. Solivance Electric covers this footprint out of the Southwest Houston shop on S Post Oak — fifteen minutes door to door.',
+    zipCodes: ['77401', '77005', '77081', '77096', '77025'],
+    neighborhoods:
+      'Bellaire · West University Place · Southside Place · Braeswood Place · South Braeswood · Old Braeswood · Linkwood · Rice Village perimeter',
+    ahjNotes:
+      'Bellaire and West University Place are each their own city AHJ with their own permit offices — not City of Houston. The Braeswood/Linkwood addresses inside Houston city limits go through Houston Permitting Center. CenterPoint Energy is the electric utility across the territory. We verify AHJ by the exact address before the quote.',
+    projects: [
+      { scope: '400A service upgrade on new construction', building: 'West University custom home', days: '2 days' },
+      { scope: '26 kW whole-home Generac + ATS', building: 'Bellaire residence', days: '2 days' },
+      { scope: 'Tesla Wall Connector × 2 + panel upgrade', building: 'Braeswood Place home', days: '1 day' },
+      { scope: 'Retail tenant finish-out', building: 'Bellaire Blvd strip center', days: '5 days' },
+      { scope: 'Full rewire + service upgrade', building: 'Southside Place 1940s home', days: '6 days' },
+    ],
+    faqs: [
+      {
+        q: 'Do you pull Bellaire and West University permits?',
+        a: 'Every week. Bellaire permit office and West University Place permit office are both separate AHJs from City of Houston — smaller staffs, faster turnarounds, and inspectors who see our trucks regularly. We file, schedule, and walk the inspection.',
+      },
+      {
+        q: 'Can you handle 400A new-construction services in West U and Bellaire?',
+        a: 'Routinely. New builds in West University and Bellaire are almost all spec-ing 320A or 400A services now to handle modern load: dual HVAC, EV make-ready in the garage, pool equipment, and standby generator tie-in. We size the service to the 2023 NEC demand calc, not a guess.',
+      },
+      {
+        q: 'Do you install whole-home generators in Bellaire and West U?',
+        a: 'Yes — multiple per month. Generac, Kohler, and Cummins air-cooled and liquid-cooled standby installs with ATS commissioning, fuel plumbing, emissions paperwork, and the first annual service on the calendar before we leave.',
+      },
+      {
+        q: 'Do you handle Tesla Wall Connector and Level 2 EV installs?',
+        a: 'Routinely. Most West U and Bellaire homes need a panel capacity check and often a sub-panel in the garage before the charger goes in. We pull the permit, size the circuit, and commission the charger on the Tesla app or the OEM app before leaving.',
+      },
+    ],
+  },
+  'memorial-villages': {
+    slug: 'memorial-villages',
+    name: 'Memorial Villages',
+    fullName: 'Memorial Villages, TX',
+    positionLine: 'Hunters Creek · Spring Valley · Bunker Hill · Piney Point · Hedwig',
+    heroLede:
+      'Licensed electrical contractor working the six incorporated Memorial Villages — Hunters Creek, Spring Valley, Bunker Hill, Piney Point, Hedwig, and Hilshire. Each village is its own AHJ; we know the permit path for all of them.',
+    description:
+      'The Memorial Villages are the most fragmented AHJ territory in the Solivance footprint — six separate incorporated villages, each with its own permit office, exterior-equipment ordinances, and inspector. Hunters Creek Village and Spring Valley Village are a regular daily run from the 77045 shop, the same with Bunker Hill, Piney Point, and Hedwig. Piney Point and Hedwig in particular enforce stricter exterior-work ordinances — generator setbacks, ATS enclosure placement, dark-sky cutoff requirements on exterior lighting — and we flag those in the quote before the gen-set gets sited. The residential premium here is serious; older services due for 320A–400A upgrades, standby generator demand after every hurricane, and EV charger builds in almost every new build.',
+    zipCodes: ['77024', '77055', '77043', '77063'],
+    neighborhoods:
+      'Hunters Creek Village · Spring Valley Village · Bunker Hill Village · Piney Point Village · Hedwig Village · Hilshire Village · Memorial corridor · Tanglewood · Town & Country',
+    ahjNotes:
+      'Six separate incorporated Memorial Villages, each its own AHJ: Hunters Creek Village, Spring Valley Village, Bunker Hill Village, Piney Point Village, Hedwig Village, and Hilshire Village. Piney Point and Hedwig have stricter exterior-equipment ordinances (generator setbacks, ATS placement, dark-sky lighting cutoffs). City of Houston and unincorporated Harris County pockets sit between the villages — we verify AHJ by the exact address before the quote is fixed-fee.',
+    projects: [
+      { scope: '400A service upgrade + meter relocation', building: 'Piney Point Village residence', days: '3 days' },
+      { scope: '48 kW standby generator + ATS', building: 'Hunters Creek Village home', days: '3 days' },
+      { scope: '22 kW standby generator + ATS', building: 'Spring Valley Village home', days: '2 days' },
+      { scope: 'Tesla Wall Connector × 2 + garage sub-panel', building: 'Bunker Hill Village residence', days: '1 day' },
+      { scope: 'Commercial panel upgrade + lot lighting', building: 'Memorial Dr office pad', days: '4 days' },
+    ],
+    faqs: [
+      {
+        q: 'Do you serve all six Memorial Villages?',
+        a: 'Yes — Hunters Creek, Spring Valley, Bunker Hill, Piney Point, Hedwig, and Hilshire. Each village is its own AHJ with its own permit office and inspector; we know the path for each and file accordingly.',
+      },
+      {
+        q: 'Do Piney Point and Hedwig have special rules on generator placement or exterior lighting?',
+        a: 'Yes. Both villages enforce exterior-equipment setback requirements (generator and ATS enclosure placement) and dark-sky cutoff requirements on exterior lighting. We flag those in the quote before the gen-set is sited — nobody wants to move a 1,500-pound Generac after the slab is poured.',
+      },
+      {
+        q: 'Can you handle 400A residential service upgrades in the Villages?',
+        a: 'Routinely. Older services on 1970s–1990s Villages homes are being upsized to 320A or 400A to carry dual HVAC, a standby generator tie-in, EV charging, and pool equipment on one modern panel. We pull the village permit, coordinate the CenterPoint cut-over, and pass inspection the first walk.',
+      },
+      {
+        q: 'How fast can you get to a Memorial Villages emergency?',
+        a: 'From the 77045 shop, a truck is usually on site in 25–40 minutes on a business day, depending on traffic on 610 and Beltway 8. The 24-hour line is answered by a licensed electrician.',
+      },
+    ],
+  },
   houston: {
     slug: 'houston',
     name: 'Houston',
@@ -175,4 +340,4 @@ export function getLocationContent(slug: string): LocationContent | null {
   return locationContent[slug] || null;
 }
 
-export const locationOrder = ['houston', 'cypress', 'katy', 'memorial'];
+export const locationOrder = ['southwest-houston', 'heights', 'bellaire', 'memorial-villages', 'houston', 'memorial', 'katy', 'cypress'];

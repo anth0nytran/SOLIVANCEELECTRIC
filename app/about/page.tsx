@@ -5,19 +5,19 @@ import AboutPageClient from './AboutPageClient';
 export const metadata: Metadata = {
   title: 'About Solivance Electric — Licensed Texas Commercial Electrical Contractor',
   description:
-    'Licensed Texas commercial electrical contractor covering Houston, Cypress, Katy, and Memorial. In-house crew — not subcontracted out. Harris County permits pulled, CenterPoint cut-over coordinated, inspections passed on the first walk. 24/7 emergency line.',
+    'Licensed Texas commercial electrical contractor covering Southwest Houston, the Heights, Bellaire, and the Memorial Villages. In-house crew — not subcontracted out. Harris County permits pulled, CenterPoint cut-over coordinated, inspections passed on the first walk. 24/7 emergency line.',
   alternates: { canonical: '/about' },
   openGraph: {
     title: 'About Solivance Electric — Licensed Texas Commercial Electrical Contractor',
     description:
-      'Houston · Cypress · Katy · Memorial. Commercial and light-industrial electrical. Panel upgrades, standby generators, EV chargers, parking-lot lighting, warehouse builds. 24/7 emergency.',
+      'Southwest Houston · Heights · Bellaire · Memorial Villages. Commercial and light-industrial electrical. Panel upgrades, standby generators, EV chargers, parking-lot lighting, warehouse builds. 24/7 emergency.',
     url: `${siteConfig.domain}/about`,
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'About Solivance Electric LLC — Houston Commercial Electrical Contractor' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About Solivance Electric — Licensed Texas Electrical Contractor',
-    description: 'Houston, Cypress, Katy, Memorial. In-house crew. Permits pulled. Inspections passed on the first walk.',
+    description: 'Southwest Houston, Heights, Bellaire, Memorial Villages. In-house crew. Permits pulled. Inspections passed on the first walk.',
     images: ['/og-image.jpg'],
   },
 };

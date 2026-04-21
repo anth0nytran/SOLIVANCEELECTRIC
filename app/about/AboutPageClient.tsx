@@ -60,7 +60,7 @@ export default function AboutPageClient() {
           </h1>
           <p className="mt-5 text-[0.98rem] sm:text-base text-white/80 leading-[1.7] max-w-2xl">
             Licensed Texas electrical contractor. Commercial, light-industrial, and
-            premium residential across Houston, Cypress, Katy, and Memorial — panel
+            premium residential across Southwest Houston, the Heights, Bellaire, and the Memorial Villages — panel
             upgrades through 3-phase switchgear, standby generators with ATS
             commissioning, LED parking-lot retrofits, EV charger builds, RV park
             pedestals, and ground-up warehouse electrical.
@@ -126,7 +126,7 @@ export default function AboutPageClient() {
                 <div className="space-y-5 text-[0.95rem] leading-[1.8] text-slate-600">
                 <p>
                   Solivance Electric is a licensed Texas electrical contractor covering
-                  Houston, Cypress, Katy, and Memorial. We work commercial buildings,
+                  Southwest Houston, the Heights, Bellaire, and the Memorial Villages. We work commercial buildings,
                   light-industrial, warehouses, and premium residential — panel upgrades
                   from 200A through 3-phase switchgear, standby generator installs with
                   full ATS commissioning, Level 2 and DCFC EV charger builds, LED
@@ -267,7 +267,7 @@ export default function AboutPageClient() {
             </h2>
             <p className="mt-4 text-base text-slate-500 leading-relaxed">
               <Users className="inline h-4 w-4 mr-1 align-[-2px]" />
-              Houston, Cypress, Katy, and Memorial are the daily footprint. We also
+              Southwest Houston, the Heights, Bellaire, and the Memorial Villages are the daily footprint. We also
               run Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring, The
               Woodlands, Tomball, Jersey Village, and Bellaire on a regular cycle.
               Harris, Fort Bend, and Montgomery County permits are what we pull

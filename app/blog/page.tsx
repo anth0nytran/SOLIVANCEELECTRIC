@@ -62,7 +62,7 @@ export default function BlogPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
-            'name': 'Commercial Electrical Blog — Houston, Cypress, Katy, Memorial',
+            'name': 'Commercial Electrical Blog — Southwest Houston, Heights, Bellaire, Memorial Villages',
             'description':
               'Commercial electrical guides, code notes, and Houston-specific field writeups from Solivance Electric LLC.',
             'url': `${siteConfig.domain}/blog`,
@@ -194,7 +194,7 @@ export default function BlogPage() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="text-center sm:text-left">
               <h2 className="text-xl sm:text-2xl font-extrabold text-white">Need a commercial electrician?</h2>
-              <p className="mt-1 text-sm text-white/50">Licensed commercial electrical work across Houston, Cypress, Katy &amp; Memorial.</p>
+              <p className="mt-1 text-sm text-white/50">Licensed commercial electrical work across Southwest Houston, Heights, Bellaire &amp; Memorial Villages.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <Link

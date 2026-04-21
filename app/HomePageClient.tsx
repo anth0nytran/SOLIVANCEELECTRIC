@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
   CheckCircle2,
@@ -13,6 +13,9 @@ import {
   HardHat,
   Award,
   MapPin,
+  Zap,
+  X,
+  AlertTriangle,
 } from 'lucide-react';
 import { siteConfig, serviceData } from './config';
 import { ReviewsSection } from './components/ReviewsSection';
@@ -50,15 +53,56 @@ function HeroEstimateForm() {
     } catch { setFormStatus('error'); setFormError('Something went wrong. Please try again.'); }
   };
 
-  const inputClass = "w-full border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/15 rounded-md";
-  const labelClass = "block text-[0.7rem] font-bold text-slate-600 mb-1 uppercase tracking-wide";
+  const inputClass = "w-full border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/15 rounded-md";
+  const labelClass = "block text-[0.66rem] font-bold text-slate-600 mb-0.5 uppercase tracking-wide";
+
+  if (formStatus === 'success') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+        className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden"
+      >
+        <div className="bg-[var(--onestop-navy)] px-5 pt-6 pb-5 text-center border-b-4 border-[var(--onestop-red)]">
+          <motion.div
+            initial={{ scale: 0, rotate: -90 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 18 }}
+            className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-white/10 ring-4 ring-white/20 mb-2.5"
+          >
+            <CheckCircle2 className="h-7 w-7 text-emerald-300" />
+          </motion.div>
+          <motion.h3 initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="text-lg font-extrabold text-white leading-tight">
+            Thanks for your request
+          </motion.h3>
+          <motion.p initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.32 }} className="mt-1.5 text-[0.82rem] text-white/85 leading-relaxed">
+            Keep your phone nearby — our team will be reaching out ASAP.
+          </motion.p>
+        </div>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="p-4 space-y-2.5">
+          <p className="text-center text-[0.65rem] font-bold uppercase tracking-widest text-slate-500">Rather reach us now?</p>
+          <a href={`tel:${siteConfig.cleanPhone}`} className="flex items-center justify-center gap-2 w-full rounded-md bg-[var(--onestop-red)] py-2.5 text-white font-bold text-[0.8rem] uppercase tracking-wider hover:bg-[var(--onestop-navy-deep)] transition shadow">
+            <Phone className="h-3.5 w-3.5" /> Call {siteConfig.phone}
+          </a>
+          <a href={`tel:${siteConfig.cleanPhone}`} className="flex items-center gap-2.5 w-full rounded-md border border-[var(--onestop-red)]/30 bg-rose-50 px-3 py-2 hover:bg-rose-100 transition">
+            <AlertTriangle className="h-4 w-4 text-[var(--onestop-red)] shrink-0" />
+            <div className="text-left leading-tight">
+              <div className="text-[0.62rem] font-extrabold uppercase tracking-widest text-[var(--onestop-red)]">24/7 Emergency Service</div>
+              <div className="text-[0.78rem] font-bold text-slate-800">Also call {siteConfig.phone}</div>
+            </div>
+          </a>
+        </motion.div>
+      </motion.div>
+    );
+  }
 
   return (
-    <form className="grid gap-3" action="/api/lead" method="POST" onSubmit={handleSubmit}>
+    <form className="grid gap-2.5" action="/api/lead" method="POST" onSubmit={handleSubmit}>
       <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <input type="hidden" name="_ts" value={formTimestamp} />
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-2.5 sm:grid-cols-2">
         <div>
           <label className={labelClass}>Full Name <span className="text-[var(--onestop-red)]">*</span></label>
           <input required name="name" type="text" placeholder="John Doe" autoComplete="name" pattern="[A-Za-z\s\-']{2,50}" className={inputClass} />
@@ -69,7 +113,7 @@ function HeroEstimateForm() {
         </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-2.5 sm:grid-cols-2">
         <div>
           <label className={labelClass}>Email <span className="text-[var(--onestop-red)]">*</span></label>
           <input required name="email" type="email" placeholder="you@example.com" autoComplete="email" className={inputClass} />
@@ -80,15 +124,28 @@ function HeroEstimateForm() {
         </div>
       </div>
 
-      <div>
-        <label className={labelClass}>Service Needed <span className="text-[var(--onestop-red)]">*</span></label>
-        <select required name="service" defaultValue="" className={`${inputClass} appearance-none`}>
-          <option value="" disabled>Select a service</option>
-          {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
-        </select>
+      <div className="grid gap-2.5 sm:grid-cols-2">
+        <div>
+          <label className={labelClass}>Service Needed <span className="text-[var(--onestop-red)]">*</span></label>
+          <select required name="service" defaultValue="" className={`${inputClass} appearance-none`}>
+            <option value="" disabled>Select a service</option>
+            {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className={labelClass}>Urgency <span className="text-[var(--onestop-red)]">*</span></label>
+          <select required name="urgency" defaultValue="" className={`${inputClass} appearance-none`}>
+            <option value="" disabled>Select urgency</option>
+            <option value="Emergency — now">Emergency — now</option>
+            <option value="Within 24 hours">Within 24 hours</option>
+            <option value="This week">This week</option>
+            <option value="This month">This month</option>
+            <option value="Just getting a number">Just getting a number</option>
+          </select>
+        </div>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-2.5 sm:grid-cols-2">
         <div>
           <label className={labelClass}>Preferred Date <span className="text-[var(--onestop-red)]">*</span></label>
           <input required name="preferredDate" type="date" min={new Date().toISOString().split('T')[0]} className={inputClass} />
@@ -100,7 +157,6 @@ function HeroEstimateForm() {
             <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
             <option value="Afternoon (12pm–5pm)">Afternoon (12pm–5pm)</option>
             <option value="After hours (5pm–8pm)">After hours (5pm–8pm)</option>
-            <option value="Emergency — now">Emergency — now</option>
             <option value="Flexible">Flexible</option>
           </select>
         </div>
@@ -111,19 +167,18 @@ function HeroEstimateForm() {
         <textarea name="message" rows={2} maxLength={5000} placeholder="Site access notes, scope, equipment on order, or the best number to reach a foreman..." className={`${inputClass} resize-none`} />
       </div>
 
-      <label className="flex items-start gap-2.5 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-3 py-2">
-        <input type="checkbox" name="sms_consent" value="yes" className="mt-[3px] h-4 w-4 border-slate-300 text-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)] rounded-sm shrink-0" />
-        <span className="text-[0.68rem] leading-[1.5] text-slate-600">
-          <span className="font-bold text-slate-700">SMS consent (optional).</span> I agree to receive SMS texts from Solivance Electric LLC about my quote, scheduling, and follow-up. 1–5 msgs/request. Msg &amp; data rates apply. Reply STOP to opt out. See our <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a> &amp; <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a>.
+      <label className="flex items-start gap-2 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-2.5 py-1.5">
+        <input type="checkbox" name="sms_consent" value="yes" className="mt-[2px] h-3.5 w-3.5 border-slate-300 text-[var(--onestop-navy)] focus:ring-1 focus:ring-[var(--onestop-navy)] rounded-sm shrink-0" />
+        <span className="text-[0.6rem] leading-[1.4] text-slate-600">
+          <span className="font-bold text-slate-700">SMS consent (optional).</span> Texts about your quote &amp; scheduling. 1–5 msgs/request. Reply STOP to opt out. <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy</a> &amp; <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a>.
         </span>
       </label>
 
-      <button type="submit" disabled={formStatus === 'sending'} className="btn-solid w-full bg-[var(--onestop-red)] py-3.5 text-[0.78rem] font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] disabled:opacity-60 rounded-md">
+      <button type="submit" disabled={formStatus === 'sending'} className="btn-solid w-full bg-[var(--onestop-red)] py-2.5 text-[0.74rem] font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] disabled:opacity-60 rounded-md">
         {formStatus === 'sending' ? 'SENDING…' : 'GET YOUR FREE QUOTE'}
       </button>
 
-      {formStatus === 'success' && <div role="status" aria-live="polite" className="border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 font-medium rounded-md">Got it — we&apos;ll call you within 24 hours.</div>}
-      {formStatus === 'error' && <div role="alert" aria-live="assertive" className="border border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-800 font-medium rounded-md">{formError}</div>}
+      {formStatus === 'error' && <div role="alert" aria-live="assertive" className="border border-rose-300 bg-rose-50 px-3 py-2 text-xs text-rose-800 font-medium rounded-md">{formError}</div>}
     </form>
   );
 }
@@ -166,15 +221,15 @@ export default function HomePageClient() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="text-white">
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-white/55">
                 <span className="h-px w-6 bg-[var(--onestop-gold)]" />
-                Houston · Cypress · Katy · Memorial
+                Southwest Houston · Heights · Bellaire · Memorial Villages
               </motion.div>
 
               <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }} className="text-[2.1rem] sm:text-[2.75rem] lg:text-[3.15rem] xl:text-[3.6rem] font-extrabold leading-[1] tracking-[-0.035em] text-white mb-5 sm:mb-6">
-                Commercial electrical,<br/><span className="relative inline-block text-white">done right.<span aria-hidden className="absolute left-0 -bottom-1 h-[3px] w-full bg-[var(--onestop-red)]" /></span>
+                Southwest Houston&rsquo;s<br/><span className="relative inline-block text-white">electrician.<span aria-hidden className="absolute left-0 -bottom-1 h-[3px] w-full bg-[var(--onestop-red)]" /></span>
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base leading-[1.7] text-white/80 max-w-[480px] mb-6 sm:mb-7">
-                200A through 3-phase switchgear. Standby generators with ATS commissioning. LED parking-lot retrofits. Level 2 and DC fast chargers. Warehouse builds, RV park pedestals, mobile-home hookups — across Houston, Cypress, Katy, and Memorial. Licensed. Insured. 24/7.
+              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base leading-[1.7] text-white/80 max-w-[520px] mb-6 sm:mb-7">
+                Licensed commercial &amp; residential electrical contractor based on S Post Oak Rd (77045). Panel upgrades, standby generators, parking-lot lighting, Level 2 and DC fast chargers — across Southwest Houston, the Heights, Bellaire, and the Memorial Villages. Licensed. Insured. 24/7.
               </motion.p>
 
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.35 }} className="flex flex-col sm:flex-row gap-3 mb-7 sm:mb-8">
@@ -259,7 +314,7 @@ export default function HomePageClient() {
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.03em] leading-[1.05]">What we do best.</h2>
             <p className="mt-5 text-[0.95rem] sm:text-base text-slate-500 leading-relaxed max-w-xl">
-              Nine services, one crew, one standard. Commercial, light-industrial, new construction, and premium residential electrical across the Greater Houston metro.
+              Nine services, one crew, one standard. Commercial, light-industrial, new construction, and premium residential electrical across Southwest Houston, the Heights, Bellaire, and the Memorial Villages — greater Houston on a call.
             </p>
           </div>
 
@@ -321,10 +376,10 @@ export default function HomePageClient() {
               Service Areas
             </div>
             <h2 className="text-[1.85rem] sm:text-[2.4rem] font-bold text-[var(--onestop-navy-deep)] leading-[1.15] tracking-[-0.02em]">
-              Serving Houston, Cypress, Katy &amp; Memorial.
+              Serving Southwest Houston, the Heights, Bellaire &amp; the Memorial Villages.
             </h2>
             <p className="mt-4 text-[0.98rem] text-slate-600 leading-[1.7]">
-              Licensed Texas commercial electrical contractor working the Greater Houston metro. Harris and Fort Bend County permits are what we pull day-in, day-out. Surrounding metro covered on a call.
+              Licensed Texas commercial &amp; residential electrical contractor based at 13035 S Post Oak Rd Suite I, Houston, TX 77045. Harris and Fort Bend County permits are what we pull day-in, day-out, plus Bellaire, West University, and the six Memorial Villages AHJs. Greater Houston covered on a call.
             </p>
           </div>
 
@@ -355,7 +410,7 @@ export default function HomePageClient() {
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-slate-200">
             <p className="text-sm text-slate-500 max-w-md">
-              Plus Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring, The Woodlands, Tomball, Jersey Village, and Bellaire. Surrounding Texas on a call.
+              Plus Westbury, Meyerland, West U, Medical Center, Garden Oaks, Hunters Creek, and Spring Valley. Greater Houston covered on a call.
             </p>
             <Link
               href="/locations"
@@ -392,7 +447,7 @@ export default function HomePageClient() {
               <h2 className="text-3xl font-bold leading-[1.08] text-[var(--onestop-navy-deep)] sm:text-4xl tracking-[-0.03em]">Commercial electrical.<br/>Done right the first time.</h2>
               <p className="mt-4 text-[0.95rem] leading-relaxed text-slate-600">
                 Solivance Electric is a licensed Texas electrical contractor working commercial,
-                light-industrial, and premium residential sites across Greater Houston.
+                light-industrial, and premium residential sites. The shop sits at 13035 S Post Oak Rd Suite I, 77045 — Southwest Houston, the Heights, Bellaire, and the Memorial Villages are the daily run.
                 In-house crew — not subcontracted three layers deep. One foreman from the site
                 walk to the final inspection.
               </p>

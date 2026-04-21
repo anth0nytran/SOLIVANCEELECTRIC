@@ -6,21 +6,21 @@ import { siteConfig } from '../config';
 import { locationContent, locationOrder } from './locationContent';
 
 export const metadata: Metadata = {
-  title: 'Service Areas — Houston, Cypress, Katy, Memorial',
+  title: 'Service Areas — Southwest Houston · Heights · Bellaire · Memorial Villages',
   description:
-    'Solivance Electric works Houston, Cypress, Katy, Memorial, Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring — plus surrounding Texas on a call. Licensed Texas electrical contractor. 24-hour response.',
+    'Solivance Electric is based at 13035 S Post Oak Rd Suite I, Houston, TX 77045. Daily service across Southwest Houston (Westbury, Meyerland, Bellaire, West U, Medical Center, Stafford, Sugar Land), the Heights corridor (Houston Heights, Garden Oaks, Oak Forest), and the Memorial Villages (Hunters Creek, Spring Valley, Piney Point, Bunker Hill, Hedwig). Licensed Texas electrical contractor. 24-hour response.',
   alternates: { canonical: '/locations' },
   openGraph: {
-    title: 'Service Areas — Solivance Electric',
+    title: 'Service Areas — Solivance Electric · SW Houston · Heights · Bellaire · Memorial Villages',
     description:
-      'Licensed commercial electrical across Greater Houston. Houston, Cypress, Katy, Memorial — plus surrounding metro.',
+      'Licensed commercial & residential electrical across Southwest Houston, the Heights, Bellaire, and the Memorial Villages — greater Houston on a call.',
     url: `${siteConfig.domain}/locations`,
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Solivance Electric Service Areas' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Service Areas — Solivance Electric',
-    description: 'Houston, Cypress, Katy, Memorial. Licensed Texas electrical contractor.',
+    description: 'SW Houston, Heights, Bellaire, Memorial Villages. Licensed Texas electrical contractor.',
     images: ['/og-image.jpg'],
   },
 };
@@ -37,7 +37,7 @@ const breadcrumbJsonLd = {
 export default function LocationsIndexPage() {
   const locations = locationOrder.map((slug) => locationContent[slug]).filter(Boolean);
   const secondary = siteConfig.allServiceAreas.filter(
-    (a) => !['Houston, TX', 'Cypress, TX', 'Katy, TX', 'Memorial, TX'].includes(a)
+    (a) => !['Southwest Houston, TX', 'The Heights, TX', 'Memorial Villages, TX', 'Bellaire, TX'].includes(a)
   );
 
   return (
@@ -68,14 +68,14 @@ export default function LocationsIndexPage() {
 
           <div className="mb-4 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.24em] text-[var(--onestop-gold)]">
             <MapPin className="h-3.5 w-3.5" />
-            Greater Houston Metro
+            Based at 13035 S Post Oak Rd · 77045
           </div>
 
           <h1 className="h-display text-white max-w-4xl">
-            Serving four home markets across Greater Houston.
+            Southwest Houston. Heights. Bellaire. Memorial Villages.
           </h1>
           <p className="mt-5 max-w-2xl text-[0.98rem] sm:text-base text-white/80 leading-[1.7]">
-            Houston, Cypress, Katy, and Memorial are the daily footprint. Harris, Fort Bend, and Montgomery County permits are what we pull day-in, day-out. Surrounding Texas is covered on a call.
+            The shop sits on S Post Oak Rd in 77045 — right in the middle of the primary service footprint. Southwest Houston (Westbury, Meyerland, Bellaire, West U, Medical Center, Stafford, Sugar Land), the Heights corridor, and the six Memorial Villages are the daily run. Greater Houston — Katy, Cypress, Memorial proper — covered on a call.
           </p>
         </div>
       </section>
@@ -164,10 +164,10 @@ export default function LocationsIndexPage() {
                 Also covered
               </div>
               <h2 className="text-[1.5rem] sm:text-[1.85rem] font-bold text-[var(--onestop-navy-deep)] leading-[1.15] tracking-[-0.02em]">
-                Harris, Fort Bend, Montgomery &amp; beyond.
+                Neighborhoods, suburbs &amp; coverage.
               </h2>
               <p className="mt-3 text-[0.92rem] text-slate-600 leading-[1.65]">
-                Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring — we run these cities regularly. Call if you are elsewhere in Texas, we probably cover it.
+                Westbury, Meyerland, West U, Sharpstown, Medical Center, Garden Oaks, Oak Forest, Stafford, Missouri City, Sugar Land — daily. Katy, Cypress, and the wider Memorial corridor on a call.
               </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 self-center">

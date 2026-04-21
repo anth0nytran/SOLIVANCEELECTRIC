@@ -9,7 +9,7 @@ import { locationContent, locationOrder } from '../locations/locationContent';
 export const metadata: Metadata = {
   title: 'FAQ — Commercial Electrical in Greater Houston',
   description:
-    'Cost, timeline, code, permits, and site-specific questions about commercial electrical work in Houston, Cypress, Katy, and Memorial. Answered by Solivance Electric.',
+    'Cost, timeline, code, permits, and site-specific questions about commercial electrical work in Southwest Houston, the Heights, Bellaire, and the Memorial Villages. Answered by Solivance Electric.',
   alternates: { canonical: '/faq' },
   openGraph: {
     title: 'FAQ — Solivance Electric',

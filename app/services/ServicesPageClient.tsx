@@ -71,7 +71,7 @@ export default function ServicesPageClient({
             Commercial Electrical Services
           </h1>
           <p className="mt-5 max-w-2xl text-[0.98rem] sm:text-base text-white/80 leading-[1.7]">
-            Ten years of commercial electrical work across Houston, Cypress, Katy and Memorial. Permits pulled, utility coordinated, inspection passed on the first walk.
+            Ten years of commercial and residential electrical work across Southwest Houston, the Heights, Bellaire, and the Memorial Villages — based at 13035 S Post Oak Rd Suite I, 77045. Permits pulled, utility coordinated, inspection passed on the first walk.
           </p>
         </div>
       </section>

@@ -312,8 +312,7 @@ export default async function BlogPostPage({
             Walk a site. Get a number.
           </h2>
           <p className="text-slate-300 max-w-xl mx-auto mb-8 leading-relaxed">
-            {siteConfig.businessName} works Houston, Cypress, Katy, Memorial and
-            the surrounding metro. Panel upgrades, standby generators, EV chargers,
+            {siteConfig.businessName} works Southwest Houston, the Heights, Bellaire, and the Memorial Villages from the shop at 13035 S Post Oak Rd Suite I, 77045 — greater Houston on a call. Panel upgrades, standby generators, EV chargers,
             parking-lot lighting, warehouse electrical. Call or request a quote online —
             licensed electrician on the phone, not a scheduler.
           </p>

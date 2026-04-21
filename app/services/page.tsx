@@ -3,21 +3,21 @@ import { siteConfig, serviceData } from '../config';
 import ServicesPageClient from './ServicesPageClient';
 
 export const metadata: Metadata = {
-  title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Houston · Cypress · Katy · Memorial',
+  title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Southwest Houston · Heights · Bellaire · Memorial Villages',
   description:
-    'Commercial electrical services across Greater Houston: panel upgrades through 3-phase switchgear, standby generator installs, LED parking-lot lighting, Level 2 and DCFC EV chargers, warehouse builds, new home construction, shopping centers, RV park pedestals, mobile home connections. 24/7 emergency. (832) 965-9964.',
+    'Commercial & residential electrical services across Southwest Houston, the Heights, Bellaire, West University, and the Memorial Villages: panel upgrades through 3-phase switchgear, standby generator installs, LED parking-lot lighting, Level 2 and DCFC EV chargers, warehouse builds, new home construction, shopping centers, RV park pedestals, mobile home connections. 24/7 emergency. (832) 965-9964.',
   alternates: { canonical: '/services' },
   openGraph: {
-    title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Houston · Cypress · Katy · Memorial',
+    title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Southwest Houston · Heights · Bellaire · Memorial Villages',
     description:
-      'Panel upgrades, standby generators, LED parking-lot lighting, EV chargers, warehouse electrical, RV park pedestals, mobile home connections. Houston, Cypress, Katy, Memorial. 24/7 emergency.',
+      'Panel upgrades, standby generators, LED parking-lot lighting, EV chargers, warehouse electrical, RV park pedestals, mobile home connections. SW Houston, Heights, Bellaire, Memorial Villages. 24/7 emergency.',
     url: `${siteConfig.domain}/services`,
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Solivance Electric Services — Greater Houston' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Solivance Electric Services — Southwest Houston' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Solivance Electric',
-    description: 'Commercial electrical across Houston, Cypress, Katy, Memorial. 24/7 emergency.',
+    description: 'Commercial & residential electrical across SW Houston, Heights, Bellaire, Memorial Villages. 24/7 emergency.',
     images: ['/og-image.jpg'],
   },
 };

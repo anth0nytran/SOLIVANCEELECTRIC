@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/reviews' },
   openGraph: {
     title: `${reviewStats.average.toFixed(1)}★ from ${reviewStats.count} Houston clients — Solivance Electric`,
-    description: 'Honest reviews from real commercial electrical jobs across Houston, Cypress, Katy and Memorial.',
+    description: 'Honest reviews from real commercial electrical jobs across Southwest Houston, the Heights, Bellaire, and the Memorial Villages.',
     url: `${siteConfig.domain}/reviews`,
     images: ['/og-image.jpg'],
   },

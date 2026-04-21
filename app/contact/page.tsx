@@ -3,21 +3,21 @@ import { siteConfig } from '../config';
 import ContactPageClient from './ContactPageClient';
 
 export const metadata: Metadata = {
-  title: 'Contact Solivance Electric — Fixed-Fee Quotes · Houston · Cypress · Katy · Memorial',
+  title: 'Contact Solivance Electric — Southwest Houston · Heights · Bellaire · Memorial Villages',
   description:
-    'Licensed Texas electrical contractor. Walk a site free, fixed-fee quote in 24 hours. Panel upgrades, standby generators, EV chargers, parking-lot lighting, warehouse electrical. 24/7 emergency line. (832) 965-9964.',
+    'Licensed Texas electrical contractor based at 13035 S Post Oak Rd Suite I, Houston, TX 77045. Walk a site free, fixed-fee quote in 24 hours. Panel upgrades, standby generators, EV chargers, parking-lot lighting, warehouse electrical. 24/7 emergency line. (832) 965-9964.',
   alternates: { canonical: '/contact' },
   openGraph: {
-    title: 'Contact Solivance Electric — Fixed-Fee Quotes · Greater Houston',
+    title: 'Contact Solivance Electric — Fixed-Fee Quotes · 13035 S Post Oak Rd, Houston 77045',
     description:
-      'Fixed-fee quote in 24 hours. Serving Houston, Cypress, Katy, Memorial. 24/7 emergency line answered by a licensed electrician.',
+      'Fixed-fee quote in 24 hours. Serving Southwest Houston, Heights, Bellaire, and the Memorial Villages. 24/7 emergency line answered by a licensed electrician.',
     url: `${siteConfig.domain}/contact`,
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Contact Solivance Electric LLC — Fixed-Fee Quotes' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contact Solivance Electric — Fixed-Fee Quotes · Greater Houston',
-    description: 'Fixed-fee quote in 24 hours. Houston, Cypress, Katy, Memorial. 24/7 emergency.',
+    title: 'Contact Solivance Electric — Southwest Houston · 77045',
+    description: 'Fixed-fee quote in 24 hours. SW Houston, Heights, Bellaire, Memorial Villages. 24/7 emergency.',
     images: ['/og-image.jpg'],
   },
 };
