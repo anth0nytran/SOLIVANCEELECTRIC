@@ -72,7 +72,7 @@ export function Footer() {
                 alt={siteConfig.businessName}
                 width={400}
                 height={400}
-                className="h-28 sm:h-32 w-auto"
+                className="h-48 sm:h-56 w-auto"
               />
             </Link>
             <p className="mt-4 text-sm text-white/50 max-w-md leading-relaxed font-medium">

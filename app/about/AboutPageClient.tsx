@@ -16,6 +16,7 @@ import {
   HardHat,
 } from 'lucide-react';
 import { siteConfig } from '../config';
+import { ReviewsSection } from '../components/ReviewsSection';
 
 const shell = 'mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10';
 
@@ -171,9 +172,9 @@ export default function AboutPageClient() {
               variants={fadeUp}
               className="space-y-5"
             >
-              {/* Photo placeholder */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-200 shadow-lg">
-                <Image src="/placeholder.svg" alt="Solivance Electric LLC — licensed commercial electrician at work" fill className="object-cover" />
+              {/* Logo showcase */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[var(--onestop-navy-deep)] shadow-xl ring-1 ring-[var(--onestop-navy-deep)]/10 flex items-center justify-center p-8 sm:p-12">
+                <Image src="/logo/logo_vertical.PNG" alt="Solivance Electric LLC — licensed commercial electrical contractor" width={800} height={800} className="h-full w-auto max-w-full object-contain" priority />
               </div>
 
               <div className="flex items-center gap-3 rounded-xl bg-[var(--onestop-cream)] border border-slate-200 px-5 py-4">
@@ -185,39 +186,16 @@ export default function AboutPageClient() {
         </div>
       </section>
 
-      {/* ═══ TESTIMONIALS — placeholder when empty ═══ */}
-      {siteConfig.testimonials.length === 0 ? (
-        <section className="bg-[var(--onestop-cream)] py-20 sm:py-24 border-y border-slate-200">
-          <div className={shell}>
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-60px' }}
-              variants={fadeUp}
-              className="text-center max-w-2xl mx-auto"
-            >
-              <h2 className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl">
-                Customer Reviews
-              </h2>
-              <div className="mt-10 rounded-2xl border border-slate-200 bg-white px-6 py-10 sm:px-10 sm:py-12 shadow-sm">
-                <h3 className="text-lg font-extrabold text-[var(--onestop-navy-deep)] sm:text-xl">Your review goes here.</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-500 sm:text-base">
-                  We are building a Google review base one finished job at a time.
-                  When we pull the feeder, wire the switchgear, or commission the
-                  generator on your property — and the inspector signs off — an
-                  honest review from you carries real weight in this city.
-                </p>
-                <Link
-                  href="/contact"
-                  className="mt-7 inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--onestop-red)] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:brightness-110 transition-all"
-                >
-                  Start Your Project <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      ) : null}
+      {/* ═══ TESTIMONIALS — verified reviews ═══ */}
+      <ReviewsSection
+        stepNumber=""
+        eyebrow="Customer reviews"
+        heading={
+          <>
+            What Houston clients<br className="hidden sm:block" /> say about the work.
+          </>
+        }
+      />
 
       {/* ═══ VALUES ═══ */}
       <section className="num-host bg-white py-14 sm:py-28 overflow-hidden">

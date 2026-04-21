@@ -3,6 +3,7 @@ import { Geist, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { MobileCTA } from "./components/MobileCTA";
+import { IntroVideo } from "./components/IntroVideo";
 import { reviews, reviewStats } from "./reviews";
 import "./globals.css";
 
@@ -302,6 +303,7 @@ export default function RootLayout({
       <body
         className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable} antialiased`}
       >
+        <IntroVideo />
         <div className="onestop-site min-h-screen bg-white text-slate-900 selection:bg-[var(--onestop-navy)] selection:text-white">
           <Header />
           <main>

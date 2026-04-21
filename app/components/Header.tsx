@@ -122,10 +122,10 @@ export function Header() {
         className="sticky top-0 z-50"
       >
         <div className={`bg-white transition-all duration-300 ${scrolled ? 'shadow-[0_1px_0_rgba(15,40,71,0.08),0_4px_18px_-6px_rgba(15,40,71,0.18)]' : 'shadow-[0_1px_0_rgba(15,40,71,0.08)]'}`}>
-          <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between h-16 sm:h-[4.5rem]">
+          <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between h-24 sm:h-32">
 
             {/* Brand */}
-            <Link href="/" className="group leading-none relative shrink-0">
+            <Link href="/" className="group leading-none relative shrink-0 min-w-[150px] sm:min-w-[250px]">
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -137,13 +137,13 @@ export function Header() {
                   width={600}
                   height={400}
                   priority
-                  className="h-12 sm:h-16 w-auto"
+                  className="h-20 sm:h-28 w-auto scale-125 sm:scale-[1.45] origin-left"
                 />
               </motion.div>
             </Link>
 
             {/* Nav links */}
-            <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-0.5">
+            <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-2 xl:gap-3">
               {navLinks.map((l, i) => {
                 const isActive =
                   l.href === '/'
@@ -162,14 +162,14 @@ export function Header() {
                     >
                       <Link
                         href={l.href}
-                        className={`relative px-3 py-2 text-[0.82rem] font-semibold rounded-lg transition-all duration-200 group ${
+                        className={`relative inline-flex items-center px-4 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] rounded-lg transition-all duration-200 group ${
                           isActive
                             ? 'text-[var(--onestop-navy-deep)] bg-[var(--onestop-navy)]/5'
                             : 'text-slate-600 hover:text-[var(--onestop-navy-deep)] hover:bg-[var(--onestop-navy)]/5'
                         }`}
                       >
                         {l.label}
-                        <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${isActive ? 'w-5 bg-[var(--onestop-red)]' : 'w-0 bg-[var(--onestop-red)] group-hover:w-5'}`} />
+                        <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-[var(--onestop-red)]' : 'w-0 bg-[var(--onestop-red)] group-hover:w-6'}`} />
                       </Link>
                     </motion.div>
                   );
@@ -190,15 +190,15 @@ export function Header() {
                       onClick={() => setOpenDropdown(isOpen ? null : l.label)}
                       aria-expanded={isOpen}
                       aria-haspopup="menu"
-                      className={`relative inline-flex items-center gap-1 px-3 py-2 text-[0.82rem] font-semibold rounded-lg transition-all duration-200 group ${
+                      className={`relative inline-flex items-center gap-1.5 px-4 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] rounded-lg transition-all duration-200 group ${
                         isActive || isOpen
                           ? 'text-[var(--onestop-navy-deep)] bg-[var(--onestop-navy)]/5'
                           : 'text-slate-600 hover:text-[var(--onestop-navy-deep)] hover:bg-[var(--onestop-navy)]/5'
                       }`}
                     >
                       {l.label}
-                      <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-                      <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${isActive ? 'w-5 bg-[var(--onestop-red)]' : 'w-0 bg-[var(--onestop-red)] group-hover:w-5'}`} />
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                      <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-[var(--onestop-red)]' : 'w-0 bg-[var(--onestop-red)] group-hover:w-6'}`} />
                     </button>
 
                     <AnimatePresence>
@@ -302,13 +302,7 @@ export function Header() {
               transition={{ duration: 0.5, delay: 0.35 }}
               className="hidden sm:flex items-center gap-3 shrink-0"
             >
-              <a href={`tel:${siteConfig.cleanPhone}`} className="hidden xl:flex items-center gap-2 text-sm font-bold text-[var(--onestop-navy-deep)] hover:text-[var(--onestop-red)] transition-colors duration-200">
-                <div className="flex items-center justify-center h-8 w-8 rounded-full bg-[var(--onestop-navy)]/8">
-                  <Phone className="h-3.5 w-3.5 text-[var(--onestop-navy)]" />
-                </div>
-                <span className="font-[family-name:var(--font-app-mono)] tracking-normal">{siteConfig.phone}</span>
-              </a>
-              <Link href="/contact" className="btn-solid relative bg-[var(--onestop-red)] px-5 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.15em] text-white rounded-md overflow-hidden hover:bg-[#e55f15] group">
+              <Link href="/contact" className="btn-solid relative bg-[var(--onestop-red)] px-6 py-3 text-[0.74rem] font-bold uppercase tracking-[0.15em] text-white rounded-md overflow-hidden hover:bg-[#e55f15] group">
                 <span className="relative z-10 inline-flex items-center gap-1.5">
                   Free Quote
                   <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
