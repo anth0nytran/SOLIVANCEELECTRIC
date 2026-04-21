@@ -72,13 +72,6 @@ export const metadata: Metadata = {
     description: "Licensed Texas electrical contractor based on S Post Oak Rd (77045). Southwest Houston · Heights · Memorial Villages · Bellaire. 24hr emergency service.",
     images: ['/og-image.jpg'],
   },
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
-    ],
-    shortcut: '/favicon.ico',
-    apple: '/logo/logo_vertical.PNG',
-  },
   authors: [{ name: 'Solivance Electric LLC', url: 'https://solivanceelectric.com' }],
   creator: 'Solivance Electric LLC',
   publisher: 'Solivance Electric LLC',
