@@ -173,8 +173,8 @@ export default function AboutPageClient() {
               className="space-y-5"
             >
               {/* Logo showcase */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[var(--onestop-navy-deep)] shadow-xl ring-1 ring-[var(--onestop-navy-deep)]/10 flex items-center justify-center p-8 sm:p-12">
-                <Image src="/logo/logo_vertical.PNG" alt="Solivance Electric LLC — licensed commercial electrical contractor" width={800} height={800} className="h-full w-auto max-w-full object-contain" priority />
+              <div className="relative aspect-[4/3] w-full flex items-center justify-center overflow-hidden lg:overflow-visible">
+                <Image src="/logo/logo_vertical.PNG" alt="Solivance Electric LLC — licensed commercial electrical contractor" width={800} height={800} className="h-full w-auto max-w-full lg:max-w-none object-contain scale-100 sm:scale-110 md:scale-110 lg:scale-[1.5]" priority />
               </div>
 
               <div className="flex items-center gap-3 rounded-xl bg-[var(--onestop-cream)] border border-slate-200 px-5 py-4">

@@ -1,11 +1,12 @@
+'use client';
+
 import Link from 'next/link';
-import Image from 'next/image';
+import { motion, type Variants } from 'framer-motion';
 import {
-  ArrowRight,
-  CheckCircle2,
   Shield,
   Clock,
   Building2,
+  CheckCircle2,
   Instagram,
   Star,
 } from 'lucide-react';
@@ -54,6 +55,42 @@ const footerServices: { slug: string; label: string }[] = [
   { slug: 'mobile-home-connections', label: 'Mobile Home Connections' },
 ];
 
+const companyLinks = [
+  { href: '/about', label: 'About Solivance Electric' },
+  { href: '/reviews', label: 'Customer Reviews' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact & Free Quote' },
+];
+
+const trustBadges = [
+  { icon: Shield, label: 'Licensed & Insured' },
+  { icon: Clock, label: '24/7 Emergency Service' },
+  { icon: CheckCircle2, label: `${siteConfig.yearsInBusiness}+ Years Experience` },
+  { icon: Building2, label: 'Commercial & Residential' },
+];
+
+const sectionHeading =
+  'text-[0.7rem] font-bold uppercase tracking-[0.22em] text-white/45 mb-5';
+const linkItem =
+  'text-sm text-white/65 hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors';
+const microLabel =
+  'text-[0.68rem] font-bold uppercase tracking-[0.2em] text-white/40';
+
+const container: Variants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.05 },
+  },
+};
+const item: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export function Footer() {
   const shell = 'mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10';
 
@@ -61,107 +98,124 @@ export function Footer() {
     <footer className="bg-[var(--onestop-navy-deep)] text-white">
 
       {/* MAIN GRID */}
-      <div className={`${shell} py-16 sm:py-20`}>
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+      <div className={`${shell} pt-16 pb-12 sm:pt-20 sm:pb-14`}>
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={container}
+          className="grid gap-12 lg:gap-10 sm:grid-cols-2 lg:grid-cols-12"
+        >
 
-          {/* 0. Brand & Contact */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-block">
-              <Image
-                src="/logo/logo_vertical.PNG"
-                alt={siteConfig.businessName}
-                width={400}
-                height={400}
-                className="h-48 sm:h-56 w-auto"
-              />
+          {/* Brand & Contact */}
+          <motion.div variants={item} className="sm:col-span-2 lg:col-span-4">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <span className="h-8 w-1 rounded-full bg-[var(--onestop-gold)]" aria-hidden />
+              <span className="text-lg sm:text-xl font-extrabold tracking-[0.18em] uppercase text-white group-hover:text-[var(--onestop-gold)] transition-colors">
+                Solivance Electric <span className="text-white/50 font-bold">LLC</span>
+              </span>
             </Link>
-            <p className="mt-4 text-sm text-white/50 max-w-md leading-relaxed font-medium">
+            <p className="mt-5 max-w-sm text-sm leading-6 text-white/60">
               Licensed Texas electrical contractor. Commercial and residential across Southwest Houston, the Heights, Bellaire, and the Memorial Villages. 24-hour line answered by a licensed electrician.
             </p>
-            <address className="mt-5 not-italic text-sm text-white/60 leading-relaxed">
-              <div className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-white/40 mb-1">Office &amp; Shop</div>
-              <a
-                href={siteConfig.address.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white hover:text-[var(--onestop-gold)] transition-colors font-semibold"
-              >
-                {siteConfig.address.street}<br />
-                {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}
-              </a>
-            </address>
-            <div className="mt-6 space-y-4">
+
+            <div className="mt-7 space-y-5">
               <div>
-                <div className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-white/40 mb-1">24/7 Emergency Service Available</div>
-                <a href={`tel:${siteConfig.cleanPhone}`} className="text-xl font-extrabold text-white hover:text-white transition-colors">{siteConfig.phone}</a>
+                <div className={`${microLabel} mb-2`}>Office &amp; Shop</div>
+                <address className="not-italic text-sm leading-6">
+                  <a
+                    href={siteConfig.address.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-[var(--onestop-gold)] transition-colors font-semibold"
+                  >
+                    {siteConfig.address.street}<br />
+                    {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}
+                  </a>
+                </address>
               </div>
-              <Link href="/contact" className="btn-solid inline-flex items-center justify-center bg-[var(--onestop-red)] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] rounded-md">
+
+              <div>
+                <div className={`${microLabel} mb-2`}>24/7 Emergency Line</div>
+                <a
+                  href={`tel:${siteConfig.cleanPhone}`}
+                  className="text-2xl font-extrabold tracking-tight text-white hover:text-[var(--onestop-gold)] transition-colors"
+                >
+                  {siteConfig.phone}
+                </a>
+              </div>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-md bg-[var(--onestop-red)] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] transition-colors"
+              >
                 Get Free Quote
               </Link>
             </div>
-          </div>
+          </motion.div>
 
-          {/* 1. Services */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.25em] text-white/50 mb-6">Our Services</h4>
-            <ul className="space-y-4 text-sm text-white/50 font-medium">
+          {/* Services */}
+          <motion.div variants={item} className="lg:col-span-3">
+            <h4 className={sectionHeading}>Services</h4>
+            <ul className="space-y-3">
               {footerServices.map((s) => (
                 <li key={s.slug}>
-                  <Link href={`/services/${s.slug}`} className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2">
-                    <ArrowRight className="h-3 w-3 text-white/30" />
+                  <Link href={`/services/${s.slug}`} className={linkItem}>
                     {s.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
-          {/* 2. Service Areas */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.25em] text-white/50 mb-6">Service Areas</h4>
-            <ul className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm text-white/50 font-medium">
+          {/* Service Areas */}
+          <motion.div variants={item} className="lg:col-span-3">
+            <h4 className={sectionHeading}>Service Areas</h4>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-3">
               {siteConfig.allServiceAreas.map((area) => (
-                <li key={area}>{area}</li>
+                <li key={area} className="text-sm text-white/65">{area}</li>
               ))}
             </ul>
-            {siteConfig.neighborhoods && (
-              <div className="mt-8 pt-8 border-t border-white/10">
-                <p className="text-xs text-white/40 leading-relaxed font-medium">
-                  <span className="text-white/50 block mb-2 font-bold uppercase tracking-wider text-[0.7rem]">Communities We Serve</span>
-                  {siteConfig.neighborhoods}
-                </p>
-              </div>
-            )}
-          </div>
+          </motion.div>
 
-          {/* 3. Company */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.25em] text-white/50 mb-6">Company</h4>
-            <ul className="space-y-4 text-sm text-white/50 font-medium">
-              <li><Link href="/about" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> About Solivance Electric</Link></li>
-              <li><Link href="/reviews" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> Customer Reviews</Link></li>
-              <li><Link href="/blog" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> Blog</Link></li>
-              <li><Link href="/contact" className="hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors flex items-center gap-2"><ArrowRight className="h-3 w-3 text-white/20" /> Contact &amp; Free Quote</Link></li>
+          {/* Company */}
+          <motion.div variants={item} className="lg:col-span-2">
+            <h4 className={sectionHeading}>Company</h4>
+            <ul className="space-y-3">
+              {companyLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={linkItem}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
+          </motion.div>
+        </motion.div>
 
-            <div className="mt-8 pt-8 border-t border-white/10 space-y-4 text-sm text-white/60 font-semibold">
-              <div className="flex items-center gap-3"><Shield className="h-4 w-4 text-white/30" />Licensed &amp; Insured</div>
-              <div className="flex items-center gap-3"><Clock className="h-4 w-4 text-white/30" />24/7 Emergency Service</div>
-              <div className="flex items-center gap-3"><CheckCircle2 className="h-4 w-4 text-white/30" />{siteConfig.yearsInBusiness}+ Years Experience</div>
-              <div className="flex items-center gap-3"><Building2 className="h-4 w-4 text-white/30" />Commercial &amp; Residential</div>
-            </div>
+        {/* Communities sub-line */}
+        {siteConfig.neighborhoods && (
+          <div className="mt-14 pt-8 border-t border-white/10">
+            <div className={`${microLabel} mb-3`}>Communities We Serve</div>
+            <p className="text-sm leading-6 text-white/55 max-w-4xl">
+              {siteConfig.neighborhoods}
+            </p>
           </div>
-
-        </div>
+        )}
       </div>
 
-      {/* SOCIAL ROW */}
+      {/* TRUST + SOCIAL STRIP */}
       <div className="border-t border-white/10">
-        <div className={`${shell} py-5 flex flex-col sm:flex-row items-center justify-between gap-4`}>
-          <div className="flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-white/40 font-[family-name:var(--font-app-mono)]">
-            <span className="h-px w-6 bg-[var(--onestop-gold)]" />
-            Find us online
-          </div>
+        <div className={`${shell} py-6 flex flex-col lg:flex-row items-center justify-between gap-6`}>
+          <ul className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+            {trustBadges.map(({ icon: Icon, label }) => (
+              <li key={label} className="flex items-center gap-2 text-xs font-semibold text-white/70">
+                <Icon className="h-4 w-4 text-[var(--onestop-gold)]" strokeWidth={2} />
+                {label}
+              </li>
+            ))}
+          </ul>
+
           <div className="flex items-center gap-2">
             {socialLinks.map((s) => (
               <a
@@ -181,15 +235,23 @@ export function Footer() {
       </div>
 
       {/* BOTTOM BAR */}
-      <div className="border-t border-white/10 bg-black/20">
-        <div className={`${shell} py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left text-xs text-white/30 font-medium tracking-wide`}>
-          <p>&copy; {new Date().getFullYear()} {siteConfig.businessName} &mdash; Houston, TX. All rights reserved.</p>
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-1">
-            <Link href="/privacy" className="text-white/50 hover:text-white transition-colors">Privacy Policy</Link>
-            <span aria-hidden className="text-white/20">·</span>
-            <Link href="/terms" className="text-white/50 hover:text-white transition-colors">Terms of Service</Link>
-            <span aria-hidden className="text-white/20">·</span>
-            <span>Website by <a href="https://quicklaunchweb.us" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors">QuickLaunchWeb</a></span>
+      <div className="border-t border-white/10 bg-black/25">
+        <div className={`${shell} py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/45`}>
+          <p>&copy; {new Date().getFullYear()} {siteConfig.businessName}. All rights reserved.</p>
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-5 gap-y-1">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <span>
+              Website by{' '}
+              <a
+                href="https://quicklaunchweb.us"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                QuickLaunchWeb
+              </a>
+            </span>
           </div>
         </div>
       </div>

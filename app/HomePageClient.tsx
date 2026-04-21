@@ -242,12 +242,10 @@ export default function HomePageClient() {
                 </Link>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.45 }} className="flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/75">
-                <span className="flex items-center gap-2"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed &amp; Insured</span>
-                <span className="vrule text-white h-3" aria-hidden />
-                <span className="flex items-center gap-2"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> 24-Hour Response</span>
-                <span className="vrule text-white h-3 hidden sm:block" aria-hidden />
-                <span className="hidden sm:flex items-center gap-2"><HardHat className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> {siteConfig.yearsInBusiness}+ Years in Houston</span>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.45 }} className="grid grid-cols-3 gap-2 sm:gap-4 text-[0.6rem] sm:text-[0.68rem] font-semibold uppercase tracking-[0.12em] sm:tracking-[0.16em] text-white/75">
+                <span className="flex items-center gap-1.5 sm:gap-2 min-w-0"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)] shrink-0" /> <span className="truncate">Licensed &amp; Insured</span></span>
+                <span className="flex items-center gap-1.5 sm:gap-2 min-w-0"><Clock className="h-3.5 w-3.5 text-[var(--onestop-gold)] shrink-0" /> <span className="truncate">24-Hour Response</span></span>
+                <span className="flex items-center gap-1.5 sm:gap-2 min-w-0"><HardHat className="h-3.5 w-3.5 text-[var(--onestop-gold)] shrink-0" /> <span className="truncate">{siteConfig.yearsInBusiness}+ Yrs in Houston</span></span>
               </motion.div>
             </motion.div>
 
@@ -433,8 +431,8 @@ export default function HomePageClient() {
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 lg:items-center">
             {/* Left — company photo */}
             <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl bg-[var(--onestop-navy-deep)] overflow-hidden flex items-center justify-center p-8 sm:p-12 shadow-xl ring-1 ring-[var(--onestop-navy-deep)]/10">
-                <Image src="/logo/logo_vertical.PNG" alt="Solivance Electric LLC — licensed commercial electrical contractor" width={800} height={800} className="h-full w-auto max-w-full object-contain" priority />
+              <div className="aspect-[4/3] flex items-center justify-center overflow-hidden lg:overflow-visible">
+                <Image src="/logo/logo_vertical.PNG" alt="Solivance Electric LLC — licensed commercial electrical contractor" width={800} height={800} className="h-full w-auto max-w-full lg:max-w-none object-contain scale-110 sm:scale-110 md:scale-110 lg:scale-[1.5]" priority />
               </div>
             </div>
 

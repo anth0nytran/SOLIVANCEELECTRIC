@@ -72,6 +72,32 @@ export function Header() {
     setOpenDropdown(null);
   }, [pathname]);
 
+  // Close mobile menu + scroll to top (or target #hash) on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setMobileExpanded(null);
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) {
+        requestAnimationFrame(() => el.scrollIntoView({ behavior: 'auto', block: 'start' }));
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  // Lock background scroll while mobile menu is open
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const { overflow } = document.body.style;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = overflow;
+    };
+  }, [mobileMenuOpen]);
+
   const openNow = (key: string) => {
     if (hoverTimer.current) clearTimeout(hoverTimer.current);
     setOpenDropdown(key);
@@ -103,7 +129,15 @@ export function Header() {
             </span>
           </div>
           <div className="flex items-center gap-3 mx-auto sm:mx-0">
-            <span className="font-semibold text-white/90">
+            {/* Mobile: action-driven CTA */}
+            <a
+              href={`tel:${siteConfig.cleanPhone}`}
+              className="sm:hidden inline-flex items-center whitespace-nowrap font-bold text-white hover:text-[var(--onestop-gold)] transition-colors uppercase tracking-[0.12em] text-[0.66rem]"
+            >
+              Call for free quote · {siteConfig.phone}
+            </a>
+            {/* Desktop: areas + phone */}
+            <span className="hidden sm:inline-block font-semibold text-white/90">
               SW Houston · Heights · Bellaire · Memorial Villages
             </span>
             <span className="h-3 w-px bg-white/25 hidden sm:inline-block" aria-hidden />
@@ -122,10 +156,10 @@ export function Header() {
         className="sticky top-0 z-50"
       >
         <div className={`bg-white transition-all duration-300 ${scrolled ? 'shadow-[0_1px_0_rgba(15,40,71,0.08),0_4px_18px_-6px_rgba(15,40,71,0.18)]' : 'shadow-[0_1px_0_rgba(15,40,71,0.08)]'}`}>
-          <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between h-24 sm:h-32">
+          <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between h-20 sm:h-28 lg:h-32">
 
             {/* Brand */}
-            <Link href="/" className="group leading-none relative shrink-0 min-w-[150px] sm:min-w-[250px]">
+            <Link href="/" className="group leading-none relative shrink-0 min-w-0 sm:min-w-[200px] lg:min-w-[250px] max-w-[60%] sm:max-w-none">
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -137,7 +171,7 @@ export function Header() {
                   width={600}
                   height={400}
                   priority
-                  className="h-20 sm:h-28 w-auto scale-125 sm:scale-[1.45] origin-left"
+                  className="h-16 sm:h-24 lg:h-28 w-auto max-w-full scale-100 sm:scale-110 lg:scale-[1.35] origin-left"
                 />
               </motion.div>
             </Link>
@@ -329,7 +363,7 @@ export function Header() {
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden bg-white border-b border-slate-100 lg:hidden"
             >
-              <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex flex-col gap-1 py-5">
+              <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex flex-col gap-1 pt-5 pb-28 max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain">
                 <nav className="flex flex-col">
                   {navLinks.map((l, i) => {
                     const hasChildren = !!l.children?.length;
