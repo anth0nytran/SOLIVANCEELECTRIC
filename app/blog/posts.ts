@@ -20,7 +20,7 @@ export const blogPosts: BlogPost[] = [
     date: '2026-03-01',
     readTime: '7 min read',
     category: 'Panel Upgrades',
-    image: '/placeholder.svg',
+    image: '/photos_new/panel-upgrades.jpg',
     keywords: [
       'commercial panel upgrade Houston TX',
       'electrical panel replacement Cypress TX',
@@ -119,7 +119,7 @@ export const blogPosts: BlogPost[] = [
     date: '2026-03-15',
     readTime: '8 min read',
     category: 'EV Chargers',
-    image: '/placeholder.svg',
+    image: '/photos_new/ev-chargers.jpg',
     keywords: [
       'EV charger installation Houston TX',
       'commercial EV charging Cypress TX',
@@ -224,7 +224,7 @@ export const blogPosts: BlogPost[] = [
     date: '2026-04-01',
     readTime: '8 min read',
     category: 'Generators',
-    image: '/placeholder.svg',
+    image: '/photos_new/generator-installs.jpg',
     keywords: [
       'commercial generator installation Houston TX',
       'backup generator Cypress TX',

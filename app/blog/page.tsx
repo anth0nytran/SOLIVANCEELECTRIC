@@ -181,7 +181,7 @@ export default function BlogPage() {
       <section className="relative isolate overflow-hidden bg-slate-950 py-12 sm:py-14">
         <div className="absolute inset-0">
           <Image
-            src="/placeholder.svg"
+            src="/photos_new/cta-footer.jpg"
             alt=""
             aria-hidden
             fill

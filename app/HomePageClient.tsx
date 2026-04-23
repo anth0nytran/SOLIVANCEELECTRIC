@@ -184,7 +184,7 @@ function HeroEstimateForm() {
 }
 
 const getServicePreviewImage = (service: (typeof serviceData)[number]) =>
-  service.media.find((item) => item.type === 'image')?.src ?? '/placeholder.svg';
+  service.media.find((item) => item.type === 'image')?.src ?? '/photos_new/hero.jpg';
 
 export default function HomePageClient() {
   const cleanPhone = siteConfig.cleanPhone;

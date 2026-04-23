@@ -38,13 +38,13 @@ export async function generateMetadata({
       publishedTime: post.date,
       authors: [siteConfig.businessName],
       siteName: siteConfig.businessName,
-      images: [{ url: '/placeholder.svg', width: 1200, height: 630, alt: post.title }],
+      images: [{ url: post.image, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
-      images: ['/placeholder.svg'],
+      images: [post.image],
     },
   };
 }
@@ -135,7 +135,7 @@ export default async function BlogPostPage({
             description: post.description,
             datePublished: post.date,
             dateModified: post.date,
-            image: [`${siteConfig.domain}/placeholder.svg`],
+            image: [`${siteConfig.domain}${post.image}`],
             author: {
               '@type': 'Organization',
               name: siteConfig.businessName,
@@ -147,7 +147,7 @@ export default async function BlogPostPage({
               url: siteConfig.domain,
               logo: {
                 '@type': 'ImageObject',
-                url: `${siteConfig.domain}/placeholder.svg`,
+                url: `${siteConfig.domain}/logo/logo_vertical.svg`,
               },
             },
             mainEntityOfPage: {
@@ -298,7 +298,7 @@ export default async function BlogPostPage({
       <section className="relative isolate overflow-hidden bg-slate-950 py-16 sm:py-20">
         <div className="absolute inset-0">
           <Image
-            src="/placeholder.svg"
+            src="/photos_new/cta-footer.jpg"
             alt=""
             aria-hidden
             fill

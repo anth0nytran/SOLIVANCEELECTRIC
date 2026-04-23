@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
-const STORAGE_KEY = 'solivance-intro-played';
 const MAX_DURATION_MS = 8500;
 const AUTOPLAY_WATCHDOG_MS = 900;
 const PRE_ROLL_MS = 350;
@@ -33,19 +32,6 @@ export function IntroVideo() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
-    const params = new URLSearchParams(window.location.search);
-    const forceReplay = params.get('intro') === '1';
-    const alreadyPlayed = window.sessionStorage.getItem(STORAGE_KEY) === '1';
-
-    if (alreadyPlayed && !forceReplay) {
-      setPhase('done');
-      return;
-    }
-
-    if (forceReplay) {
-      try { window.sessionStorage.removeItem(STORAGE_KEY); } catch {}
-    }
 
     setPhase('preroll');
     queueTimer(() => setPhase('playing'), PRE_ROLL_MS);
@@ -113,18 +99,11 @@ export function IntroVideo() {
   }
 
   function finish() {
-    try { window.sessionStorage.setItem(STORAGE_KEY, '1'); } catch {}
     clearTimers();
     setPhase('dim');
     queueTimer(() => setPhase('exiting'), DIM_MS);
     queueTimer(() => setPhase('done'), DIM_MS + EXIT_MS);
   }
-
-  useEffect(() => {
-    if (phase === 'dim' || phase === 'exiting') {
-      try { window.sessionStorage.setItem(STORAGE_KEY, '1'); } catch {}
-    }
-  }, [phase]);
 
   if (phase === 'pending' || phase === 'done') return null;
 

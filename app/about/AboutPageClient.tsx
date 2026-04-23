@@ -316,7 +316,7 @@ export default function AboutPageClient() {
       <section className="relative isolate overflow-hidden bg-slate-950 py-20 sm:py-24">
         <div className="absolute inset-0">
           <Image
-            src="/placeholder.svg"
+            src="/photos_new/cta-footer.jpg"
             alt=""
             aria-hidden
             fill

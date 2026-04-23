@@ -17,7 +17,7 @@ export default function NotFound() {
       <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] py-10 sm:py-14 lg:py-16">
         <div className="absolute inset-0">
           <Image
-            src="/placeholder.svg"
+            src="/photos_new/subhero-services.jpg"
             alt=""
             aria-hidden
             fill

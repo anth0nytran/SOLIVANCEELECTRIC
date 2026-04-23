@@ -184,7 +184,7 @@ export default async function ServiceDetailPage({
       <section className="page-hero">
         <div className="absolute inset-0 z-0">
           <Image
-            src={service.media[0]?.src ?? '/placeholder.svg'}
+            src={service.media[0]?.src ?? '/photos_new/hero.jpg'}
             alt=""
             aria-hidden
             fill
@@ -365,7 +365,7 @@ export default async function ServiceDetailPage({
               {/* Service photo */}
               <div className="relative aspect-[4/3] rounded-md overflow-hidden bg-[var(--onestop-navy-deep)]">
                 <Image
-                  src={service.media[0]?.src ?? '/placeholder.svg'}
+                  src={service.media[0]?.src ?? '/photos_new/hero.jpg'}
                   alt={service.title}
                   fill
                   sizes="(min-width: 1024px) 340px, 100vw"
