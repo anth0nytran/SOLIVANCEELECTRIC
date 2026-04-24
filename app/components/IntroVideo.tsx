@@ -33,6 +33,17 @@ export function IntroVideo() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // Skip intro on mobile, slow connections, or reduced motion — it crushes LCP.
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const slow = !!conn && (conn.saveData === true || ['slow-2g', '2g', '3g'].includes(conn.effectiveType || ''));
+
+    if (isMobile || prefersReduced || slow) {
+      setPhase('done');
+      return;
+    }
+
     setPhase('preroll');
     queueTimer(() => setPhase('playing'), PRE_ROLL_MS);
 
@@ -126,7 +137,7 @@ export function IntroVideo() {
         autoPlay
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         onEnded={beginDim}
         onError={beginDim}
         initial={{ opacity: 0, scale: 1.04 }}

@@ -3,7 +3,7 @@ import HomePageClient from './HomePageClient';
 
 export const metadata: Metadata = {
   title: 'Commercial Electrical Contractor in Houston TX',
-  description: 'Panel upgrades, generator installs, parking lot lighting, EV chargers & commercial electrical services in Houston TX. Licensed & insured. 24hr emergency — (832) 965-9964.',
+  description: 'Commercial & residential electrician in Houston TX. Panel upgrades, generators, parking-lot lighting, EV chargers. Licensed. 24hr — (832) 965-9964.',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Commercial Electrical Contractor in Houston TX',

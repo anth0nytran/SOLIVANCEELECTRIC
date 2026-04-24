@@ -299,8 +299,7 @@ export default async function BlogPostPage({
         <div className="absolute inset-0">
           <Image
             src="/photos_new/cta-footer.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric Houston — call for a free commercial electrical quote"
             fill
             sizes="100vw"
             className="object-cover opacity-20 mix-blend-luminosity"

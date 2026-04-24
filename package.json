@@ -19,6 +19,15 @@
     "resend": "^6.5.2",
     "tailwind-merge": "^3.4.0"
   },
+  "browserslist": [
+    "chrome >= 111",
+    "edge >= 111",
+    "firefox >= 109",
+    "safari >= 16.4",
+    "ios_saf >= 16.4",
+    "samsung >= 23",
+    "not dead"
+  ],
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "^20",

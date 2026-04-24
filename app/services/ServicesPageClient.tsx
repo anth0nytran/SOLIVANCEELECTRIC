@@ -45,8 +45,7 @@ export default function ServicesPageClient({
         <div className="absolute inset-0 z-0">
           <Image
             src="/photos_new/subhero-services.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric services — panel upgrades, generators, EV chargers, and commercial lighting in Houston"
             fill
             sizes="100vw"
             className="object-cover opacity-55"

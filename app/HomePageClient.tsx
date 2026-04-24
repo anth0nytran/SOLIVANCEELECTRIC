@@ -53,7 +53,7 @@ function HeroEstimateForm() {
     } catch { setFormStatus('error'); setFormError('Something went wrong. Please try again.'); }
   };
 
-  const inputClass = "w-full border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/15 rounded-md";
+  const inputClass = "w-full border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/15 rounded-md";
   const labelClass = "block text-[0.66rem] font-bold text-slate-600 mb-0.5 uppercase tracking-wide";
 
   if (formStatus === 'success') {
@@ -202,8 +202,7 @@ export default function HomePageClient() {
         <div className="absolute inset-0">
           <Image
             src="/photos_new/hero.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric LLC electrical crew on a Southwest Houston commercial job site"
             fill
             priority
             sizes="100vw"
@@ -219,7 +218,7 @@ export default function HomePageClient() {
 
             {/* Left — headline */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="text-white">
-              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-white/55">
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-white/80">
                 <span className="h-px w-6 bg-[var(--onestop-gold)]" />
                 Southwest Houston · Heights · Bellaire · Memorial Villages
               </motion.div>
@@ -228,7 +227,7 @@ export default function HomePageClient() {
                 Southwest Houston&rsquo;s<br/><span className="relative inline-block text-white">electrician.<span aria-hidden className="absolute left-0 -bottom-1 h-[3px] w-full bg-[var(--onestop-red)]" /></span>
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base leading-[1.7] text-white/80 max-w-[520px] mb-6 sm:mb-7">
+              <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base leading-[1.7] text-white/95 max-w-[520px] mb-6 sm:mb-7">
                 Licensed commercial &amp; residential electrical contractor based on S Post Oak Rd (77045). Panel upgrades, standby generators, parking-lot lighting, Level 2 and DC fast chargers — across Southwest Houston, the Heights, Bellaire, and the Memorial Villages. Licensed. Insured. 24/7.
               </motion.p>
 
@@ -326,7 +325,7 @@ export default function HomePageClient() {
                   <h3 className="text-lg font-extrabold text-white tracking-tight">{s.title}</h3>
                   <p className="mt-1 text-sm text-white/60 line-clamp-1">{s.summary.split(' — ')[0]}</p>
                   <span className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-white/40 group-hover:text-[var(--onestop-gold)] transition-colors">
-                    Learn More <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+                    See {s.title} <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
                   </span>
                 </div>
               </Link>
@@ -343,7 +342,7 @@ export default function HomePageClient() {
                   <h3 className="text-lg font-extrabold text-white tracking-tight">{s.title}</h3>
                   <p className="mt-1 text-sm text-white/60 line-clamp-1">{s.summary.split(' — ')[0]}</p>
                   <span className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-white/40 group-hover:text-[var(--onestop-gold)] transition-colors">
-                    Learn More <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
+                    See {s.title} <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
                   </span>
                 </div>
               </Link>
@@ -525,8 +524,7 @@ export default function HomePageClient() {
         <div className="absolute inset-0">
           <Image
             src="/photos_new/cta-footer.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric licensed electrician wiring a commercial panel in Houston TX"
             fill
             sizes="100vw"
             className="object-cover opacity-35"

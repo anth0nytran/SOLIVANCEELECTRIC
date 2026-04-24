@@ -125,8 +125,7 @@ export default async function LocationDetailPage({
         <div className="absolute inset-0 z-0">
           <Image
             src={`/photos_new/${loc.slug}.jpg`}
-            alt=""
-            aria-hidden
+            alt={`${loc.name} electrician — Solivance Electric commercial and residential service`}
             fill
             sizes="100vw"
             className="object-cover opacity-60"

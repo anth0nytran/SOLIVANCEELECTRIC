@@ -18,8 +18,7 @@ export default function NotFound() {
         <div className="absolute inset-0">
           <Image
             src="/photos_new/subhero-services.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric — page not found"
             fill
             sizes="100vw"
             className="object-cover opacity-20"

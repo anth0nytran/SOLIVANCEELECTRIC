@@ -49,8 +49,7 @@ export default function LocationsIndexPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/photos_new/subhero-locations.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric service areas across Southwest Houston, Heights, Bellaire, and Memorial Villages"
             fill
             sizes="100vw"
             className="object-cover opacity-55"

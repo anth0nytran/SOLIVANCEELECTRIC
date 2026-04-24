@@ -84,8 +84,7 @@ export default function BlogPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/photos_new/subhero-blog.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric blog — commercial and residential electrical insights from Houston"
             fill
             sizes="100vw"
             className="object-cover opacity-55"
@@ -182,8 +181,7 @@ export default function BlogPage() {
         <div className="absolute inset-0">
           <Image
             src="/photos_new/cta-footer.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric Houston — call for a free commercial electrical quote"
             fill
             sizes="100vw"
             className="object-cover opacity-20 mix-blend-luminosity"

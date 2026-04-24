@@ -33,8 +33,7 @@ export default function AboutPageClient() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/photos_new/subhero-blog.jpg"
-            alt=""
-            aria-hidden
+            alt="About Solivance Electric — Houston commercial electrical contractor crew"
             fill
             priority
             sizes="100vw"
@@ -317,8 +316,7 @@ export default function AboutPageClient() {
         <div className="absolute inset-0">
           <Image
             src="/photos_new/cta-footer.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric Houston commercial electrician — call for a free quote"
             fill
             sizes="100vw"
             className="object-cover opacity-20 mix-blend-luminosity"

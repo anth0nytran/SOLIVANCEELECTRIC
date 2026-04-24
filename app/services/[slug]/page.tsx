@@ -185,8 +185,7 @@ export default async function ServiceDetailPage({
         <div className="absolute inset-0 z-0">
           <Image
             src={service.media[0]?.src ?? '/photos_new/hero.jpg'}
-            alt=""
-            aria-hidden
+            alt={`${service.title} — Solivance Electric Houston commercial electrical service`}
             fill
             sizes="100vw"
             className="object-cover opacity-60"

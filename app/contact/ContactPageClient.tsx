@@ -31,8 +31,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
         <div className="absolute inset-0 z-0">
           <Image
             src="/photos_new/subhero-contact.jpg"
-            alt=""
-            aria-hidden
+            alt="Contact Solivance Electric — Houston commercial electrical contractor"
             fill
             priority
             sizes="100vw"

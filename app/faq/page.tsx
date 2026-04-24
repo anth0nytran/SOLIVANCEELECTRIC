@@ -92,8 +92,7 @@ export default function FaqPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/photos_new/subhero-faq.jpg"
-            alt=""
-            aria-hidden
+            alt="Solivance Electric FAQ — Houston commercial electrical questions answered"
             fill
             sizes="100vw"
             className="object-cover opacity-55"
