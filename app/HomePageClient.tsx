@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   ArrowRight,
   CheckCircle2,
@@ -13,12 +13,11 @@ import {
   HardHat,
   Award,
   MapPin,
-  Zap,
-  X,
   AlertTriangle,
 } from 'lucide-react';
 import { siteConfig, serviceData } from './config';
 import { ReviewsSection } from './components/ReviewsSection';
+import { trackMarketingEvent } from './components/MarketingAnalytics';
 
 /* ─── COMPACT HERO FORM ─── */
 function HeroEstimateForm() {
@@ -41,6 +40,9 @@ function HeroEstimateForm() {
     setFormStatus('sending');
     const form = e.currentTarget;
     const fd = new FormData(form);
+    const service = String(fd.get('service') || 'not selected');
+    const formLocation = form.closest('#hero-form') ? 'home:hero' : 'home:footer';
+    trackMarketingEvent('Lead Form Submit', { form: formLocation, service });
     if (typeof window !== 'undefined') {
       fd.set('page', window.location.href);
     }
@@ -48,9 +50,19 @@ function HeroEstimateForm() {
     try {
       const res = await fetch('/api/lead', { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
       const data = await res.json().catch(() => null);
-      if (!res.ok || !data?.ok) { setFormStatus('error'); setFormError(data?.error || 'Something went wrong.'); return; }
+      if (!res.ok || !data?.ok) {
+        trackMarketingEvent('Lead Form Error', { form: formLocation, service });
+        setFormStatus('error');
+        setFormError(data?.error || 'Something went wrong.');
+        return;
+      }
       form.reset(); setPhoneValue(''); setFormStatus('success');
-    } catch { setFormStatus('error'); setFormError('Something went wrong. Please try again.'); }
+      trackMarketingEvent('Lead Form Success', { form: formLocation, service });
+    } catch {
+      trackMarketingEvent('Lead Form Error', { form: formLocation, service });
+      setFormStatus('error');
+      setFormError('Something went wrong. Please try again.');
+    }
   };
 
   const inputClass = "w-full border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/15 rounded-md";

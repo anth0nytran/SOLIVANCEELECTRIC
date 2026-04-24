@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Phone, User, MapPin, ClipboardList, Lock, Calendar, Clock, Mail, Zap, Shield, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { siteConfig } from '../config';
+import { trackMarketingEvent } from './MarketingAnalytics';
 
 export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -25,6 +26,8 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
     setFormStatus('sending');
     const form = e.currentTarget;
     const fd = new FormData(form);
+    const service = String(fd.get('service') || 'not selected');
+    trackMarketingEvent('Lead Form Submit', { form: 'contact', service });
     if (typeof window !== 'undefined') {
       fd.set('page', window.location.href);
     }
@@ -32,9 +35,19 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
     try {
       const res = await fetch('/api/lead', { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
       const data = await res.json().catch(() => null);
-      if (!res.ok || !data?.ok) { setFormStatus('error'); setFormError(data?.error || 'Something went wrong.'); return; }
+      if (!res.ok || !data?.ok) {
+        trackMarketingEvent('Lead Form Error', { form: 'contact', service });
+        setFormStatus('error');
+        setFormError(data?.error || 'Something went wrong.');
+        return;
+      }
       form.reset(); setPhoneValue(''); setFormStatus('success');
-    } catch { setFormStatus('error'); setFormError('Something went wrong. Please try again.'); }
+      trackMarketingEvent('Lead Form Success', { form: 'contact', service });
+    } catch {
+      trackMarketingEvent('Lead Form Error', { form: 'contact', service });
+      setFormStatus('error');
+      setFormError('Something went wrong. Please try again.');
+    }
   };
 
   const isDark = variant === 'dark';

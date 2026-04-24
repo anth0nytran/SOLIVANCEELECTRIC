@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { track } from '@vercel/analytics/server';
 import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
@@ -533,6 +534,11 @@ export async function POST(req: Request) {
       html: customerHtml,
     }).catch(() => { /* don't fail the lead if confirmation send fails */ });
   }
+
+  await track('Lead Created', {
+    service: safeService || service || 'not specified',
+    urgency: urgency || 'not specified',
+  }).catch(() => { /* don't fail the lead if analytics is unavailable */ });
 
   return NextResponse.json({ ok: true }, { status: 200 });
 }
