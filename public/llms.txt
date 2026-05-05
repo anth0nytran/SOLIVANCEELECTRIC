@@ -1,6 +1,6 @@
 # Solivance Electric LLC
 
-> Licensed Texas commercial electrical contractor serving Houston, Cypress, Katy, Memorial and surrounding Greater Houston metro. Panel upgrades, standby generators, parking-lot lighting, EV chargers, warehouse builds, RV park pedestals, mobile-home connections. 24-hour emergency response.
+> Licensed Texas commercial electrical contractor serving Houston, Cypress, Katy, Memorial and surrounding Greater Houston metro. Panel upgrades, standby generators, parking-lot lighting, soffit lighting, EV chargers, warehouse builds, RV park pedestals, mobile-home connections. 24-hour emergency response.
 
 ## About
 
@@ -33,6 +33,7 @@ Surrounding Texas covered on a call.
 - **Panel upgrades** — 200A through 3-phase commercial switchgear. $2,500–$18,000 typical. 1–3 days on site after permit + utility coordination. https://solivanceelectric.com/services/panel-upgrades
 - **Generator installs** — Standby generators with ATS commissioning, concrete pad, fuel line, final inspection. 2–5 working days. https://solivanceelectric.com/services/generator-installs
 - **Parking lot lighting** — LED retrofits and ground-up lighting to photometric spec. https://solivanceelectric.com/services/parking-lot-lighting
+- **Soffit lighting** — Architectural LED under the eaves. Recessed 4-inch downlights, continuous ribbon, or RGBW color-changing systems. Damp-rated fixtures, dedicated 20A circuit, photocell and timer. $1,800–$9,500+ typical, 1–2 days on site. https://solivanceelectric.com/services/soffit-lighting
 - **EV chargers** — Level 2 and DC fast chargers for office lots, apartment complexes, fleet yards, retail. Load calc + make-ready infrastructure. https://solivanceelectric.com/services/ev-chargers
 - **Commercial warehouses** — Ground-up electrical for warehouses, distribution, light-industrial. https://solivanceelectric.com/services/commercial-warehouses
 - **New home builds** — Custom single-family, spec builds, small-to-mid multi-family. https://solivanceelectric.com/services/home-builds
@@ -47,6 +48,7 @@ Surrounding Texas covered on a call.
 - Standby generator install (commercial): 2–5 days on site plus permit lead time
 - Level 2 EV charger: typically 1 day on site after permit
 - Parking-lot LED retrofit: priced per fixture count + photometric scope
+- Soffit lighting: $1,800–$5,500 typical single-family · RGBW color-changing $4,500–$9,500
 - RV park pedestal: per-pedestal pricing after site walk
 
 All numbers are fixed-fee after a free site walk. No ballparks over the phone.

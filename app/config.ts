@@ -19,6 +19,7 @@ export const siteConfig = {
   services: [
     'Generator Installs',
     'Parking Lot Lighting',
+    'Soffit Lighting',
     'EV Chargers',
     'New Commercial Warehouses',
     'New Home Builds (Single & Multi-Family)',
@@ -245,13 +246,30 @@ export const serviceData: ServiceItem[] = [
     longDescription: 'Shopping-center and retail-pad electrical is a coordination problem as much as a wiring problem — tenant meters, signage power, pylon circuits, site-lighting photometric, and the opening-day schedule all have to land on the same set of drawings. Solivance Electric handles ground-up electrical for retail pads, strip centers, mixed-use, and anchor-plus-satellite shopping centers across Southwest Houston, Bellaire, the Heights corridor, and the Memorial Villages. Vanilla-shell rough-in through tenant turnover, every meter set on the lease start date.',
     keywords: ['shopping center electrical contractor Southwest Houston', 'retail electrical Bellaire TX', 'tenant finish-out electrician Houston Heights', 'strip center electrical Sugar Land'],
   },
+  {
+    slug: 'soffit-lighting',
+    title: 'Soffit Lighting',
+    media: [
+      { type: 'image', src: photo('soffit-lighting') },
+    ],
+    summary: 'Recessed LED downlights and continuous ribbon under the eaves. Damp-rated fixtures, dedicated 20A circuit, photocell and timer standard.',
+    details: [
+      'Recessed 4-inch LED downlights and low-profile ribbon',
+      'RGBW color-changing systems for holiday and accent control',
+      'Damp- and wet-rated fixtures matched to the soffit exposure',
+      'Dedicated 20A circuit, photocell, and timer included',
+    ],
+    turnaround: 'Most single-family installs in 1–2 days on site',
+    longDescription: 'Soffit lighting is the line of LED fixtures recessed up under the eave and overhang of the roofline. Done right it washes the facade, lights the walkway from above, and replaces a half-dozen yard lights that never aim where they should. Solivance Electric installs soffit lighting on single-family homes, custom builds, townhome rows, multi-family, and commercial buildings across Southwest Houston, Bellaire, the Heights, and the Memorial Villages. Recessed downlights for spaced wash, continuous LED ribbon for an unbroken architectural line, or RGBW color-changing for holiday and game-day control. Damp-rated fixtures, dedicated 20A circuit, photocell and timer on every install.',
+    keywords: ['soffit lighting installer Southwest Houston', 'LED soffit lights Bellaire TX', 'eave lighting Memorial Villages', 'recessed soffit downlights Houston Heights', 'RGBW soffit lighting Houston'],
+  },
 ];
 
 export interface NavChild {
   label: string;
   href: string;
   description?: string;
-  icon?: 'panel' | 'generator' | 'lighting' | 'ev' | 'warehouse' | 'pedestal' | 'mobile-home' | 'home-build' | 'retail' | 'map-pin' | 'info' | 'phone' | 'help' | 'file';
+  icon?: 'panel' | 'generator' | 'lighting' | 'soffit' | 'ev' | 'warehouse' | 'pedestal' | 'mobile-home' | 'home-build' | 'retail' | 'map-pin' | 'info' | 'phone' | 'help' | 'file';
 }
 
 export interface NavLink {
@@ -270,6 +288,7 @@ export const navLinks: NavLink[] = [
       { label: 'Panel Upgrades',             href: '/services/panel-upgrades',           description: '100A through 3-phase switchgear.',            icon: 'panel' },
       { label: 'Generator Installs',         href: '/services/generator-installs',       description: 'Standby gen-sets, sized and commissioned.',   icon: 'generator' },
       { label: 'Parking Lot Lighting',       href: '/services/parking-lot-lighting',     description: 'LED retrofit and ground-up, photometric.',    icon: 'lighting' },
+      { label: 'Soffit Lighting',            href: '/services/soffit-lighting',          description: 'Recessed LED and ribbon under the eaves.',    icon: 'soffit' },
       { label: 'EV Chargers',                href: '/services/ev-chargers',              description: 'Level 2 and DCFC, load-managed.',             icon: 'ev' },
       { label: 'New Commercial Warehouses',  href: '/services/commercial-warehouses',    description: 'Service entrance through high-bay LED.',      icon: 'warehouse' },
       { label: 'New Home Builds',            href: '/services/home-builds',              description: 'Single & multi-family, rough to trim.',       icon: 'home-build' },

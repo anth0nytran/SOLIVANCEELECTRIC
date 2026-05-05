@@ -2,6 +2,7 @@ export type ServiceIcon =
   | 'panel'
   | 'generator'
   | 'lighting'
+  | 'soffit'
   | 'ev'
   | 'warehouse'
   | 'pedestal'
@@ -800,6 +801,99 @@ export const serviceContent: Record<string, ServiceContent> = {
       {
         q: 'Do you pull the Harris County or municipal permit for shopping centers?',
         a: 'Every time. Commercial permit, plan review, rough-in inspection, underground inspection, above-ceiling inspection, trim inspection, and final. You are not chasing the city or county.',
+      },
+    ],
+  },
+  'soffit-lighting': {
+    slug: 'soffit-lighting',
+    icon: 'soffit',
+    eyebrowNumber: '10',
+    heroH1: 'Soffit Lighting — Architectural LED Under the Eaves.',
+    heroLede:
+      'Recessed LED downlights, ribbon strips, and color-changing perimeter runs tucked into the soffit. Damp-rated fixtures, dedicated 20A circuit, photocell and timer control standard.',
+    overview:
+      'Soffit lighting is the line of LED fixtures recessed up under the eave, rake, and overhang of the building — what most homeowners call "the lights up under the roof." Done right it washes the facade, lights the walkway and driveway from above, defines the roofline at night, and replaces a half-dozen yard lights that never aim where they should. Solivance Electric installs soffit lighting across Houston, Cypress, Katy, Memorial, Bellaire, and the Memorial Villages — recessed 4-inch LED downlights for spaced wash, low-profile linear LED ribbon for continuous-edge runs, and RGBW color-changing systems for properties that want holiday and accent control on a single app. Every install gets a damp-rated fixture, a dedicated 20A branch circuit when load calls for it, and a photocell plus timer so the soffit comes on at civil twilight and shuts down at the schedule the owner picks.',
+    cost: {
+      q: 'How much does soffit lighting cost in Houston?',
+      a: 'A typical single-family soffit-lighting install runs $1,800–$5,500 depending on linear footage, fixture type, and circuit work. Recessed 4-inch LED downlights spaced every 6–8 feet around a 200-foot perimeter run $2,400–$4,200 installed (fixtures, wire, dedicated circuit, photocell, trim). Continuous LED ribbon along the same perimeter with a smart driver runs $3,200–$6,800. RGBW color-changing systems with app and voice control on a 200-foot run typically land $4,500–$9,500. Larger custom homes and commercial buildings price per linear foot of soffit covered.',
+      range: '$1,800 – $9,500+',
+      note: 'Per home or building · scales with linear footage.',
+    },
+    timeline: {
+      q: 'How long does a soffit lighting install take?',
+      a: 'Most single-family soffit-lighting installs are a 1–2 day install once material is on site. Larger homes with more than 300 linear feet of soffit, or commercial buildings, run 3–5 days. Lift work and weather are the two scheduling variables. Permits where required are pulled inside the 1–2 week window before install.',
+      phases: [
+        { label: 'Site walk + layout', duration: 'Same day, free' },
+        { label: 'Permit + material', duration: '5–10 business days' },
+        { label: 'Install + circuit', duration: '1–2 days on site' },
+        { label: 'Photocell + timer set', duration: 'Same evening' },
+      ],
+    },
+    process: [
+      {
+        step: '01',
+        title: 'Site walk + lighting layout',
+        detail:
+          'Soffit linear footage measured. Fixture spacing planned (typical 6–8 feet on recessed downlights, continuous on ribbon). Branch circuit path traced from the panel. Photocell location chosen for clean north-sky exposure.',
+      },
+      {
+        step: '02',
+        title: 'Fixture + driver selection',
+        detail:
+          'Damp-rated 4-inch LED downlights, low-profile aluminum-channel ribbon, or RGBW color-changing system. Color temperature locked at 2700K or 3000K for warm white, or addressable on RGBW. Driver and transformer sized to the run.',
+      },
+      {
+        step: '03',
+        title: 'Branch circuit + clean trim',
+        detail:
+          'Dedicated 20A circuit run from the panel where the existing exterior circuit is overloaded. Holes cut clean in the soffit board, fixtures secured, wire concealed, vent clearance preserved. No drooping cable visible from the ground.',
+      },
+      {
+        step: '04',
+        title: 'Photocell + timer + handoff',
+        detail:
+          'Photocell wired in line, timer programmed for the owner\'s schedule (dusk-to-dawn, dusk-to-midnight, or app-controlled). Live demo at civil twilight. App pairing on RGBW systems before we leave.',
+      },
+    ],
+    codeNotes: {
+      heading: 'Code, permit, and utility notes',
+      body:
+        'Soffit lighting is installed under NEC Article 410 for fixtures, NEC 314 for boxes (where required), and NEC 210.8 for GFCI protection on outdoor receptacles tied into the same circuit. Damp-location and wet-location fixture ratings are matched to the soffit exposure — covered soffits take damp-rated fixtures, exposed soffits and overhangs facing horizontal rain take wet-rated. Dedicated 20A branch circuits where the existing exterior load is at capacity. Harris County and City of Houston permits are pulled when the install touches the panel or runs new branch circuits.',
+      chips: ['NEC 410', 'NEC 210.8', 'Damp/Wet Rated', 'Harris County Permits', 'City of Houston AHJ'],
+    },
+    relatedSlugs: ['parking-lot-lighting', 'panel-upgrades', 'home-builds'],
+    faqs: [
+      {
+        q: 'What is soffit lighting and where does it go?',
+        a: 'Soffit lighting is a row of LED fixtures recessed up under the eave, rake, or overhang of the roofline. Most installs run continuously along the front and side facades, washing the wall down from above. The fixtures are not visible from the ground — only the light is — which gives a clean architectural look without exposed yard lights or wall packs.',
+      },
+      {
+        q: 'Recessed downlights or LED ribbon — which should I pick?',
+        a: 'Recessed 4-inch LED downlights spaced every 6–8 feet give a spotlight-pattern wash on the wall and the ground below — best for accenting columns, garage doors, and entry features. Continuous LED ribbon (low-profile aluminum channel) gives an unbroken line of light at the roof edge — best for defining the architecture and uplighting the trim. RGBW color-changing ribbon adds holiday and accent control on top of either look.',
+      },
+      {
+        q: 'Do you handle color-changing soffit lights for holidays?',
+        a: 'Yes. RGBW addressable systems (Jellyfish, Trimlight-grade, and similar commercial ribbon) give per-pixel control of the entire perimeter — warm white for everyday, red-white-blue for the Fourth, red and green for the holidays, school colors on game day. Programmed through the manufacturer app or tied to a smart-home controller. The wiring and driver work is on us.',
+      },
+      {
+        q: 'Will soffit lighting need a new circuit or breaker?',
+        a: 'Often, yes. Most existing exterior circuits are already running landscape lights, garage receptacles, or a coach light or two — adding a 200-foot soffit run pushes the load past the existing breaker. We pull a load calc against the existing exterior circuit, and if it is tight we run a dedicated 20A circuit from the panel. The dedicated circuit also keeps the soffit on its own photocell and timer instead of riding on whatever else is on that breaker.',
+      },
+      {
+        q: 'Are the fixtures rated for the Houston rain and humidity?',
+        a: 'Every fixture we install is damp-rated minimum, wet-rated where the soffit is exposed to wind-driven rain (porches and overhangs facing west and south). Aluminum housings, gasketed lenses, and IP65-or-better drivers. The Houston spring rains and the Gulf humidity are exactly what these fixtures are built for — but only if the rating matches the location. We match it.',
+      },
+      {
+        q: 'Can soffit lighting be added to an existing home, or only new construction?',
+        a: 'Both. Retrofits on existing homes are the bulk of the work — we measure the existing soffit, plan the wire path through the attic or behind the fascia, cut the fixture holes from below, fish the cable, and tie into the panel. New construction gets the rough-in done while the soffit is open before the first paint coat, which is cleaner and slightly cheaper. Either way the finished install is invisible from the ground.',
+      },
+      {
+        q: 'How bright will the soffit lights be — will they bother neighbors?',
+        a: 'Soffit downlights face down at the wall and the ground, which is exactly the opposite of the up-and-out glare that bothers neighbors. We pick beam angles (typically 38° on recessed, full-cutoff on ribbon) that keep the light below the horizontal — no light trespass into the next yard, and no roof spill into the night sky. Memorial Villages and other municipalities with dark-sky language enforce this exactly the way we install it.',
+      },
+      {
+        q: 'Do you offer soffit lighting on commercial buildings — offices, retail, multi-family?',
+        a: 'Yes. Multi-family and townhome rows get continuous LED ribbon along the soffit for a unified roofline at night. Office buildings and retail pads get recessed downlights spaced for column-and-entry accent. Photocell and 7-day astronomical timer on every commercial install. Larger commercial runs typically share the photometric design pass with the parking-lot lighting on the same property.',
       },
     ],
   },

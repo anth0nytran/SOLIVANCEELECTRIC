@@ -3,14 +3,14 @@ import { siteConfig, serviceData } from '../config';
 import ServicesPageClient from './ServicesPageClient';
 
 export const metadata: Metadata = {
-  title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Southwest Houston · Heights · Bellaire · Memorial Villages',
+  title: 'Electrical Services — Panel Upgrades, Generators, Soffit Lighting, EV Chargers · Southwest Houston · Heights · Bellaire · Memorial Villages',
   description:
-    'Commercial & residential electrical services across Southwest Houston, the Heights, Bellaire, West University, and the Memorial Villages: panel upgrades through 3-phase switchgear, standby generator installs, LED parking-lot lighting, Level 2 and DCFC EV chargers, warehouse builds, new home construction, shopping centers, RV park pedestals, mobile home connections. 24/7 emergency. (832) 965-9964.',
+    'Commercial & residential electrical services across Southwest Houston, the Heights, Bellaire, West University, and the Memorial Villages: panel upgrades through 3-phase switchgear, standby generator installs, LED parking-lot lighting, soffit lighting, Level 2 and DCFC EV chargers, warehouse builds, new home construction, shopping centers, RV park pedestals, mobile home connections. 24/7 emergency. (832) 965-9964.',
   alternates: { canonical: '/services' },
   openGraph: {
-    title: 'Electrical Services — Panel Upgrades, Generators, EV Chargers · Southwest Houston · Heights · Bellaire · Memorial Villages',
+    title: 'Electrical Services — Panel Upgrades, Generators, Soffit Lighting, EV Chargers · Southwest Houston · Heights · Bellaire · Memorial Villages',
     description:
-      'Panel upgrades, standby generators, LED parking-lot lighting, EV chargers, warehouse electrical, RV park pedestals, mobile home connections. SW Houston, Heights, Bellaire, Memorial Villages. 24/7 emergency.',
+      'Panel upgrades, standby generators, LED parking-lot lighting, soffit lighting, EV chargers, warehouse electrical, RV park pedestals, mobile home connections. SW Houston, Heights, Bellaire, Memorial Villages. 24/7 emergency.',
     url: `${siteConfig.domain}/services`,
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Solivance Electric Services — Southwest Houston' }],
   },
