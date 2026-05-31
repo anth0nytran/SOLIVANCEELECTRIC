@@ -364,7 +364,7 @@ export default function HomePageClient() {
           {/* View all services CTA */}
           <div className="mt-10 flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-slate-200">
             <p className="text-sm text-slate-500 font-medium max-w-md">
-              Each service has a dedicated page with cost ranges, timelines, code references, and FAQs.
+              Each service has a dedicated page with scope, timelines, code references, and FAQs.
             </p>
             <Link
               href="/services"

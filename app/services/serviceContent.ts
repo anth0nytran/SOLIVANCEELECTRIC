@@ -20,7 +20,7 @@ export interface ServiceContent {
   cost: {
     q: string;
     a: string;
-    range: string; // display-ready price range chip
+    range: string; // display-ready quoting chip (e.g. "Quoted on-site")
     note: string;  // caveat line
   };
   timeline: {
@@ -49,9 +49,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'An electrical panel is the meter-to-load junction for every circuit in the building. When the main breaker is undersized, the bus is pitted, or the bonding is wrong at the service entrance, the symptoms show up everywhere — lights dimming when an RTU kicks, breakers tripping at half load, a panel cover that is warm to the touch at 3 pm on a hot day. Solivance Electric replaces commercial and high-end residential panels across Houston, Cypress, Katy, and Memorial — 100A, 200A, 400A, and 3-phase 208/480 services. Every swap includes load calcs against actual metered demand, meter base and main breaker replacement, feeder upsizing when the run is marginal, legible circuit labeling, and a final walk with the inspector before the seal goes on.',
     cost: {
-      q: 'How much does a commercial panel upgrade cost in Houston?',
-      a: 'A 200A commercial panel upgrade typically runs $2,500–$8,500 installed. 400A services and 3-phase 208/480 switchgear replacements run $6,000–$18,000, with larger switchgear builds pushing past $25,000. Final pricing depends on meter location, whether the service entrance needs relocation, feeder length, and how much of the CenterPoint work is ours versus theirs. Every number is a fixed-fee quote after a free site walk — no ballpark over the phone, no surprise changes mid-job.',
-      range: '$2,500 – $25,000+',
+      q: 'What shapes the quote on a commercial panel upgrade?',
+      a: 'The scope is driven by the service size and gear — a 200A single-phase swap is a different job than a 400A or 3-phase 208/480 switchgear replacement. Meter location, whether the service entrance needs relocation, feeder length, and how much of the CenterPoint cut-over is ours versus theirs move the number from there. Every job is a fixed-fee quote after a free site walk — no ballpark over the phone, no surprise changes mid-job.',
+      range: 'Quoted on-site',
       note: 'Fixed fee quoted after free site walk.',
     },
     timeline: {
@@ -134,9 +134,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'When the grid drops, your business should not. Solivance Electric installs commercial standby generators from 22 kW single-phase through 150 kW three-phase — medical suites, warehouses, multi-tenant offices, retail pads, and high-end residential across Greater Houston. Every install starts with a load calc against metered demand, not a sales-sheet guess. Generator siting accounts for exhaust clearance, noise to the nearest property line, refueling access, and the concrete pad spec the manufacturer actually called for. The Automatic Transfer Switch is wired, mechanically interlocked where required, and commissioned with a live grid-drop test. The first annual service date is on the calendar before we leave.',
     cost: {
-      q: 'How much does a commercial standby generator installation cost?',
-      a: 'A 22–35 kW commercial standby generator install typically runs $14,000–$28,000 turnkey (unit, ATS, pad, gas line, commissioning). 48–80 kW units run $28,000–$60,000. Larger 125–150 kW commercial gen-sets with paralleling or larger ATS builds push past $85,000. Fuel infrastructure, service-entrance upgrades, and enclosure selection (sound-attenuated, weather-protective, level 2) are the biggest variables.',
-      range: '$14,000 – $85,000+',
+      q: 'What shapes the quote on a commercial standby generator?',
+      a: 'Generator size and phase drive most of it — a 22–35 kW single-phase standby is a different build than a 125–150 kW three-phase gen-set with paralleling. Fuel infrastructure, service-entrance upgrades, ATS sizing, and enclosure selection (sound-attenuated, weather-protective) are the next biggest variables. Every install is quoted turnkey — unit, ATS, pad, gas line, and commissioning on one fixed-fee number after a site walk.',
+      range: 'Quoted on-site',
       note: 'Unit, ATS, pad, fuel, and commissioning included.',
     },
     timeline: {
@@ -219,9 +219,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'Dark parking lots are a liability — slip-and-fall claims, tenant complaints, insurance premium hikes, and after-hours incidents that get blamed on the lighting plan. Solivance Electric designs and installs commercial parking-lot lighting across Houston, Cypress, Katy, and Memorial. Every lot starts with an actual photometric layout (IES files, not a lumen guess) showing footcandles at the pole base, at the middle of the drive lane, and at the darkest corner. We retrofit the HID and metal-halide fixtures you already have, swap tired poles, run underground conduit for new-build lots, and ship every job with photocells and timers so the lot turns itself on at civil twilight without a truck roll.',
     cost: {
-      q: 'How much does commercial parking lot lighting cost in Houston?',
-      a: 'An HID-to-LED retrofit on existing poles typically runs $350–$900 per fixture installed (bucket truck, drivers, labor, disposal). Full ground-up builds with new poles, concrete bases, and underground conduit run $3,500–$7,500 per pole assembly. Wall-pack and shoebox retrofits start at $250 per fixture. Trenching charges are per foot and site-dependent — rocky Cypress clay prices differently than loose Memorial fill.',
-      range: '$250 – $7,500+ per fixture',
+      q: 'What shapes the quote on commercial parking lot lighting?',
+      a: 'Whether it is an HID-to-LED retrofit on existing poles or a full ground-up build with new poles, concrete bases, and underground conduit is the biggest swing. Fixture count, pole height, trenching distance, and site conditions set the rest — rocky Cypress clay digs differently than loose Memorial fill. Every lot is quoted per site after a free photometric walk.',
+      range: 'Quoted on-site',
       note: 'Retrofits vs ground-up. Quoted per site.',
     },
     timeline: {
@@ -304,9 +304,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'EV charging stopped being optional two years ago — tenants, fleet managers, retail visitors, and workplace employees all expect it. Solivance Electric designs and installs commercial Level 2 (7.2–19.2 kW) and Level 3 DC fast chargers across Greater Houston. Every build starts with a real capacity check against the existing service — not a hope that the panel can take another 100A. When capacity is tight, we ship dynamic load-management builds that share a circuit without nuisance-tripping during peak demand. Multi-tenant and fleet deployments get per-stall submetering and OCPP-compatible backend selection. When the plan is to add more stalls in year two, we run the make-ready conduit and pull boxes now — so the next install is a pull, not another trench.',
     cost: {
-      q: 'How much does a commercial EV charger installation cost?',
-      a: 'A single Level 2 charger on existing panel capacity runs $2,800–$6,500 installed (mount, conduit, wire, commissioning). Multi-stall Level 2 builds with load management and submetering run $4,500–$8,500 per stall at scale. A single DC fast charger (50 kW) with service-entrance work and utility coordination runs $55,000–$120,000. A 150 kW DCFC with transformer-level work can push $250,000+.',
-      range: '$2,800 per stall – $250,000+ (DCFC)',
+      q: 'What shapes the quote on a commercial EV charger install?',
+      a: 'Service capacity is the biggest variable — a single Level 2 charger on existing panel headroom is a different scope than a multi-stall build with load management and submetering, and a DC fast charger with service-entrance and transformer-level utility work is a different scope again. Stall count, trenching distance, and charger model fill in the rest. Every build is quoted after a real capacity check on site.',
+      range: 'Quoted on-site',
       note: 'Service capacity is the biggest variable.',
     },
     timeline: {
@@ -389,9 +389,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'New warehouse construction lives or dies on two things — the electrical being on the GC schedule, and the high-bay lighting being right the first time. Solivance Electric handles the complete electrical scope for new tilt-wall and metal-building warehouse construction across Greater Houston: service-entrance sizing, main switchgear selection and bus setup, feeder distribution to distribution panels, high-bay LED layout with daylight-harvesting controls, dock leveler and overhead-door power, office-fit-out rough-in and trim, data and fire-alarm coordination with the other trades, and the final inspection walk. One foreman from ground-breaking to the final inspection — not a new face every week.',
     cost: {
-      q: 'How much does new warehouse electrical cost?',
-      a: 'Ground-up commercial warehouse electrical typically runs $6–$12 per square foot for the full scope including service entrance, distribution, high-bay LED, dock power, and office fit-out. A 60,000 sq ft tilt-wall warehouse falls in the $360,000–$720,000 range. Heavier industrial loads (food-processing, cold-storage compressors, manufacturing machinery) push higher. Final pricing is a design-build conversation against the GC drawings.',
-      range: '$6 – $12 per sq ft · $360k+ typical',
+      q: 'What shapes the quote on new warehouse electrical?',
+      a: 'It scopes against the GC drawings — building size, service-entrance sizing, distribution, high-bay LED layout, dock power, and office fit-out all feed the number. Heavier industrial loads (food-processing, cold-storage compressors, manufacturing machinery) push the scope up. Final pricing is a design-build conversation against the drawings, quoted as one fixed number.',
+      range: 'Quoted on-site',
       note: 'Design-build quoted against GC drawings.',
     },
     timeline: {
@@ -474,9 +474,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'RV pedestals look simple on a spec sheet and fail utility inspection for the same three reasons every time — the grounding electrode conductor is wrong, the NEMA configuration on the receptacle is wrong for the rated duty cycle, or the bonding jumpers at the pedestal and the service disconnect are missing. Solivance Electric installs pedestal arrays for RV parks, mobile-home parks, and temporary jobsite services across Greater Houston. Trenching, proper ground rods, weather-rated NEMA 3R enclosures, correct receptacle selection (14-50 for 50A, TT-30 for 30A), and utility coordination with CenterPoint or the local co-op.',
     cost: {
-      q: 'How much does an RV park pedestal installation cost?',
-      a: 'A single pedestal install (30A/50A combo, underground conduit, ground rods, inspection) typically runs $1,400–$3,200. Multi-pedestal park arrays with trenching, panelboard, distribution, and metering run $1,800–$4,500 per pedestal depending on lot count and trench length. Mobile-home park arrays with individual meter sockets run higher. Pricing scales with distance from the service entrance — the long runs are where the cost lives.',
-      range: '$1,400 – $4,500+ per pedestal',
+      q: 'What shapes the quote on RV park pedestals?',
+      a: 'Pedestal count and the distance from the service entrance drive most of it — the long underground runs and trenching are where the scope lives. Receptacle mix (30A/50A/100A), whether the array is individually metered, and whether a mobile-home-park service is involved set the rest. Quoted per pedestal after a site walk.',
+      range: 'Quoted on-site',
       note: 'Per-pedestal; scales with trench length.',
     },
     timeline: {
@@ -559,9 +559,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'Mobile home connections look simple and fail inspection anyway. Three reasons: the grounding electrode conductor is not sized to the service, the feeder is rated for the wrong termination temperature, or the service disconnect is sitting in the wrong location relative to the home. Solivance Electric handles the full scope — service disconnect, feeder run from the meter loop to the home panel, grounding, bonding, utility coordination, permit, and the inspection — across Houston, Cypress, Katy, and Memorial. Tenants have power on move-in day, not two weeks later.',
     cost: {
-      q: 'How much does a mobile home electrical connection cost?',
-      a: 'A standard mobile home service connection (meter loop, service disconnect, feeder to panel, grounding, bonding, permit, inspection) typically runs $1,800–$4,200. Replacements on existing sites with trenching already in place run lower. New sites requiring trench, utility coordination, and a fresh service drop run higher — sometimes substantially so when CenterPoint has to pull a new drop.',
-      range: '$1,800 – $4,200 typical',
+      q: 'What shapes the quote on a mobile home connection?',
+      a: 'The biggest swing is whether the site already has trenching and a service drop in place or needs a fresh trench, utility coordination, and a new CenterPoint drop. Meter loop condition, feeder length, and the AHJ in play fill in the rest. The full scope — disconnect, feeder, grounding, bonding, permit, and inspection — is quoted as one number after a site walk.',
+      range: 'Quoted on-site',
       note: 'Higher if a new service drop is required.',
     },
     timeline: {
@@ -644,9 +644,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'New construction is where we do our best work — the drawings are clean, the trades are sequenced, and the inspector walks the same crew every time. Solivance Electric handles single-family custom and spec homes, townhome rows, duplexes, triplexes, and small-to-mid multi-family (garden apartments, stacked flats, build-to-rent) across Houston, Cypress, Katy, and Memorial. Full electrical scope from the service entrance through the trim plate — panel sizing, feeder and branch-circuit rough, smoke-and-CO detection per NFPA 72, smart-home and structured-cabling rough, EV make-ready in the garage, and the final inspection walk. We work to the GC schedule, not our own.',
     cost: {
-      q: 'How much does new-construction electrical cost?',
-      a: 'Single-family new-build electrical typically runs $4.50–$9 per square foot for the full scope (service, rough, fixtures, trim, devices). A 3,000 sq ft custom home falls in the $13,500–$27,000 range depending on fixture package, smart-home add-ons, EV make-ready, and generator provisioning. Multi-family per-unit pricing compresses with scale — typical garden-apartment buildings run $3.50–$6 per sq ft. Final pricing is a design-build conversation against the plans.',
-      range: '$4.50 – $9 per sq ft',
+      q: 'What shapes the quote on new-construction electrical?',
+      a: 'Square footage and the fixture package set the baseline, with smart-home add-ons, EV make-ready, and generator provisioning moving it from there. Multi-family per-unit scope compresses as the building count scales. Final pricing is a design-build conversation against the plans, quoted as one fixed number.',
+      range: 'Quoted on-site',
       note: 'Scales down on multi-family with volume.',
     },
     timeline: {
@@ -729,9 +729,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'Shopping centers and new commercial builds are where service-entrance sizing, tenant metering, and signage power all have to land on the same set of drawings. Solivance Electric handles ground-up electrical for retail pads, strip centers, mixed-use developments, and shopping-center anchor-plus-satellite builds across Greater Houston. Service entrance and main switchgear, tenant meter banks, vanilla-shell rough-in, site lighting and photometric design, landscape power, signage and pylon power, and tenant turnover inspections. When the center opens, every box is lit, every meter is set, and every tenant has what their lease requires.',
     cost: {
-      q: 'How much does new shopping-center electrical cost?',
-      a: 'Ground-up commercial retail electrical typically runs $5–$11 per square foot for the full scope — service entrance, distribution, tenant metering, site lighting, vanilla-shell rough-in. A 20,000 sq ft strip center falls in the $100,000–$220,000 range. Larger shopping centers with anchor tenants, pylon signs, and extensive site lighting push higher. Vanilla-shell versus fully-finished tenant turnover changes the number substantially.',
-      range: '$5 – $11 per sq ft',
+      q: 'What shapes the quote on new shopping-center electrical?',
+      a: 'It scopes against the drawings — building size, service-entrance sizing, tenant metering, site lighting, and how much of the tenant space is vanilla-shell versus fully finished. Anchor tenants, pylon signs, and extensive site lighting push the scope up. Quoted as one design-build number against the drawings.',
+      range: 'Quoted on-site',
       note: 'Strip center to shopping center — scoped by drawings.',
     },
     timeline: {
@@ -814,9 +814,9 @@ export const serviceContent: Record<string, ServiceContent> = {
     overview:
       'Soffit lighting is the line of LED fixtures recessed up under the eave, rake, and overhang of the building — what most homeowners call "the lights up under the roof." Done right it washes the facade, lights the walkway and driveway from above, defines the roofline at night, and replaces a half-dozen yard lights that never aim where they should. Solivance Electric installs soffit lighting across Houston, Cypress, Katy, Memorial, Bellaire, and the Memorial Villages — recessed 4-inch LED downlights for spaced wash, low-profile linear LED ribbon for continuous-edge runs, and RGBW color-changing systems for properties that want holiday and accent control on a single app. Every install gets a damp-rated fixture, a dedicated 20A branch circuit when load calls for it, and a photocell plus timer so the soffit comes on at civil twilight and shuts down at the schedule the owner picks.',
     cost: {
-      q: 'How much does soffit lighting cost in Houston?',
-      a: 'A typical single-family soffit-lighting install runs $1,800–$5,500 depending on linear footage, fixture type, and circuit work. Recessed 4-inch LED downlights spaced every 6–8 feet around a 200-foot perimeter run $2,400–$4,200 installed (fixtures, wire, dedicated circuit, photocell, trim). Continuous LED ribbon along the same perimeter with a smart driver runs $3,200–$6,800. RGBW color-changing systems with app and voice control on a 200-foot run typically land $4,500–$9,500. Larger custom homes and commercial buildings price per linear foot of soffit covered.',
-      range: '$1,800 – $9,500+',
+      q: 'What shapes the quote on soffit lighting?',
+      a: 'Linear footage of soffit and the fixture type drive it — recessed 4-inch downlights, continuous LED ribbon, and RGBW color-changing systems each scope differently — plus whether a dedicated 20A circuit has to be run from the panel. Larger custom homes and commercial buildings scope per linear foot of soffit covered. Quoted after a free layout walk.',
+      range: 'Quoted on-site',
       note: 'Per home or building · scales with linear footage.',
     },
     timeline: {

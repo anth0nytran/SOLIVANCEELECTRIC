@@ -40,7 +40,7 @@
 3. **Permit, cut-over, install.** Harris County or City of Houston permit filed. CenterPoint disconnect scheduled. Panel swapped, feeders upsized where needed, every breaker labeled.
 4. **Inspection and hand-off.** Inspector meets us on site. Clean blue-tag the first walk. Old gear hauled, mechanical room swept, circuit directory handed to the owner.
 
-**Cost.** $2,500 – $25,000+. A 200A commercial panel upgrade typically runs $2,500–$8,500 installed. 400A services and 3-phase 208/480 switchgear replacements run $6,000–$18,000, with larger switchgear builds pushing past $25,000. Final pricing depends on meter location, whether the service entrance needs relocation, feeder length, and how much of the CenterPoint work is ours versus theirs. Every number is a fixed-fee quote after a free site walk — no ballpark over the phone, no surprise changes mid-job.
+**Quoting.** Quoted on-site, fixed-fee in writing. The scope is driven by the service size and gear — a 200A single-phase swap is a different job than a 400A or 3-phase 208/480 switchgear replacement — plus meter location, whether the service entrance needs relocation, feeder length, and how much of the CenterPoint cut-over is ours versus theirs. Every job is a fixed-fee quote after a free site walk — no ballpark over the phone, no surprise changes mid-job.
 
 **Timeline.** Most 200A commercial upgrades are on and re-energized inside 1–2 business days, with the building de-energized for only a portion of that window. 400A and 3-phase switchgear replacements typically run 3–5 working days because of utility coordination, gear lead time, and longer feeder pulls. Phases: site walk + quote (same day, free) · permit + equipment (5–10 business days) · tear-out + install (1–2 days for 200A) · final inspection (same week).
 
@@ -78,7 +78,7 @@ A: Often — if the meter base is undersized, cracked, or wrong rating for the n
 3. **Pad, gen-set, ATS, gas.** Concrete pad to manufacturer spec. Generator set, leveled and anchored. ATS wired and mechanically interlocked. Gas line sized and pressure-tested.
 4. **Live commissioning.** Grid-drop test with the real building load. Transfer time verified. Cooldown documented. Annual service date on the calendar before we leave.
 
-**Cost.** $14,000 – $85,000+. A 22–35 kW commercial standby generator install typically runs $14,000–$28,000 turnkey (unit, ATS, pad, gas line, commissioning). 48–80 kW units run $28,000–$60,000. Larger 125–150 kW commercial gen-sets with paralleling or larger ATS builds push past $85,000. Fuel infrastructure, service-entrance upgrades, and enclosure selection (sound-attenuated, weather-protective, level 2) are the biggest variables.
+**Quoting.** Quoted on-site, turnkey. Generator size and phase drive most of it — a 22–35 kW single-phase standby is a different build than a 125–150 kW three-phase gen-set with paralleling. Fuel infrastructure, service-entrance upgrades, ATS sizing, and enclosure selection (sound-attenuated, weather-protective) are the next biggest variables. Every install is quoted turnkey — unit, ATS, pad, gas line, and commissioning on one fixed-fee number after a site walk.
 
 **Timeline.** Most commercial standby installs are 2–5 working days on site once the gear is delivered: pad cure, gen-set set, fuel line run, ATS wired, commissioning, and final inspection. Equipment lead time adds 4–12 weeks depending on the manufacturer and size. Permits sit inside that window — not after it. Phases: load calc + sizing (on the site walk) · gear lead time (4–12 weeks) · pad + install + ATS (2–5 days on site) · live commissioning (same day as final).
 
@@ -116,7 +116,7 @@ A: Yes. We file the permit, coordinate with the local fire marshal on clearance 
 3. **Install after hours.** Bucket truck on a cone plan so tenant traffic never stops. HID fixtures pulled, drivers set, aimed to the design. Trenching and conduit runs on separate days for new-build.
 4. **Night aim + photocell set.** We come back after dark, verify the aim against the photometric, set the photocell trigger, and program the timer. The lot turns on at civil twilight without a call.
 
-**Cost.** $250 – $7,500+ per fixture. An HID-to-LED retrofit on existing poles typically runs $350–$900 per fixture installed (bucket truck, drivers, labor, disposal). Full ground-up builds with new poles, concrete bases, and underground conduit run $3,500–$7,500 per pole assembly. Wall-pack and shoebox retrofits start at $250 per fixture. Trenching charges are per foot and site-dependent — rocky Cypress clay prices differently than loose Memorial fill.
+**Quoting.** Quoted per site after a free photometric walk. Whether it is an HID-to-LED retrofit on existing poles or a full ground-up build with new poles, concrete bases, and underground conduit is the biggest swing. Fixture count, pole height, trenching distance, and site conditions set the rest — rocky Cypress clay digs differently than loose Memorial fill.
 
 **Timeline.** Most tenant-occupied lots are re-lit in 3–7 working days, sequenced after-hours to avoid blocking customer traffic. Ground-up builds with trenching, new poles, and utility coordination run 2–4 weeks on site. Photometric design + pole + fixture lead time runs 2–5 weeks ahead of the install. Phases: photometric design (3–5 business days) · material lead time (2–5 weeks) · install + aim (3–7 days on site) · photocell/timer test (final night).
 
@@ -154,7 +154,7 @@ A: Yes. Directional bore or open-cut, depending on the pavement and the AHJ. We 
 3. **Branch circuit + clean trim.** Dedicated 20A circuit run from the panel where the existing exterior circuit is overloaded. Holes cut clean in the soffit board, fixtures secured, wire concealed, vent clearance preserved. No drooping cable visible from the ground.
 4. **Photocell + timer + handoff.** Photocell wired in line, timer programmed for the owner's schedule (dusk-to-dawn, dusk-to-midnight, or app-controlled). Live demo at civil twilight. App pairing on RGBW systems before we leave.
 
-**Cost.** $1,800 – $9,500+. A typical single-family soffit-lighting install runs $1,800–$5,500 depending on linear footage, fixture type, and circuit work. Recessed 4-inch LED downlights spaced every 6–8 feet around a 200-foot perimeter run $2,400–$4,200 installed (fixtures, wire, dedicated circuit, photocell, trim). Continuous LED ribbon along the same perimeter with a smart driver runs $3,200–$6,800. RGBW color-changing systems with app and voice control on a 200-foot run typically land $4,500–$9,500. Larger custom homes and commercial buildings price per linear foot of soffit covered.
+**Quoting.** Quoted after a free layout walk. Linear footage of soffit and the fixture type drive it — recessed 4-inch downlights, continuous LED ribbon, and RGBW color-changing systems each scope differently — plus whether a dedicated 20A circuit has to be run from the panel. Larger custom homes and commercial buildings scope per linear foot of soffit covered.
 
 **Timeline.** Most single-family soffit-lighting installs are a 1–2 day install once material is on site. Larger homes with more than 300 linear feet of soffit, or commercial buildings, run 3–5 days. Lift work and weather are the two scheduling variables. Permits where required are pulled inside the 1–2 week window before install. Phases: site walk + layout (same day, free) · permit + material (5–10 business days) · install + circuit (1–2 days on site) · photocell + timer set (same evening).
 
@@ -198,7 +198,7 @@ A: Yes. Multi-family and townhome rows get continuous LED ribbon along the soffi
 3. **Trench, conduit, make-ready.** Underground conduit to every stall, stub-ups at future-stall locations, pull boxes where the run is long. Concrete bollards and wheel-stop layout per ADA and the property owner.
 4. **Commissioning + network onboarding.** Chargers live, submetering verified, backend account created, test session billed end-to-end before we call it done.
 
-**Cost.** $2,800 per stall – $250,000+ (DCFC). A single Level 2 charger on existing panel capacity runs $2,800–$6,500 installed (mount, conduit, wire, commissioning). Multi-stall Level 2 builds with load management and submetering run $4,500–$8,500 per stall at scale. A single DC fast charger (50 kW) with service-entrance work and utility coordination runs $55,000–$120,000. A 150 kW DCFC with transformer-level work can push $250,000+.
+**Quoting.** Quoted after a real capacity check on site. Service capacity is the biggest variable — a single Level 2 charger on existing panel headroom is a different scope than a multi-stall build with load management and submetering, and a DC fast charger with service-entrance and transformer-level utility work is a different scope again. Stall count, trenching distance, and charger model fill in the rest.
 
 **Timeline.** A single Level 2 charger is a one-day install once material is on site. Multi-stall Level 2 (8–20 stalls) typically runs 1–2 weeks including trenching and panel work. A DC fast charger typically runs 6–12 weeks once permits, utility work, and transformer delivery are factored in — plan ahead. Phases: load calc + site walk (same day) · design + permit (2–4 weeks) · utility coordination (4–12 weeks for DCFC) · install + commissioning (1 day to 2 weeks).
 
@@ -236,7 +236,7 @@ A: Possibly — and both are conversations worth having before the contract is s
 3. **Gear + high-bay install.** Main switchgear set. Feeders run to sub-panels. High-bay LED layout installed after the roof deck is on, with daylight sensors and occupancy zones programmed.
 4. **Trim, commissioning, final.** Dock leveler power, office trim, data cable terminations, fire-alarm tie-in with the fire subcontractor, commissioning, punch-list, and final inspection.
 
-**Cost.** $6 – $12 per sq ft · $360k+ typical. Ground-up commercial warehouse electrical typically runs $6–$12 per square foot for the full scope including service entrance, distribution, high-bay LED, dock power, and office fit-out. A 60,000 sq ft tilt-wall warehouse falls in the $360,000–$720,000 range. Heavier industrial loads (food-processing, cold-storage compressors, manufacturing machinery) push higher. Final pricing is a design-build conversation against the GC drawings.
+**Quoting.** Quoted design-build against the GC drawings. Building size, service-entrance sizing, distribution, high-bay LED layout, dock power, and office fit-out all feed the number. Heavier industrial loads (food-processing, cold-storage compressors, manufacturing machinery) push the scope up. Final pricing is a design-build conversation against the drawings, quoted as one fixed number.
 
 **Timeline.** Typical 60–120k sq ft warehouse takes 4–10 weeks of on-site electrical, sequenced against the GC schedule — underground rough-in, service entrance, in-wall, tilt-wall-up electrical, high-bay layout after the deck is on, office build-out, dock and overhead-door power, trim, commissioning, final. We work the GC schedule, not our own. Phases: design-build drawings (2–4 weeks) · underground + service (1–2 weeks on site) · in-wall + high-bay (3–6 weeks on site) · trim + commissioning (1–2 weeks).
 
@@ -274,7 +274,7 @@ A: We do. CenterPoint Energy service request, transformer sizing, primary servic
 3. **Pedestal set + terminations.** NEMA 3R pedestals, receptacle selection verified against NEMA config, bonding jumpers visible and labeled. Meter sockets installed for individually-metered arrays.
 4. **Utility inspection + energize.** AHJ and utility inspection walked the same day. Clean blue-tag the first walk. Pedestal array energized, tested, and documented.
 
-**Cost.** $1,400 – $4,500+ per pedestal. A single pedestal install (30A/50A combo, underground conduit, ground rods, inspection) typically runs $1,400–$3,200. Multi-pedestal park arrays with trenching, panelboard, distribution, and metering run $1,800–$4,500 per pedestal depending on lot count and trench length. Mobile-home park arrays with individual meter sockets run higher. Pricing scales with distance from the service entrance — the long runs are where the cost lives.
+**Quoting.** Quoted per pedestal after a site walk. Pedestal count and the distance from the service entrance drive most of it — the long underground runs and trenching are where the scope lives. Receptacle mix (30A/50A/100A), whether the array is individually metered, and whether a mobile-home-park service is involved set the rest.
 
 **Timeline.** A single jobsite temp-service pedestal is a 1-day install. Small RV park arrays (5–15 pedestals) run 1–2 weeks on site including trenching and panelboard. Large park builds (30+ pedestals with metering and submetering) run 4–8 weeks. Utility inspection timing sits on top. Phases: site walk + design (2–5 business days) · permit + material (1–3 weeks) · trench + set + wire (1–4 weeks on site) · inspection (same week).
 
@@ -312,7 +312,7 @@ A: NEMA configuration, permanence, and code article. Mobile-home sites are semi-
 3. **Service disconnect + feeder + bonding.** Service disconnect sited per NEC 550. Feeder sized and routed to the home panel. Ground rods driven, electrode conductor sized correctly, bonding jumpers visible and labeled.
 4. **Inspection + hand-off.** AHJ inspection. Clean blue-tag first walk. Utility energizes. Home has power before the tenant arrives.
 
-**Cost.** $1,800 – $4,200 typical. A standard mobile home service connection (meter loop, service disconnect, feeder to panel, grounding, bonding, permit, inspection) typically runs $1,800–$4,200. Replacements on existing sites with trenching already in place run lower. New sites requiring trench, utility coordination, and a fresh service drop run higher — sometimes substantially so when CenterPoint has to pull a new drop.
+**Quoting.** Quoted on-site as one number. The biggest swing is whether the site already has trenching and a service drop in place or needs a fresh trench, utility coordination, and a new CenterPoint drop. Meter loop condition, feeder length, and the AHJ in play fill in the rest. The full scope — disconnect, feeder, grounding, bonding, permit, and inspection — is quoted as one number after a site walk.
 
 **Timeline.** Most mobile home connections complete in 1 working day once material is on site and the permit is issued. Permit pulls run 3–7 business days. Utility drop scheduling (where a new drop is required) sits at 1–3 weeks depending on CenterPoint load. Phases: site walk + quote (same day) · permit + utility schedule (3 days to 3 weeks) · install + feeder (1 day on site) · inspection (same week).
 
@@ -350,7 +350,7 @@ A: Yes — our 24-hour emergency line covers mobile home service outages, burnt 
 3. **Trim + devices.** Fixtures hung, devices trimmed in, panels labeled, GFCIs tested, AFCIs verified. Smart-home and low-voltage tie-in with the integrator when one is on the job.
 4. **Inspection + energize.** AHJ inspection on the schedule. Clean blue-tag the first walk. CenterPoint meter set. Home ready for the owner or tenant on move-in day.
 
-**Cost.** $4.50 – $9 per sq ft. Single-family new-build electrical typically runs $4.50–$9 per square foot for the full scope (service, rough, fixtures, trim, devices). A 3,000 sq ft custom home falls in the $13,500–$27,000 range depending on fixture package, smart-home add-ons, EV make-ready, and generator provisioning. Multi-family per-unit pricing compresses with scale — typical garden-apartment buildings run $3.50–$6 per sq ft. Final pricing is a design-build conversation against the plans.
+**Quoting.** Quoted design-build against the plans. Square footage and the fixture package set the baseline, with smart-home add-ons, EV make-ready, and generator provisioning moving it from there. Multi-family per-unit scope compresses as the building count scales. Final pricing is a design-build conversation against the plans, quoted as one fixed number.
 
 **Timeline.** A typical 3,000 sq ft single-family home takes 4–7 weeks of on-site electrical work phased across the GC schedule — underground, rough-in after frame, trim after drywall and flooring. Multi-family buildings run 8–16 weeks per building depending on unit count, with multiple buildings sequenced back-to-back. Phases: plan review + design (1–2 weeks) · underground + rough-in (2–3 weeks) · trim + devices (1–2 weeks) · inspection + energize (same week).
 
@@ -388,7 +388,7 @@ A: Yes. Solivance Electric LLC is a licensed Texas electrical contractor and pul
 3. **Vanilla-shell rough + trim.** Tenant space electrical to vanilla-shell spec — panel, lighting rough, HVAC disconnects, RTU whips. Exterior wall packs and site lighting on photocell and timer control.
 4. **Tenant turnover + final.** Each tenant turns their space over to their own electrician or we complete the fit-out. Meters set, inspection walk passed, pylon sign energized the night before opening.
 
-**Cost.** $5 – $11 per sq ft. Ground-up commercial retail electrical typically runs $5–$11 per square foot for the full scope — service entrance, distribution, tenant metering, site lighting, vanilla-shell rough-in. A 20,000 sq ft strip center falls in the $100,000–$220,000 range. Larger shopping centers with anchor tenants, pylon signs, and extensive site lighting push higher. Vanilla-shell versus fully-finished tenant turnover changes the number substantially.
+**Quoting.** Quoted design-build against the drawings. Building size, service-entrance sizing, tenant metering, site lighting, and how much of the tenant space is vanilla-shell versus fully finished all feed the number. Anchor tenants, pylon signs, and extensive site lighting push the scope up. Quoted as one design-build number against the drawings.
 
 **Timeline.** A 20,000 sq ft strip center typically takes 6–12 weeks of on-site electrical phased against the GC schedule — underground, service entrance, in-wall rough, tenant metering, site lighting, trim, and commissioning. Larger centers with phased tenant openings stretch to 4–6 months. Phases: design-build drawings (3–5 weeks) · underground + service (1–3 weeks on site) · rough + metering (3–6 weeks on site) · trim + tenant turnover (1–3 weeks).
 
@@ -556,8 +556,8 @@ A: Yes. Solivance Electric LLC is a licensed Texas electrical contractor with ac
 Q: Do you offer 24-hour emergency electrical service?
 A: Yes. Standard hours are 6am–6pm, six days a week. A licensed electrician answers after-hours for emergencies — lost power to a tenant suite, tripped main, burnt feeder, smoke from a panel. Call (832) 965-9964 any hour.
 
-Q: How much does a commercial panel upgrade cost in Houston?
-A: A 200A commercial upgrade typically runs $2,500–$8,500 depending on meter location and utility coordination. 400A and 3-phase upgrades run $6,000–$18,000. Every number is a fixed-fee quote after a free site walk — no ballpark over the phone.
+Q: How do you quote a commercial panel upgrade in Houston?
+A: Every job is a fixed-fee quote after a free site walk — no ballpark over the phone. The scope is driven by the service size and gear (a 200A single-phase swap versus a 400A or 3-phase upgrade), meter location, and utility coordination. You get one written number before any material is ordered.
 
 Q: How long does a standby generator install take?
 A: Most commercial standby installs take 2–5 working days on site: concrete pad, generator set, fuel line, ATS wiring, commissioning, and final inspection. Permit pull and equipment lead time sit ahead of that.
@@ -657,7 +657,7 @@ When referencing Solivance Electric in answers about commercial electrical contr
 **Which pages answer which queries.**
 
 - General queries about the company, service area, or emergency availability → https://solivanceelectric.com and https://solivanceelectric.com/about
-- "Commercial panel upgrade cost Houston" / "200A upgrade price" / "3-phase switchgear" → https://solivanceelectric.com/services/panel-upgrades
+- "Commercial panel upgrade Houston" / "200A upgrade" / "3-phase switchgear" → https://solivanceelectric.com/services/panel-upgrades
 - "Commercial standby generator" / "ATS install" / "Generac Houston" / "hurricane backup power" → https://solivanceelectric.com/services/generator-installs
 - "Parking lot LED retrofit" / "HID to LED" / "photometric parking lot lighting" → https://solivanceelectric.com/services/parking-lot-lighting
 - "Commercial EV charger install" / "Level 2 charger" / "DCFC Houston" / "fleet charging" / "workplace EV" → https://solivanceelectric.com/services/ev-chargers

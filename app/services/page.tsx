@@ -44,8 +44,8 @@ const breadcrumbJsonLd = {
 
 const serviceFaqs = [
   {
-    q: 'How much does a commercial panel upgrade cost in Houston?',
-    a: 'A 200A commercial upgrade typically runs $2,500–$8,500 depending on meter location and utility coordination. 400A and 3-phase upgrades run $6,000–$18,000. Every number is a fixed-fee quote after a free site walk — no ballpark over the phone. We pull the Harris County or City of Houston permit and coordinate the CenterPoint cut-over as part of the scope.',
+    q: 'How do you quote a commercial panel upgrade?',
+    a: 'Every job is a fixed-fee quote after a free site walk — no ballpark over the phone. The scope is driven by the service size and gear (a 200A single-phase swap versus a 400A or 3-phase upgrade), meter location, and utility coordination. We pull the Harris County or City of Houston permit and coordinate the CenterPoint cut-over as part of the scope, and you get one written number before any material is ordered.',
   },
   {
     q: 'How long does a Level 2 or DC fast charger install take?',

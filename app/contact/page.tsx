@@ -42,7 +42,7 @@ const contactFaqs = [
   },
   {
     q: 'What information do you need to quote a commercial job?',
-    a: 'Name, phone, service address, and one or two sentences on the scope. For commercial work, existing single-line diagrams or a meter/panel photo speed up the pricing. Everything else we gather on the walk.',
+    a: 'Name, phone, service address, and one or two sentences on the scope. For commercial work, existing single-line diagrams or a meter/panel photo speed up the quote. Everything else we gather on the walk.',
   },
   {
     q: 'Do you run a 24-hour emergency electrical line?',

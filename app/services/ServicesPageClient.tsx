@@ -92,7 +92,7 @@ export default function ServicesPageClient({
               Every service we offer.
             </h2>
             <p className="mt-3 text-[0.95rem] text-slate-600 max-w-2xl leading-[1.65]">
-              Click any service for pricing, process, and the honest breakdown. Free inspections and fixed-fee quotes on every job.
+              Click any service for scope, process, and the honest breakdown. Free inspections and fixed-fee quotes on every job.
             </p>
           </div>
 
@@ -195,7 +195,7 @@ export default function ServicesPageClient({
             Need an honest assessment?
           </h2>
           <p className="mt-3 text-[0.95rem] text-white/60 max-w-lg mx-auto leading-relaxed">
-            No pressure tactics, no walk-in closing. Request a free on-site walk and fair price for any service.
+            No pressure tactics, no walk-in closing. Request a free on-site walk and a fixed-fee quote for any service.
           </p>
           <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
             <Link

@@ -16,7 +16,7 @@ export const blogPosts: BlogPost[] = [
     slug: 'panel-upgrade-signs-commercial',
     title: 'When Does Your Commercial Building Need a Panel Upgrade?',
     description:
-      'Seven warning signs your Houston commercial electrical panel is due for an upgrade, plus the process, cost range, and what a modern service looks like.',
+      'Seven warning signs your Houston commercial electrical panel is due for an upgrade, plus the process and what a modern service looks like.',
     date: '2026-03-01',
     readTime: '7 min read',
     category: 'Panel Upgrades',
@@ -41,8 +41,8 @@ export const blogPosts: BlogPost[] = [
         a: 'Most commercial panel upgrades at Solivance Electric take one to two working days on site, with the building de-energized for only a portion of that window. Larger switchgear replacements can run three to five days depending on utility coordination.',
       },
       {
-        q: 'What does a commercial panel upgrade cost in Houston?',
-        a: 'A straightforward 200A commercial panel swap typically runs $3,500 to $6,500 installed. Larger 400A and 800A services with new meter bases, disconnects, or switchgear generally fall between $8,000 and $25,000+ depending on scope and utility requirements.',
+        q: 'What goes into a commercial panel upgrade quote?',
+        a: 'The scope is driven by the service size and gear — a straightforward 200A swap is a different job than a 400A or 800A service with new meter bases, disconnects, or switchgear. Service-run length, meter relocation, the condition of the existing grounding, and the utility requirements set the rest. Every job is a fixed-fee quote after a free site walk.',
       },
       {
         q: 'Do you pull the permit and handle the inspection?',
@@ -96,14 +96,15 @@ export const blogPosts: BlogPost[] = [
   <li><strong>Inspection and re-energization.</strong> The city inspector signs off, CenterPoint reconnects, and we walk you through the new panel, labels, and any warranty documentation.</li>
 </ol>
 
-<h2>What Does a Commercial Panel Upgrade Cost?</h2>
-<p>Every building is different, but these ranges are realistic for the Houston metro area in 2026:</p>
+<h2>What Shapes a Commercial Panel Upgrade Quote</h2>
+<p>Every building is different, so we quote each job after a site walk rather than off a price list. The scope is driven by a handful of factors:</p>
 <ul>
-  <li><strong>200A commercial panel swap:</strong> $3,500&ndash;$6,500 installed</li>
-  <li><strong>400A service upgrade with new meter base:</strong> $8,000&ndash;$14,000</li>
-  <li><strong>800A&ndash;1200A switchgear replacement:</strong> $15,000&ndash;$35,000+ depending on utility requirements</li>
+  <li><strong>Service size and gear.</strong> A 200A single-phase swap is a different scope than a 400A service or an 800A&ndash;1200A switchgear replacement.</li>
+  <li><strong>Service-run length and meter location.</strong> Long runs and meter-base relocations add labor and material.</li>
+  <li><strong>Existing grounding and bonding.</strong> Bringing an older service entrance up to current code is part of the scope when the existing work falls short.</li>
+  <li><strong>Utility requirements.</strong> What CenterPoint requires for the new service drop and cut-over varies by address.</li>
 </ul>
-<p>The cost depends on the length of the service run, whether the meter base is being relocated, the condition of the existing grounding and bonding, and what the utility requires for the new service.</p>
+<p>You get one fixed-fee number in writing before any material is ordered &mdash; no ballpark over the phone, no surprise changes mid-job.</p>
 
 <h2>Do Not Wait for the Panel to Fail</h2>
 <p>The most expensive panel upgrades are the ones that follow an outage, a fire, or a failed insurance inspection &mdash; because by then you are paying for the upgrade, the downtime, and the damage. If your building is showing any of the signs above, get a professional assessment before the panel forces your hand.</p>
@@ -145,7 +146,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         q: 'What incentives exist for commercial EV charging?',
-        a: 'Federal tax credits (up to 30% via the Alternative Fuel Vehicle Refueling Property Credit, subject to eligibility), utility rebates, and occasional TxDOT or federal NEVI grants can reduce project cost significantly. We help you identify what applies before scoping the project.',
+        a: 'Federal tax credits (the Alternative Fuel Vehicle Refueling Property Credit, subject to eligibility), utility rebates, and occasional TxDOT or federal NEVI grants can offset a meaningful share of the project. We help you identify what applies before scoping the project.',
       },
     ],
     content: `
@@ -195,20 +196,20 @@ export const blogPosts: BlogPost[] = [
 <p>The financial case for commercial EV charging looks like this:</p>
 <ul>
   <li><strong>Tenant attraction and retention.</strong> Surveys from major commercial brokers consistently show EV charging in the top five amenities prospective tenants ask about.</li>
-  <li><strong>Session revenue.</strong> Networked Level 2 ports in Houston commonly bill $0.20&ndash;$0.40 per kWh, netting $200&ndash;$600 per port per month in high-use workplace and multifamily settings.</li>
-  <li><strong>Federal tax credit.</strong> The Alternative Fuel Vehicle Refueling Property Credit covers up to 30% of installed cost (subject to eligibility and location).</li>
+  <li><strong>Session revenue.</strong> Networked Level 2 ports generate per-kWh session-fee revenue through the charging network, which can offset operating cost in high-use workplace and multifamily settings.</li>
+  <li><strong>Federal tax credit.</strong> The Alternative Fuel Vehicle Refueling Property Credit can offset a share of the installed project (subject to eligibility and location).</li>
   <li><strong>Lease differentiation.</strong> Commercial properties advertising EV charging lease faster and support modestly higher rents in competitive submarkets.</li>
 </ul>
 
-<h2>Cost Range &mdash; Houston Market, 2026</h2>
-<p>Real installed pricing for commercial properties in our service area:</p>
+<h2>What Shapes an EV Charging Quote</h2>
+<p>We quote each project after a site walk rather than off a price list, because the scope swings widely with the install:</p>
 <ul>
-  <li><strong>Single Level 2 port (wall-mount):</strong> $1,800&ndash;$3,500 installed</li>
-  <li><strong>Dual-port Level 2 pedestal, networked:</strong> $4,500&ndash;$8,500 installed</li>
-  <li><strong>4-port Level 2 installation with load management:</strong> $15,000&ndash;$28,000</li>
-  <li><strong>Single DC fast charger (50&ndash;150 kW):</strong> $45,000&ndash;$120,000+ installed</li>
+  <li><strong>Charger type and count.</strong> A single wall-mount Level 2 port is a different scope than a networked multi-port pedestal build, and a DC fast charger is a different scope again.</li>
+  <li><strong>Service capacity.</strong> Whether the existing panel has headroom, needs load management, or needs a service upgrade is the biggest variable.</li>
+  <li><strong>Trenching and conduit.</strong> Distance from the panel to the stalls and the surface being crossed drive the underground work.</li>
+  <li><strong>Utility coordination.</strong> DC fast charging often adds transformer and service-entrance work with CenterPoint.</li>
 </ul>
-<p>Costs vary with trenching distance, panel work, utility requirements, and charger model.</p>
+<p>The fastest way to a real number is a one-hour site walk &mdash; we tell you what your building can support and quote the all-in scope in writing.</p>
 
 <h2>Start With a Site Assessment</h2>
 <p>The cheapest way to get to a real number on your project is a one-hour site walk with an electrician who installs commercial EV chargers for a living. We will tell you honestly whether your building needs a service upgrade, how many ports it can support, and what the all-in number looks like.</p>
@@ -300,14 +301,15 @@ export const blogPosts: BlogPost[] = [
 
 <p>For most Houston commercial buildings &mdash; warehouses, office, multifamily, retail, professional services &mdash; natural gas is the right call.</p>
 
-<h2>What a Commercial Generator Install Costs</h2>
-<p>Realistic ranges for the Houston metro in 2026, fully installed with ATS, concrete pad, gas line, and permits:</p>
+<h2>What Shapes a Commercial Generator Quote</h2>
+<p>We quote each install turnkey after a load study and site walk rather than off a price list. The scope is driven by:</p>
 <ul>
-  <li><strong>22&ndash;48 kW small commercial standby (small office, retail):</strong> $14,000&ndash;$25,000</li>
-  <li><strong>80&ndash;150 kW mid-size commercial (warehouse, multifamily, medical office):</strong> $35,000&ndash;$75,000</li>
-  <li><strong>200&ndash;500+ kW large commercial (industrial, campus, critical):</strong> $85,000&ndash;$250,000+</li>
+  <li><strong>Generator size and phase.</strong> A small single-phase standby for a small office is a different build than a mid-size or large three-phase gen-set for a warehouse, campus, or critical facility.</li>
+  <li><strong>Fuel type and gas-line run.</strong> Natural gas versus diesel, and the length of the gas line to the unit, change both the material and the labor.</li>
+  <li><strong>Pad, trenching, and ATS sizing.</strong> Concrete pad work, conduit runs, and a service-entrance-rated transfer switch all scope to the building.</li>
+  <li><strong>Utility coordination.</strong> Gas-side capacity and metering with CenterPoint are confirmed ahead of the install.</li>
 </ul>
-<p>Project cost depends on generator size, fuel type, length of gas line run, pad and trenching work, ATS sizing, and utility coordination.</p>
+<p>Every install is quoted as one turnkey number &mdash; unit, ATS, concrete pad, gas line, commissioning, and permits &mdash; after we size the unit against your real metered load.</p>
 
 <h2>Do Not Wait for the Next Storm</h2>
 <p>The one absolute truth about commercial generators in Houston: demand spikes the week before every major storm, lead times go from 6 weeks to 6 months, and the contractors who would have installed yours are booked solid. The time to plan a generator is before you need one.</p>

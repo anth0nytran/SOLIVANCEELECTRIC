@@ -150,11 +150,6 @@ export default async function ServiceDetailPage({
     name: `How ${service.title} work with Solivance Electric`,
     description: content.heroLede,
     totalTime: parseTurnaroundToISO(service.turnaround),
-    estimatedCost: {
-      '@type': 'MonetaryAmount',
-      currency: 'USD',
-      value: content.cost.range,
-    },
     tool: [
       { '@type': 'HowToTool', name: 'Licensed Texas electrical crew' },
       { '@type': 'HowToTool', name: 'NEC 2023 code reference' },
@@ -308,10 +303,10 @@ export default async function ServiceDetailPage({
                 </div>
               </div>
 
-              {/* Cost */}
+              {/* What shapes the project */}
               <div className="mt-14">
                 <h3 className="text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[var(--onestop-navy-deep)] mb-3">
-                  Pricing
+                  What shapes the project
                 </h3>
                 <p className="text-[1rem] leading-[1.75] text-slate-700">{content.cost.a}</p>
               </div>
@@ -389,7 +384,7 @@ export default async function ServiceDetailPage({
                     <dd className="text-[var(--onestop-navy-deep)] font-semibold text-right">{siteConfig.serviceAreas.slice(0, 2).join(', ')} &amp; metro</dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt className="text-slate-500">Typical range</dt>
+                    <dt className="text-slate-500">Pricing</dt>
                     <dd className="text-[var(--onestop-navy-deep)] font-semibold text-right font-[family-name:var(--font-app-mono)]">{content.cost.range}</dd>
                   </div>
                   <div className="flex justify-between gap-4">

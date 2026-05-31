@@ -46,7 +46,7 @@ export default function TermsPage() {
 
           <h2 className="text-xl font-bold text-[var(--onestop-navy-deep)] mt-10">1. The Site is informational</h2>
           <p>
-            Content on the Site — service descriptions, cost ranges, timeline
+            Content on the Site — service descriptions, scope notes, timeline
             estimates, code references, and blog articles — is provided for general
             informational purposes. Nothing on the Site constitutes a binding quote,
             a contract, or an electrical engineering stamp. Pricing and scope are
