@@ -120,10 +120,10 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
                 </div>
               </div>
               <div>
-                <label className={labelCls}>Phone <span className="text-red-500">*</span></label>
+                <label className={labelCls}>Phone <span className={`font-normal normal-case tracking-normal ${isDark ? 'text-white/30' : 'text-slate-400'}`}>(Optional)</span></label>
                 <div className="relative">
                   <Phone className={iconCls} />
-                  <input required name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputCls} />
+                  <input name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputCls} />
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
             <label className="flex items-start gap-2 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-2.5 py-2">
               <input type="checkbox" name="sms_consent" value="yes" className="mt-0.5 h-3.5 w-3.5 shrink-0 border-slate-300 text-[var(--onestop-navy)] focus:ring-1 focus:ring-[var(--onestop-navy)] rounded-sm" />
               <span className="text-[0.62rem] leading-[1.45] text-slate-600">
-                <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-700'}`}>SMS consent (optional).</span> Receive texts from Solivance Electric LLC about your quote &amp; scheduling. 1–5 msgs/request. Msg &amp; data rates apply. Reply STOP to opt out. See <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy</a> &amp; <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a>.
+                <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-700'}`}>SMS consent (optional).</span> I agree to receive text messages from Solivance Electric LLC about my quote, scheduling, and appointment follow-up. Msg frequency varies (1–5 msgs per request). Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of service. See <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a> &amp; <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a>.
               </span>
             </label>
 
@@ -214,6 +214,10 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
                   {formStatus !== 'sending' && <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />}
                 </span>
               </button>
+
+              <p className="mt-2 text-center text-[0.6rem] leading-[1.4] text-slate-400">
+                By submitting, you confirm you are at least 18 years old and agree to our <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a> &amp; <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a>.
+              </p>
 
               <div className="mt-2 flex items-center justify-center gap-1.5 text-[0.62rem] font-bold uppercase tracking-widest text-[var(--onestop-navy)]/70">
                 <Lock className="h-2.5 w-2.5" />

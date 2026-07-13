@@ -102,10 +102,12 @@ export async function POST(req: Request) {
   const urgency = pickField(data, ['urgency']);
   const page = pickField(data, ['page', 'pageUrl', 'page_url']);
   const site = pickField(data, ['site', 'siteUrl', 'site_url']);
+  const smsConsent = pickField(data, ['sms_consent', 'smsConsent', 'sms_consent_checkbox']);
+  const smsOptIn = smsConsent === 'yes' || smsConsent.toLowerCase() === 'true' || smsConsent === 'on';
 
-  if (!name || !phone || !address || !service) {
+  if (!name || !address || !service) {
     return NextResponse.json(
-      { ok: false, error: 'Please provide your name, phone, address, and service needed.' },
+      { ok: false, error: 'Please provide your name, address, and service needed.' },
       { status: 400 }
     );
   }
@@ -119,12 +121,14 @@ export async function POST(req: Request) {
     );
   }
 
-  const phoneDigits = phone.replace(/\D/g, '');
-  if (phoneDigits.length < 10 || phoneDigits.length > 11) {
-    return NextResponse.json(
-      { ok: false, error: 'Please enter a valid 10-digit phone number.' },
-      { status: 400 }
-    );
+  if (phone) {
+    const phoneDigits = phone.replace(/\D/g, '');
+    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+      return NextResponse.json(
+        { ok: false, error: 'Please enter a valid 10-digit phone number.' },
+        { status: 400 }
+      );
+    }
   }
 
   const zipPattern = /^\d{5}$/;
@@ -257,7 +261,8 @@ export async function POST(req: Request) {
     preferredDate ? `Preferred Date: ${preferredDate}` : '',
     timeline ? `Time Window: ${timeline}` : '',
     urgency ? `Urgency: ${urgency}` : '',
-    pageUrlDisplay ? `Page: ${pageUrlDisplay}` : '',
+    `SMS Consent: ${smsOptIn ? 'YES — opted in to SMS' : 'No (not checked)'}`,
+    pageUrlDisplay ? `Opt-in Source: ${pageUrlDisplay}` : '',
     site ? `Site: ${site}` : '',
     `Message:\n${message || '(none)'}`,
   ].filter(Boolean);
@@ -328,6 +333,7 @@ export async function POST(req: Request) {
                   ${preferredDate ? `<tr><td style="padding:10px 0;color:#64748b;">Preferred Date</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(preferredDate)}</td></tr>` : ''}
                   ${timeline ? `<tr><td style="padding:10px 0;color:#64748b;">Time Window</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(timeline)}</td></tr>` : ''}
                   ${urgency ? `<tr><td style="padding:10px 0;color:#64748b;">Urgency</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(urgency)}</td></tr>` : ''}
+                  <tr><td style="padding:10px 0;color:#64748b;">SMS Consent</td><td style="padding:10px 0;font-weight:700;color:${smsOptIn ? '#15803d' : '#64748b'};">${smsOptIn ? 'YES — opted in to SMS' : 'No (not checked)'}</td></tr>
                   ${pageUrlDisplay ? `<tr><td style="padding:10px 0;color:#64748b;">Page URL</td><td style="padding:10px 0;"><a href="${escapeHtml(page)}" style="color:${brandAccent};text-decoration:none;">${escapeHtml(pageUrlDisplay)}</a></td></tr>` : ''}
                   ${site ? `<tr><td style="padding:10px 0;color:#64748b;">Site</td><td style="padding:10px 0;"><a href="${escapeHtml(site)}" style="color:${brandAccent};text-decoration:none;">${escapeHtml(site)}</a></td></tr>` : ''}
                   ${company ? `<tr><td style="padding:10px 0;color:#64748b;">Company</td><td style="padding:10px 0;color:#0f172a;font-weight:700;">${escapeHtml(company)}</td></tr>` : ''}

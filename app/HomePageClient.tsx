@@ -120,8 +120,8 @@ function HeroEstimateForm() {
           <input required name="name" type="text" placeholder="John Doe" autoComplete="name" pattern="[A-Za-z\s\-']{2,50}" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Phone <span className="text-[var(--onestop-red)]">*</span></label>
-          <input required name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputClass} />
+          <label className={labelClass}>Phone <span className="text-slate-400 normal-case font-normal">(optional)</span></label>
+          <input name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputClass} />
         </div>
       </div>
 
@@ -182,13 +182,17 @@ function HeroEstimateForm() {
       <label className="flex items-start gap-2 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-2.5 py-1.5">
         <input type="checkbox" name="sms_consent" value="yes" className="mt-[2px] h-3.5 w-3.5 border-slate-300 text-[var(--onestop-navy)] focus:ring-1 focus:ring-[var(--onestop-navy)] rounded-sm shrink-0" />
         <span className="text-[0.6rem] leading-[1.4] text-slate-600">
-          <span className="font-bold text-slate-700">SMS consent (optional).</span> Texts about your quote &amp; scheduling. 1–5 msgs/request. Reply STOP to opt out. <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy</a> &amp; <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a>.
+          <span className="font-bold text-slate-700">SMS consent (optional).</span> I agree to receive text messages from Solivance Electric LLC about my quote, scheduling, and appointment follow-up. Msg frequency varies (1–5 msgs per request). Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of service. <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a> &amp; <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a>.
         </span>
       </label>
 
       <button type="submit" disabled={formStatus === 'sending'} className="btn-solid w-full bg-[var(--onestop-red)] py-2.5 text-[0.74rem] font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] disabled:opacity-60 rounded-md">
         {formStatus === 'sending' ? 'SENDING…' : 'GET YOUR FREE QUOTE'}
       </button>
+
+      <p className="text-center text-[0.58rem] leading-[1.4] text-slate-400">
+        By submitting, you confirm you are at least 18 years old and agree to our <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a> &amp; <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a>.
+      </p>
 
       {formStatus === 'error' && <div role="alert" aria-live="assertive" className="border border-rose-300 bg-rose-50 px-3 py-2 text-xs text-rose-800 font-medium rounded-md">{formError}</div>}
     </form>
