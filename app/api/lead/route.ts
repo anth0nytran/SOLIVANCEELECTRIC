@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { track } from '@vercel/analytics/server';
 import { Resend } from 'resend';
+import { pushLeadToGHL } from '../../lib/ghl';
 
 export const runtime = 'nodejs';
 
@@ -248,6 +249,32 @@ export async function POST(req: Request) {
     if (digits.length === 11 && digits.startsWith('1')) return `+${digits}`;
     return digits;
   })();
+
+  // Sync to GoHighLevel CRM (upsert contact + note + `website-form` tag).
+  // Non-blocking: a CRM outage or misconfig must never fail the lead itself.
+  const ghlResult = await pushLeadToGHL({
+    name,
+    phone,
+    email,
+    address,
+    zipCode,
+    company,
+    service,
+    preferredDate,
+    timeline,
+    urgency,
+    message,
+    smsOptIn,
+    page,
+    site,
+    timestamp,
+  }).catch((err): { ok: false; error: string } => ({
+    ok: false,
+    error: `GHL push threw: ${(err as Error).message}`,
+  }));
+  if (!ghlResult.ok) {
+    console.error('[lead] GHL sync failed:', ghlResult.error);
+  }
 
   const textLines = [
     `Timestamp: ${timestamp}`,
