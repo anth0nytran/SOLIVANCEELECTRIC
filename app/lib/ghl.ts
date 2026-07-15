@@ -5,12 +5,14 @@
 // form so nothing is lost even if custom fields aren't configured in the location.
 //
 // Configure via environment:
-//   GHL_API_KEY      Private Integration token (Bearer). Required to enable.
-//   GHL_LOCATION_ID  Sub-account / location ID. Required to enable.
-//   GHL_API_VERSION  Optional. Defaults to 2021-07-28.
-//   GHL_EXTRA_TAGS   Optional. Comma-separated extra tags added alongside website-form.
+//   GHL_API_TOKEN         Private Integration token (Bearer). Required to enable.
+//                         (GHL_API_KEY is also accepted as a fallback.)
+//   GHL_LOCATION_ID       Sub-account / location ID. Required to enable.
+//   GHL_API_VERSION       Optional. Defaults to 2021-07-28.
+//   GHL_WEBSITE_LEAD_TAGS Optional. Comma-separated tags applied to the contact.
+//                         Defaults to `website-form` when unset.
 //
-// If the API key or location ID is missing, the push is silently skipped so the
+// If the API token or location ID is missing, the push is silently skipped so the
 // form keeps working in local/dev and email delivery is never blocked.
 
 const GHL_BASE = 'https://services.leadconnectorhq.com';
@@ -77,7 +79,7 @@ const buildNote = (lead: GhlLead): string =>
     .join('\n');
 
 export async function pushLeadToGHL(lead: GhlLead): Promise<GhlResult> {
-  const apiKey = process.env.GHL_API_KEY;
+  const apiKey = process.env.GHL_API_TOKEN || process.env.GHL_API_KEY;
   const locationId = process.env.GHL_LOCATION_ID;
   const version = process.env.GHL_API_VERSION || '2021-07-28';
 
@@ -85,11 +87,11 @@ export async function pushLeadToGHL(lead: GhlLead): Promise<GhlResult> {
     return { ok: true, skipped: true };
   }
 
-  const extraTags = (process.env.GHL_EXTRA_TAGS || '')
+  const configuredTags = (process.env.GHL_WEBSITE_LEAD_TAGS || 'website-form')
     .split(',')
     .map((t) => t.trim())
     .filter(Boolean);
-  const tags = Array.from(new Set(['website-form', ...extraTags]));
+  const tags = Array.from(new Set(configuredTags.length ? configuredTags : ['website-form']));
 
   const { firstName, lastName } = splitName(lead.name);
 
