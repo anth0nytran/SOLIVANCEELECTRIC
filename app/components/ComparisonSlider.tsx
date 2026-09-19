@@ -37,7 +37,7 @@ export function ComparisonSlider(props: ComparisonSliderProps) {
     const afterInputRef = useRef<HTMLInputElement | null>(null);
 
     const trackColor = isImagesProps(props) ? props.trackColor ?? 'rgba(226,232,240,0.7)' : 'rgba(226,232,240,0.7)';
-    const captionClassName = isImagesProps(props) ? props.captionClassName ?? 'text-slate-400' : 'text-slate-400';
+    const captionClassName = isImagesProps(props) ? props.captionClassName ?? 'text-slate-500' : 'text-slate-500';
 
     if (isImagesProps(props)) {
         const { left, right } = props;
@@ -209,7 +209,7 @@ export function ComparisonSlider(props: ComparisonSliderProps) {
                     background: `linear-gradient(90deg, ${accent} 0%, ${accent} ${value}%, rgba(226,232,240,0.7) ${value}%, rgba(226,232,240,0.7) 100%)`,
                 }}
             />
-            <div className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.35em] text-slate-400">
+            <div className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.35em] text-slate-500">
                 <span>Before</span>
                 <span>Drag to compare</span>
                 <span>After</span>

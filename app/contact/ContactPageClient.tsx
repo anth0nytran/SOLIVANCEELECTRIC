@@ -12,9 +12,11 @@ import {
   MapPin,
   HardHat,
   Zap,
+  Mail,
 } from 'lucide-react';
 import { siteConfig } from '../config';
 import { EstimateForm } from '../components/EstimateForm';
+import { ConsentMap } from '../components/ConsentMap';
 
 const shell = 'mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10';
 
@@ -125,9 +127,21 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
                       <Phone className="h-4 w-4 text-[var(--onestop-gold)]" />
                     </div>
                     <div>
-                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/50">Call or Text</div>
+                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/70">Call or Text</div>
                       <a href={`tel:${siteConfig.cleanPhone}`} className="mt-0.5 block text-lg font-bold text-white hover:text-[var(--onestop-gold)] transition-colors">
                         {siteConfig.phone}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/5 border border-white/10">
+                      <Mail className="h-4 w-4 text-[var(--onestop-gold)]" aria-hidden />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/70">Email</div>
+                      <a href={`mailto:${siteConfig.email}`} className="mt-0.5 block break-all text-base font-bold text-white hover:text-[var(--onestop-gold)] transition-colors">
+                        {siteConfig.email}
                       </a>
                     </div>
                   </div>
@@ -137,7 +151,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
                       <Clock className="h-4 w-4 text-[var(--onestop-gold)]" />
                     </div>
                     <div>
-                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/50">Hours</div>
+                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/70">Hours</div>
                       <p className="mt-0.5 text-base font-medium text-white/90">{siteConfig.hours}</p>
                     </div>
                   </div>
@@ -147,7 +161,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
                       <MapPin className="h-4 w-4 text-[var(--onestop-gold)]" />
                     </div>
                     <div>
-                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/50">Office &amp; Shop</div>
+                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/70">Office &amp; Shop</div>
                       <address className="mt-0.5 text-sm font-medium not-italic leading-relaxed text-white/90">
                         {siteConfig.address.street}<br />
                         {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}
@@ -168,7 +182,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
                       <MapPin className="h-4 w-4 text-[var(--onestop-gold)]" />
                     </div>
                     <div>
-                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/50">Serving Area</div>
+                      <div className="text-[0.7rem] font-bold uppercase tracking-[0.15em] text-white/70">Serving Area</div>
                       <p className="mt-0.5 text-sm font-medium leading-relaxed text-white/90">
                         {siteConfig.serviceAreas.join(', ')} &amp; surrounding areas.
                       </p>
@@ -179,16 +193,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
 
               {/* Google Maps embed */}
               <div className="overflow-hidden rounded-xl ring-1 ring-slate-200 bg-slate-100">
-                <iframe
-                  title={`${siteConfig.businessName} — ${siteConfig.address.full}`}
-                  src={siteConfig.address.googleMapsEmbedSrc}
-                  width="100%"
-                  height="280"
-                  style={{ border: 0, display: 'block' }}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  allowFullScreen
-                />
+                <ConsentMap />
                 <div className="bg-white px-4 py-3 text-[0.8rem] text-slate-600 border-t border-slate-200">
                   <span className="font-bold text-[var(--onestop-navy-deep)]">{siteConfig.businessName}</span>
                   <span className="block text-[0.75rem] text-slate-500 mt-0.5">{siteConfig.address.full}</span>
@@ -296,7 +301,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
                 On the schedule this week.
               </h2>
-              <p className="mt-2 text-base text-white/50">
+              <p className="mt-2 text-base text-white/70">
                 Walk the site free. Fixed-fee number in 24 hours. {siteConfig.hours}.
               </p>
             </div>

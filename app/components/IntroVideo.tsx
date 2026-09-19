@@ -215,7 +215,8 @@ export function IntroVideo() {
             key="skip"
             type="button"
             onClick={finish}
-            aria-label="Skip intro"
+            autoFocus
+            aria-label="Skip intro (Escape)"
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { track } from '@vercel/analytics';
+import { hasAnalyticsConsent } from '../lib/consent';
 
 type EventValue = string | number | boolean | null;
 type EventProperties = Record<string, EventValue>;
@@ -21,6 +22,8 @@ const cleanValue = (value: unknown): EventValue => {
 };
 
 export const trackMarketingEvent = (name: string, properties: EventProperties = {}) => {
+  if (!hasAnalyticsConsent()) return;
+
   const safeProperties = Object.fromEntries(
     Object.entries(properties)
       .slice(0, 2)

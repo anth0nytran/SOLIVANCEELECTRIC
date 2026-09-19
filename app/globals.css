@@ -687,3 +687,35 @@ details[open] > *:not(summary) {
 /* Hide scrollbar utility -- horizontal scroll chip rails */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─── Accessibility ─── */
+/* Skip link: hidden until focused by keyboard */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 200;
+  padding: 12px 18px;
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--onestop-navy-deep);
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 18px rgba(15, 40, 71, 0.25);
+  outline: 3px solid var(--onestop-red);
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* Visible keyboard focus on every interactive element */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 3px solid var(--onestop-red);
+  outline-offset: 2px;
+}

@@ -132,7 +132,7 @@ export default function LocationsIndexPage() {
                       </span>
                     ))}
                     {loc.zipCodes.length > 4 && (
-                      <span className="inline-flex items-center rounded-sm bg-slate-100 px-2 py-0.5 text-[0.68rem] font-[family-name:var(--font-app-mono)] text-slate-400">
+                      <span className="inline-flex items-center rounded-sm bg-slate-100 px-2 py-0.5 text-[0.68rem] font-[family-name:var(--font-app-mono)] text-slate-500">
                         +{loc.zipCodes.length - 4}
                       </span>
                     )}

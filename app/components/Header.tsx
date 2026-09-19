@@ -27,6 +27,7 @@ import {
   HelpCircle,
   Shield,
   Clock,
+  Mail,
 } from 'lucide-react';
 import { siteConfig, navLinks, type NavChild } from '../config';
 
@@ -100,6 +101,19 @@ export function Header() {
     };
   }, [mobileMenuOpen]);
 
+  // Escape closes any open dropdown or the mobile menu
+  useEffect(() => {
+    if (!openDropdown && !mobileMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setOpenDropdown(null);
+      setMobileMenuOpen(false);
+      setMobileExpanded(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [openDropdown, mobileMenuOpen]);
+
   const openNow = (key: string) => {
     if (hoverTimer.current) clearTimeout(hoverTimer.current);
     setOpenDropdown(key);
@@ -111,6 +125,8 @@ export function Header() {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+
       {/* ═══ ANNOUNCEMENT BAR ═══ */}
       <motion.div
         initial={{ y: -36, opacity: 0 }}
@@ -119,32 +135,38 @@ export function Header() {
         className="bg-[var(--onestop-navy-deep)] text-white"
       >
         <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between gap-3 py-2 text-[0.68rem] sm:text-[0.72rem] font-[family-name:var(--font-app-mono)] uppercase tracking-[0.14em]">
-          <div className="hidden sm:flex items-center gap-4 text-white/75">
+          <div className="hidden sm:flex items-center gap-4 text-white/80 whitespace-nowrap">
             <span className="inline-flex items-center gap-1.5">
-              <Shield className="h-3 w-3 text-[var(--onestop-gold)]" />
-              Licensed TX Contractor
+              <Shield className="h-3 w-3 text-[var(--onestop-gold)]" aria-hidden />
+              Licensed TX Contractor · <span className="text-white font-bold">{siteConfig.license.label}</span>
             </span>
-            <span className="h-3 w-px bg-white/20" aria-hidden />
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-3 w-3 text-[var(--onestop-gold)]" />
+            <span className="hidden lg:inline-block h-3 w-px bg-white/20" aria-hidden />
+            <span className="hidden lg:inline-flex items-center gap-1.5">
+              <Clock className="h-3 w-3 text-[var(--onestop-gold)]" aria-hidden />
               24-Hour Response
             </span>
           </div>
           <div className="flex items-center gap-3 mx-auto sm:mx-0">
-            {/* Mobile: action-driven CTA */}
+            {/* Mobile: license + action-driven CTA */}
+            <span className="sm:hidden whitespace-nowrap text-white/80 text-[0.62rem]">{siteConfig.license.label}</span>
+            <span className="sm:hidden h-3 w-px bg-white/25" aria-hidden />
             <a
               href={`tel:${siteConfig.cleanPhone}`}
               className="sm:hidden inline-flex items-center whitespace-nowrap font-bold text-white hover:text-[var(--onestop-gold)] transition-colors uppercase tracking-[0.12em] text-[0.66rem]"
             >
-              Call for free quote · {siteConfig.phone}
+              Call · {siteConfig.phone}
             </a>
             {/* Desktop: areas + phone */}
-            <span className="hidden sm:inline-block font-semibold text-white/90">
+            <span className="hidden 2xl:inline-block whitespace-nowrap font-semibold text-white/90">
               SW Houston · Heights · Bellaire · Memorial Villages
             </span>
-            <span className="h-3 w-px bg-white/25 hidden sm:inline-block" aria-hidden />
-            <a href={`tel:${siteConfig.cleanPhone}`} className="hidden sm:inline-flex items-center gap-1.5 font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal">
-              <Phone className="h-3 w-3" /> {siteConfig.phone}
+            <span className="h-3 w-px bg-white/25 hidden 2xl:inline-block" aria-hidden />
+            <a href={`mailto:${siteConfig.email}`} className="hidden xl:inline-flex whitespace-nowrap items-center gap-1.5 font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal">
+              <Mail className="h-3 w-3" aria-hidden /> {siteConfig.email}
+            </a>
+            <span className="h-3 w-px bg-white/25 hidden xl:inline-block" aria-hidden />
+            <a href={`tel:${siteConfig.cleanPhone}`} className="hidden sm:inline-flex whitespace-nowrap items-center gap-1.5 font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal">
+              <Phone className="h-3 w-3" aria-hidden /> {siteConfig.phone}
             </a>
           </div>
         </div>
@@ -225,7 +247,7 @@ export function Header() {
                       type="button"
                       onClick={() => setOpenDropdown(isOpen ? null : l.label)}
                       aria-expanded={isOpen}
-                      aria-haspopup="menu"
+                      aria-controls={`nav-panel-${i}`}
                       className={`relative inline-flex items-center gap-1.5 px-4 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] rounded-lg transition-all duration-200 group ${
                         isActive || isOpen
                           ? 'text-[var(--onestop-navy-deep)] bg-[var(--onestop-navy)]/5'
@@ -233,7 +255,7 @@ export function Header() {
                       }`}
                     >
                       {l.label}
-                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown aria-hidden className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                       <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-[var(--onestop-red)]' : 'w-0 bg-[var(--onestop-red)] group-hover:w-6'}`} />
                     </button>
 
@@ -244,14 +266,14 @@ export function Header() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: 8, scale: 0.98 }}
                           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                          role="menu"
+                          id={`nav-panel-${i}`}
                           className="absolute left-1/2 top-full z-50 mt-3 -translate-x-1/2 w-[min(92vw,640px)]"
                         >
                           <div className="pointer-events-auto overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_24px_60px_-20px_rgba(15,40,71,0.35)]">
                             <div className="grid grid-cols-[1.35fr_1fr]">
                               <div className="p-3 sm:p-4 bg-white">
                                 <div className="mb-2 px-2 flex items-center justify-between">
-                                  <span className="text-[0.64rem] font-bold uppercase tracking-[0.18em] text-slate-400 font-[family-name:var(--font-app-mono)]">
+                                  <span className="text-[0.64rem] font-bold uppercase tracking-[0.18em] text-slate-500 font-[family-name:var(--font-app-mono)]">
                                     {l.label}
                                   </span>
                                   <Link
@@ -347,7 +369,7 @@ export function Header() {
             </motion.div>
 
             {/* Mobile menu toggle */}
-            <button type="button" className="inline-flex h-11 w-11 items-center justify-center lg:hidden text-[var(--onestop-navy-deep)]" onClick={() => setMobileMenuOpen((o) => !o)} aria-label="Menu">
+            <button type="button" className="inline-flex h-11 w-11 items-center justify-center lg:hidden text-[var(--onestop-navy-deep)]" onClick={() => setMobileMenuOpen((o) => !o)} aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'} aria-expanded={mobileMenuOpen} aria-controls="mobile-menu">
               <motion.div animate={{ rotate: mobileMenuOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
                 {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </motion.div>
@@ -363,10 +385,11 @@ export function Header() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              id="mobile-menu"
               className="overflow-hidden bg-white border-b border-slate-100 lg:hidden"
             >
               <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex flex-col gap-1 pt-5 pb-28 max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain">
-                <nav className="flex flex-col">
+                <nav aria-label="Mobile navigation" className="flex flex-col">
                   {navLinks.map((l, i) => {
                     const hasChildren = !!l.children?.length;
                     const expanded = mobileExpanded === l.label;
@@ -444,7 +467,10 @@ export function Header() {
                 </nav>
                 <div className="mt-4 flex flex-col gap-3">
                   <a href={`tel:${siteConfig.cleanPhone}`} className="flex items-center justify-center gap-2 text-sm font-bold text-[var(--onestop-navy-deep)]">
-                    <Phone className="h-4 w-4" /> {siteConfig.phone}
+                    <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
+                  </a>
+                  <a href={`mailto:${siteConfig.email}`} className="flex items-center justify-center gap-2 text-sm font-semibold text-[var(--onestop-navy-deep)]">
+                    <Mail className="h-4 w-4" aria-hidden /> {siteConfig.email}
                   </a>
                   <Link href="/contact" onClick={closeMobileMenu} className="block text-center bg-[var(--onestop-red)] py-4 rounded-lg text-xs font-bold uppercase tracking-[0.15em] text-white transition-colors hover:bg-[var(--onestop-navy-deep)]">
                     Request Free Quote

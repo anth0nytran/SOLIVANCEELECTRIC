@@ -11,6 +11,7 @@ import {
   Star,
 } from 'lucide-react';
 import { siteConfig } from '../config';
+import { CookiePreferencesButton } from './CookieConsent';
 
 const socialLinks = [
   {
@@ -63,18 +64,18 @@ const companyLinks = [
 ];
 
 const trustBadges = [
-  { icon: Shield, label: 'Licensed & Insured' },
+  { icon: Shield, label: `Licensed & Insured · ${siteConfig.license.label}` },
   { icon: Clock, label: '24/7 Emergency Service' },
   { icon: CheckCircle2, label: `${siteConfig.yearsInBusiness}+ Years Experience` },
   { icon: Building2, label: 'Commercial & Residential' },
 ];
 
 const sectionHeading =
-  'text-[0.7rem] font-bold uppercase tracking-[0.22em] text-white/45 mb-5';
+  'text-[0.7rem] font-bold uppercase tracking-[0.22em] text-white/70 mb-5';
 const linkItem =
-  'text-sm text-white/65 hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline transition-colors';
+  'text-sm text-white/80 hover:text-white focus-visible:text-white focus-visible:underline transition-colors';
 const microLabel =
-  'text-[0.68rem] font-bold uppercase tracking-[0.2em] text-white/40';
+  'text-[0.68rem] font-bold uppercase tracking-[0.2em] text-white/70';
 
 const container: Variants = {
   hidden: {},
@@ -115,7 +116,7 @@ export function Footer() {
                 Solivance Electric <span className="text-white/50 font-bold">LLC</span>
               </span>
             </Link>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-white/60">
+            <p className="mt-5 max-w-sm text-sm leading-6 text-white/80">
               Licensed Texas electrical contractor. Commercial and residential across Southwest Houston, the Heights, Bellaire, and the Memorial Villages. 24-hour line answered by a licensed electrician.
             </p>
 
@@ -131,6 +132,7 @@ export function Footer() {
                   >
                     {siteConfig.address.street}<br />
                     {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}
+                    <span className="sr-only"> (opens Google Maps in a new tab)</span>
                   </a>
                 </address>
               </div>
@@ -145,6 +147,23 @@ export function Footer() {
                 </a>
               </div>
 
+              <div>
+                <div className={`${microLabel} mb-2`}>Email</div>
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="text-sm font-semibold text-white hover:text-[var(--onestop-gold)] transition-colors break-all"
+                >
+                  {siteConfig.email}
+                </a>
+              </div>
+
+              <div>
+                <div className={`${microLabel} mb-2`}>License</div>
+                <p className="text-sm font-semibold text-white">
+                  {siteConfig.license.type} · {siteConfig.license.label}
+                </p>
+              </div>
+
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-md bg-[var(--onestop-red)] px-6 py-3 text-xs font-bold uppercase tracking-[0.15em] text-white hover:bg-[#e55f15] transition-colors"
@@ -156,7 +175,7 @@ export function Footer() {
 
           {/* Services */}
           <motion.div variants={item} className="lg:col-span-3">
-            <h4 className={sectionHeading}>Services</h4>
+            <h2 className={sectionHeading}>Services</h2>
             <ul className="space-y-3">
               {footerServices.map((s) => (
                 <li key={s.slug}>
@@ -170,17 +189,17 @@ export function Footer() {
 
           {/* Service Areas */}
           <motion.div variants={item} className="lg:col-span-3">
-            <h4 className={sectionHeading}>Service Areas</h4>
+            <h2 className={sectionHeading}>Service Areas</h2>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-3">
               {siteConfig.allServiceAreas.map((area) => (
-                <li key={area} className="text-sm text-white/65">{area}</li>
+                <li key={area} className="text-sm text-white/80">{area}</li>
               ))}
             </ul>
           </motion.div>
 
           {/* Company */}
           <motion.div variants={item} className="lg:col-span-2">
-            <h4 className={sectionHeading}>Company</h4>
+            <h2 className={sectionHeading}>Company</h2>
             <ul className="space-y-3">
               {companyLinks.map((l) => (
                 <li key={l.href}>
@@ -197,7 +216,7 @@ export function Footer() {
         {siteConfig.neighborhoods && (
           <div className="mt-14 pt-8 border-t border-white/10">
             <div className={`${microLabel} mb-3`}>Communities We Serve</div>
-            <p className="text-sm leading-6 text-white/55 max-w-4xl">
+            <p className="text-sm leading-6 text-white/75 max-w-4xl">
               {siteConfig.neighborhoods}
             </p>
           </div>
@@ -209,8 +228,8 @@ export function Footer() {
         <div className={`${shell} py-6 flex flex-col lg:flex-row items-center justify-between gap-6`}>
           <ul className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
             {trustBadges.map(({ icon: Icon, label }) => (
-              <li key={label} className="flex items-center gap-2 text-xs font-semibold text-white/70">
-                <Icon className="h-4 w-4 text-[var(--onestop-gold)]" strokeWidth={2} />
+              <li key={label} className="flex items-center gap-2 text-xs font-semibold text-white/80">
+                <Icon className="h-4 w-4 text-[var(--onestop-gold)]" strokeWidth={2} aria-hidden />
                 {label}
               </li>
             ))}
@@ -223,7 +242,7 @@ export function Footer() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer me"
-                aria-label={s.label}
+                aria-label={`${s.label} (opens in a new tab)`}
                 title={s.label}
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/70 ring-1 ring-white/10 hover:bg-[var(--onestop-red)] hover:text-white hover:ring-[var(--onestop-red)] transition-all"
               >
@@ -234,13 +253,30 @@ export function Footer() {
         </div>
       </div>
 
+      {/* TDLR CONSUMER NOTICE */}
+      <div className="border-t border-white/10">
+        <div className={`${shell} py-5 text-xs leading-5 text-white/75`}>
+          <p>
+            {siteConfig.businessName} · {siteConfig.license.type} {siteConfig.license.label}.{' '}
+            Regulated by the {siteConfig.regulator.name}, {siteConfig.regulator.address},{' '}
+            {siteConfig.regulator.phones.join(', ')};{' '}
+            <a href={siteConfig.regulator.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
+              www.tdlr.texas.gov<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            . Verify this license or file a complaint through TDLR.
+          </p>
+        </div>
+      </div>
+
       {/* BOTTOM BAR */}
       <div className="border-t border-white/10 bg-black/25">
-        <div className={`${shell} py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/45`}>
+        <div className={`${shell} pt-5 pb-24 sm:pb-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/75`}>
           <p>&copy; {new Date().getFullYear()} {siteConfig.businessName}. All rights reserved.</p>
           <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-5 gap-y-1">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
+            <CookiePreferencesButton className="hover:text-white transition-colors underline-offset-2 hover:underline" />
             <span>
               Website by{' '}
               <a

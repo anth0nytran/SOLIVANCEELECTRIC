@@ -277,7 +277,7 @@ export default async function BlogPostPage({
                   <p className="text-sm text-slate-500 line-clamp-2 mb-4 flex-1">
                     {related.description}
                   </p>
-                  <span className="text-xs text-slate-400">{relDate} &middot; {related.readTime}</span>
+                  <span className="text-xs text-slate-500">{relDate} &middot; {related.readTime}</span>
                 </Link>
               );
             })}

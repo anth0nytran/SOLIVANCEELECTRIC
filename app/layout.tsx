@@ -1,12 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Geist, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { MobileCTA } from "./components/MobileCTA";
 import { IntroVideo } from "./components/IntroVideo";
-import { MarketingAnalytics } from "./components/MarketingAnalytics";
+import { CookieConsent } from "./components/CookieConsent";
 import { reviews, reviewStats } from "./reviews";
 import "./globals.css";
 
@@ -165,8 +163,9 @@ export default function RootLayout({
               "hasCredential": {
                 "@type": "EducationalOccupationalCredential",
                 "credentialCategory": "license",
-                "name": "Texas State Electrical Contractor License",
-                "recognizedBy": { "@type": "State", "name": "Texas" }
+                "name": "Texas Electrical Contractor License (TECL #41163)",
+                "identifier": "41163",
+                "recognizedBy": { "@type": "GovernmentOrganization", "name": "Texas Department of Licensing and Regulation", "url": "https://www.tdlr.texas.gov" }
               },
               "sameAs": [
                 "https://share.google/Qf4euLHsfdyaZ2b6U",
@@ -270,15 +269,13 @@ export default function RootLayout({
         <IntroVideo />
         <div className="onestop-site min-h-screen bg-white text-slate-900 selection:bg-[var(--onestop-navy)] selection:text-white">
           <Header />
-          <main>
+          <main id="main-content" tabIndex={-1} className="outline-none">
             {children}
           </main>
           <Footer />
           <MobileCTA />
         </div>
-        <MarketingAnalytics />
-        <Analytics />
-        <SpeedInsights />
+        <CookieConsent />
       </body>
     </html>
   );

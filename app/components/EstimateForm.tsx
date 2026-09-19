@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useId, useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Phone, User, MapPin, ClipboardList, Lock, Calendar, Clock, Mail, Zap, Shield, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { siteConfig } from '../config';
 import { trackMarketingEvent } from './MarketingAnalytics';
 
 export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
+  const uid = useId();
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [formError, setFormError] = useState('');
   const [formTimestamp] = useState(() => Date.now().toString());
@@ -51,8 +52,8 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
   };
 
   const isDark = variant === 'dark';
-  const labelCls = `block text-[0.68rem] font-bold mb-1 uppercase tracking-wide ${isDark ? 'text-white/60' : 'text-slate-700'}`;
-  const inputCls = "w-full rounded-md border border-slate-300 bg-slate-50 pl-9 pr-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20";
+  const labelCls = `block text-[0.68rem] font-bold mb-1 uppercase tracking-wide ${isDark ? 'text-white/80' : 'text-slate-700'}`;
+  const inputCls = "w-full rounded-md border border-slate-300 bg-slate-50 pl-9 pr-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20";
   const iconCls = "absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400 pointer-events-none";
 
   return (
@@ -65,6 +66,7 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
+            role="status"
             className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden"
           >
             <div className="bg-[var(--onestop-navy)] px-5 pt-6 pb-5 text-center border-b-4 border-[var(--onestop-red)]">
@@ -113,51 +115,51 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
 
             <div className="grid gap-2.5 sm:grid-cols-2">
               <div>
-                <label className={labelCls}>Full Name <span className="text-red-500">*</span></label>
+                <label htmlFor={`${uid}-name`} className={labelCls}>Full Name <span className="text-red-600" aria-hidden>*</span></label>
                 <div className="relative">
                   <User className={iconCls} />
-                  <input required name="name" type="text" placeholder="John Doe" autoComplete="name" pattern="[A-Za-z\s\-']{2,50}" className={inputCls} />
+                  <input required id={`${uid}-name`} name="name" type="text" placeholder="John Doe" autoComplete="name" pattern="[A-Za-z\s\-']{2,50}" className={inputCls} />
                 </div>
               </div>
               <div>
-                <label className={labelCls}>Phone <span className={`font-normal normal-case tracking-normal ${isDark ? 'text-white/30' : 'text-slate-400'}`}>(Optional)</span></label>
+                <label htmlFor={`${uid}-phone`} className={labelCls}>Phone <span className={`font-normal normal-case tracking-normal ${isDark ? 'text-white/70' : 'text-slate-500'}`}>(Optional)</span></label>
                 <div className="relative">
                   <Phone className={iconCls} />
-                  <input name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputCls} />
+                  <input id={`${uid}-phone`} name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputCls} />
                 </div>
               </div>
             </div>
 
             <div className="grid gap-2.5 sm:grid-cols-2">
               <div>
-                <label className={labelCls}>Email <span className="text-red-500">*</span></label>
+                <label htmlFor={`${uid}-email`} className={labelCls}>Email <span className="text-red-600" aria-hidden>*</span></label>
                 <div className="relative">
                   <Mail className={iconCls} />
-                  <input required name="email" type="email" placeholder="you@example.com" autoComplete="email" className={inputCls} />
+                  <input required id={`${uid}-email`} name="email" type="email" placeholder="you@example.com" autoComplete="email" className={inputCls} />
                 </div>
               </div>
               <div>
-                <label className={labelCls}>Street Address <span className="text-red-500">*</span></label>
+                <label htmlFor={`${uid}-address`} className={labelCls}>Street Address <span className="text-red-600" aria-hidden>*</span></label>
                 <div className="relative">
                   <MapPin className={iconCls} />
-                  <input required name="address" type="text" placeholder="123 Main St" autoComplete="street-address" className={inputCls} />
+                  <input required id={`${uid}-address`} name="address" type="text" placeholder="123 Main St" autoComplete="street-address" className={inputCls} />
                 </div>
               </div>
             </div>
 
             <div className="grid gap-2.5 sm:grid-cols-2">
               <div>
-                <label className={labelCls}>Preferred Date <span className="text-red-500">*</span></label>
+                <label htmlFor={`${uid}-preferredDate`} className={labelCls}>Preferred Date <span className="text-red-600" aria-hidden>*</span></label>
                 <div className="relative">
                   <Calendar className={iconCls} />
-                  <input required name="preferredDate" type="date" min={new Date().toISOString().split('T')[0]} className={inputCls} />
+                  <input required id={`${uid}-preferredDate`} name="preferredDate" type="date" min={new Date().toISOString().split('T')[0]} className={inputCls} />
                 </div>
               </div>
               <div>
-                <label className={labelCls}>Time Window <span className="text-red-500">*</span></label>
+                <label htmlFor={`${uid}-timeWindow`} className={labelCls}>Time Window <span className="text-red-600" aria-hidden>*</span></label>
                 <div className="relative">
                   <Clock className={iconCls} />
-                  <select required name="timeWindow" defaultValue="" className={`${inputCls} appearance-none`}>
+                  <select required id={`${uid}-timeWindow`} name="timeWindow" defaultValue="" className={`${inputCls} appearance-none`}>
                     <option value="" disabled>Pick a window...</option>
                     <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
                     <option value="Afternoon (12pm–5pm)">Afternoon (12pm–5pm)</option>
@@ -170,10 +172,10 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
 
             <div className="grid gap-2.5 sm:grid-cols-2">
               <div>
-                <label className={labelCls}>Urgency <span className="text-red-500">*</span></label>
+                <label htmlFor={`${uid}-urgency`} className={labelCls}>Urgency <span className="text-red-600" aria-hidden>*</span></label>
                 <div className="relative">
                   <Zap className={iconCls} />
-                  <select required name="urgency" defaultValue="" className={`${inputCls} appearance-none`}>
+                  <select required id={`${uid}-urgency`} name="urgency" defaultValue="" className={`${inputCls} appearance-none`}>
                     <option value="" disabled>Select urgency...</option>
                     <option value="Emergency — now">Emergency — now</option>
                     <option value="Within 24 hours">Within 24 hours</option>
@@ -184,10 +186,10 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
                 </div>
               </div>
               <div>
-                <label className={labelCls}>Service Needed <span className="text-red-500">*</span></label>
+                <label htmlFor={`${uid}-service`} className={labelCls}>Service Needed <span className="text-red-600" aria-hidden>*</span></label>
                 <div className="relative">
                   <ClipboardList className={iconCls} />
-                  <select required name="service" defaultValue="" className={`${inputCls} appearance-none`}>
+                  <select required id={`${uid}-service`} name="service" defaultValue="" className={`${inputCls} appearance-none`}>
                     <option value="" disabled>Select service...</option>
                     {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
@@ -196,8 +198,8 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
             </div>
 
             <div>
-              <label className={labelCls}>Project Details <span className={`font-normal normal-case tracking-normal ${isDark ? 'text-white/30' : 'text-slate-400'}`}>(Optional)</span></label>
-              <textarea name="message" rows={2} maxLength={5000} placeholder="Scope of work, site access notes, or specific concerns..." className="w-full rounded-md border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 resize-none" />
+              <label htmlFor={`${uid}-message`} className={labelCls}>Project Details <span className={`font-normal normal-case tracking-normal ${isDark ? 'text-white/70' : 'text-slate-500'}`}>(Optional)</span></label>
+              <textarea id={`${uid}-message`} name="message" rows={2} maxLength={5000} placeholder="Scope of work, site access notes, or specific concerns..." className="w-full rounded-md border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 resize-none" />
             </div>
 
             <label className="flex items-start gap-2 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-2.5 py-2">
@@ -215,7 +217,7 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
                 </span>
               </button>
 
-              <p className="mt-2 text-center text-[0.6rem] leading-[1.4] text-slate-400">
+              <p className="mt-2 text-center text-[0.6rem] leading-[1.4] text-slate-600">
                 By submitting, you confirm you are at least 18 years old and agree to our <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a> &amp; <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a>.
               </p>
 
@@ -230,7 +232,7 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
         )}
       </AnimatePresence>
 
-      <div className="mt-3 flex items-center justify-center gap-2.5 text-[0.68rem] text-slate-400">
+      <div className="mt-3 flex items-center justify-center gap-2.5 text-[0.68rem] text-slate-600">
         <Shield className="h-3 w-3 text-[var(--onestop-navy)]/60" />
         <span className="font-bold text-slate-600">Licensed &amp; Insured</span>
         <span>|</span>

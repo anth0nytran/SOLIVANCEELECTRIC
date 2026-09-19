@@ -157,7 +157,7 @@ export default function AboutPageClient() {
                 <Link href="/services" className="inline-flex items-center gap-2 text-sm font-bold text-[var(--onestop-gold)] hover:underline">
                   See our services <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
-                <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-[var(--onestop-gold)] transition-colors">
+                <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-[var(--onestop-gold)] transition-colors">
                   Request a quote <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -302,7 +302,7 @@ export default function AboutPageClient() {
 
           {siteConfig.neighborhoods ? (
             <div className="mt-8">
-              <p className="text-sm text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-500 leading-relaxed">
                 <span className="font-semibold text-slate-500">Plus neighborhoods:</span>{' '}
                 {siteConfig.neighborhoods}
               </p>

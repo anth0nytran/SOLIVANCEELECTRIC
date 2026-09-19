@@ -241,7 +241,7 @@ export default function FaqPage() {
                 <h2 className="text-[2rem] sm:text-[2.5rem] font-bold tracking-[-0.025em] leading-[1.05] text-[var(--onestop-navy-deep)]">
                   {section.heading}.
                 </h2>
-                <p className="mt-2 text-xs font-[family-name:var(--font-app-mono)] uppercase tracking-[0.18em] text-slate-400">
+                <p className="mt-2 text-xs font-[family-name:var(--font-app-mono)] uppercase tracking-[0.18em] text-slate-500">
                   {section.eyebrow}
                 </p>
               </div>

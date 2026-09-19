@@ -153,7 +153,7 @@ export default function BlogPage() {
                     </p>
 
                     {/* Meta row */}
-                    <div className="flex items-center gap-4 text-xs text-slate-400 mb-5">
+                    <div className="flex items-center gap-4 text-xs text-slate-500 mb-5">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3.5 w-3.5" />
                         {formattedDate}

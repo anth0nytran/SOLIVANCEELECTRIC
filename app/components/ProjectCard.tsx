@@ -105,7 +105,7 @@ export function ProjectCard({
                         {title}
                     </h3>
                     <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
                             {location}
                         </span>
                     </div>

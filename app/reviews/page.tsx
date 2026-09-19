@@ -117,13 +117,13 @@ export default function ReviewsPage() {
                   &ldquo;{r.quote}&rdquo;
                 </blockquote>
                 {r.scope && (
-                  <div className="mt-4 text-[0.68rem] uppercase tracking-[0.1em] text-slate-400 font-[family-name:var(--font-app-mono)]">
+                  <div className="mt-4 text-[0.68rem] uppercase tracking-[0.1em] text-slate-500 font-[family-name:var(--font-app-mono)]">
                     {r.scope}
                   </div>
                 )}
                 <figcaption className="mt-5 pt-5 border-t border-slate-200 flex items-center justify-between">
                   <div className="text-[0.82rem] font-bold text-[var(--onestop-navy-deep)]">{r.author}</div>
-                  <time className="text-[0.68rem] uppercase tracking-[0.1em] text-slate-400 font-[family-name:var(--font-app-mono)]" dateTime={r.date}>
+                  <time className="text-[0.68rem] uppercase tracking-[0.1em] text-slate-500 font-[family-name:var(--font-app-mono)]" dateTime={r.date}>
                     {formatDate(r.date)}
                   </time>
                 </figcaption>

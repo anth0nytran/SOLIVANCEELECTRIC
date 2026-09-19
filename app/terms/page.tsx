@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const LAST_UPDATED = 'April 16, 2026';
+const LAST_UPDATED = 'September 18, 2026';
 
 export default function TermsPage() {
   return (
-    <main className="bg-white py-14 sm:py-20">
+    <div className="bg-white py-14 sm:py-20">
       <div className="mx-auto w-full max-w-3xl px-5 sm:px-8 lg:px-10">
         <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex items-center gap-2 text-xs font-[family-name:var(--font-app-mono)] uppercase tracking-[0.18em] text-slate-400">
+          <ol className="flex items-center gap-2 text-xs font-[family-name:var(--font-app-mono)] uppercase tracking-[0.18em] text-slate-600">
             <li><Link href="/" className="hover:text-[var(--onestop-navy-deep)] transition-colors">Home</Link></li>
             <li aria-hidden>/</li>
             <li className="text-[var(--onestop-navy-deep)]">Terms of Service</li>
@@ -155,7 +155,8 @@ export default function TermsPage() {
           <h2 className="text-xl font-bold text-[var(--onestop-navy-deep)] mt-10">12. Contact</h2>
           <ul className="list-none p-0 space-y-1">
             <li><strong>Solivance Electric LLC</strong></li>
-            <li>Houston, Texas</li>
+            <li>{siteConfig.address.full}</li>
+            <li>{siteConfig.license.type}: {siteConfig.license.label}</li>
             <li>Email: <a href={`mailto:${siteConfig.email}`} className="text-[var(--onestop-red)] underline">{siteConfig.email}</a></li>
             <li>Phone: <a href={`tel:${siteConfig.cleanPhone}`} className="text-[var(--onestop-red)] underline">{siteConfig.phone}</a></li>
           </ul>
@@ -170,6 +171,6 @@ export default function TermsPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

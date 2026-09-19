@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useId, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -21,6 +21,7 @@ import { trackMarketingEvent } from './components/MarketingAnalytics';
 
 /* ─── COMPACT HERO FORM ─── */
 function HeroEstimateForm() {
+  const uid = useId();
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [formError, setFormError] = useState('');
   const [formTimestamp] = useState(() => Date.now().toString());
@@ -74,7 +75,8 @@ function HeroEstimateForm() {
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden"
+        role="status"
+            className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden"
       >
         <div className="bg-[var(--onestop-navy)] px-5 pt-6 pb-5 text-center border-b-4 border-[var(--onestop-red)]">
           <motion.div
@@ -116,37 +118,37 @@ function HeroEstimateForm() {
 
       <div className="grid gap-2.5 sm:grid-cols-2">
         <div>
-          <label className={labelClass}>Full Name <span className="text-[var(--onestop-red)]">*</span></label>
-          <input required name="name" type="text" placeholder="John Doe" autoComplete="name" pattern="[A-Za-z\s\-']{2,50}" className={inputClass} />
+          <label htmlFor={`${uid}-name`} className={labelClass}>Full Name <span className="text-[var(--onestop-red)]" aria-hidden>*</span></label>
+          <input required id={`${uid}-name`} name="name" type="text" placeholder="John Doe" autoComplete="name" pattern="[A-Za-z\s\-']{2,50}" className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Phone <span className="text-slate-400 normal-case font-normal">(optional)</span></label>
-          <input name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputClass} />
-        </div>
-      </div>
-
-      <div className="grid gap-2.5 sm:grid-cols-2">
-        <div>
-          <label className={labelClass}>Email <span className="text-[var(--onestop-red)]">*</span></label>
-          <input required name="email" type="email" placeholder="you@example.com" autoComplete="email" className={inputClass} />
-        </div>
-        <div>
-          <label className={labelClass}>Service Address <span className="text-[var(--onestop-red)]">*</span></label>
-          <input required name="address" type="text" placeholder="123 Main St, Cypress TX" autoComplete="street-address" className={inputClass} />
+          <label htmlFor={`${uid}-phone`} className={labelClass}>Phone <span className="text-slate-500 normal-case font-normal">(optional)</span></label>
+          <input id={`${uid}-phone`} name="phone" type="tel" placeholder="(832) 555-0123" autoComplete="tel" value={phoneValue} onChange={(e) => setPhoneValue(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" className={inputClass} />
         </div>
       </div>
 
       <div className="grid gap-2.5 sm:grid-cols-2">
         <div>
-          <label className={labelClass}>Service Needed <span className="text-[var(--onestop-red)]">*</span></label>
-          <select required name="service" defaultValue="" className={`${inputClass} appearance-none`}>
+          <label htmlFor={`${uid}-email`} className={labelClass}>Email <span className="text-[var(--onestop-red)]" aria-hidden>*</span></label>
+          <input required id={`${uid}-email`} name="email" type="email" placeholder="you@example.com" autoComplete="email" className={inputClass} />
+        </div>
+        <div>
+          <label htmlFor={`${uid}-address`} className={labelClass}>Service Address <span className="text-[var(--onestop-red)]" aria-hidden>*</span></label>
+          <input required id={`${uid}-address`} name="address" type="text" placeholder="123 Main St, Cypress TX" autoComplete="street-address" className={inputClass} />
+        </div>
+      </div>
+
+      <div className="grid gap-2.5 sm:grid-cols-2">
+        <div>
+          <label htmlFor={`${uid}-service`} className={labelClass}>Service Needed <span className="text-[var(--onestop-red)]" aria-hidden>*</span></label>
+          <select required id={`${uid}-service`} name="service" defaultValue="" className={`${inputClass} appearance-none`}>
             <option value="" disabled>Select a service</option>
             {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
         <div>
-          <label className={labelClass}>Urgency <span className="text-[var(--onestop-red)]">*</span></label>
-          <select required name="urgency" defaultValue="" className={`${inputClass} appearance-none`}>
+          <label htmlFor={`${uid}-urgency`} className={labelClass}>Urgency <span className="text-[var(--onestop-red)]" aria-hidden>*</span></label>
+          <select required id={`${uid}-urgency`} name="urgency" defaultValue="" className={`${inputClass} appearance-none`}>
             <option value="" disabled>Select urgency</option>
             <option value="Emergency — now">Emergency — now</option>
             <option value="Within 24 hours">Within 24 hours</option>
@@ -159,12 +161,12 @@ function HeroEstimateForm() {
 
       <div className="grid gap-2.5 sm:grid-cols-2">
         <div>
-          <label className={labelClass}>Preferred Date <span className="text-[var(--onestop-red)]">*</span></label>
-          <input required name="preferredDate" type="date" min={new Date().toISOString().split('T')[0]} className={inputClass} />
+          <label htmlFor={`${uid}-preferredDate`} className={labelClass}>Preferred Date <span className="text-[var(--onestop-red)]" aria-hidden>*</span></label>
+          <input required id={`${uid}-preferredDate`} name="preferredDate" type="date" min={new Date().toISOString().split('T')[0]} className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Time Window <span className="text-[var(--onestop-red)]">*</span></label>
-          <select required name="timeWindow" defaultValue="" className={`${inputClass} appearance-none`}>
+          <label htmlFor={`${uid}-timeWindow`} className={labelClass}>Time Window <span className="text-[var(--onestop-red)]" aria-hidden>*</span></label>
+          <select required id={`${uid}-timeWindow`} name="timeWindow" defaultValue="" className={`${inputClass} appearance-none`}>
             <option value="" disabled>Pick a window</option>
             <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
             <option value="Afternoon (12pm–5pm)">Afternoon (12pm–5pm)</option>
@@ -175,8 +177,8 @@ function HeroEstimateForm() {
       </div>
 
       <div>
-        <label className={labelClass}>Project Details <span className="text-slate-400 normal-case font-normal">(optional)</span></label>
-        <textarea name="message" rows={2} maxLength={5000} placeholder="Site access notes, scope, equipment on order, or the best number to reach a foreman..." className={`${inputClass} resize-none`} />
+        <label htmlFor={`${uid}-message`} className={labelClass}>Project Details <span className="text-slate-500 normal-case font-normal">(optional)</span></label>
+        <textarea id={`${uid}-message`} name="message" rows={2} maxLength={5000} placeholder="Site access notes, scope, equipment on order, or the best number to reach a foreman..." className={`${inputClass} resize-none`} />
       </div>
 
       <label className="flex items-start gap-2 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-2.5 py-1.5">
@@ -190,7 +192,7 @@ function HeroEstimateForm() {
         {formStatus === 'sending' ? 'SENDING…' : 'GET YOUR FREE QUOTE'}
       </button>
 
-      <p className="text-center text-[0.58rem] leading-[1.4] text-slate-400">
+      <p className="text-center text-[0.58rem] leading-[1.4] text-slate-600">
         By submitting, you confirm you are at least 18 years old and agree to our <a href="/terms" className="underline hover:text-[var(--onestop-red)]">Terms</a> &amp; <a href="/privacy" className="underline hover:text-[var(--onestop-red)]">Privacy Policy</a>.
       </p>
 

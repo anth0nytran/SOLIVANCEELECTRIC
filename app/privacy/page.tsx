@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-const LAST_UPDATED = 'April 16, 2026';
+const LAST_UPDATED = 'September 18, 2026';
 
 export default function PrivacyPage() {
   return (
-    <main className="bg-white py-14 sm:py-20">
+    <div className="bg-white py-14 sm:py-20">
       <div className="mx-auto w-full max-w-3xl px-5 sm:px-8 lg:px-10">
         <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex items-center gap-2 text-xs font-[family-name:var(--font-app-mono)] uppercase tracking-[0.18em] text-slate-400">
+          <ol className="flex items-center gap-2 text-xs font-[family-name:var(--font-app-mono)] uppercase tracking-[0.18em] text-slate-600">
             <li><Link href="/" className="hover:text-[var(--onestop-navy-deep)] transition-colors">Home</Link></li>
             <li aria-hidden>/</li>
             <li className="text-[var(--onestop-navy-deep)]">Privacy Policy</li>
@@ -55,9 +55,11 @@ export default function PrivacyPage() {
           </ul>
           <p>
             We also collect limited technical information automatically — IP address,
-            browser type, referring URL, and basic analytics events — through server
-            logs and Google Analytics (if enabled). Analytics data is aggregated and
-            not used to identify individual visitors.
+            browser type, and referring URL — through standard server logs. If you
+            accept optional cookies, the Site also records aggregate page views,
+            page-load performance, and clicks on call, email, and quote buttons through
+            Vercel Web Analytics and Speed Insights. That data is aggregated and not used
+            to identify individual visitors.
           </p>
 
           <h2 className="text-xl font-bold text-[var(--onestop-navy-deep)] mt-10">2. How we use the information</h2>
@@ -94,19 +96,35 @@ export default function PrivacyPage() {
 
           <h2 className="text-xl font-bold text-[var(--onestop-navy-deep)] mt-10">4. How we store and protect information</h2>
           <p>
-            We store quote requests and contact information on secured servers and
-            in transactional email via our email provider (Resend). Access is limited
+            We store quote requests and contact information on secured servers, in
+            transactional email via our email provider (Resend), and in our customer
+            relationship management system (GoHighLevel), which we use to track and
+            follow up on quote requests. These providers process the data on our behalf
+            and may not use it for their own marketing. Access is limited
             to personnel who need it to respond to your request. We retain quote
             data for as long as reasonably necessary to deliver the service, maintain
             records, and comply with Texas contractor and tax requirements.
           </p>
 
-          <h2 className="text-xl font-bold text-[var(--onestop-navy-deep)] mt-10">5. Cookies and analytics</h2>
+          <h2 id="cookies" className="text-xl font-bold text-[var(--onestop-navy-deep)] mt-10 scroll-mt-32">5. Cookies and analytics</h2>
           <p>
-            The Site uses minimal cookies required for core functionality. If Google
-            Analytics is enabled, it sets cookies to measure aggregate traffic patterns.
-            You can disable cookies in your browser settings without breaking any
-            quote-request functionality on the Site.
+            When you first visit, the Site asks whether to allow optional cookies and
+            tracking. Nothing optional loads until you choose.
+          </p>
+          <ul className="list-disc pl-6 space-y-1.5">
+            <li><strong>Essential (always on):</strong> browser storage that remembers your cookie choice and lets the quote forms work. No advertising or cross-site tracking.</li>
+            <li><strong>Analytics (optional):</strong> Vercel Web Analytics and Speed Insights measure aggregate page views and load times. They do not use advertising cookies.</li>
+            <li><strong>Maps (optional):</strong> the Google Maps embed on the Contact page is provided by Google and may set Google cookies. It stays off until you load it or accept optional cookies.</li>
+          </ul>
+          <p>
+            You can change your choice any time with the <strong>Cookie Preferences</strong> link
+            in the footer of every page. The Site honors the Global Privacy Control (GPC)
+            browser signal as a request to decline optional cookies. You can also block
+            cookies in your browser settings without breaking the quote forms.
+          </p>
+          <p>
+            We do not sell personal information, and we do not share it for targeted
+            advertising.
           </p>
 
           <h2 className="text-xl font-bold text-[var(--onestop-navy-deep)] mt-10">6. Third-party links</h2>
@@ -143,7 +161,7 @@ export default function PrivacyPage() {
           <p>Questions about this policy or your information?</p>
           <ul className="list-none p-0 space-y-1">
             <li><strong>Solivance Electric LLC</strong></li>
-            <li>Houston, Texas</li>
+            <li>{siteConfig.address.full}</li>
             <li>Email: <a href={`mailto:${siteConfig.email}`} className="text-[var(--onestop-red)] underline">{siteConfig.email}</a></li>
             <li>Phone: <a href={`tel:${siteConfig.cleanPhone}`} className="text-[var(--onestop-red)] underline">{siteConfig.phone}</a></li>
           </ul>
@@ -158,6 +176,6 @@ export default function PrivacyPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

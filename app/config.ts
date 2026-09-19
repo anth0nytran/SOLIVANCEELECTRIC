@@ -3,6 +3,20 @@ export const siteConfig = {
   phone: '(832) 965-9964',
   cleanPhone: '+18329659964',
   email: 'service@solivanceelectric.com',
+  license: {
+    number: '41163',
+    label: 'TECL #41163',
+    type: 'Texas Electrical Contractor License',
+    issuer: 'Texas Department of Licensing and Regulation',
+    verifyUrl: 'https://www.tdlr.texas.gov/LicenseSearch/',
+  },
+  // TDLR consumer-protection notice shown in the footer
+  regulator: {
+    name: 'Texas Department of Licensing and Regulation',
+    address: 'P.O. Box 12157, Austin, Texas 78711',
+    phones: ['1-800-803-9202', '512-463-6599'],
+    url: 'https://www.tdlr.texas.gov',
+  },
   domain: 'https://solivanceelectric.com',
   address: {
     street: '13035 S Post Oak Rd Suite I',
@@ -61,7 +75,7 @@ export const siteConfig = {
   faqs: [
     { q: 'What areas does Solivance Electric serve?', a: 'The shop sits at 13035 S Post Oak Rd Suite I, Houston, TX 77045 — right in the middle of Southwest Houston. Daily service runs Southwest Houston (Westbury, Meyerland, Bellaire, West University, Braeswood, Sharpstown, Medical Center, Willowbend, Post Oak South, Stafford, Missouri City, Sugar Land), the Heights corridor (Houston Heights, Garden Oaks, Oak Forest, Timbergrove), and the Memorial Villages (Hunters Creek, Spring Valley, Bunker Hill, Piney Point, Hedwig). Greater Houston — Katy, Cypress, Memorial proper, Tomball, Spring — is covered on a call. Harris and Fort Bend County permits are what we pull day-in, day-out.' },
     { q: 'Do you handle commercial and industrial work?', a: 'Yes. Commercial and light-industrial is the core of what we do — panel upgrades from 200A through 3-phase switchgear, standby generator installs with automatic transfer switch commissioning, parking-lot LED retrofits to photometric spec, Level 2 and DCFC EV charger builds, ground-up warehouse electrical, and RV park pedestal arrays. Office parks, retail pads, warehouses, and property-management portfolios are our usual clients.' },
-    { q: 'Are you licensed and insured in Texas?', a: 'Yes. Solivance Electric LLC is a licensed Texas electrical contractor with active liability insurance on every job. License and COI available on request before work begins.' },
+    { q: 'Are you licensed and insured in Texas?', a: 'Yes. Solivance Electric LLC holds Texas Electrical Contractor License TECL #41163, issued by the Texas Department of Licensing and Regulation, with active liability insurance on every job. License verification and COI available on request before work begins.' },
     { q: 'Do you offer 24-hour emergency electrical service?', a: 'Yes. Standard hours are 6am–6pm, six days a week. A licensed electrician answers after-hours for emergencies — lost power to a tenant suite, tripped main, burnt feeder, smoke from a panel. Call (832) 965-9964 any hour.' },
     { q: 'How do you quote a commercial panel upgrade?', a: 'Every job is a fixed-fee quote after a free site walk — no ballpark over the phone. The scope is driven by the service size and gear (a 200A single-phase swap versus a 400A or 3-phase upgrade), meter location, feeder length, and how much of the CenterPoint cut-over is ours. You get one written number before any material is ordered.' },
     { q: 'How long does a standby generator install take?', a: 'Most commercial standby installs take 2–5 working days on site: concrete pad, generator set, fuel line, ATS wiring, commissioning, and final inspection. Permit pull and equipment lead time sit ahead of that.' },
