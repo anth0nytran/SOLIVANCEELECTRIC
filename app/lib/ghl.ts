@@ -56,6 +56,66 @@ const toE164 = (phone?: string): string | undefined => {
   return `+${digits}`;
 };
 
+// Solivance location custom field IDs. The internal SMS alert reads these
+// ({{contact.service_needed}}, {{contact.project_address}}, ...), so the note
+// alone isn't enough — without them the alert comes through blank.
+const FIELD_IDS = {
+  serviceNeeded: 'Bqm6oHVz8myNq5uXyn43',
+  projectAddress: 'AmuRw3NqxKpl2J4ri2JL',
+  zipCode: '4I6XGl22zlzOU5sgiE4i',
+  message: 'XlZbSoBMpPd89AEYmAmE',
+  appointmentRequest: 'kba8DFcovh8wycuh5F66',
+  urgency: '1EQlm2J8qp7jALT2yHWj',
+  leadSource: 'MmMEKATsFF8LbqTsNJGG',
+  formType: 'EoalxjgavysuRSe8HTxa',
+  smsConsent: 'pORpro8NYWXiZRYxpYoA',
+  smsConsentSource: 'zDEftj3GYVkPHBxoJmBE',
+} as const;
+
+// Website service labels -> the CRM's "Service Needed" dropdown options.
+const SERVICE_MAP: Record<string, string> = {
+  'Panel Upgrades': 'Panel Upgrade / Replacement',
+  'Generator Installs': 'Generator Installation',
+  'Parking Lot Lighting': 'Lighting (LED / Parking Lot / Soffit)',
+  'Soffit Lighting': 'Lighting (LED / Parking Lot / Soffit)',
+  'EV Chargers': 'EV Charger Installation',
+  'New Commercial Warehouses': 'New Construction / Build-Out',
+  'New Home Builds (Single & Multi-Family)': 'New Construction / Build-Out',
+  'New Commercial & Shopping Centers': 'New Construction / Build-Out',
+  'RV Park Pedestals': 'RV Park / Mobile Home Hookup',
+  'Mobile Home Connections': 'RV Park / Mobile Home Hookup',
+};
+
+// "2026-10-13" + "Morning (8am–12pm)" -> "Tue, Oct 13 - Morning (8am–12pm)"
+const formatAppointment = (date?: string, window?: string): string => {
+  let day = date || '';
+  if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    day = new Date(`${date}T12:00:00Z`).toLocaleDateString('en-US', {
+      timeZone: 'UTC',
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    });
+  }
+  return [day, window].filter(Boolean).join(' - ');
+};
+
+const buildCustomFields = (lead: GhlLead) =>
+  [
+    { id: FIELD_IDS.serviceNeeded, value: lead.service ? SERVICE_MAP[lead.service] || 'Other' : '' },
+    { id: FIELD_IDS.projectAddress, value: lead.address },
+    { id: FIELD_IDS.zipCode, value: lead.zipCode },
+    { id: FIELD_IDS.message, value: lead.message },
+    { id: FIELD_IDS.appointmentRequest, value: formatAppointment(lead.preferredDate, lead.timeline) },
+    { id: FIELD_IDS.urgency, value: lead.urgency },
+    { id: FIELD_IDS.leadSource, value: 'Website Form' },
+    { id: FIELD_IDS.formType, value: 'Website Estimate Form' },
+    { id: FIELD_IDS.smsConsent, value: lead.smsOptIn ? 'Yes' : 'No' },
+    { id: FIELD_IDS.smsConsentSource, value: lead.page },
+  ]
+    .filter((f) => f.value)
+    .map((f) => ({ id: f.id, field_value: f.value }));
+
 const buildNote = (lead: GhlLead): string =>
   [
     'New website form submission',
@@ -116,6 +176,7 @@ export async function pushLeadToGHL(lead: GhlLead): Promise<GhlResult> {
   if (lead.address) contactBody.address1 = lead.address;
   if (lead.zipCode) contactBody.postalCode = lead.zipCode;
   if (lead.company) contactBody.companyName = lead.company;
+  contactBody.customFields = buildCustomFields(lead);
 
   // Upsert dedupes on email/phone so repeat requests update the same contact
   // rather than creating duplicates.
