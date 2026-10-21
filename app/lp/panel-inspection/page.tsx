@@ -5,9 +5,9 @@ import { Poppins } from 'next/font/google';
 import { Phone, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
-import { PanelLeadForm } from './PanelLeadForm';
-import { CallLink } from './CallLink';
-import { GoogleG, GoogleRatingCard, Stars, TrustBadges } from './Badges';
+import { PanelLeadForm } from '../_panel/PanelLeadForm';
+import { CallLink } from '../_panel/CallLink';
+import { GoogleG, GoogleRatingCard, Stars, TrustBadges } from '../_panel/Badges';
 
 export const metadata: Metadata = {
   title: 'Electrical Panel Replacement in Houston',

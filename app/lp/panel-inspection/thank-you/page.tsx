@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ConversionClaim } from './ConversionClaim';
 import { siteConfig } from '../../../config';
-import { CallLink } from '../CallLink';
+import { CallLink } from '../../_panel/CallLink';
 
 export const metadata: Metadata = {
   title: 'Request received',
