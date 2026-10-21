@@ -115,7 +115,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
     <div id={id} className="scroll-mt-4 rounded-md border border-[#D5DAE0] bg-white p-5 shadow-[0_20px_50px_-24px_rgba(14,34,64,0.35)] sm:p-7">
       <div className="mb-5">
         <div className="flex items-baseline justify-between text-sm text-[#5A6B7F]">
-          <span className="font-semibold text-[#0E2240]">Panel safety inspection</span>
+          <span className="font-semibold text-[#0E2240]">No-cost panel inspection</span>
           <span>Step {step + 1} of 3</span>
         </div>
         <div className="mt-2.5 h-1 w-full rounded-full bg-[#E3E6EA]">

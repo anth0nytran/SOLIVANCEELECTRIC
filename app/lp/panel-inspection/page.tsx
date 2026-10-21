@@ -10,6 +10,7 @@ import {
   Home,
   MapPin,
   Phone,
+  PlugZap,
   SearchCheck,
   ShieldCheck,
   Star,
@@ -23,9 +24,9 @@ import { CallLink } from './CallLink';
 import { InspectedTag } from './InspectedTag';
 
 export const metadata: Metadata = {
-  title: 'Electrical Panel Safety Inspection in Houston',
+  title: 'Electrical Panel Replacement in Houston',
   description:
-    'Is your breaker box safe? A licensed Houston electrician inspects your panel at no cost and gives you a straight answer. Permit pulled on every panel job.',
+    'Licensed Houston electrical panel replacement. Start with a no-cost inspection. Permit pulled and city-inspected on every panel job.',
   alternates: { canonical: '/lp/panel-inspection' },
 };
 
@@ -75,7 +76,18 @@ const PERMIT_POINTS: { icon: LucideIcon; text: string }[] = [
   { icon: Home, text: 'A clean record when you sell or file an insurance claim' },
 ];
 
+const REPLACEMENT: { icon: LucideIcon; title: string; detail: string }[] = [
+  { icon: FileText, title: 'Written quote', detail: 'Itemized and in writing before any work starts.' },
+  { icon: FileCheck2, title: 'Permit pulled', detail: 'Filed with the city on every panel job.' },
+  { icon: PlugZap, title: 'Utility coordinated', detail: 'We schedule the power shut-off and reconnect.' },
+  { icon: BadgeCheck, title: 'City-inspected', detail: 'An inspector signs off and tags your new panel.' },
+];
+
 const FAQS = [
+  {
+    q: 'How much does a panel replacement cost?',
+    a: 'It depends on your panel, your home and what you run on it. After the no-cost inspection you get an itemized written quote, so you know the exact number before deciding.',
+  },
   { q: 'What does the inspection cost?', a: 'Nothing. There is no charge and no obligation. If your panel is fine, we will tell you that.' },
   { q: 'Should I open my panel to look?', a: 'Please don’t. Tell us what you have noticed and our licensed electrician will handle the hands-on part.' },
   {
@@ -128,11 +140,10 @@ export default function PanelInspectionPage() {
         <div className={`${wrap} relative grid gap-10 pb-14 pt-10 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-16 lg:pb-20`}>
           <div>
             <h1 className="max-w-[18ch] font-[family-name:var(--font-app-display)] text-[2.25rem] font-bold leading-[1.04] tracking-[-0.025em] sm:text-[3.6rem]">
-              Is your breaker box safe?
+              Electrical panel replacement in Houston
             </h1>
             <p className="mt-5 max-w-[34rem] text-[1.15rem] leading-[1.6] text-[#3D4F66] sm:text-[1.3rem]">
-              A licensed Houston electrician will inspect your panel at no cost and tell you straight. You get a written quote only if it
-              actually needs work.
+              Start with a no-cost inspection. If your panel needs replacing, we handle the quote, the permit and the city inspection.
             </p>
             <div className="mt-6 flex items-center gap-3 text-[0.95rem] text-[#3D4F66]">
               <Stars />
@@ -242,17 +253,26 @@ export default function PanelInspectionPage() {
         </div>
       </section>
 
-      {/* Positioning */}
+      {/* Replacement: what the homeowner actually buys */}
       <section className="relative isolate overflow-hidden bg-[#0E2240] text-white">
         <PhotoBackdrop src="/photos_new/panel-upgrades.jpg" />
-        <div className={`${wrap} ${section} max-w-4xl text-center`}>
-          <p className="font-[family-name:var(--font-app-display)] text-[1.85rem] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[2.6rem]">
-            We&apos;re not the cheapest electrician in Houston.
+        <div className={`${wrap} ${section}`}>
+          <h2 className={`${h2} max-w-[22ch]`}>If your panel needs replacing, we handle all of it</h2>
+          <p className="mt-5 max-w-2xl text-[1.0625rem] leading-[1.7] text-white/75 sm:text-lg">
+            One licensed crew from quote to green tag. You don&apos;t call the city or the utility. We do.
           </p>
-          <p className="mx-auto mt-5 max-w-2xl text-[1.0625rem] leading-[1.7] text-white/75 sm:text-lg">
-            We&apos;re licensed, we pull a permit on every panel job, and the city inspects our work. Done right once, so you never have to
-            wonder about your panel again.
-          </p>
+          <ul className="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
+            {REPLACEMENT.map(({ icon, title, detail }) => (
+              <li key={title} className="flex items-start gap-3.5">
+                <IconChip icon={icon} dark />
+                <div>
+                  <p className="font-semibold leading-snug">{title}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-white/70">{detail}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <a href="#form" className={`${ctaClass} mt-10`}>Schedule my inspection</a>
         </div>
       </section>
 
