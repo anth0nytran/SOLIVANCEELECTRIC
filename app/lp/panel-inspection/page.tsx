@@ -41,8 +41,14 @@ const lede = 'text-[1.0625rem] leading-[1.65] text-[#3D4F66] sm:text-lg';
 // Faint blueprint grid — the drafting paper electrical plans are drawn on.
 const blueprint =
   'bg-[linear-gradient(rgba(14,34,64,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(14,34,64,0.045)_1px,transparent_1px)] bg-[size:28px_28px]';
-const blueprintDark =
-  'bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:28px_28px]';
+
+// Site photo behind a deep navy wash: atmosphere only, text stays the focus.
+const PhotoBackdrop = ({ src, position = '50% 50%' }: { src: string; position?: string }) => (
+  <>
+    <Image src={src} alt="" fill sizes="100vw" className="-z-20 object-cover" style={{ objectPosition: position }} aria-hidden />
+    <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(14,34,64,0.84),rgba(14,34,64,0.70)_50%,rgba(14,34,64,0.88))]" aria-hidden />
+  </>
+);
 
 const review = (id: string) => reviews.find((r) => r.id === id)!;
 const FIRE_REVIEW = review('yeny-v');
@@ -237,7 +243,8 @@ export default function PanelInspectionPage() {
       </section>
 
       {/* Positioning */}
-      <section className={`bg-[#0E2240] text-white ${blueprintDark}`}>
+      <section className="relative isolate overflow-hidden bg-[#0E2240] text-white">
+        <PhotoBackdrop src="/photos_new/panel-upgrades.jpg" />
         <div className={`${wrap} ${section} max-w-4xl text-center`}>
           <p className="font-[family-name:var(--font-app-display)] text-[1.85rem] font-bold leading-[1.15] tracking-[-0.02em] sm:text-[2.6rem]">
             We&apos;re not the cheapest electrician in Houston.
@@ -296,7 +303,8 @@ export default function PanelInspectionPage() {
       </section>
 
       {/* Last call to action */}
-      <section className={`bg-[#0E2240] text-white ${blueprintDark}`}>
+      <section className="relative isolate overflow-hidden bg-[#0E2240] text-white">
+        <PhotoBackdrop src="/photos_new/houston.jpg" position="50% 60%" />
         <div className={`${wrap} ${section} text-center`}>
           <h2 className={`${h2} mx-auto max-w-[20ch]`}>Find out if your panel is safe</h2>
           <p className="mx-auto mt-4 max-w-md text-[1.0625rem] leading-relaxed text-white/75">It takes about a minute. We&apos;ll call you to set a time.</p>
