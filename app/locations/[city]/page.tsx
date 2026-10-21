@@ -26,6 +26,7 @@ import { serviceContent, type ServiceIcon } from '../../services/serviceContent'
 import { locationContent, getLocationContent } from '../locationContent';
 import { reviews } from '../../reviews';
 import { Stars } from '../../components/Stars';
+import { CarePlanCard } from '../../components/CarePlanUpsell';
 
 const cityReviewMap: Record<string, string> = {
   houston: 'yeny-v',
@@ -396,6 +397,8 @@ export default async function LocationDetailPage({
                   Licensed electrician &middot; 24/7
                 </div>
               </a>
+
+              <CarePlanCard />
             </aside>
           </div>
         </div>

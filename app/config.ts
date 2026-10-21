@@ -337,6 +337,7 @@ export const navLinks: NavLink[] = [
       ctaHref: '/locations',
     },
   },
+  { label: 'Care Plans', href: '/care-plans' },
   { label: 'About',   href: '/about' },
   { label: 'FAQ',     href: '/faq' },
   { label: 'Blog',    href: '/blog' },

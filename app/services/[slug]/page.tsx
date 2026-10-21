@@ -23,6 +23,7 @@ import { siteConfig, serviceData } from '../../config';
 import { serviceContent, getServiceContent, type ServiceIcon } from '../serviceContent';
 import { reviews } from '../../reviews';
 import { Stars } from '../../components/Stars';
+import { CarePlanCard } from '../../components/CarePlanUpsell';
 
 const reviewSlugMap: Record<string, string> = {
   'panel-upgrades': 'tonya-n',
@@ -424,6 +425,8 @@ export default async function ServiceDetailPage({
                   Licensed electrician answers &middot; 24/7
                 </div>
               </a>
+
+              <CarePlanCard />
             </aside>
           </div>
         </div>

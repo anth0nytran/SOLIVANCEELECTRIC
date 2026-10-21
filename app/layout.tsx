@@ -3,6 +3,7 @@ import { Geist, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { MobileCTA } from "./components/MobileCTA";
+import { SiteCarePlanBand } from "./components/CarePlanUpsell";
 import { IntroVideo } from "./components/IntroVideo";
 import { CookieConsent } from "./components/CookieConsent";
 import { reviews, reviewStats } from "./reviews";
@@ -272,6 +273,7 @@ export default function RootLayout({
           <main id="main-content" tabIndex={-1} className="outline-none">
             {children}
           </main>
+          <SiteCarePlanBand />
           <Footer />
           <MobileCTA />
         </div>

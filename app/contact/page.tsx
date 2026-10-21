@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { siteConfig } from '../config';
 import ContactPageClient from './ContactPageClient';
+import { carePlanService, getCarePlan } from '../carePlans';
 
 export const metadata: Metadata = {
   title: 'Contact Solivance Electric — Southwest Houston · Heights · Bellaire · Memorial Villages',
@@ -64,7 +65,8 @@ const faqJsonLd = {
   })),
 };
 
-export default function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ plan?: string }> }) {
+  const plan = getCarePlan((await searchParams).plan);
   return (
     <>
       <script
@@ -75,7 +77,7 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <ContactPageClient faqs={contactFaqs} />
+      <ContactPageClient faqs={contactFaqs} initialService={plan ? carePlanService(plan) : undefined} />
     </>
   );
 }
