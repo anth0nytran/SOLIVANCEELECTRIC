@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'], display: 'swap' });
 
 const wrap = 'mx-auto w-full max-w-6xl px-5 sm:px-8';
-const section = 'py-16 sm:py-28';
+const section = 'py-16 sm:py-20';
 const h2 = 'text-[2rem] font-bold leading-[1.08] tracking-[-0.025em] sm:text-[3.1rem]';
 const label = 'text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#E8590C]';
 const ink = 'bg-[#0A1322]';
@@ -32,6 +32,16 @@ const ink = 'bg-[#0A1322]';
 const callout = 'text-[#FF7A2F]';
 const cta =
   'inline-flex items-center justify-center rounded-lg bg-[#E8590C] px-9 py-4 text-[1.05rem] font-semibold text-white transition-colors hover:bg-[#CF4E0A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
+
+// Acquisition-style stat row. Every figure comes from siteConfig.
+const STATS = [
+  { value: siteConfig.rating.toFixed(1), label: 'Google rating' },
+  { value: String(siteConfig.reviewCount), label: 'Five-star reviews' },
+  { value: `${siteConfig.yearsInBusiness} yrs`, label: 'In business' },
+  { value: '24/7', label: 'Emergency line' },
+];
+
+const AREAS = ['Westbury', 'Meyerland', 'Bellaire', 'West University', 'Medical Center', 'The Heights', 'Garden Oaks', 'Memorial Villages', 'Stafford', 'Missouri City', 'Sugar Land'];
 
 const SIGNS = [
   'Breakers trip when the AC and dryer run at the same time.',
@@ -144,16 +154,19 @@ export default function PanelInspectionPage() {
             <PanelLeadForm />
           </div>
 
-          <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
-            <div className="flex items-center gap-2.5">
-              <Stars />
-              <span className="text-[0.95rem] font-semibold">5.0 Google rating</span>
-            </div>
-            <p className="text-sm text-white/55">
-              {siteConfig.reviewCount} homeowner reviews · Licensed Texas electrical contractor
-            </p>
-          </div>
         </div>
+      </section>
+
+      {/* Stats */}
+      <section className="border-b border-[#E6E8EC] bg-white">
+        <ul className={`${wrap} grid grid-cols-2 gap-y-8 py-10 sm:py-12 lg:grid-cols-4`}>
+          {STATS.map(({ value, label: l }) => (
+            <li key={l} className="border-l-[3px] border-[#E8590C] pl-4 sm:pl-5">
+              <p className="text-[2.1rem] font-bold leading-none tracking-[-0.03em] sm:text-[2.75rem]">{value}</p>
+              <p className="mt-2 text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-[#718096]">{l}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* The problem */}
@@ -204,6 +217,15 @@ export default function PanelInspectionPage() {
               className="mt-9 aspect-[5/4] w-full rounded-xl object-cover object-[50%_45%]"
               sizes="(min-width:1024px) 520px, 100vw"
             />
+            <div className="mt-4 flex flex-col gap-4 rounded-xl bg-[#0A1322] p-6 text-white sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-semibold">Rather talk it through?</p>
+                <p className="mt-1 text-sm text-white/60">Mon–Sat, 6am–6pm. Emergencies any hour.</p>
+              </div>
+              <CallLink location="process" className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-[#0A1322] hover:bg-white/90">
+                <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
+              </CallLink>
+            </div>
           </div>
 
           <ol className="space-y-4">
@@ -284,11 +306,34 @@ export default function PanelInspectionPage() {
         </div>
       </section>
 
+      {/* Where we work */}
+      <section className="border-y border-[#E6E8EC] bg-white">
+        <div className={`${wrap} flex flex-col gap-5 py-10 lg:flex-row lg:items-center lg:gap-12`}>
+          <div className="shrink-0">
+            <p className="text-[1.25rem] font-bold tracking-[-0.02em]">Panel jobs across Houston</p>
+            <p className="mt-1 text-sm text-[#718096]">From our shop on S Post Oak Rd</p>
+          </div>
+          <ul className="flex flex-wrap gap-2">
+            {AREAS.map((a) => (
+              <li key={a} className="rounded-full border border-[#D9DDE3] px-3.5 py-1.5 text-sm font-medium text-[#2D3748]">
+                {a}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Questions */}
       <section className={`bg-[#F7F6F3] ${section}`}>
-        <div className="mx-auto w-full max-w-3xl px-5 sm:px-8">
-          <h2 className={`text-center ${h2}`}>Questions homeowners ask before they call</h2>
-          <div className="mt-12 space-y-3">
+        <div className={`${wrap} grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16`}>
+          <div className="lg:sticky lg:top-10 lg:self-start">
+            <h2 className={h2}>Questions homeowners ask before they call</h2>
+            <p className="mt-5 text-[1.05rem] leading-[1.65] text-[#4A5568]">Don&apos;t see yours? Give us a call.</p>
+            <CallLink location="faq" className="mt-6 inline-flex items-center gap-2 text-[1.1rem] font-semibold text-[#E8590C] hover:underline">
+              <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
+            </CallLink>
+          </div>
+          <div className="space-y-3">
             {FAQS.map((f) => (
               <details key={f.q} className="group rounded-xl bg-white px-6 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-[1.02rem] font-semibold">
@@ -305,8 +350,10 @@ export default function PanelInspectionPage() {
       </section>
 
       {/* Close */}
-      <section className={`${ink} text-white`}>
-        <div className={`${wrap} ${section} text-center`}>
+      <section className={`relative isolate overflow-hidden ${ink} text-white`}>
+        <Image src="/photos_new/houston.jpg" alt="" fill sizes="100vw" className="-z-20 object-cover object-[50%_60%]" aria-hidden />
+        <div className="absolute inset-0 -z-10 bg-[#0A1322]/85" aria-hidden />
+        <div className={`${wrap} py-20 text-center sm:py-28`}>
           <h2 className={`${h2} mx-auto max-w-[20ch]`}>Ready to find out if your panel is safe?</h2>
           <p className="mx-auto mt-5 max-w-md text-[1.05rem] leading-relaxed text-white/70">
             It takes about a minute. We&apos;ll call you to set a time.
