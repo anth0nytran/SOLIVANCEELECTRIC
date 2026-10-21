@@ -5,6 +5,7 @@ import { Footer } from "./components/Footer";
 import { MobileCTA } from "./components/MobileCTA";
 import { IntroVideo } from "./components/IntroVideo";
 import { CookieConsent } from "./components/CookieConsent";
+import { ChromeGate } from "./components/ChromeGate";
 import { reviews, reviewStats } from "./reviews";
 import "./globals.css";
 
@@ -266,16 +267,20 @@ export default function RootLayout({
       <body
         className={`${bodyFont.variable} ${displayFont.variable} ${monoFont.variable} antialiased`}
       >
-        <IntroVideo />
+        <ChromeGate><IntroVideo /></ChromeGate>
         <div className="onestop-site min-h-screen bg-white text-slate-900 selection:bg-[var(--onestop-navy)] selection:text-white">
-          <Header />
+          <ChromeGate><Header /></ChromeGate>
           <main id="main-content" tabIndex={-1} className="outline-none">
             {children}
           </main>
-          <Footer />
-          <MobileCTA />
+          <ChromeGate>
+            <Footer />
+            <MobileCTA />
+          </ChromeGate>
         </div>
-        <CookieConsent />
+        {/* Ad landing pages skip the banner (it covers the form on phones); they
+            still honor a stored "Essential only" choice and GPC via Consent Mode. */}
+        <ChromeGate><CookieConsent /></ChromeGate>
       </body>
     </html>
   );

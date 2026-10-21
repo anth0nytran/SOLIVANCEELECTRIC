@@ -40,13 +40,13 @@ export type GhlResult =
   | { ok: true; skipped: false; contactId: string; noteCreated: boolean }
   | { ok: false; error: string };
 
-const splitName = (full: string): { firstName: string; lastName: string } => {
+export const splitName = (full: string): { firstName: string; lastName: string } => {
   const parts = full.trim().split(/\s+/);
   if (parts.length <= 1) return { firstName: parts[0] || '', lastName: '' };
   return { firstName: parts[0], lastName: parts.slice(1).join(' ') };
 };
 
-const toE164 = (phone?: string): string | undefined => {
+export const toE164 = (phone?: string): string | undefined => {
   if (!phone) return undefined;
   if (phone.trim().startsWith('+')) return phone.replace(/[^\d+]/g, '');
   const digits = phone.replace(/\D/g, '');
