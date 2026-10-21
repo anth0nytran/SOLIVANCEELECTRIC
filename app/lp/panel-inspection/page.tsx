@@ -2,12 +2,11 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { Poppins } from 'next/font/google';
-import { Phone, Star } from 'lucide-react';
+import { Check, Phone, ShieldCheck, Star } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from './PanelLeadForm';
 import { CallLink } from './CallLink';
-import { InspectedTag } from './InspectedTag';
 
 export const metadata: Metadata = {
   title: 'Electrical Panel Replacement in Houston',
@@ -39,6 +38,15 @@ const STATS = [
   { value: String(siteConfig.reviewCount), label: 'Five-star reviews' },
   { value: `${siteConfig.yearsInBusiness} yrs`, label: 'In business' },
   { value: '24/7', label: 'Emergency line' },
+];
+
+const CREDENTIALS = [
+  { term: 'License', value: `${siteConfig.license.label}, Electrical Contractor` },
+  { term: 'Issued by', value: 'Texas Dept. of Licensing and Regulation' },
+  { term: 'Insurance', value: 'Liability coverage on every job' },
+  { term: 'Permits', value: 'Pulled on every panel job' },
+  { term: 'Inspection', value: 'City sign-off before we close the job' },
+  { term: 'Shop', value: siteConfig.address.full },
 ];
 
 const AREAS = ['Westbury', 'Meyerland', 'Bellaire', 'West University', 'Medical Center', 'The Heights', 'Garden Oaks', 'Memorial Villages', 'Stafford', 'Missouri City', 'Sugar Land'];
@@ -93,39 +101,34 @@ export default function PanelInspectionPage() {
 
   return (
     <div className={`${poppins.className} bg-white pb-20 text-[#0A1322] sm:pb-0`} style={fontVars}>
-      {/* Top bar */}
-      <div className="bg-black text-white">
-        <div className={`${wrap} flex h-10 items-center justify-center gap-6 text-[0.7rem] font-medium uppercase tracking-[0.14em] sm:justify-between`}>
-          <p className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#FF8B3D]" aria-hidden />
-            Permit pulled on every panel job
-            <span className="hidden text-white/50 md:inline">· Texas license {siteConfig.license.number}</span>
-          </p>
-          <CallLink location="header" className="hidden items-center gap-2 tracking-normal hover:text-[#FFC061] sm:flex">
-            <Phone className="h-3.5 w-3.5" aria-hidden /> <span className="text-[0.85rem] normal-case">{siteConfig.phone}</span>
-          </CallLink>
+      {/* Company header: who we are and how to verify it, before anything else. */}
+      <header className="border-b border-[#E6E8EC] bg-white">
+        <div className={`${wrap} flex h-[68px] items-center justify-between gap-4`}>
+          {/* The logo file has wide transparent margins; crop them in a fixed-height box. */}
+          <div className="flex h-12 items-center overflow-hidden">
+            <Image src="/logo/logo_horzontial.PNG" alt="Solivance Electric LLC" width={6144} height={4096} priority className="h-[104px] w-auto max-w-none" sizes="170px" />
+          </div>
+          <div className="flex items-center gap-6">
+            <div className="hidden items-center gap-2.5 border-r border-[#E6E8EC] pr-6 md:flex">
+              <ShieldCheck className="h-5 w-5 text-[#1F7A4D]" strokeWidth={2} aria-hidden />
+              <div className="leading-tight">
+                <p className="text-[0.82rem] font-semibold">Licensed &amp; insured</p>
+                <p className="text-[0.75rem] text-[#718096]">{siteConfig.license.label}</p>
+              </div>
+            </div>
+            <CallLink location="header" className="flex items-center gap-2 rounded-lg bg-[#0A1322] px-4 py-2.5 text-[0.9rem] font-semibold text-white hover:bg-[#1B2A42]">
+              <Phone className="h-4 w-4" aria-hidden />
+              <span className="hidden sm:inline">{siteConfig.phone}</span>
+              <span className="sm:hidden">Call</span>
+            </CallLink>
+          </div>
         </div>
-      </div>
+      </header>
 
       {/* Hero */}
       <section className={`${ink} text-white`}>
         <div className={`${wrap} pb-14 pt-8 sm:pb-20 sm:pt-10`}>
-          {/* Full-color logo on a white plate: the mark loses its shape if inverted. */}
-          <div className="flex justify-center">
-            <div className="flex h-12 items-center overflow-hidden rounded-lg bg-white px-3">
-              <Image
-                src="/logo/logo_horzontial.PNG"
-                alt="Solivance Electric LLC"
-                width={6144}
-                height={4096}
-                priority
-                className="h-[100px] w-auto max-w-none"
-                sizes="160px"
-              />
-            </div>
-          </div>
-
-          <h1 className="mt-6 text-center">
+          <h1 className="pt-4 text-center sm:pt-6">
             <span className={`block text-[2.6rem] font-extrabold leading-[1] tracking-[-0.035em] sm:text-[4.6rem] ${callout}`}>
               Houston Homeowners:
             </span>
@@ -242,7 +245,7 @@ export default function PanelInspectionPage() {
 
       {/* One statement */}
       <section className={`relative isolate overflow-hidden ${ink} text-white`}>
-        <div className={`${wrap} ${section} grid items-center gap-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-20`}>
+        <div className={`${wrap} ${section} grid items-center gap-12 lg:grid-cols-2 lg:gap-16`}>
           <div>
             <h2 className={`${h2} max-w-[16ch]`}>
               We pull the permit on <span className={callout}>every</span> panel job.
@@ -254,16 +257,29 @@ export default function PanelInspectionPage() {
               Schedule my inspection
             </a>
           </div>
-          <div className="relative mx-auto w-full max-w-[380px]">
-            <Image
-              src="/lp/panel-new-meter.jpg"
-              alt="A new panel and meter with the city inspection tag"
-              width={1600}
-              height={2133}
-              className="aspect-square w-full rounded-xl object-cover object-[50%_88%]"
-              sizes="380px"
-            />
-            <InspectedTag className="absolute -left-1 -top-8 origin-top-left scale-[0.8] sm:-left-12 sm:scale-100" />
+          {/* Credentials sheet: plain facts a homeowner can check. */}
+          <div className="rounded-xl bg-white p-7 text-[#0A1322] sm:p-8">
+            <div className="flex items-center gap-3 border-b border-[#E6E8EC] pb-5">
+              <ShieldCheck className="h-7 w-7 text-[#1F7A4D]" strokeWidth={2} aria-hidden />
+              <div>
+                <p className="font-semibold leading-tight">Solivance Electric LLC</p>
+                <p className="text-sm text-[#718096]">Company credentials</p>
+              </div>
+            </div>
+            <dl className="divide-y divide-[#EEF0F3] text-[0.92rem]">
+              {CREDENTIALS.map(({ term, value }) => (
+                <div key={term} className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 py-3.5 sm:grid-cols-[7.5rem_minmax(0,1fr)]">
+                  <dt className="text-[#718096]">{term}</dt>
+                  <dd className="flex items-start gap-2 font-medium">
+                    <Check className="mt-[3px] h-4 w-4 shrink-0 text-[#1F7A4D]" strokeWidth={2.5} aria-hidden />
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4 border-t border-[#E6E8EC] pt-4 text-[0.8rem] leading-relaxed text-[#718096]">
+              Look up license {siteConfig.license.number} on the {siteConfig.license.issuer} license search.
+            </p>
           </div>
         </div>
       </section>
