@@ -1,23 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import {
-  BadgeCheck,
-  ClipboardCheck,
-  FileCheck2,
-  FileText,
-  Flame,
-  Gauge,
-  Home,
-  MapPin,
-  Phone,
-  PlugZap,
-  SearchCheck,
-  ShieldCheck,
-  Star,
-} from 'lucide-react';
+import { BadgeCheck, Phone, Star } from 'lucide-react';
 import { siteConfig } from '../../config';
-
-type LucideIcon = typeof Flame;
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from './PanelLeadForm';
 import { CallLink } from './CallLink';
@@ -39,9 +23,6 @@ const wrap = 'mx-auto w-full max-w-6xl px-5 sm:px-8';
 const section = 'py-16 sm:py-24';
 const h2 = 'font-[family-name:var(--font-app-display)] text-[1.85rem] font-bold leading-[1.1] tracking-[-0.02em] sm:text-[2.6rem]';
 const lede = 'text-[1.0625rem] leading-[1.65] text-[#3D4F66] sm:text-lg';
-// Faint blueprint grid — the drafting paper electrical plans are drawn on.
-const blueprint =
-  'bg-[linear-gradient(rgba(14,34,64,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(14,34,64,0.045)_1px,transparent_1px)] bg-[size:28px_28px]';
 
 // Site photo behind a deep navy wash: atmosphere only, text stays the focus.
 const PhotoBackdrop = ({ src, position = '50% 50%' }: { src: string; position?: string }) => (
@@ -55,32 +36,33 @@ const review = (id: string) => reviews.find((r) => r.id === id)!;
 const FIRE_REVIEW = review('yeny-v');
 const PANEL_REVIEW = review('tonya-n');
 
-const TRUST: { icon: LucideIcon; title: string; detail: string }[] = [
-  { icon: ShieldCheck, title: `License ${siteConfig.license.number}`, detail: 'Texas Electrical Contractor' },
-  { icon: FileCheck2, title: 'Permit on every job', detail: 'City-inspected panel work' },
-  { icon: Star, title: '5.0 on Google', detail: `${siteConfig.reviewCount} homeowner reviews` },
-  { icon: MapPin, title: 'Local Houston shop', detail: siteConfig.address.street },
+const TRUST = [
+  { title: `License ${siteConfig.license.number}`, detail: 'Texas Electrical Contractor' },
+  { title: 'Permit on every job', detail: 'City-inspected panel work' },
+  { title: '5.0 on Google', detail: `${siteConfig.reviewCount} homeowner reviews` },
+  { title: 'Local Houston shop', detail: siteConfig.address.street },
 ];
 
-const COVERS: { icon: LucideIcon; title: string; detail: string }[] = [
-  { icon: Flame, title: 'Heat and wear', detail: 'Breakers, wire connections and the main checked for heat damage.' },
-  { icon: SearchCheck, title: 'Brand check', detail: 'We look for panels with known problems, like Federal Pacific and Zinsco.' },
-  { icon: Gauge, title: 'Capacity', detail: 'Can it handle your AC, appliances, and anything you plan to add?' },
-  { icon: ClipboardCheck, title: 'A straight answer', detail: 'Safe as is, needs a repair, or needs replacing. No pressure.' },
-  { icon: FileText, title: 'Written quote', detail: 'Itemized, in writing, and only if you actually need work.' },
+const COVERS = [
+  { title: 'Heat and wear', detail: 'Breakers, wire connections and the main checked for heat damage.' },
+  { title: 'Brand check', detail: 'We look for panels with known problems, like Federal Pacific and Zinsco.' },
+  { title: 'Capacity', detail: 'Can it handle your AC, appliances, and anything you plan to add?' },
+  { title: 'A straight answer', detail: 'Safe as is, needs a repair, or needs replacing. No pressure.' },
+  { title: 'Written quote', detail: 'Itemized, in writing, and only if you actually need work.' },
 ];
 
-const PERMIT_POINTS: { icon: LucideIcon; text: string }[] = [
-  { icon: BadgeCheck, text: 'A city inspector checks the work after we finish' },
-  { icon: FileCheck2, text: 'The green tag on your panel proves it passed' },
-  { icon: Home, text: 'A clean record when you sell or file an insurance claim' },
+const PERMIT_POINTS = [
+  'A city inspector checks the work after we finish',
+  'The green tag on your panel proves it passed',
+  'A clean record when you sell or file an insurance claim',
 ];
 
-const REPLACEMENT: { icon: LucideIcon; title: string; detail: string }[] = [
-  { icon: FileText, title: 'Written quote', detail: 'Itemized and in writing before any work starts.' },
-  { icon: FileCheck2, title: 'Permit pulled', detail: 'Filed with the city on every panel job.' },
-  { icon: PlugZap, title: 'Utility coordinated', detail: 'We schedule the power shut-off and reconnect.' },
-  { icon: BadgeCheck, title: 'City-inspected', detail: 'An inspector signs off and tags your new panel.' },
+// A real sequence, so it is numbered.
+const REPLACEMENT = [
+  { title: 'Written quote', detail: 'Itemized and in writing before any work starts.' },
+  { title: 'Permit pulled', detail: 'Filed with the city on every panel job.' },
+  { title: 'Utility coordinated', detail: 'We schedule the power shut-off and reconnect.' },
+  { title: 'City-inspected', detail: 'An inspector signs off and tags your new panel.' },
 ];
 
 const FAQS = [
@@ -105,15 +87,6 @@ const Stars = ({ className = 'h-4 w-4' }: { className?: string }) => (
   </span>
 );
 
-const IconChip = ({ icon: Icon, dark = false }: { icon: LucideIcon; dark?: boolean }) => (
-  <span
-    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-md ${dark ? 'bg-white/10 text-white' : 'bg-[#E6EBF2] text-[#0E2240]'}`}
-    aria-hidden
-  >
-    <Icon className="h-5 w-5" strokeWidth={1.75} />
-  </span>
-);
-
 const ctaClass =
   'inline-flex w-full items-center justify-center rounded-md bg-[#F26B1F] px-8 py-4 text-[1.05rem] font-bold text-white transition-colors hover:bg-[#DD5E15] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto';
 
@@ -135,53 +108,53 @@ export default function PanelInspectionPage() {
       </header>
 
       {/* Hero */}
-      <section className={`relative ${blueprint}`}>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-white" aria-hidden />
-        <div className={`${wrap} relative grid gap-10 pb-14 pt-10 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-16 lg:pb-20`}>
-          <div>
-            <h1 className="max-w-[18ch] font-[family-name:var(--font-app-display)] text-[2.25rem] font-bold leading-[1.04] tracking-[-0.025em] sm:text-[3.6rem]">
+      {/* Hero. Desktop: a real Solivance job fills the right side and the form sits on it. */}
+      <section className="relative bg-white">
+        <div className="absolute inset-y-0 right-0 hidden w-[45%] lg:block">
+          <Image
+            src="/lp/panel-new-inspected.jpg"
+            alt="A new Solivance panel with the city inspection tag on the door"
+            fill
+            priority
+            sizes="45vw"
+            className="object-cover object-[0%_80%]"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(14,34,64,0.55),rgba(14,34,64,0.1)_40%)]" aria-hidden />
+        </div>
+        <div className={`${wrap} relative grid gap-10 pb-14 pt-10 sm:pt-16 lg:min-h-[660px] lg:grid-cols-[minmax(0,1fr)_420px] lg:items-center lg:gap-20 lg:py-16`}>
+          <div className="lg:max-w-[33rem]">
+            <h1 className="font-[family-name:var(--font-app-display)] text-[2.25rem] font-bold leading-[1.02] tracking-[-0.03em] sm:text-[3.9rem]">
               Electrical panel replacement in Houston
             </h1>
-            <p className="mt-5 max-w-[34rem] text-[1.15rem] leading-[1.6] text-[#3D4F66] sm:text-[1.3rem]">
+            <p className="mt-6 text-[1.15rem] leading-[1.6] text-[#3D4F66] sm:text-[1.25rem]">
               Start with a no-cost inspection. If your panel needs replacing, we handle the quote, the permit and the city inspection.
             </p>
-            <div className="mt-6 flex items-center gap-3 text-[0.95rem] text-[#3D4F66]">
+            <div className="mt-7 flex items-center gap-3 text-[0.95rem] text-[#3D4F66]">
               <Stars />
               <span>
                 <strong className="text-[#0E2240]">5.0</strong> from {siteConfig.reviewCount} Google reviews
               </span>
             </div>
-
-            <div className="relative mt-10 hidden lg:block">
-              <Image
-                src="/lp/panel-new-inspected.jpg"
-                alt="A new Solivance panel with the city inspection tag on the door"
-                width={1600}
-                height={2133}
-                className="h-[400px] w-full rounded-lg object-cover object-[50%_38%]"
-                sizes="640px"
-                priority
-              />
-              <InspectedTag className="absolute -bottom-8 -right-6" />
-            </div>
+            <p className="mt-10 hidden border-t border-[#E3E6EA] pt-5 text-sm leading-relaxed text-[#5A6B7F] lg:block">
+              Licensed Texas electrical contractor, {siteConfig.license.number}.
+              <br />
+              {siteConfig.address.full}
+            </p>
           </div>
 
-          <div className="lg:sticky lg:top-24 lg:self-start">
+          <div>
             <PanelLeadForm />
           </div>
         </div>
       </section>
 
-      {/* Credentials strip */}
+      {/* Credentials strip: set as type, not icon tiles. */}
       <section className="border-y border-[#E3E6EA] bg-white">
-        <ul className={`${wrap} grid grid-cols-2 gap-x-6 gap-y-7 py-9 lg:grid-cols-4`}>
-          {TRUST.map(({ icon, title, detail }) => (
-            <li key={title} className="flex items-start gap-3">
-              <IconChip icon={icon} />
-              <div>
-                <p className="font-semibold leading-snug">{title}</p>
-                <p className="mt-0.5 text-sm leading-snug text-[#5A6B7F]">{detail}</p>
-              </div>
+        <ul className={`${wrap} grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-[#E3E6EA]`}>
+          {TRUST.map(({ title, detail }) => (
+            <li key={title} className="py-6 lg:px-8 lg:py-8 lg:first:pl-0">
+              <p className="font-[family-name:var(--font-app-display)] text-[1.15rem] font-bold leading-snug tracking-[-0.01em] sm:text-[1.35rem]">{title}</p>
+              <p className="mt-1 text-sm leading-snug text-[#5A6B7F]">{detail}</p>
             </li>
           ))}
         </ul>
@@ -193,11 +166,10 @@ export default function PanelInspectionPage() {
           <div>
             <h2 className={h2}>We pull the permit on every panel job</h2>
             <p className={`mt-5 ${lede}`}>Not every electrician does. Here is what it means for you:</p>
-            <ul className="mt-7 space-y-5">
-              {PERMIT_POINTS.map(({ icon, text }) => (
-                <li key={text} className="flex items-center gap-4">
-                  <IconChip icon={icon} />
-                  <span className="text-[1.0625rem] font-medium leading-snug">{text}</span>
+            <ul className="mt-7 divide-y divide-[#D5DAE0] border-y border-[#D5DAE0]">
+              {PERMIT_POINTS.map((text) => (
+                <li key={text} className="py-4 text-[1.0625rem] font-medium leading-snug">
+                  {text}
                 </li>
               ))}
             </ul>
@@ -240,13 +212,10 @@ export default function PanelInspectionPage() {
             </p>
           </div>
           <ul className="divide-y divide-[#E3E6EA] border-y border-[#E3E6EA]">
-            {COVERS.map(({ icon, title, detail }) => (
-              <li key={title} className="flex items-start gap-4 py-5">
-                <IconChip icon={icon} />
-                <div>
-                  <p className="text-[1.0625rem] font-semibold leading-snug">{title}</p>
-                  <p className="mt-1 leading-relaxed text-[#3D4F66]">{detail}</p>
-                </div>
+            {COVERS.map(({ title, detail }) => (
+              <li key={title} className="grid gap-1 py-5 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6">
+                <p className="text-[1.0625rem] font-semibold leading-snug">{title}</p>
+                <p className="leading-relaxed text-[#3D4F66]">{detail}</p>
               </li>
             ))}
           </ul>
@@ -261,17 +230,15 @@ export default function PanelInspectionPage() {
           <p className="mt-5 max-w-2xl text-[1.0625rem] leading-[1.7] text-white/75 sm:text-lg">
             One licensed crew from quote to green tag. You don&apos;t call the city or the utility. We do.
           </p>
-          <ul className="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
-            {REPLACEMENT.map(({ icon, title, detail }) => (
-              <li key={title} className="flex items-start gap-3.5">
-                <IconChip icon={icon} dark />
-                <div>
-                  <p className="font-semibold leading-snug">{title}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-white/70">{detail}</p>
-                </div>
+          <ol className="mt-12 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+            {REPLACEMENT.map(({ title, detail }, i) => (
+              <li key={title} className="border-t-2 border-white/25 pt-5">
+                <span className="font-[family-name:var(--font-app-display)] text-[0.95rem] font-bold text-[#F26B1F]">Step {i + 1}</span>
+                <p className="mt-2 text-[1.15rem] font-semibold leading-snug">{title}</p>
+                <p className="mt-1.5 text-[0.95rem] leading-relaxed text-white/70">{detail}</p>
               </li>
             ))}
-          </ul>
+          </ol>
           <a href="#form" className={`${ctaClass} mt-10`}>Schedule my inspection</a>
         </div>
       </section>
