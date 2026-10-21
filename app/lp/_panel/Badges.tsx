@@ -46,13 +46,18 @@ const BADGES = [
   { icon: FileCheck2, title: 'Permitted work', detail: 'City-inspected' },
 ];
 
+// Phones: icon stacked over text so two badges fit per row without breaking words.
+// Desktop: icon beside text, four across.
+const badgeCls =
+  'flex flex-col items-start gap-2.5 rounded-xl border border-[#E3E6EA] bg-white p-4 sm:flex-row sm:items-center sm:gap-3.5 sm:px-5';
+
 export function TrustBadges() {
   return (
-    <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-      <li className="flex items-center gap-3.5 rounded-xl border border-[#E3E6EA] bg-white px-4 py-4 sm:px-5">
+    <ul className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4">
+      <li className={badgeCls}>
         <GoogleG className="h-8 w-8 shrink-0" />
         <div className="min-w-0">
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
             <span className="text-[1.05rem] font-bold leading-none">{siteConfig.rating.toFixed(1)}</span>
             <Stars className="h-3.5 w-3.5" />
           </div>
@@ -60,7 +65,7 @@ export function TrustBadges() {
         </div>
       </li>
       {BADGES.map(({ icon: Icon, title, detail }) => (
-        <li key={title} className="flex items-center gap-3.5 rounded-xl border border-[#E3E6EA] bg-white px-4 py-4 sm:px-5">
+        <li key={title} className={badgeCls}>
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#E8F3EC]" aria-hidden>
             <Icon className="h-[18px] w-[18px] text-[#1F7A4D]" strokeWidth={2} />
           </span>

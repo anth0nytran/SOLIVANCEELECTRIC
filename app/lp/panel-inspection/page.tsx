@@ -158,7 +158,7 @@ export default function PanelInspectionPage() {
         <div className={`${wrap} grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-20`}>
           <div>
             <h2 className={h2}>Your house grew. Your panel didn&apos;t. That&apos;s the problem.</h2>
-            <p className="mt-9 text-[1.05rem] text-[#4A5568]">Typical signs:</p>
+            <p className="mt-7 text-[1.05rem] text-[#4A5568] sm:mt-9">Typical signs:</p>
             <ul className="mt-5 space-y-4 border-l-2 border-[#D9D5CC] pl-5">
               {SIGNS.map((s) => (
                 <li key={s} className="text-[1.05rem] leading-[1.6] text-[#2D3748]">
@@ -176,7 +176,7 @@ export default function PanelInspectionPage() {
               alt="An aging exterior panel on a Houston home"
               width={599}
               height={799}
-              className="aspect-[3/4] w-full rounded-xl object-cover"
+              className="aspect-[4/3] w-full rounded-xl object-cover lg:aspect-[3/4]"
               sizes="(min-width:1024px) 440px, 100vw"
             />
             <figcaption className="mt-3 text-sm text-[#718096]">An aging exterior panel on a Houston home.</figcaption>
@@ -200,13 +200,21 @@ export default function PanelInspectionPage() {
             </CallLink>
           </div>
 
-          {/* Five steps in one row on desktop: a sequence reads left to right. */}
-          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {/* A real sequence: a timeline on phones, one row of cards on desktop. */}
+          <ol className="mt-9 lg:mt-10 lg:grid lg:grid-cols-5 lg:gap-4">
             {STEPS.map(({ title, detail }, i) => (
-              <li key={title} className="rounded-xl bg-white p-6 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
-                <span className="text-[1.6rem] font-semibold leading-none text-[#E8590C]">{String(i + 1).padStart(2, '0')}</span>
-                <p className="mt-3 text-[0.8rem] font-semibold uppercase tracking-[0.12em]">{title}</p>
-                <p className="mt-2.5 text-[0.95rem] leading-[1.65] text-[#4A5568]">{detail}</p>
+              <li
+                key={title}
+                className="relative flex gap-4 pb-7 last:pb-0 lg:block lg:rounded-xl lg:bg-white lg:p-6 lg:shadow-[0_1px_2px_rgba(10,19,34,0.06)]"
+              >
+                {i < STEPS.length - 1 ? <span className="absolute bottom-0 left-[17px] top-10 w-px bg-[#C9D1DC] lg:hidden" aria-hidden /> : null}
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#E8590C] text-[0.85rem] font-semibold text-white lg:h-auto lg:w-auto lg:justify-start lg:rounded-none lg:bg-transparent lg:text-[1.6rem] lg:leading-none lg:text-[#E8590C]">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="pt-1.5 lg:pt-0">
+                  <p className="text-[0.8rem] font-semibold uppercase tracking-[0.12em] lg:mt-3">{title}</p>
+                  <p className="mt-1.5 text-[0.95rem] leading-[1.6] text-[#4A5568] lg:mt-2.5 lg:leading-[1.65]">{detail}</p>
+                </div>
               </li>
             ))}
           </ol>
@@ -250,7 +258,7 @@ export default function PanelInspectionPage() {
             <GoogleRatingCard className="mt-8" />
           </div>
           {/* The one review that names the danger, set large. */}
-          <figure className="mt-14 grid gap-8 rounded-xl bg-[#0A1322] p-8 text-white sm:p-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-14">
+          <figure className="mt-10 grid gap-6 rounded-xl bg-[#0A1322] p-6 text-white sm:mt-14 sm:gap-8 sm:p-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-14">
             <div>
               <Stars className="h-5 w-5" />
               <p className="mt-5 text-[1.6rem] font-semibold leading-[1.25] tracking-[-0.02em] sm:text-[2.1rem]">
@@ -263,12 +271,16 @@ export default function PanelInspectionPage() {
                 <span className="font-semibold">{FIRE_REVIEW.author}</span> <span className="text-white/55">Google review</span>
               </figcaption>
             </div>
-            <blockquote className="text-[0.97rem] leading-[1.75] text-white/70 lg:border-l lg:border-white/15 lg:pl-10">{FIRE_REVIEW.quote}</blockquote>
+            {/* Phones show the opening lines; the pull quote above carries the point. */}
+            <blockquote className="line-clamp-6 text-[0.97rem] leading-[1.75] text-white/70 sm:line-clamp-none lg:border-l lg:border-white/15 lg:pl-10">
+              {FIRE_REVIEW.quote}
+            </blockquote>
           </figure>
 
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Phones: a swipeable row instead of six stacked cards. */}
+          <div className="-mx-5 mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:mx-0 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
             {WALL.map((r) => (
-              <figure key={r.id} className="flex flex-col rounded-xl border border-[#E6E8EC] bg-white p-7">
+              <figure key={r.id} className="flex w-[85%] shrink-0 snap-center flex-col rounded-xl border border-[#E6E8EC] bg-white p-6 sm:w-auto sm:p-7">
                 <div className="flex items-center justify-between">
                   <Stars />
                   <GoogleG className="h-5 w-5" />
@@ -280,6 +292,7 @@ export default function PanelInspectionPage() {
               </figure>
             ))}
           </div>
+          <p className="mt-3 text-center text-sm text-[#718096] sm:hidden">Swipe for more reviews</p>
         </div>
       </section>
 
@@ -366,12 +379,12 @@ export default function PanelInspectionPage() {
       </footer>
 
       {/* Phones: call or schedule, always in reach. */}
-      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-[#E3E6EA] bg-white/95 p-2 backdrop-blur sm:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-2 border-t border-[#E3E6EA] bg-white/95 px-3 pb-[max(0.625rem,env(safe-area-inset-bottom))] pt-2.5 text-[0.95rem] backdrop-blur sm:hidden">
         <CallLink location="sticky_mobile" className="flex items-center justify-center gap-2 rounded-lg border border-[#0A1322] py-3 font-semibold">
           <Phone className="h-4 w-4" aria-hidden /> Call
         </CallLink>
         <a href="#form" className="flex items-center justify-center rounded-lg bg-[#E8590C] py-3 font-semibold text-white">
-          Schedule inspection
+          Book inspection
         </a>
       </div>
     </div>

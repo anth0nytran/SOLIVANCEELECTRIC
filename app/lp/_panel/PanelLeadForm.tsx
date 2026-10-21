@@ -104,15 +104,15 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
   };
 
   const optionCls = (active: boolean) =>
-    `w-full rounded-md border px-4 py-3.5 text-left text-[1rem] font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#0E2240] ${
+    `w-full rounded-md border px-3.5 py-3 text-left text-[0.95rem] font-medium leading-snug sm:px-4 sm:py-3.5 sm:text-[1rem] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#0E2240] ${
       active ? 'border-[#0E2240] bg-[#0E2240] text-white' : 'border-[#CBD2DA] bg-white text-[#0E2240] hover:border-[#0E2240]'
     }`;
   const inputCls =
     'w-full rounded-md border border-[#CBD2DA] bg-white px-3.5 py-3 text-base text-[#0E2240] outline-none placeholder:text-[#7D8A99] focus:border-[#0E2240] focus:ring-2 focus:ring-[#0E2240]/15';
-  const legendCls = 'mb-4 font-[family-name:var(--font-app-display)] text-[1.3rem] font-bold leading-snug text-[#0E2240]';
+  const legendCls = 'mb-4 font-[family-name:var(--font-app-display)] text-[1.2rem] font-bold leading-snug text-[#0E2240] sm:text-[1.3rem]';
 
   return (
-    <div id={id} className="scroll-mt-4 rounded-md border border-[#D5DAE0] bg-white p-5 shadow-[0_20px_50px_-24px_rgba(14,34,64,0.35)] sm:p-7">
+    <div id={id} className="scroll-mt-4 rounded-xl border border-[#D5DAE0] bg-white p-4 shadow-[0_20px_50px_-24px_rgba(14,34,64,0.35)] sm:p-7">
       <div className="mb-5">
         <div className="flex items-baseline justify-between text-sm text-[#5A6B7F]">
           <span className="font-semibold text-[#0E2240]">No-cost panel inspection</span>
@@ -188,7 +188,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
             className={inputCls}
           />
           <input name="address" required={step === 2} autoComplete="street-address" placeholder="Street address" className={inputCls} aria-label="Street address" />
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-2">
             <input
               name="zipCode"
               required={step === 2}
@@ -220,7 +220,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="flex flex-1 items-center justify-center gap-2 rounded-md bg-[#F26B1F] px-4 py-4 text-[1.05rem] font-bold text-white hover:bg-[#DD5E15] disabled:opacity-70"
+              className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-[#E8590C] px-3 py-3.5 text-[1rem] font-bold text-white hover:bg-[#CF4E0A] disabled:opacity-70 sm:px-4 sm:py-4 sm:text-[1.05rem]"
             >
               {status === 'sending' ? <Loader2 className="h-5 w-5 animate-spin" /> : null}
               {status === 'sending' ? 'Sending…' : 'Schedule my inspection'}
