@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { Poppins } from 'next/font/google';
-import { Check, Phone, ShieldCheck, Star } from 'lucide-react';
+import { Phone, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from './PanelLeadForm';
 import { CallLink } from './CallLink';
+import { GoogleG, GoogleRatingCard, Stars, TrustBadges } from './Badges';
 
 export const metadata: Metadata = {
   title: 'Electrical Panel Replacement in Houston',
@@ -15,8 +16,9 @@ export const metadata: Metadata = {
   alternates: { canonical: '/lp/panel-inspection' },
 };
 
-// Built on the Acquisition.com funnel layout: dark callout hero, symptoms,
-// numbered process, one bold statement band, a wall of reviews, FAQ, close.
+// Built on the Acquisition.com funnel layout: a plain hero (headline,
+// subheadline, form), then proof, symptoms, numbered process, one bold
+// statement band, a wall of reviews, FAQ, close.
 // Proof comes from Solivance's own job photos and reviews only. No links
 // leave the page except the legal pages, which open in a new tab.
 
@@ -31,23 +33,6 @@ const ink = 'bg-[#0A1322]';
 const callout = 'text-[#FF7A2F]';
 const cta =
   'inline-flex items-center justify-center rounded-lg bg-[#E8590C] px-9 py-4 text-[1.05rem] font-semibold text-white transition-colors hover:bg-[#CF4E0A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
-
-// Acquisition-style stat row. Every figure comes from siteConfig.
-const STATS = [
-  { value: siteConfig.rating.toFixed(1), label: 'Google rating' },
-  { value: String(siteConfig.reviewCount), label: 'Five-star reviews' },
-  { value: `${siteConfig.yearsInBusiness} yrs`, label: 'In business' },
-  { value: '24/7', label: 'Emergency line' },
-];
-
-const CREDENTIALS = [
-  { term: 'License', value: `${siteConfig.license.label}, Electrical Contractor` },
-  { term: 'Issued by', value: 'Texas Dept. of Licensing and Regulation' },
-  { term: 'Insurance', value: 'Liability coverage on every job' },
-  { term: 'Permits', value: 'Pulled on every panel job' },
-  { term: 'Inspection', value: 'City sign-off before we close the job' },
-  { term: 'Shop', value: siteConfig.address.full },
-];
 
 const AREAS = ['Westbury', 'Meyerland', 'Bellaire', 'West University', 'Medical Center', 'The Heights', 'Garden Oaks', 'Memorial Villages', 'Stafford', 'Missouri City', 'Sugar Land'];
 
@@ -70,7 +55,8 @@ const STEPS = [
 
 const review = (id: string) => reviews.find((r) => r.id === id)!;
 const FIRE_REVIEW = review('yeny-v');
-const WALL = ['tonya-n', 'zno-z', 'joe-l', 'cody-o', 'dan-h', 'william-d'].map(review);
+// Google reviews only, so every card can carry the Google mark.
+const WALL = ['tonya-n', 'zno-z', 'joe-l', 'cody-o', 'donyal-w', 'william-d'].map(review);
 
 const FAQS = [
   {
@@ -86,14 +72,6 @@ const FAQS = [
   { q: 'Will a new panel raise my electric bill?', a: 'No. A panel upgrade on its own doesn’t raise your bill. It makes your system safer.' },
   { q: 'What areas do you serve?', a: `Houston and the surrounding area. Our shop is at ${siteConfig.address.full}.` },
 ];
-
-const Stars = ({ className = 'h-4 w-4' }: { className?: string }) => (
-  <span className="flex gap-0.5" aria-label="5 out of 5 stars">
-    {Array.from({ length: 5 }).map((_, i) => (
-      <Star key={i} className={`${className} fill-[#F5B301] text-[#F5B301]`} aria-hidden />
-    ))}
-  </span>
-);
 
 export default function PanelInspectionPage() {
   // The form and shared LP pieces use --font-app-display; point it at Poppins here.
@@ -126,50 +104,26 @@ export default function PanelInspectionPage() {
       </header>
 
       {/* Hero */}
-      <section className={`${ink} text-white`}>
-        <div className={`${wrap} pb-14 pt-8 sm:pb-20 sm:pt-10`}>
-          <h1 className="pt-4 text-center sm:pt-6">
-            <span className={`block text-[2.6rem] font-extrabold leading-[1] tracking-[-0.035em] sm:text-[4.6rem] ${callout}`}>
-              Houston Homeowners:
-            </span>
-            <span className="mt-3 block text-[1.45rem] font-bold leading-[1.15] tracking-[-0.025em] sm:mt-4 sm:text-[2.35rem]">
-              Replace your old breaker box the right way.
-            </span>
+      {/* Hero: headline, subheadline, form. Nothing else competes with it. */}
+      <section className="bg-[#F4F6F9]">
+        <div className="mx-auto w-full max-w-[560px] px-5 pb-14 pt-10 text-center sm:pb-20 sm:pt-16">
+          <h1 className="text-[2.3rem] font-bold leading-[1.06] tracking-[-0.03em] sm:text-[3.4rem]">
+            Replace your old breaker box the right way
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-center text-[1.02rem] leading-[1.65] text-white/70 sm:text-[1.1rem]">
-            Licensed electrical panel replacement, permitted and city-inspected. It starts with a no-cost inspection.
+          <p className="mx-auto mt-5 max-w-[30rem] text-[1.05rem] leading-[1.6] text-[#4A5568] sm:text-[1.15rem]">
+            Licensed electrical panel replacement in Houston, permitted and city-inspected. It starts with a no-cost inspection.
           </p>
-
-          <div className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-[minmax(0,1fr)_430px] lg:items-stretch">
-            <figure className="relative hidden overflow-hidden rounded-xl ring-1 ring-white/10 lg:block">
-              <Image
-                src="/lp/panel-new-inspected.jpg"
-                alt="A new Solivance panel with the city inspection tag on the door"
-                fill
-                priority
-                sizes="560px"
-                className="object-cover object-[50%_45%]"
-              />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-black/70 px-5 py-3 text-sm text-white/90">
-                A Solivance panel replacement in Houston, tagged by the city inspector.
-              </figcaption>
-            </figure>
+          <div className="mt-9 text-left">
             <PanelLeadForm />
           </div>
-
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Trust badges */}
       <section className="border-b border-[#E6E8EC] bg-white">
-        <ul className={`${wrap} grid grid-cols-2 gap-y-8 py-10 sm:py-12 lg:grid-cols-4`}>
-          {STATS.map(({ value, label: l }) => (
-            <li key={l} className="border-l-[3px] border-[#E8590C] pl-4 sm:pl-5">
-              <p className="text-[2.1rem] font-bold leading-none tracking-[-0.03em] sm:text-[2.75rem]">{value}</p>
-              <p className="mt-2 text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-[#718096]">{l}</p>
-            </li>
-          ))}
-        </ul>
+        <div className={`${wrap} py-8 sm:py-10`}>
+          <TrustBadges />
+        </div>
       </section>
 
       {/* The problem */}
@@ -257,30 +211,18 @@ export default function PanelInspectionPage() {
               Schedule my inspection
             </a>
           </div>
-          {/* Credentials sheet: plain facts a homeowner can check. */}
-          <div className="rounded-xl bg-white p-7 text-[#0A1322] sm:p-8">
-            <div className="flex items-center gap-3 border-b border-[#E6E8EC] pb-5">
-              <ShieldCheck className="h-7 w-7 text-[#1F7A4D]" strokeWidth={2} aria-hidden />
-              <div>
-                <p className="font-semibold leading-tight">Solivance Electric LLC</p>
-                <p className="text-sm text-[#718096]">Company credentials</p>
-              </div>
-            </div>
-            <dl className="divide-y divide-[#EEF0F3] text-[0.92rem]">
-              {CREDENTIALS.map(({ term, value }) => (
-                <div key={term} className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-3 py-3.5 sm:grid-cols-[7.5rem_minmax(0,1fr)]">
-                  <dt className="text-[#718096]">{term}</dt>
-                  <dd className="flex items-start gap-2 font-medium">
-                    <Check className="mt-[3px] h-4 w-4 shrink-0 text-[#1F7A4D]" strokeWidth={2.5} aria-hidden />
-                    {value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-4 border-t border-[#E6E8EC] pt-4 text-[0.8rem] leading-relaxed text-[#718096]">
-              Look up license {siteConfig.license.number} on the {siteConfig.license.issuer} license search.
-            </p>
-          </div>
+          {/* Proof, not a claim: the city's tag on a Solivance panel. */}
+          <figure className="mx-auto w-full max-w-[460px]">
+            <Image
+              src="/lp/panel-new-inspected.jpg"
+              alt="The city inspection tag on a new Solivance panel"
+              width={1600}
+              height={2133}
+              className="aspect-[4/5] w-full rounded-xl object-cover object-[50%_62%]"
+              sizes="(min-width:1024px) 460px, 100vw"
+            />
+            <figcaption className="mt-3 text-sm text-white/60">The green tag is the city inspector&apos;s sign-off, on one of our panels.</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -288,11 +230,8 @@ export default function PanelInspectionPage() {
       <section className={`bg-white ${section}`}>
         <div className={wrap}>
           <div className="text-center">
-            <div className="flex justify-center">
-              <Stars className="h-5 w-5" />
-            </div>
-            <h2 className={`mt-4 ${h2}`}>See what homeowners are saying</h2>
-            <p className="mt-3 text-[#4A5568]">5.0 on Google from {siteConfig.reviewCount} reviews</p>
+            <h2 className={h2}>See what homeowners are saying</h2>
+            <GoogleRatingCard className="mt-8" />
           </div>
           {/* The one review that names the danger, set large. */}
           <figure className="mt-14 grid gap-8 rounded-xl bg-[#0A1322] p-8 text-white sm:p-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-14">
@@ -301,8 +240,11 @@ export default function PanelInspectionPage() {
               <p className="mt-5 text-[1.6rem] font-semibold leading-[1.25] tracking-[-0.02em] sm:text-[2.1rem]">
                 &ldquo;They found other issues in the panel that could have caused a fire.&rdquo;
               </p>
-              <figcaption className="mt-6 text-sm">
-                <span className="font-semibold">{FIRE_REVIEW.author}</span> <span className="text-white/55">on {FIRE_REVIEW.source}</span>
+              <figcaption className="mt-6 flex items-center gap-2.5 text-sm">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
+                  <GoogleG className="h-4 w-4" />
+                </span>
+                <span className="font-semibold">{FIRE_REVIEW.author}</span> <span className="text-white/55">Google review</span>
               </figcaption>
             </div>
             <blockquote className="text-[0.97rem] leading-[1.75] text-white/70 lg:border-l lg:border-white/15 lg:pl-10">{FIRE_REVIEW.quote}</blockquote>
@@ -311,10 +253,13 @@ export default function PanelInspectionPage() {
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {WALL.map((r) => (
               <figure key={r.id} className="flex flex-col rounded-xl border border-[#E6E8EC] bg-white p-7">
-                <Stars />
+                <div className="flex items-center justify-between">
+                  <Stars />
+                  <GoogleG className="h-5 w-5" />
+                </div>
                 <blockquote className="mt-4 flex-1 text-[0.97rem] leading-[1.7] text-[#2D3748]">{r.quote}</blockquote>
                 <figcaption className="mt-6 border-t border-[#EEF0F3] pt-4 text-sm">
-                  <span className="font-semibold">{r.author}</span> <span className="text-[#718096]">on {r.source}</span>
+                  <span className="font-semibold">{r.author}</span> <span className="text-[#718096]">Google review</span>
                 </figcaption>
               </figure>
             ))}
