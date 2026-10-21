@@ -719,3 +719,14 @@ summary:focus-visible,
   outline: 3px solid var(--onestop-red);
   outline-offset: 2px;
 }
+
+/* Panel landing page: the inspected tag stamps on once. */
+@keyframes lp-tag-stamp {
+  0% { opacity: 0; transform: rotate(-14deg) scale(1.35); }
+  60% { opacity: 1; transform: rotate(-4deg) scale(0.96); }
+  100% { opacity: 1; transform: rotate(-5deg) scale(1); }
+}
+.lp-tag { animation: lp-tag-stamp 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.45s both; }
+@media (prefers-reduced-motion: reduce) {
+  .lp-tag { animation: none; }
+}
