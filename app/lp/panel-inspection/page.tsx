@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { Poppins } from 'next/font/google';
-import { Phone, ShieldCheck } from 'lucide-react';
+import { Check, Phone, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from '../_panel/PanelLeadForm';
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'], display: 'swap' });
 
 const wrap = 'mx-auto w-full max-w-6xl px-5 sm:px-8';
-const section = 'py-16 sm:py-20';
+const section = 'py-14 sm:py-16';
 const h2 = 'text-[2rem] font-bold leading-[1.08] tracking-[-0.025em] sm:text-[3.1rem]';
 const label = 'text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#E8590C]';
 const ink = 'bg-[#0A1322]';
@@ -33,6 +33,12 @@ const ink = 'bg-[#0A1322]';
 const callout = 'text-[#FF7A2F]';
 const cta =
   'inline-flex items-center justify-center rounded-lg bg-[#E8590C] px-9 py-4 text-[1.05rem] font-semibold text-white transition-colors hover:bg-[#CF4E0A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
+
+const HERO_POINTS = [
+  `Licensed Texas electrical contractor, ${siteConfig.license.label}`,
+  'Permit pulled and city-inspected on every panel job',
+  'Itemized written quote before any work starts',
+];
 
 const AREAS = ['Westbury', 'Meyerland', 'Bellaire', 'West University', 'Medical Center', 'The Heights', 'Garden Oaks', 'Memorial Villages', 'Stafford', 'Missouri City', 'Sugar Land'];
 
@@ -116,20 +122,27 @@ export default function PanelInspectionPage() {
         </div>
       </header>
 
-      {/* Hero */}
-      {/* Hero: headline, subheadline, form. Nothing else competes with it. */}
+      {/* Hero: headline, subheadline, form. Side by side on desktop so the fold has no dead space. */}
       <section className="bg-[#F4F6F9]">
-        <div className="mx-auto w-full max-w-[560px] px-5 pb-14 pt-10 text-center sm:pb-20 sm:pt-16">
-          {/* H1 repeats the search term: what Google matches the ad against. */}
-          <h1 className="text-[2.3rem] font-bold leading-[1.06] tracking-[-0.03em] sm:text-[3.4rem]">
-            Electrical panel replacement in Houston
-          </h1>
-          <p className="mx-auto mt-5 max-w-[30rem] text-[1.05rem] leading-[1.6] text-[#4A5568] sm:text-[1.15rem]">
-            Replace your old breaker box the right way: permitted, city-inspected, and it starts with a no-cost inspection.
-          </p>
-          <div className="mt-9 text-left">
-            <PanelLeadForm />
+        <div className={`${wrap} grid gap-8 pb-12 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-16 lg:py-14`}>
+          <div>
+            {/* H1 repeats the search term: what Google matches the ad against. */}
+            <h1 className="text-[2.3rem] font-bold leading-[1.04] tracking-[-0.03em] sm:text-[3.6rem]">
+              Electrical panel replacement in Houston
+            </h1>
+            <p className="mt-5 max-w-[34rem] text-[1.05rem] leading-[1.6] text-[#4A5568] sm:text-[1.2rem]">
+              Replace your old breaker box the right way: permitted, city-inspected, and it starts with a no-cost inspection.
+            </p>
+            <ul className="mt-7 hidden space-y-3 lg:block">
+              {HERO_POINTS.map((p) => (
+                <li key={p} className="flex items-center gap-3 text-[1.02rem] font-medium">
+                  <Check className="h-5 w-5 shrink-0 text-[#1F7A4D]" strokeWidth={2.5} aria-hidden />
+                  {p}
+                </li>
+              ))}
+            </ul>
           </div>
+          <PanelLeadForm />
         </div>
       </section>
 
@@ -173,38 +186,27 @@ export default function PanelInspectionPage() {
 
       {/* The process */}
       <section className={`bg-[#EEF1F5] ${section}`}>
-        <div className={`${wrap} grid gap-12 lg:grid-cols-2 lg:gap-16`}>
-          <div className="lg:sticky lg:top-10 lg:self-start">
-            <p className={label}>How it works</p>
-            <h2 className={`mt-3 ${h2}`}>A panel replacement, start to finish.</h2>
-            <p className="mt-5 text-[1.05rem] leading-[1.65] text-[#4A5568]">
-              One licensed crew handles every step. You don&apos;t call the city or the utility. We do.
-            </p>
-            <Image
-              src="/lp/panel-install-wall.jpg"
-              alt="A Solivance electrician mid-install with the wall opened up"
-              width={1600}
-              height={2133}
-              className="mt-9 aspect-[5/4] w-full rounded-xl object-cover object-[50%_45%]"
-              sizes="(min-width:1024px) 520px, 100vw"
-            />
-            <div className="mt-4 flex flex-col gap-4 rounded-xl bg-[#0A1322] p-6 text-white sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="font-semibold">Rather talk it through?</p>
-                <p className="mt-1 text-sm text-white/60">Mon–Sat, 6am–6pm. Emergencies any hour.</p>
-              </div>
-              <CallLink location="process" className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-[#0A1322] hover:bg-white/90">
-                <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
-              </CallLink>
+        <div className={wrap}>
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <p className={label}>How it works</p>
+              <h2 className={`mt-3 ${h2}`}>A panel replacement, start to finish.</h2>
+              <p className="mt-4 text-[1.05rem] leading-[1.65] text-[#4A5568]">
+                One licensed crew handles every step. You don&apos;t call the city or the utility. We do.
+              </p>
             </div>
+            <CallLink location="process" className="inline-flex shrink-0 items-center gap-2 self-start rounded-lg bg-[#0A1322] px-5 py-3 font-semibold text-white hover:bg-[#1B2A42] lg:self-end">
+              <Phone className="h-4 w-4" aria-hidden /> Rather talk? {siteConfig.phone}
+            </CallLink>
           </div>
 
-          <ol className="space-y-4">
+          {/* Five steps in one row on desktop: a sequence reads left to right. */}
+          <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {STEPS.map(({ title, detail }, i) => (
-              <li key={title} className="rounded-xl bg-white p-7 shadow-[0_1px_2px_rgba(10,19,34,0.06)] sm:p-8">
-                <span className="text-[1.75rem] font-semibold leading-none text-[#E8590C]">{String(i + 1).padStart(2, '0')}</span>
-                <p className="mt-2 text-[0.85rem] font-semibold uppercase tracking-[0.14em]">{title}</p>
-                <p className="mt-3 leading-[1.7] text-[#4A5568]">{detail}</p>
+              <li key={title} className="rounded-xl bg-white p-6 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
+                <span className="text-[1.6rem] font-semibold leading-none text-[#E8590C]">{String(i + 1).padStart(2, '0')}</span>
+                <p className="mt-3 text-[0.8rem] font-semibold uppercase tracking-[0.12em]">{title}</p>
+                <p className="mt-2.5 text-[0.95rem] leading-[1.65] text-[#4A5568]">{detail}</p>
               </li>
             ))}
           </ol>
@@ -226,14 +228,14 @@ export default function PanelInspectionPage() {
             </a>
           </div>
           {/* Proof, not a claim: the city's tag on a Solivance panel. */}
-          <figure className="mx-auto w-full max-w-[460px]">
+          <figure className="w-full">
             <Image
               src="/lp/panel-new-inspected.jpg"
               alt="The city inspection tag on a new Solivance panel"
               width={1600}
               height={2133}
-              className="aspect-[4/5] w-full rounded-xl object-cover object-[50%_62%]"
-              sizes="(min-width:1024px) 460px, 100vw"
+              className="aspect-[4/3] w-full rounded-xl object-cover object-[50%_62%]"
+              sizes="(min-width:1024px) 540px, 100vw"
             />
             <figcaption className="mt-3 text-sm text-white/60">The green tag is the city inspector&apos;s sign-off, on one of our panels.</figcaption>
           </figure>
