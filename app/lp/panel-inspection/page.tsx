@@ -87,6 +87,16 @@ export default function PanelInspectionPage() {
             <Image src="/logo/logo_horzontial.PNG" alt="Solivance Electric LLC" width={6144} height={4096} priority className="h-[104px] w-auto max-w-none" sizes="170px" />
           </div>
           <div className="flex items-center gap-6">
+            <div className="hidden items-center gap-2.5 border-r border-[#E6E8EC] pr-6 lg:flex">
+              <GoogleG className="h-6 w-6" />
+              <div className="leading-tight">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[0.9rem] font-bold">{siteConfig.rating.toFixed(1)}</span>
+                  <Stars className="h-3.5 w-3.5" />
+                </div>
+                <p className="text-[0.75rem] text-[#718096]">on Google</p>
+              </div>
+            </div>
             <div className="hidden items-center gap-2.5 border-r border-[#E6E8EC] pr-6 md:flex">
               <ShieldCheck className="h-5 w-5 text-[#1F7A4D]" strokeWidth={2} aria-hidden />
               <div className="leading-tight">
@@ -96,8 +106,11 @@ export default function PanelInspectionPage() {
             </div>
             <CallLink location="header" className="flex items-center gap-2 rounded-lg bg-[#0A1322] px-4 py-2.5 text-[0.9rem] font-semibold text-white hover:bg-[#1B2A42]">
               <Phone className="h-4 w-4" aria-hidden />
-              <span className="hidden sm:inline">{siteConfig.phone}</span>
-              <span className="sm:hidden">Call</span>
+              <span className="hidden sm:inline">
+                <span className="mr-1.5 font-normal text-white/60">24/7</span>
+                {siteConfig.phone}
+              </span>
+              <span className="sm:hidden">Call 24/7</span>
             </CallLink>
           </div>
         </div>
@@ -107,11 +120,12 @@ export default function PanelInspectionPage() {
       {/* Hero: headline, subheadline, form. Nothing else competes with it. */}
       <section className="bg-[#F4F6F9]">
         <div className="mx-auto w-full max-w-[560px] px-5 pb-14 pt-10 text-center sm:pb-20 sm:pt-16">
+          {/* H1 repeats the search term: what Google matches the ad against. */}
           <h1 className="text-[2.3rem] font-bold leading-[1.06] tracking-[-0.03em] sm:text-[3.4rem]">
-            Replace your old breaker box the right way
+            Electrical panel replacement in Houston
           </h1>
           <p className="mx-auto mt-5 max-w-[30rem] text-[1.05rem] leading-[1.6] text-[#4A5568] sm:text-[1.15rem]">
-            Licensed electrical panel replacement in Houston, permitted and city-inspected. It starts with a no-cost inspection.
+            Replace your old breaker box the right way: permitted, city-inspected, and it starts with a no-cost inspection.
           </p>
           <div className="mt-9 text-left">
             <PanelLeadForm />
