@@ -28,10 +28,10 @@ const section = 'py-16 sm:py-28';
 const h2 = 'text-[2rem] font-bold leading-[1.08] tracking-[-0.025em] sm:text-[3.1rem]';
 const label = 'text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#E8590C]';
 const ink = 'bg-[#0A1322]';
-// Solivance orange, set like Acquisition's gold: a warm gradient on dark.
-const callout = 'bg-[linear-gradient(90deg,#FFC061,#F26B1F)] bg-clip-text text-transparent';
+// Solivance orange in the spot Acquisition uses gold. Flat color only.
+const callout = 'text-[#FF7A2F]';
 const cta =
-  'inline-flex items-center justify-center rounded-lg bg-[linear-gradient(180deg,#FF8B3D,#E8590C)] px-9 py-4 text-[1.05rem] font-semibold text-white shadow-[0_10px_30px_-10px_rgba(242,107,31,0.7)] transition-[filter] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
+  'inline-flex items-center justify-center rounded-lg bg-[#E8590C] px-9 py-4 text-[1.05rem] font-semibold text-white transition-colors hover:bg-[#CF4E0A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
 
 const SIGNS = [
   'Breakers trip when the AC and dryer run at the same time.',
@@ -97,11 +97,7 @@ export default function PanelInspectionPage() {
       </div>
 
       {/* Hero */}
-      <section className={`relative isolate overflow-hidden ${ink} text-white`}>
-        <div
-          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgba(242,107,31,0.16),transparent_70%)]"
-          aria-hidden
-        />
+      <section className={`${ink} text-white`}>
         <div className={`${wrap} pb-14 pt-8 sm:pb-20 sm:pt-10`}>
           <div className="flex justify-center">
             <div className="flex h-10 items-center overflow-hidden">
@@ -139,7 +135,7 @@ export default function PanelInspectionPage() {
                 sizes="560px"
                 className="object-cover object-[50%_45%]"
               />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-5 pb-4 pt-12 text-sm text-white/85">
+              <figcaption className="absolute inset-x-0 bottom-0 bg-black/70 px-5 py-3 text-sm text-white/90">
                 A Solivance panel replacement in Houston, tagged by the city inspector.
               </figcaption>
             </figure>
@@ -292,11 +288,7 @@ export default function PanelInspectionPage() {
       </section>
 
       {/* Close */}
-      <section className={`relative isolate overflow-hidden ${ink} text-white`}>
-        <div
-          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_70%_at_50%_100%,rgba(242,107,31,0.18),transparent_70%)]"
-          aria-hidden
-        />
+      <section className={`${ink} text-white`}>
         <div className={`${wrap} ${section} text-center`}>
           <h2 className={`${h2} mx-auto max-w-[20ch]`}>Ready to find out if your panel is safe?</h2>
           <p className="mx-auto mt-5 max-w-md text-[1.05rem] leading-relaxed text-white/70">
