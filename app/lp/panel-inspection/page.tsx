@@ -50,8 +50,9 @@ const STEPS = [
   { title: 'The city inspection', detail: 'An inspector signs off and leaves the green tag on your panel. That’s your proof it passed.' },
 ];
 
-const REVIEW_IDS = ['yeny-v', 'tonya-n', 'zno-z', 'joe-l', 'cody-o', 'dan-h', 'william-d', 'donyal-w', 'kim-c'];
-const WALL = REVIEW_IDS.map((id) => reviews.find((r) => r.id === id)!).filter(Boolean);
+const review = (id: string) => reviews.find((r) => r.id === id)!;
+const FIRE_REVIEW = review('yeny-v');
+const WALL = ['tonya-n', 'zno-z', 'joe-l', 'cody-o', 'dan-h', 'william-d'].map(review);
 
 const FAQS = [
   {
@@ -99,16 +100,17 @@ export default function PanelInspectionPage() {
       {/* Hero */}
       <section className={`${ink} text-white`}>
         <div className={`${wrap} pb-14 pt-8 sm:pb-20 sm:pt-10`}>
+          {/* Full-color logo on a white plate: the mark loses its shape if inverted. */}
           <div className="flex justify-center">
-            <div className="flex h-10 items-center overflow-hidden">
+            <div className="flex h-12 items-center overflow-hidden rounded-lg bg-white px-3">
               <Image
                 src="/logo/logo_horzontial.PNG"
                 alt="Solivance Electric LLC"
                 width={6144}
                 height={4096}
                 priority
-                className="h-[88px] w-auto max-w-none brightness-0 invert"
-                sizes="140px"
+                className="h-[100px] w-auto max-w-none"
+                sizes="160px"
               />
             </div>
           </div>
@@ -156,20 +158,10 @@ export default function PanelInspectionPage() {
 
       {/* The problem */}
       <section className={`bg-[#F7F6F3] ${section}`}>
-        <div className={`${wrap} grid gap-12 lg:grid-cols-2 lg:gap-20`}>
+        <div className={`${wrap} grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-20`}>
           <div>
-            <Image
-              src="/lp/panel-old-exterior.jpg"
-              alt="An aging exterior panel on a Houston home"
-              width={599}
-              height={799}
-              className="aspect-[4/3] w-full rounded-xl object-cover"
-              sizes="(min-width:1024px) 540px, 100vw"
-            />
-            <h2 className={`mt-9 ${h2}`}>Your house grew. Your panel didn&apos;t. That&apos;s the problem.</h2>
-          </div>
-          <div className="lg:pt-16">
-            <p className="text-[1.05rem] text-[#4A5568]">Typical signs:</p>
+            <h2 className={h2}>Your house grew. Your panel didn&apos;t. That&apos;s the problem.</h2>
+            <p className="mt-9 text-[1.05rem] text-[#4A5568]">Typical signs:</p>
             <ul className="mt-5 space-y-4 border-l-2 border-[#D9D5CC] pl-5">
               {SIGNS.map((s) => (
                 <li key={s} className="text-[1.05rem] leading-[1.6] text-[#2D3748]">
@@ -181,6 +173,17 @@ export default function PanelInspectionPage() {
               These aren&apos;t six separate problems. They&apos;re what it looks like when a home outgrows its panel. The fix is a new panel, installed to code, with a permit and a city inspection. That&apos;s the only way we do it.
             </p>
           </div>
+          <figure>
+            <Image
+              src="/lp/panel-old-exterior.jpg"
+              alt="An aging exterior panel on a Houston home"
+              width={599}
+              height={799}
+              className="aspect-[3/4] w-full rounded-xl object-cover"
+              sizes="(min-width:1024px) 440px, 100vw"
+            />
+            <figcaption className="mt-3 text-sm text-[#718096]">An aging exterior panel on a Houston home.</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -193,24 +196,14 @@ export default function PanelInspectionPage() {
             <p className="mt-5 text-[1.05rem] leading-[1.65] text-[#4A5568]">
               One licensed crew handles every step. You don&apos;t call the city or the utility. We do.
             </p>
-            <div className="mt-9 grid grid-cols-2 gap-3">
-              <Image
-                src="/lp/panel-install-wall.jpg"
-                alt="A panel mid-install with the wall opened up"
-                width={1600}
-                height={2133}
-                className="aspect-[3/4] w-full rounded-xl object-cover"
-                sizes="(min-width:1024px) 260px, 50vw"
-              />
-              <Image
-                src="/lp/panel-new-meter.jpg"
-                alt="A new panel and meter with the city inspection tag"
-                width={1600}
-                height={2133}
-                className="aspect-[3/4] w-full rounded-xl object-cover object-[50%_60%]"
-                sizes="(min-width:1024px) 260px, 50vw"
-              />
-            </div>
+            <Image
+              src="/lp/panel-install-wall.jpg"
+              alt="A Solivance electrician mid-install with the wall opened up"
+              width={1600}
+              height={2133}
+              className="mt-9 aspect-[5/4] w-full rounded-xl object-cover object-[50%_45%]"
+              sizes="(min-width:1024px) 520px, 100vw"
+            />
           </div>
 
           <ol className="space-y-4">
@@ -227,7 +220,7 @@ export default function PanelInspectionPage() {
 
       {/* One statement */}
       <section className={`relative isolate overflow-hidden ${ink} text-white`}>
-        <div className={`${wrap} ${section} grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-20`}>
+        <div className={`${wrap} ${section} grid items-center gap-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-20`}>
           <div>
             <h2 className={`${h2} max-w-[16ch]`}>
               We pull the permit on <span className={callout}>every</span> panel job.
@@ -239,7 +232,17 @@ export default function PanelInspectionPage() {
               Schedule my inspection
             </a>
           </div>
-          <InspectedTag className="mx-auto scale-110 lg:mx-0" />
+          <div className="relative mx-auto w-full max-w-[380px]">
+            <Image
+              src="/lp/panel-new-meter.jpg"
+              alt="A new panel and meter with the city inspection tag"
+              width={1600}
+              height={2133}
+              className="aspect-square w-full rounded-xl object-cover object-[50%_88%]"
+              sizes="380px"
+            />
+            <InspectedTag className="absolute -left-1 -top-8 origin-top-left scale-[0.8] sm:-left-12 sm:scale-100" />
+          </div>
         </div>
       </section>
 
@@ -253,12 +256,26 @@ export default function PanelInspectionPage() {
             <h2 className={`mt-4 ${h2}`}>See what homeowners are saying</h2>
             <p className="mt-3 text-[#4A5568]">5.0 on Google from {siteConfig.reviewCount} reviews</p>
           </div>
-          <div className="mt-12 gap-5 sm:columns-2 lg:columns-3">
+          {/* The one review that names the danger, set large. */}
+          <figure className="mt-14 grid gap-8 rounded-xl bg-[#0A1322] p-8 text-white sm:p-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-14">
+            <div>
+              <Stars className="h-5 w-5" />
+              <p className="mt-5 text-[1.6rem] font-semibold leading-[1.25] tracking-[-0.02em] sm:text-[2.1rem]">
+                &ldquo;They found other issues in the panel that could have caused a fire.&rdquo;
+              </p>
+              <figcaption className="mt-6 text-sm">
+                <span className="font-semibold">{FIRE_REVIEW.author}</span> <span className="text-white/55">on {FIRE_REVIEW.source}</span>
+              </figcaption>
+            </div>
+            <blockquote className="text-[0.97rem] leading-[1.75] text-white/70 lg:border-l lg:border-white/15 lg:pl-10">{FIRE_REVIEW.quote}</blockquote>
+          </figure>
+
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {WALL.map((r) => (
-              <figure key={r.id} className="mb-5 break-inside-avoid rounded-xl border border-[#E6E8EC] bg-white p-6">
+              <figure key={r.id} className="flex flex-col rounded-xl border border-[#E6E8EC] bg-white p-7">
                 <Stars />
-                <blockquote className="mt-4 text-[0.97rem] leading-[1.7] text-[#2D3748]">{r.quote}</blockquote>
-                <figcaption className="mt-5 text-sm">
+                <blockquote className="mt-4 flex-1 text-[0.97rem] leading-[1.7] text-[#2D3748]">{r.quote}</blockquote>
+                <figcaption className="mt-6 border-t border-[#EEF0F3] pt-4 text-sm">
                   <span className="font-semibold">{r.author}</span> <span className="text-[#718096]">on {r.source}</span>
                 </figcaption>
               </figure>
