@@ -32,7 +32,10 @@ const COVERS = [
 const FAQS = [
   { q: 'What does the inspection cost?', a: 'Nothing. There is no charge and no obligation. If your panel is fine, we will tell you that.' },
   { q: 'Should I open my panel to look?', a: 'Please don’t. Tell us what you have noticed and our licensed electrician will handle the hands-on part.' },
-  { q: 'If I need a new panel, who handles the permit?', a: 'We do: the permit, the city inspection, and coordinating the power shut-off with the utility.' },
+  {
+    q: 'Do you pull a permit?',
+    a: 'Yes, on every panel job. We handle the permit, schedule the city inspection, and coordinate the power shut-off with the utility.',
+  },
   { q: 'Will a new panel raise my electric bill?', a: 'No. A panel upgrade on its own doesn’t raise your bill. It makes your system safer.' },
 ];
 
@@ -77,6 +80,7 @@ export default function PanelInspectionPage() {
               <Stars /> <strong className={navy}>5.0</strong> from {siteConfig.reviewCount} Google reviews
             </span>
             <span>Texas license {siteConfig.license.number}</span>
+            <span>Permit pulled on every panel job</span>
           </div>
 
           <figure className="relative mt-8 hidden overflow-hidden rounded-md lg:block">
@@ -104,10 +108,14 @@ export default function PanelInspectionPage() {
       <section className="bg-[#EEF0F2]">
         <div className="mx-auto max-w-6xl px-5 py-12 sm:py-16">
           <h2 className="max-w-2xl font-[family-name:var(--font-app-display)] text-[1.75rem] font-bold leading-tight tracking-[-0.015em] sm:text-4xl">
-            Real panels we&apos;ve worked on in Houston
+            We pull the permit on every panel job
           </h2>
-          <p className="mt-3 max-w-xl text-[#3D4F66]">Every replacement is permitted and inspected by the city. Look for the green tag.</p>
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+          <p className="mt-3 max-w-xl text-[1.05rem] leading-relaxed text-[#3D4F66]">
+            Not every electrician does. With a permit, a city inspector checks the work after we finish, and you get the green tag to prove it
+            passed. That record matters when you sell the house or file an insurance claim.
+          </p>
+          <p className="mt-8 text-sm font-semibold">Panels we&apos;ve worked on in Houston</p>
+          <div className="mt-3 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
             {[
               // Phones don't see the hero photo, so the tagged panel leads here.
               { src: '/lp/panel-new-inspected.jpg', w: 1600, h: 2133, cap: 'Passed city inspection', mobileOnly: true },
@@ -149,7 +157,8 @@ export default function PanelInspectionPage() {
             We&apos;re not the cheapest electrician in Houston.
           </p>
           <p className="mt-3 text-[1.05rem] leading-relaxed text-white/80">
-            We&apos;re licensed, we pull the permit, and we do it right the first time, so you never have to wonder about your panel again.
+            We&apos;re licensed, we pull a permit on every panel job, and the city inspects our work. Done right once, so you never have to
+            wonder about your panel again.
           </p>
           <dl className="mt-7 grid gap-4 border-t border-white/15 pt-6 text-sm sm:grid-cols-2">
             <div>
