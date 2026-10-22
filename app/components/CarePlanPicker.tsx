@@ -7,8 +7,27 @@ import { siteConfig } from '../config';
 import { carePlans, type CarePlanId } from '../carePlans';
 import { trackMarketingEvent } from './MarketingAnalytics';
 
-// Three-option selector. The cards are a radio group; the bar under them
-// carries the chosen plan into the contact form (/contact?plan=…).
+// The three plan cards, laid out like the membership flyer. The cards are a
+// radio group; the bar under them carries the chosen plan into the contact
+// form (/contact?plan=…).
+
+const HEAD: Record<CarePlanId, string> = {
+  basic: 'bg-[#DCE9F8] text-[#0B1F3F]',
+  plus: 'bg-[#0B4EA2] text-white',
+  commercial: 'bg-[#D7DEE7] text-[#0B1F3F]',
+};
+const SUB: Record<CarePlanId, string> = {
+  basic: 'text-[#0B4EA2]',
+  plus: 'text-white/85',
+  commercial: 'text-[#0B4EA2]',
+};
+
+const Tick = () => (
+  <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0B4EA2]" aria-hidden>
+    <Check className="h-3 w-3 text-white" strokeWidth={3.5} />
+  </span>
+);
+
 export function CarePlanPicker({ initial = 'plus' }: { initial?: CarePlanId }) {
   const [selected, setSelected] = useState<CarePlanId>(initial);
   const plan = carePlans.find((p) => p.id === selected)!;
@@ -17,16 +36,16 @@ export function CarePlanPicker({ initial = 'plus' }: { initial?: CarePlanId }) {
     <div>
       <fieldset>
         <legend className="sr-only">Choose a care plan</legend>
-        <div className="grid gap-3 sm:gap-4 lg:grid-cols-3">
+        <div className="grid gap-6 pt-3 lg:grid-cols-3 lg:gap-4">
           {carePlans.map((p) => {
             const active = p.id === selected;
             return (
               <label
                 key={p.id}
-                className={`relative flex cursor-pointer flex-col rounded-lg bg-white p-5 sm:p-6 transition-all duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--onestop-navy)] ${
+                className={`relative flex cursor-pointer flex-col rounded-2xl bg-white transition-shadow duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-[#0B4EA2] ${
                   active
-                    ? 'ring-2 ring-[var(--onestop-navy-deep)] shadow-[0_18px_40px_-18px_rgba(15,40,71,0.35)]'
-                    : 'ring-1 ring-slate-200 hover:ring-slate-300'
+                    ? 'ring-[3px] ring-[#0B4EA2] shadow-[0_24px_50px_-24px_rgba(11,78,162,0.55)]'
+                    : 'ring-1 ring-[#D5DCE5] shadow-[0_10px_30px_-20px_rgba(11,31,63,0.35)] hover:ring-[#9DB3CF]'
                 }`}
               >
                 <input
@@ -40,62 +59,73 @@ export function CarePlanPicker({ initial = 'plus' }: { initial?: CarePlanId }) {
                   }}
                   className="sr-only"
                 />
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[0.8rem] font-semibold text-slate-500">Solivance Care Plan</p>
-                    <h3 className="mt-0.5 text-[1.6rem] font-bold leading-tight tracking-[-0.02em] text-[var(--onestop-navy-deep)]">{p.name}</h3>
-                  </div>
-                  <span
-                    aria-hidden
-                    className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors ${
-                      active ? 'bg-[var(--onestop-navy-deep)] text-white' : 'ring-1 ring-slate-300 text-transparent'
-                    }`}
-                  >
-                    <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                {p.popular && (
+                  <span className="absolute -top-3.5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#F9C74F] px-4 py-1 text-[0.78rem] font-extrabold uppercase tracking-[0.04em] text-[#0B1F3F]">
+                    Most popular
                   </span>
+                )}
+
+                <div className={`rounded-t-2xl px-6 pb-4 pt-6 text-center ${HEAD[p.id]}`}>
+                  <h3 className="font-[family-name:var(--font-app-display)] text-[1.9rem] font-extrabold uppercase leading-none">{p.name}</h3>
+                  <p className={`mt-1.5 text-[1rem] font-medium ${SUB[p.id]}`}>{p.forWho}</p>
                 </div>
 
-                {p.forWho && <p className="mt-2 text-[0.92rem] leading-snug text-slate-600">{p.forWho}</p>}
+                <div className="flex flex-1 flex-col px-6 pb-6 pt-6">
+                  <div className="text-center">
+                    <p className="font-[family-name:var(--font-app-display)] text-[3.4rem] font-extrabold leading-none tracking-[-0.03em] text-[#0B1F3F] tabular-nums">{p.price}</p>
+                    <p className="mt-2 text-[1.2rem] font-medium text-[#0B1F3F]">{p.period}</p>
+                    <p className="mt-1.5 text-[0.92rem] text-[#4A5A70]">{p.monthly}</p>
+                  </div>
 
-                <p className={`mt-5 border-t border-slate-100 pt-5 ${p.price ? 'text-[1.9rem] font-bold tracking-[-0.02em] text-[var(--onestop-navy-deep)]' : 'text-[0.95rem] font-semibold text-slate-400'}`}>
-                  {p.price ?? 'Pricing coming soon'}
-                </p>
-
-                {p.features.length ? (
-                  <ul className="mt-4 grid gap-2.5">
+                  <ul className="mt-6 grid gap-3.5 border-t border-[#E3E8EF] pt-6">
+                    {p.includes && (
+                      <li className="flex items-start gap-3 text-[1rem] font-bold leading-snug text-[#0B1F3F]">
+                        <Tick />
+                        Everything in {p.includes}
+                      </li>
+                    )}
                     {p.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2.5 text-[0.92rem] leading-snug text-slate-700">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--onestop-red)]" strokeWidth={2.5} aria-hidden />
+                      <li key={f} className="flex items-start gap-3 text-[1rem] leading-snug text-[#1F2D42]">
+                        <Tick />
                         {f}
                       </li>
                     ))}
                   </ul>
-                ) : (
-                  <p className="mt-3 text-[0.9rem] leading-snug text-slate-500">What&apos;s included will be listed here soon. Call and we&apos;ll walk you through it.</p>
-                )}
+
+                  <div className="mt-auto pt-7">
+                    <span
+                      aria-hidden
+                      className={`flex h-11 items-center justify-center rounded-lg text-[0.95rem] font-bold transition-colors ${
+                        active ? 'bg-[#0B4EA2] text-white' : 'bg-[#EEF3F9] text-[#0B4EA2]'
+                      }`}
+                    >
+                      {active ? `${p.name} selected` : `Choose ${p.name}`}
+                    </span>
+                  </div>
+                </div>
               </label>
             );
           })}
         </div>
       </fieldset>
 
-      <div className="mt-4 flex flex-col gap-3 rounded-lg bg-[var(--onestop-navy-deep)] p-4 sm:mt-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <p className="text-[0.95rem] text-white/75" aria-live="polite">
-          Selected: <span className="font-bold text-white">{plan.name}</span>
+      <div className="mt-6 flex flex-col gap-3 rounded-2xl bg-[#0B1F3F] p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <p className="text-[1.02rem] text-white/75" aria-live="polite">
+          You picked <span className="font-bold text-white">{plan.name}</span> · {plan.price} {plan.period}
         </p>
         <div className="flex flex-col gap-2.5 sm:flex-row">
           <a
             href={`tel:${siteConfig.cleanPhone}`}
-            className="btn-ghost-dark inline-flex h-12 items-center justify-center gap-2 rounded-md px-5 text-[0.82rem] font-bold text-white"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-white/25 px-5 text-[0.95rem] font-semibold text-white transition-colors hover:bg-white/10"
           >
             <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
           </a>
           <Link
             href={`/contact?plan=${plan.id}#form`}
             onClick={() => trackMarketingEvent('Care Plan CTA', { plan: plan.id })}
-            className="btn-solid inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-6 text-[0.78rem] font-bold uppercase tracking-[0.12em] text-white hover:bg-[#e55f15]"
+            className="group inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-[#F26B1F] px-6 text-[0.98rem] font-bold text-white transition-colors hover:bg-[#E55F15]"
           >
-            Ask about {plan.name} <ArrowRight className="h-4 w-4" aria-hidden />
+            Join {plan.name} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
           </Link>
         </div>
       </div>
