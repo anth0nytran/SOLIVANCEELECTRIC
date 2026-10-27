@@ -6,7 +6,7 @@ import { BadgeCheck, Check, Phone, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from '../_panel/PanelLeadForm';
-import { AmbientGlow } from '../_panel/AmbientGlow';
+import { CircuitTraces } from '../_panel/CircuitTraces';
 import { CallLink } from '../_panel/CallLink';
 import { ProcessSteps } from '../_panel/ProcessSteps';
 import { SignsGrid } from '../_panel/SignsGrid';
@@ -110,7 +110,7 @@ export default function PanelInspectionPage() {
 
       {/* Hero: headline, subheadline, form. Side by side on desktop so the fold has no dead space. */}
       <section className="relative isolate overflow-hidden bg-[#F4F6F9]">
-        <AmbientGlow />
+        <CircuitTraces />
         <div className={`${wrap} grid gap-8 pb-12 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-16 lg:py-14`}>
           <div>
             {/* H1 repeats the search term: what Google matches the ad against. */}
@@ -167,7 +167,7 @@ export default function PanelInspectionPage() {
 
       {/* The process */}
       <section className={`relative isolate overflow-hidden bg-[#EEF1F5] ${section}`}>
-        <AmbientGlow />
+        <CircuitTraces />
         <div className={wrap}>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
