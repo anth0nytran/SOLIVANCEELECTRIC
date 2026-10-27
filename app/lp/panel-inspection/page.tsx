@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { Poppins } from 'next/font/google';
-import { Check, Phone, ShieldCheck } from 'lucide-react';
+import { BadgeCheck, Check, Phone, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from '../_panel/PanelLeadForm';
 import { CallLink } from '../_panel/CallLink';
 import { ProcessSteps } from '../_panel/ProcessSteps';
 import { SignsGrid } from '../_panel/SignsGrid';
-import { GoogleG, GoogleRatingCard, Stars, TrustBadges } from '../_panel/Badges';
+import { GoogleG, Stars, TrustBadges } from '../_panel/Badges';
 
 export const metadata: Metadata = {
   title: 'Electrical Panel Replacement in Houston',
@@ -218,9 +218,29 @@ export default function PanelInspectionPage() {
       {/* Reviews */}
       <section className={`bg-white ${section}`}>
         <div className={wrap}>
-          <div className="text-center">
-            <h2 className={h2}>See what homeowners are saying</h2>
-            <GoogleRatingCard className="mt-8" />
+          {/* Heading beside one verified rating bar (stays on-page: no link out). */}
+          <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
+            <h2 className={`${h2} max-w-xl lg:max-w-md`}>See what homeowners are saying</h2>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-4 rounded-2xl border border-[#E6E8EC] bg-white px-5 py-4 lg:shrink-0 lg:flex-nowrap shadow-[0_8px_24px_-16px_rgba(10,19,34,0.25)] sm:px-6">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F4F6F9]">
+                <GoogleG className="h-7 w-7" />
+              </span>
+              <div>
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[2.1rem] font-bold leading-none tracking-[-0.02em]">{siteConfig.rating.toFixed(1)}</span>
+                  <Stars className="h-5 w-5" />
+                </div>
+                <p className="mt-1 text-sm text-[#5A6B7F]">Based on {siteConfig.reviewCount} Google reviews</p>
+              </div>
+              <span className="hidden h-12 w-px bg-[#E6E8EC] sm:block" aria-hidden />
+              <div className="flex items-center gap-2.5">
+                <BadgeCheck className="h-6 w-6 shrink-0 text-[#1F7A4D]" aria-hidden />
+                <div className="leading-tight">
+                  <p className="font-semibold">Verified Google reviews</p>
+                  <p className="text-sm text-[#5A6B7F]">Posted by real customers</p>
+                </div>
+              </div>
+            </div>
           </div>
           {/* The one review that names the danger, set large. */}
           <figure className="mt-10 grid gap-6 rounded-xl bg-[#0A1322] p-6 text-white sm:mt-14 sm:gap-8 sm:p-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-14">

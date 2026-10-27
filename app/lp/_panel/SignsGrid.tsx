@@ -7,12 +7,12 @@ import { CalendarClock, Flame, Lightbulb, ShieldAlert, FileWarning, Zap } from '
 // each. They fade up in order the first time the list scrolls into view.
 
 const SIGNS: { icon: typeof Zap; title: string; detail: string }[] = [
-  { icon: Zap, title: 'Breakers keep tripping', detail: 'Especially when the AC and dryer run at the same time.' },
-  { icon: Lightbulb, title: 'Lights dim or flicker', detail: 'When something big kicks on, like the AC or a microwave.' },
-  { icon: Flame, title: 'Warm, buzzing or burning smell', detail: 'Any heat, sound or smell from the panel. Call right away.' },
-  { icon: ShieldAlert, title: 'A problem brand', detail: 'Federal Pacific, Zinsco, or a brand you can’t find.' },
-  { icon: FileWarning, title: 'Flagged by insurance or a buyer', detail: 'An insurer or a buyer’s inspector wrote it up.' },
-  { icon: CalendarClock, title: 'The original panel', detail: 'Still the one from when the house was built.' },
+  { icon: Zap, title: 'Breakers trip', detail: 'Often when the AC and dryer run at once.' },
+  { icon: Lightbulb, title: 'Lights flicker', detail: 'They dim when something big kicks on.' },
+  { icon: Flame, title: 'Heat, buzzing or a smell', detail: 'From the panel itself. Call right away.' },
+  { icon: ShieldAlert, title: 'A problem brand', detail: 'Federal Pacific, Zinsco, or one you can’t find.' },
+  { icon: FileWarning, title: 'Flagged by an inspector', detail: 'Your insurer or a buyer’s inspector wrote it up.' },
+  { icon: CalendarClock, title: 'The original panel', detail: 'Still the one the house was built with.' },
 ];
 
 export function SignsGrid() {
