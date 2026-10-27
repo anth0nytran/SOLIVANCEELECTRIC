@@ -7,6 +7,8 @@ import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from '../_panel/PanelLeadForm';
 import { CallLink } from '../_panel/CallLink';
+import { ProcessSteps } from '../_panel/ProcessSteps';
+import { SignsGrid } from '../_panel/SignsGrid';
 import { GoogleG, GoogleRatingCard, Stars, TrustBadges } from '../_panel/Badges';
 
 export const metadata: Metadata = {
@@ -41,23 +43,6 @@ const HERO_POINTS = [
 ];
 
 const AREAS = ['Westbury', 'Meyerland', 'Bellaire', 'West University', 'Medical Center', 'The Heights', 'Garden Oaks', 'Memorial Villages', 'Stafford', 'Missouri City', 'Sugar Land'];
-
-const SIGNS = [
-  'Breakers trip when the AC and dryer run at the same time.',
-  'Lights dim or flicker when something kicks on.',
-  'The panel feels warm, buzzes, or smells like something burning.',
-  'It’s a Federal Pacific, a Zinsco, or a brand you can’t find.',
-  'An insurance company or a buyer’s inspector flagged it.',
-  'It’s the original panel from when the house was built.',
-];
-
-const STEPS = [
-  { title: 'The inspection', detail: 'A licensed electrician checks your panel in person for heat damage, problem brands and capacity. No cost, no obligation.' },
-  { title: 'A written quote', detail: 'Itemized and in writing before any work starts. If your panel is fine, we tell you that.' },
-  { title: 'The permit', detail: 'We file it with the city on every panel job. Plenty of electricians skip this step. We don’t.' },
-  { title: 'The install', detail: 'We schedule the power shut-off and reconnect with the utility, then install your new panel to code.' },
-  { title: 'The city inspection', detail: 'An inspector signs off and leaves the green tag on your panel. That’s your proof it passed.' },
-];
 
 const review = (id: string) => reviews.find((r) => r.id === id)!;
 const FIRE_REVIEW = review('yeny-v');
@@ -158,14 +143,8 @@ export default function PanelInspectionPage() {
         <div className={`${wrap} grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-20`}>
           <div>
             <h2 className={h2}>Your house grew. Your panel didn&apos;t. That&apos;s the problem.</h2>
-            <p className="mt-7 text-[1.05rem] text-[#4A5568] sm:mt-9">Typical signs:</p>
-            <ul className="mt-5 space-y-4 border-l-2 border-[#D9D5CC] pl-5">
-              {SIGNS.map((s) => (
-                <li key={s} className="text-[1.05rem] leading-[1.6] text-[#2D3748]">
-                  {s}
-                </li>
-              ))}
-            </ul>
+            <p className="mb-5 mt-7 text-[1.05rem] text-[#4A5568] sm:mt-9">Typical signs:</p>
+            <SignsGrid />
             <p className="mt-8 text-[1.1rem] font-semibold leading-[1.65]">
               These aren&apos;t six separate problems. They&apos;re what it looks like when a home outgrows its panel. The fix is a new panel, installed to code, with a permit and a city inspection. That&apos;s the only way we do it.
             </p>
@@ -200,24 +179,10 @@ export default function PanelInspectionPage() {
             </CallLink>
           </div>
 
-          {/* A real sequence: a timeline on phones, one row of cards on desktop. */}
-          <ol className="mt-9 lg:mt-10 lg:grid lg:grid-cols-5 lg:gap-4">
-            {STEPS.map(({ title, detail }, i) => (
-              <li
-                key={title}
-                className="relative flex gap-4 pb-7 last:pb-0 lg:block lg:rounded-xl lg:bg-white lg:p-6 lg:shadow-[0_1px_2px_rgba(10,19,34,0.06)]"
-              >
-                {i < STEPS.length - 1 ? <span className="absolute bottom-0 left-[17px] top-10 w-px bg-[#C9D1DC] lg:hidden" aria-hidden /> : null}
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#E8590C] text-[0.85rem] font-semibold text-white lg:h-auto lg:w-auto lg:justify-start lg:rounded-none lg:bg-transparent lg:text-[1.6rem] lg:leading-none lg:text-[#E8590C]">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div className="pt-1.5 lg:pt-0">
-                  <p className="text-[0.8rem] font-semibold uppercase tracking-[0.12em] lg:mt-3">{title}</p>
-                  <p className="mt-1.5 text-[0.95rem] leading-[1.6] text-[#4A5568] lg:mt-2.5 lg:leading-[1.65]">{detail}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          {/* A real sequence: a timeline on phones, one row on desktop, drawn in as it scrolls into view. */}
+          <div className="mt-9 lg:mt-12">
+            <ProcessSteps />
+          </div>
         </div>
       </section>
 
