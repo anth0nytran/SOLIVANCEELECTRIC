@@ -13,6 +13,7 @@ export type Attribution = Partial<Record<(typeof PARAMS)[number], string>>;
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 

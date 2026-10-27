@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { pushDataLayer } from '../../../lib/tracking';
+import { LEAD_SEND_TO } from '../../_panel/googleAds';
 
 // Fires the Google Ads lead conversion at most once per accepted submission.
 //
@@ -34,6 +35,9 @@ export function ConversionClaim() {
       .then((res: { fire?: boolean; reason?: string }) => {
         if (res.fire) {
           pushDataLayer({ event: 'panel_lead_success', transaction_id: sid, lead_type: 'panel_inspection' });
+          // Direct-tag mode (no GTM): send the Ads conversion ourselves.
+          // transaction_id lets Google drop any duplicate that slips through.
+          if (LEAD_SEND_TO) window.gtag?.('event', 'conversion', { send_to: LEAD_SEND_TO, transaction_id: sid });
           setState('fired');
         } else {
           setState(`skipped:${res.reason || 'unknown'}`);
