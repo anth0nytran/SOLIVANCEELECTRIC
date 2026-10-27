@@ -75,18 +75,19 @@ export default function ThankYouPage() {
       {/* Confirmation (wide) beside the status tracker (narrow) */}
       <section className="bg-white">
         <div className={`${wrap} grid gap-10 ${band} lg:grid-cols-12 lg:gap-14`}>
-          <div className="lg:col-span-7 lg:self-center">
+          {/* Centered on phones and tablets; left-aligned beside the tracker on desktop. */}
+          <div className="text-center lg:col-span-7 lg:self-center lg:text-left">
             <p className="inline-flex items-center gap-2 rounded-full bg-[#E8F4EE] px-3 py-1 text-sm font-semibold text-[#1F7A4D]">
               <Check className="h-4 w-4" strokeWidth={3} aria-hidden /> Request received
             </p>
-            <h1 className="mt-5 max-w-[15ch] text-[2.4rem] font-bold leading-[1.04] tracking-[-0.035em] sm:text-[3.4rem]">
+            <h1 className="mx-auto mt-5 max-w-[15ch] text-[2.4rem] font-bold leading-[1.04] tracking-[-0.035em] sm:text-[3.4rem] lg:mx-0">
               We&apos;ll call you shortly.
             </h1>
-            <p className="mt-5 max-w-[32rem] text-[1.08rem] leading-relaxed text-[#4A5568]">
+            <p className="mx-auto mt-5 max-w-[32rem] text-[1.08rem] leading-relaxed text-[#4A5568] lg:mx-0">
               The call comes from <strong className="whitespace-nowrap font-semibold text-[#0A1322]">{siteConfig.phone}</strong>. Save it now so it
               doesn&apos;t show up as an unknown number.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
               <a
                 href="/lp/solivance-electric.vcf"
                 download="Solivance Electric.vcf"
