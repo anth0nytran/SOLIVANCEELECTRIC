@@ -3,6 +3,7 @@ import { Geist, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { MobileCTA } from "./components/MobileCTA";
+import { SiteCarePlanBand } from "./components/CarePlanUpsell";
 import { IntroVideo } from "./components/IntroVideo";
 import { CookieConsent } from "./components/CookieConsent";
 import { ChromeGate } from "./components/ChromeGate";
@@ -277,6 +278,7 @@ export default function RootLayout({
             {children}
           </main>
           <ChromeGate>
+            <SiteCarePlanBand />
             <Footer />
             <MobileCTA />
           </ChromeGate>

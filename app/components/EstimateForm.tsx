@@ -4,14 +4,17 @@ import { useId, useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Phone, User, MapPin, ClipboardList, Lock, Calendar, Clock, Mail, Zap, Shield, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { siteConfig } from '../config';
+import { carePlans, carePlanService } from '../carePlans';
 import { trackMarketingEvent } from './MarketingAnalytics';
 
-export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
+// initialService preselects the dropdown, e.g. a care plan picked on /care-plans.
+export function EstimateForm({ variant = 'light', initialService = '' }: { variant?: 'light' | 'dark'; initialService?: string }) {
   const uid = useId();
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [formError, setFormError] = useState('');
   const [formTimestamp] = useState(() => Date.now().toString());
   const [phoneValue, setPhoneValue] = useState('');
+  const [service, setService] = useState(initialService);
 
   const formatPhone = (v: string) => {
     const d = v.replace(/\D/g, '').slice(0, 10);
@@ -32,7 +35,7 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
     if (typeof window !== 'undefined') {
       fd.set('page', window.location.href);
     }
-    if (String(fd.get('website') || '').trim()) { form.reset(); setPhoneValue(''); setFormStatus('success'); return; }
+    if (String(fd.get('website') || '').trim()) { form.reset(); setPhoneValue(''); setService(''); setFormStatus('success'); return; }
     try {
       const res = await fetch('/api/lead', { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
       const data = await res.json().catch(() => null);
@@ -42,7 +45,7 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
         setFormError(data?.error || 'Something went wrong.');
         return;
       }
-      form.reset(); setPhoneValue(''); setFormStatus('success');
+      form.reset(); setPhoneValue(''); setService(''); setFormStatus('success');
       trackMarketingEvent('Lead Form Success', { form: 'contact', service });
     } catch {
       trackMarketingEvent('Lead Form Error', { form: 'contact', service });
@@ -189,9 +192,12 @@ export function EstimateForm({ variant = 'light' }: { variant?: 'light' | 'dark'
                 <label htmlFor={`${uid}-service`} className={labelCls}>Service Needed <span className="text-red-600" aria-hidden>*</span></label>
                 <div className="relative">
                   <ClipboardList className={iconCls} />
-                  <select required id={`${uid}-service`} name="service" defaultValue="" className={`${inputCls} appearance-none`}>
+                  <select required id={`${uid}-service`} name="service" value={service} onChange={(e) => setService(e.target.value)} className={`${inputCls} appearance-none`}>
                     <option value="" disabled>Select service...</option>
                     {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
+                    <optgroup label="Solivance Care Plans">
+                      {carePlans.map((p) => <option key={p.id} value={carePlanService(p)}>{carePlanService(p)}</option>)}
+                    </optgroup>
                   </select>
                 </div>
               </div>

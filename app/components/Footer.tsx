@@ -57,6 +57,7 @@ const footerServices: { slug: string; label: string }[] = [
 ];
 
 const companyLinks = [
+  { href: '/care-plans', label: 'Solivance Care Plans' },
   { href: '/about', label: 'About Solivance Electric' },
   { href: '/reviews', label: 'Customer Reviews' },
   { href: '/blog', label: 'Blog' },

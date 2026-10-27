@@ -25,7 +25,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-export default function ContactPageClient({ faqs }: { faqs: { q: string; a: string }[] }) {
+export default function ContactPageClient({ faqs, initialService }: { faqs: { q: string; a: string }[]; initialService?: string }) {
   return (
     <>
       {/* ═══ PAGE HEADER ═══ */}
@@ -107,7 +107,7 @@ export default function ContactPageClient({ faqs }: { faqs: { q: string; a: stri
                   over the phone.
                 </p>
               </div>
-              <EstimateForm />
+              <EstimateForm initialService={initialService} />
             </motion.div>
 
             {/* Right — Sidebar */}

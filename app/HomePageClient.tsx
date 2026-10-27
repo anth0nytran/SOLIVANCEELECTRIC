@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { siteConfig, serviceData } from './config';
 import { ReviewsSection } from './components/ReviewsSection';
+import { CarePlanBand } from './components/CarePlanUpsell';
 import { trackMarketingEvent } from './components/MarketingAnalytics';
 
 /* ─── COMPACT HERO FORM ─── */
@@ -381,6 +382,8 @@ export default function HomePageClient() {
           </div>
         </div>
       </section>
+
+      <CarePlanBand />
 
       {/* ═══ SERVICE AREAS — clean professional ═══ */}
       <section className="num-host bg-white py-16 sm:py-24 border-t border-slate-100 overflow-hidden">
