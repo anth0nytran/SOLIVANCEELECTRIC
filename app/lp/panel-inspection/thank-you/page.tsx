@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Poppins } from 'next/font/google';
 import { BookUser, Check, ChevronRight, Phone, TriangleAlert } from 'lucide-react';
 import { ConversionClaim } from './ConversionClaim';
+import { StatusTracker } from './StatusTracker';
 import { siteConfig } from '../../../config';
 import { reviews } from '../../../reviews';
 import { CallLink } from '../../_panel/CallLink';
@@ -23,8 +24,12 @@ export const metadata: Metadata = {
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'], display: 'swap' });
 
 const wrap = 'mx-auto w-full max-w-6xl px-5 sm:px-8';
+// One vertical rhythm for every section band.
+const band = 'py-14 sm:py-20';
+const sectionTitle = 'text-[1.75rem] font-bold leading-tight tracking-[-0.025em] sm:text-[2.25rem]';
 
-// Tracker: step 1 is done, step 2 is next, the rest are upcoming.
+// Tracker: step 1 is done, CURRENT is in progress, the rest are upcoming.
+const CURRENT = 1;
 const TRACK = [
   { title: 'Request received', detail: 'Your details are with our team.' },
   { title: 'We call you', detail: `From ${siteConfig.phone}, to pick a time that works for you.` },
@@ -69,7 +74,7 @@ export default function ThankYouPage() {
 
       {/* Confirmation (wide) beside the status tracker (narrow) */}
       <section className="bg-white">
-        <div className={`${wrap} grid gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12`}>
+        <div className={`${wrap} grid gap-10 ${band} lg:grid-cols-12 lg:gap-14`}>
           <div className="lg:col-span-7 lg:self-center">
             <p className="inline-flex items-center gap-2 rounded-full bg-[#E8F4EE] px-3 py-1 text-sm font-semibold text-[#1F7A4D]">
               <Check className="h-4 w-4" strokeWidth={3} aria-hidden /> Request received
@@ -100,47 +105,14 @@ export default function ThankYouPage() {
 
           {/* The tracker: one look tells them where they are. */}
           <div className="lg:col-span-5">
-            <div className="rounded-2xl border border-[#E3E7EC] bg-[#F9FAFB] p-6 sm:p-8">
-              <h2 className="text-[1.05rem] font-semibold">Your inspection</h2>
-              <ol className="mt-6">
-                {TRACK.map((s, i) => {
-                  const done = i === 0;
-                  const next = i === 1;
-                  return (
-                    <li key={s.title} className="relative flex gap-4 pb-7 last:pb-0">
-                      {i < TRACK.length - 1 ? (
-                        <span className={`absolute left-[15px] top-8 h-[calc(100%-2rem)] w-0.5 ${done ? 'bg-[#1F7A4D]' : 'bg-[#E3E7EC]'}`} aria-hidden />
-                      ) : null}
-                      <span
-                        className={`relative z-[1] flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                          done
-                            ? 'bg-[#1F7A4D] text-white'
-                            : next
-                              ? 'bg-[#E8590C] text-white ring-4 ring-[#E8590C]/15'
-                              : 'border-2 border-[#D5DBE2] bg-white text-[#8A97A8]'
-                        }`}
-                      >
-                        {done ? <Check className="h-4 w-4" strokeWidth={3} aria-hidden /> : i + 1}
-                      </span>
-                      <div className="pt-1">
-                        <p className={`font-semibold ${!done && !next ? 'text-[#5A6B7F]' : ''}`}>
-                          {s.title}
-                          {next ? <span className="ml-2 text-[0.8rem] font-semibold text-[#E8590C]">Up next</span> : null}
-                        </p>
-                        <p className="mt-1 text-[0.95rem] leading-relaxed text-[#5A6B7F]">{s.detail}</p>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ol>
-            </div>
+            <StatusTracker steps={TRACK} current={CURRENT} />
           </div>
         </div>
       </section>
 
       {/* Prep: photo (narrow) beside the checklist (wide) */}
       <section className="border-y border-[#E3E7EC]">
-        <div className={`${wrap} grid gap-10 py-14 sm:py-20 lg:grid-cols-12 lg:items-center lg:gap-14`}>
+        <div className={`${wrap} grid gap-10 ${band} lg:grid-cols-12 lg:items-center lg:gap-14`}>
           <figure className="order-2 lg:order-1 lg:col-span-5">
             <Image
               src="/lp/panel-new-inspected.jpg"
@@ -154,11 +126,11 @@ export default function ThankYouPage() {
           </figure>
 
           <div className="order-1 lg:order-2 lg:col-span-7">
-            <h2 className="text-[1.9rem] font-bold leading-tight tracking-[-0.025em] sm:text-[2.4rem]">Before we come out</h2>
+            <h2 className={sectionTitle}>Before we come out</h2>
             <p className="mt-3 max-w-[36rem] text-[1.05rem] leading-relaxed text-[#4A5568]">
               Two minutes now helps the electrician get it right on the first visit.
             </p>
-            <ul className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+            <ul className="mt-8 grid gap-x-10 gap-y-7 sm:grid-cols-2">
               {PREP.map((p) => (
                 <li key={p.title} className="flex gap-3.5">
                   <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#E8F4EE] text-[#1F7A4D]">
@@ -171,7 +143,7 @@ export default function ThankYouPage() {
                 </li>
               ))}
             </ul>
-            <div className="mt-9 flex gap-3 border-l-4 border-[#E8590C] bg-white py-4 pl-4 pr-5 text-[0.97rem] leading-relaxed shadow-[0_1px_0_#E3E7EC]">
+            <div className="mt-8 flex gap-3 rounded-r-lg border-l-4 border-[#E8590C] bg-white py-4 pl-4 pr-5 text-[0.97rem] leading-relaxed shadow-[0_1px_0_#E3E7EC]">
               <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-[#E8590C]" aria-hidden />
               <p>
                 <strong className="font-semibold">Smell burning, hear buzzing, or the panel feels hot?</strong> Don&apos;t wait for our call. Call{' '}
@@ -187,9 +159,9 @@ export default function ThankYouPage() {
 
       {/* Proof: one compact dark band, quotes side by side */}
       <section className="bg-[#0A1322] text-white">
-        <div className={`${wrap} py-14 sm:py-16`}>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 className="text-[1.6rem] font-bold tracking-[-0.02em] sm:text-[1.9rem]">What homeowners say</h2>
+        <div className={`${wrap} ${band}`}>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <h2 className={sectionTitle}>What homeowners say</h2>
             <p className="flex items-center gap-2.5 text-white/75">
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
                 <GoogleG className="h-4 w-4" />
@@ -199,7 +171,7 @@ export default function ThankYouPage() {
               <span className="text-sm">on Google</span>
             </p>
           </div>
-          <div className="mt-10 grid gap-10 md:grid-cols-3 md:gap-0 md:divide-x md:divide-white/10">
+          <div className="mt-10 grid gap-y-9 border-t border-white/10 pt-10 md:grid-cols-3 md:gap-0 md:divide-x md:divide-white/10">
             {PROOF.map((r, i) => (
               <figure key={r.id} className={`flex flex-col ${i === 0 ? 'md:pr-8' : i === PROOF.length - 1 ? 'md:pl-8' : 'md:px-8'}`}>
                 <Stars className="h-4 w-4" />
@@ -215,7 +187,7 @@ export default function ThankYouPage() {
 
       {/* Footer: links into the main site */}
       <footer className="bg-white">
-        <div className={`${wrap} flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between`}>
+        <div className={`${wrap} flex flex-col gap-5 py-10 sm:py-12 md:flex-row md:items-center md:justify-between`}>
           <p className="text-[0.95rem] text-[#5A6B7F]">Want to read more while you wait?</p>
           <nav aria-label="More from Solivance Electric" className="flex flex-wrap gap-x-7 gap-y-3">
             {LEARN.map((l) => (
