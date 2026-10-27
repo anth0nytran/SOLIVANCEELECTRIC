@@ -19,6 +19,8 @@ export const runtime = 'nodejs';
 const SUBMISSION_TTL = 60 * 60 * 24 * 7; // 7 days
 const REPEAT_WINDOW = 60 * 60 * 24; // 24 hours
 const STALE_PROCESSING_MS = 45_000; // a crashed attempt can be taken over after this
+const IP_LIMIT = 5; // submissions per network per hour before we treat it as a bot
+const IP_WINDOW = 60 * 60;
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
@@ -57,32 +59,51 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Invalid submission. Please refresh and try again.' }, { status: 400 });
   }
 
-  // Bots: pretend success, record nothing, never conversion-eligible.
+  // Bots: pretend success, record nothing, never conversion-eligible. Every
+  // check is invisible to a real person (no captcha, no strict email rules):
+  // a hidden field only bots fill, a form finished faster than a human can,
+  // links pasted into the name or description, and a flood from one network.
   const startedAt = Number(str(data._ts, 20));
-  if (str(data.company_url) || (startedAt && Date.now() - startedAt < 3000)) {
-    log('panel_lead.spam_dropped', { submissionId });
+  const links = (str(data.description, 1000).match(/https?:\/\/|www\./gi) || []).length;
+  const ipKey = `pl:ip:${createHash('sha256').update(req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown').digest('hex')}`;
+  const ipCount = kvMode() === 'unavailable' ? 0 : Number((await kvGet(ipKey)) || 0);
+  const spamReason =
+    (str(data.company_url) && 'honeypot') ||
+    ((!startedAt || Date.now() - startedAt < 3000) && 'too_fast') ||
+    ((/https?:\/\/|www\./i.test(str(data.name)) || links > 1) && 'links') ||
+    (ipCount >= IP_LIMIT && 'ip_flood');
+  if (spamReason) {
+    log('panel_lead.spam_dropped', { submissionId, reason: spamReason });
     return NextResponse.json({ ok: true, submissionId, conversionEligible: false, repeat: false, replayed: false });
   }
+  if (kvMode() !== 'unavailable') await kvSet(ipKey, String(ipCount + 1), IP_WINDOW);
 
   const name = str(data.name, 60);
-  const phone = str(data.phone, 30);
+  // US numbers only. A leading 1 / +1 is the country code (area codes never
+  // start with 1), so strip it and keep exactly 10 digits for GHL.
+  const phone10 = str(data.phone, 30).replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
+  const phone = phone10.length === 10 ? `(${phone10.slice(0, 3)}) ${phone10.slice(3, 6)}-${phone10.slice(6)}` : phone10;
   const address = str(data.address, 120);
   const zipCode = str(data.zipCode, 10);
   const concern = str(data.concern);
   const timeline = str(data.timeline);
   const decisionMaker = str(data.decisionMaker);
   const email = str(data.email, 120);
-  const phoneDigits = phone.replace(/\D/g, '');
+  const preferredDate = str(data.preferredDate, 10);
+  const description = str(data.description, 1000);
+  const phoneDigits = phone10;
 
   const problems = [
-    !/^[A-Za-z\s\-'.]{2,60}$/.test(name) && 'your name',
-    !(phoneDigits.length === 10 || (phoneDigits.length === 11 && phoneDigits.startsWith('1'))) && 'a valid phone number',
+    // Letters in any language (José, Nguyễn), spaces, hyphens, apostrophes, dots.
+    !/^[\p{L}\s\-'.]{2,60}$/u.test(name) && 'your name',
+    !/^[2-9]\d{2}[2-9]\d{6}$/.test(phone10) && 'a valid 10-digit phone number',
     address.length < 4 && 'your street address',
     !/^\d{5}$/.test(zipCode) && 'a 5-digit ZIP code',
     !CONCERNS.includes(concern) && "what's going on with your panel",
     !TIMELINES.includes(timeline) && 'your timeline',
     !['Yes', 'No'].includes(decisionMaker) && 'whether you own the home',
-    email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && 'a valid email (or leave it blank)',
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && 'a valid email',
+    preferredDate && !/^\d{4}-\d{2}-\d{2}$/.test(preferredDate) && 'a valid date (or leave it blank)',
   ].filter(Boolean);
   if (problems.length) {
     return NextResponse.json({ ok: false, error: `Please add ${problems.join(', ')}.` }, { status: 400 });
@@ -92,7 +113,9 @@ export async function POST(req: Request) {
     submissionId,
     name,
     phone,
-    email: email || undefined,
+    email,
+    preferredDate: preferredDate || undefined,
+    description: description || undefined,
     address,
     zipCode,
     concern,

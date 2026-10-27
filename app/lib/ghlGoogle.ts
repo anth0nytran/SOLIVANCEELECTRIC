@@ -47,7 +47,11 @@ export type PanelLead = {
   submissionId: string;
   name: string;
   phone: string;
-  email?: string;
+  email: string;
+  /** Preferred service date, YYYY-MM-DD. */
+  preferredDate?: string;
+  /** Homeowner's own words about the problem. */
+  description?: string;
   address: string;
   zipCode: string;
   concern: string;
@@ -82,6 +86,8 @@ const buildNote = (lead: PanelLead, repeat: boolean): string =>
     `Address: ${lead.address} ${lead.zipCode}`,
     `Panel concern: ${lead.concern}`,
     `Timeline: ${lead.timeline}`,
+    lead.preferredDate ? `Preferred date: ${lead.preferredDate}` : '',
+    lead.description ? `What they said: ${lead.description}` : '',
     `Homeowner / decision maker: ${lead.decisionMaker}`,
     `SMS Consent: ${lead.smsOptIn ? 'YES — opted in to SMS' : 'No (not checked)'}`,
     lead.gclid ? 'Google click ID: captured' : lead.gbraid || lead.wbraid ? 'Google click ID: gbraid/wbraid captured' : 'Google click ID: none',
@@ -138,7 +144,16 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     [FIELD_IDS.decisionMaker, lead.decisionMaker],
     [FIELD_IDS.projectAddress, lead.address],
     [FIELD_IDS.zipCode, lead.zipCode],
-    [FIELD_IDS.message, `Panel concern: ${lead.concern}`],
+    [
+      FIELD_IDS.message,
+      [
+        `Panel concern: ${lead.concern}`,
+        lead.preferredDate && `Preferred date: ${lead.preferredDate}`,
+        lead.description && `Details: ${lead.description}`,
+      ]
+        .filter(Boolean)
+        .join('\n'),
+    ],
     [FIELD_IDS.leadSource, 'Google'],
     [FIELD_IDS.formType, 'Google Ads Panel Landing Page'],
     [FIELD_IDS.smsConsent, lead.smsOptIn ? 'Yes' : 'No'],
@@ -165,9 +180,9 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     postalCode: lead.zipCode,
     tags: [GOOGLE_TAG],
     source: GOOGLE_SOURCE,
+    email: lead.email,
     customFields,
   };
-  if (lead.email) contactBody.email = lead.email;
 
   const upsert = await ghl('/contacts/upsert', contactBody);
   const contact = upsert.contact as { id?: string } | undefined;
