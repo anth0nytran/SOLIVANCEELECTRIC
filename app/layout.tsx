@@ -28,6 +28,9 @@ const monoFont = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
+  // Only used for small eyebrow labels; don't make every page (including the
+  // paid landing pages, which never use it) download it up front.
+  preload: false,
 });
 
 export const metadata: Metadata = {

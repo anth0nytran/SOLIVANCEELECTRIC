@@ -35,7 +35,10 @@ export default function LandingLayout({ children }: { children: ReactNode }) {
         {bootstrap}
       </Script>
       {ADS_DIRECT ? (
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} strategy="afterInteractive" />
+        // The tag library (~150 KB) waits until the page has loaded so it doesn't
+        // slow the first paint. Calls made before then queue in dataLayer via
+        // the gtag() stub above and are sent when it arrives.
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} strategy="lazyOnload" />
       ) : null}
       {GTM_ID ? (
         <noscript>

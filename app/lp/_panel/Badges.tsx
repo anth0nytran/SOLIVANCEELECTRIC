@@ -14,7 +14,7 @@ export const GoogleG = ({ className = 'h-5 w-5' }: { className?: string }) => (
 );
 
 export const Stars = ({ className = 'h-4 w-4' }: { className?: string }) => (
-  <span className="flex gap-0.5" aria-label="5 out of 5 stars">
+  <span className="flex gap-0.5" role="img" aria-label="5 out of 5 stars">
     {Array.from({ length: 5 }).map((_, i) => (
       <Star key={i} className={`${className} fill-[#FBBC04] text-[#FBBC04]`} aria-hidden />
     ))}

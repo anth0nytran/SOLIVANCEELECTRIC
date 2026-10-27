@@ -30,7 +30,7 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700
 const wrap = 'mx-auto w-full max-w-6xl px-5 sm:px-8';
 const section = 'py-14 sm:py-16';
 const h2 = 'text-[2rem] font-bold leading-[1.08] tracking-[-0.025em] sm:text-[3.1rem]';
-const label = 'text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#E8590C]';
+const label = 'text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#B23F07]';
 const ink = 'bg-[#0A1322]';
 const cta =
   'inline-flex items-center justify-center rounded-lg bg-[#E8590C] px-9 py-4 text-[1.05rem] font-semibold text-white transition-colors hover:bg-[#CF4E0A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
@@ -91,14 +91,14 @@ export default function PanelInspectionPage() {
                   <span className="text-[0.9rem] font-bold">{siteConfig.rating.toFixed(1)}</span>
                   <Stars className="h-3.5 w-3.5" />
                 </div>
-                <p className="text-[0.75rem] text-[#718096]">on Google</p>
+                <p className="text-[0.75rem] text-[#5A6B7F]">on Google</p>
               </div>
             </div>
             <div className="hidden items-center gap-2.5 border-r border-[#E6E8EC] pr-6 md:flex">
               <ShieldCheck className="h-5 w-5 text-[#1F7A4D]" strokeWidth={2} aria-hidden />
               <div className="leading-tight">
                 <p className="text-[0.82rem] font-semibold">Licensed &amp; insured</p>
-                <p className="text-[0.75rem] text-[#718096]">{siteConfig.license.label}</p>
+                <p className="text-[0.75rem] text-[#5A6B7F]">{siteConfig.license.label}</p>
               </div>
             </div>
             <CallLink location="header" className="flex items-center gap-2 rounded-lg bg-[#0A1322] px-4 py-2.5 text-[0.9rem] font-semibold text-white hover:bg-[#1B2A42]">
@@ -165,7 +165,7 @@ export default function PanelInspectionPage() {
               className="aspect-[4/3] w-full rounded-xl object-cover lg:aspect-[3/4]"
               sizes="(min-width:1024px) 440px, 100vw"
             />
-            <figcaption className="mt-3 text-sm text-[#718096]">An aging exterior panel on a Houston home.</figcaption>
+            <figcaption className="mt-3 text-sm text-[#5A6B7F]">An aging exterior panel on a Houston home.</figcaption>
           </figure>
         </div>
       </section>
@@ -299,12 +299,12 @@ export default function PanelInspectionPage() {
                 </div>
                 <blockquote className="mt-4 flex-1 text-[0.97rem] leading-[1.7] text-[#2D3748]">{r.quote}</blockquote>
                 <figcaption className="mt-6 border-t border-[#EEF0F3] pt-4 text-sm">
-                  <span className="font-semibold">{r.author}</span> <span className="text-[#718096]">Google review</span>
+                  <span className="font-semibold">{r.author}</span> <span className="text-[#5A6B7F]">Google review</span>
                 </figcaption>
               </figure>
             ))}
           </div>
-          <p className="mt-3 text-center text-sm text-[#718096] sm:hidden">Swipe for more reviews</p>
+          <p className="mt-3 text-center text-sm text-[#5A6B7F] sm:hidden">Swipe for more reviews</p>
         </div>
       </section>
 
@@ -313,7 +313,7 @@ export default function PanelInspectionPage() {
         <div className={`${wrap} flex flex-col gap-5 py-10 lg:flex-row lg:items-center lg:gap-12`}>
           <div className="shrink-0">
             <p className="text-[1.25rem] font-bold tracking-[-0.02em]">Panel jobs across Houston</p>
-            <p className="mt-1 text-sm text-[#718096]">From our shop on S Post Oak Rd</p>
+            <p className="mt-1 text-sm text-[#5A6B7F]">From our shop on S Post Oak Rd</p>
           </div>
           <ul className="flex flex-wrap gap-2">
             {AREAS.map((a) => (
@@ -340,7 +340,7 @@ export default function PanelInspectionPage() {
               <details key={f.q} className="group rounded-xl bg-white px-6 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-[1.02rem] font-semibold">
                   {f.q}
-                  <span className="text-2xl font-light leading-none text-[#718096] transition-transform group-open:rotate-45" aria-hidden>
+                  <span className="text-2xl font-light leading-none text-[#5A6B7F] transition-transform group-open:rotate-45" aria-hidden>
                     +
                   </span>
                 </summary>
