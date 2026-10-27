@@ -3,166 +3,209 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Poppins } from 'next/font/google';
-import { ArrowRight, BookUser, Check, Phone, TriangleAlert } from 'lucide-react';
+import { BookUser, Check, ChevronRight, Phone, TriangleAlert } from 'lucide-react';
 import { ConversionClaim } from './ConversionClaim';
 import { siteConfig } from '../../../config';
 import { reviews } from '../../../reviews';
 import { CallLink } from '../../_panel/CallLink';
-import { GoogleG, GoogleRatingCard, Stars } from '../../_panel/Badges';
+import { GoogleG, Stars } from '../../_panel/Badges';
 
 export const metadata: Metadata = {
   title: 'Request received',
   robots: { index: false, follow: false },
 };
 
-// The lead is already in. This page's job is the show-up: say what happens
-// next, get our number saved so the call gets answered, give a short prep
-// list (a little effort raises commitment), then reassure with proof. Links
-// to the main site sit last, for people who want to read more.
-// Phones stack everything; desktop pairs sections side by side so the page
-// isn't one long narrow column.
+// The lead is already in. This page's job is the show-up: get our number
+// saved so the call gets answered, show exactly where they are in the process
+// (a tracker, like a delivery status), give a short prep list, then reassure
+// with proof. Links to the main site sit last.
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'], display: 'swap' });
 
 const wrap = 'mx-auto w-full max-w-6xl px-5 sm:px-8';
-const h2 = 'text-[1.6rem] font-bold leading-tight tracking-[-0.02em] sm:text-[2.1rem]';
 
-const NEXT = [
+// Tracker: step 1 is done, step 2 is next, the rest are upcoming.
+const TRACK = [
+  { title: 'Request received', detail: 'Your details are with our team.' },
   { title: 'We call you', detail: `From ${siteConfig.phone}, to pick a time that works for you.` },
-  { title: 'A licensed electrician inspects your panel', detail: 'In person, at no cost and with no obligation.' },
-  { title: 'You get a written quote', detail: 'Itemized, before any work starts. If your panel is fine, we tell you that.' },
+  { title: 'Panel inspection', detail: 'A licensed electrician checks your panel in person. No cost, no obligation.' },
+  { title: 'Written quote', detail: 'Itemized, before any work starts. If your panel is fine, we tell you that.' },
 ];
 
 const PREP = [
-  'Make sure we can get to the panel (garage, closet or outside wall).',
-  'Take a photo of the panel door and its label from a step back. Please don’t open it.',
-  'Note which breakers trip, and when (for example, when the AC kicks on).',
-  'If an insurance company or inspector flagged it, keep that letter or report handy.',
+  { title: 'Clear a path to the panel', detail: 'Garage, closet or outside wall. We just need to reach it.' },
+  { title: 'Photograph the label', detail: 'Take a photo of the panel door and its label from a step back. Please don’t open it.' },
+  { title: 'Note what trips', detail: 'Which breakers, and when. For example, when the AC kicks on.' },
+  { title: 'Keep any paperwork handy', detail: 'If an insurance company or home inspector flagged the panel, have that letter or report ready.' },
 ];
 
-const PROOF = ['yeny-v', 'tonya-n', 'joe-l'].map((id) => reviews.find((r) => r.id === id)!);
+const PROOF = ['tonya-n', 'yeny-v', 'joe-l'].map((id) => reviews.find((r) => r.id === id)!);
 
 const LEARN = [
-  { label: 'Panel upgrades and replacements', href: '/services/panel-upgrades' },
-  { label: 'Read all our reviews', href: '/reviews' },
-  { label: 'About Solivance Electric', href: '/about' },
+  { label: 'Panel upgrades', href: '/services/panel-upgrades' },
+  { label: 'All reviews', href: '/reviews' },
+  { label: 'About us', href: '/about' },
   { label: 'Common questions', href: '/faq' },
 ];
 
 export default function ThankYouPage() {
   return (
-    <div className={`${poppins.className} bg-white text-[#0A1322]`}>
+    <div className={`${poppins.className} min-h-screen bg-[#F4F6F9] text-[#0A1322]`}>
       <Suspense fallback={null}>
         <ConversionClaim />
       </Suspense>
 
-      {/* Confirmation + the two actions that get the call answered, beside what happens next */}
-      <section className="bg-[#0A1322] py-12 text-white sm:py-16 lg:py-20">
-        <div className={`${wrap} grid gap-10 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-center lg:gap-16`}>
-          <div>
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1F7A4D]">
-              <Check className="h-7 w-7" strokeWidth={3} aria-hidden />
-            </span>
-            <h1 className="mt-5 text-[2rem] font-bold leading-[1.06] tracking-[-0.03em] sm:text-[2.8rem] lg:text-[3.3rem]">
-              You&apos;re in. Here&apos;s what happens next.
-            </h1>
-            <p className="mt-4 max-w-[34rem] text-[1.05rem] leading-relaxed text-white/75 sm:text-[1.15rem]">
-              Keep your phone close. We&apos;ll call you from <strong className="text-white">{siteConfig.phone}</strong> to set up your no-cost panel
-              inspection.
+      <header className="border-b border-[#E3E7EC] bg-white">
+        <div className={`${wrap} flex h-[68px] items-center justify-between gap-4`}>
+          {/* The logo file has wide transparent margins; crop them in a fixed-height box. */}
+          <div className="flex h-12 items-center overflow-hidden">
+            <Image src="/logo/logo_horzontial.PNG" alt="Solivance Electric LLC" width={6144} height={4096} priority className="h-[104px] w-auto max-w-none" sizes="170px" />
+          </div>
+          <p className="hidden text-sm text-[#5A6B7F] sm:block">
+            Licensed Texas electrical contractor · {siteConfig.license.label}
+          </p>
+        </div>
+      </header>
+
+      {/* Confirmation (wide) beside the status tracker (narrow) */}
+      <section className="bg-white">
+        <div className={`${wrap} grid gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12`}>
+          <div className="lg:col-span-7 lg:self-center">
+            <p className="inline-flex items-center gap-2 rounded-full bg-[#E8F4EE] px-3 py-1 text-sm font-semibold text-[#1F7A4D]">
+              <Check className="h-4 w-4" strokeWidth={3} aria-hidden /> Request received
             </p>
-            <div className="mt-7 grid max-w-[34rem] gap-3 sm:grid-cols-2">
+            <h1 className="mt-5 max-w-[15ch] text-[2.4rem] font-bold leading-[1.04] tracking-[-0.035em] sm:text-[3.4rem]">
+              We&apos;ll call you shortly.
+            </h1>
+            <p className="mt-5 max-w-[32rem] text-[1.08rem] leading-relaxed text-[#4A5568]">
+              The call comes from <strong className="whitespace-nowrap font-semibold text-[#0A1322]">{siteConfig.phone}</strong>. Save it now so it
+              doesn&apos;t show up as an unknown number.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
                 href="/lp/solivance-electric.vcf"
                 download="Solivance Electric.vcf"
-                className="flex items-center justify-center gap-2 rounded-lg bg-[#E8590C] px-5 py-4 font-semibold text-white hover:bg-[#CF4E0A]"
+                className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-[#E8590C] px-6 py-4 font-semibold text-white transition-colors hover:bg-[#CF4E0A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E8590C]"
               >
                 <BookUser className="h-5 w-5" aria-hidden /> Save our number
               </a>
               <CallLink
                 location="thank_you"
-                className="flex items-center justify-center gap-2 rounded-lg border border-white/30 px-5 py-4 font-semibold text-white hover:bg-white/10"
+                className="inline-flex items-center justify-center gap-2.5 rounded-lg border border-[#CBD2DA] px-6 py-4 font-semibold transition-colors hover:border-[#0A1322] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A1322]"
               >
                 <Phone className="h-5 w-5" aria-hidden /> Call {siteConfig.phone}
               </CallLink>
             </div>
-            <p className="mt-3 text-sm text-white/55">Saving it means our call won&apos;t show up as an unknown number.</p>
           </div>
 
-          <div className="rounded-2xl bg-white/[0.06] p-6 ring-1 ring-white/10 sm:p-8">
-            <h2 className="text-[1.25rem] font-bold">What happens next</h2>
-            <ol className="mt-6 space-y-6">
-              {NEXT.map((s, i) => (
-                <li key={s.title} className="flex gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#E8590C] font-bold text-white">{i + 1}</span>
-                  <div>
-                    <p className="text-[1.05rem] font-semibold">{s.title}</p>
-                    <p className="mt-1 leading-relaxed text-white/65">{s.detail}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+          {/* The tracker: one look tells them where they are. */}
+          <div className="lg:col-span-5">
+            <div className="rounded-2xl border border-[#E3E7EC] bg-[#F9FAFB] p-6 sm:p-8">
+              <h2 className="text-[1.05rem] font-semibold">Your inspection</h2>
+              <ol className="mt-6">
+                {TRACK.map((s, i) => {
+                  const done = i === 0;
+                  const next = i === 1;
+                  return (
+                    <li key={s.title} className="relative flex gap-4 pb-7 last:pb-0">
+                      {i < TRACK.length - 1 ? (
+                        <span className={`absolute left-[15px] top-8 h-[calc(100%-2rem)] w-0.5 ${done ? 'bg-[#1F7A4D]' : 'bg-[#E3E7EC]'}`} aria-hidden />
+                      ) : null}
+                      <span
+                        className={`relative z-[1] flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                          done
+                            ? 'bg-[#1F7A4D] text-white'
+                            : next
+                              ? 'bg-[#E8590C] text-white ring-4 ring-[#E8590C]/15'
+                              : 'border-2 border-[#D5DBE2] bg-white text-[#8A97A8]'
+                        }`}
+                      >
+                        {done ? <Check className="h-4 w-4" strokeWidth={3} aria-hidden /> : i + 1}
+                      </span>
+                      <div className="pt-1">
+                        <p className={`font-semibold ${!done && !next ? 'text-[#5A6B7F]' : ''}`}>
+                          {s.title}
+                          {next ? <span className="ml-2 text-[0.8rem] font-semibold text-[#E8590C]">Up next</span> : null}
+                        </p>
+                        <p className="mt-1 text-[0.95rem] leading-relaxed text-[#5A6B7F]">{s.detail}</p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Prep list beside the proof photo */}
-      <section className="bg-[#F7F6F3] py-12 sm:py-16">
-        <div className={`${wrap} grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16`}>
-          <div>
-            <h2 className={h2}>Get ready in 2 minutes</h2>
-            <p className="mt-2 text-[#4A5568]">These help the electrician get it right on the first visit.</p>
-            <ul className="mt-6 space-y-3.5">
-              {PREP.map((p) => (
-                <li key={p} className="flex gap-3 leading-relaxed">
-                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#1F7A4D]" strokeWidth={2.5} aria-hidden />
-                  {p}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-7 flex gap-3 rounded-lg border border-orange-200 bg-orange-50 p-4 text-[0.97rem] leading-relaxed">
-              <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-[#E8590C]" aria-hidden />
-              <p>
-                <strong>Don&apos;t wait if it&apos;s urgent.</strong> If you smell burning, hear buzzing, or the panel feels hot, call us right away at{' '}
-                <CallLink location="thank_you_urgent" className="font-semibold text-[#E8590C] underline">
-                  {siteConfig.phone}
-                </CallLink>
-                .
-              </p>
-            </div>
-          </div>
-          <figure>
+      {/* Prep: photo (narrow) beside the checklist (wide) */}
+      <section className="border-y border-[#E3E7EC]">
+        <div className={`${wrap} grid gap-10 py-14 sm:py-20 lg:grid-cols-12 lg:items-center lg:gap-14`}>
+          <figure className="order-2 lg:order-1 lg:col-span-5">
             <Image
               src="/lp/panel-new-inspected.jpg"
               alt="The city inspection tag on a new Solivance panel"
               width={1600}
               height={2133}
-              className="aspect-[4/3] w-full rounded-xl object-cover object-[50%_62%]"
-              sizes="(min-width:1024px) 540px, 100vw"
+              className="aspect-[4/3] w-full rounded-2xl object-cover object-[50%_62%] lg:aspect-[4/5]"
+              sizes="(min-width:1024px) 440px, 100vw"
             />
-            <figcaption className="mt-3 text-sm text-[#718096]">
-              Every panel job is permitted and ends with the city inspector&apos;s green tag. {siteConfig.license.label}.
-            </figcaption>
+            <figcaption className="mt-3 text-sm text-[#5A6B7F]">One of our panels after the city inspection. The green tag is the inspector&apos;s sign-off.</figcaption>
           </figure>
+
+          <div className="order-1 lg:order-2 lg:col-span-7">
+            <h2 className="text-[1.9rem] font-bold leading-tight tracking-[-0.025em] sm:text-[2.4rem]">Before we come out</h2>
+            <p className="mt-3 max-w-[36rem] text-[1.05rem] leading-relaxed text-[#4A5568]">
+              Two minutes now helps the electrician get it right on the first visit.
+            </p>
+            <ul className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2">
+              {PREP.map((p) => (
+                <li key={p.title} className="flex gap-3.5">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#E8F4EE] text-[#1F7A4D]">
+                    <Check className="h-4 w-4" strokeWidth={3} aria-hidden />
+                  </span>
+                  <div>
+                    <p className="font-semibold">{p.title}</p>
+                    <p className="mt-1 text-[0.95rem] leading-relaxed text-[#5A6B7F]">{p.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-9 flex gap-3 border-l-4 border-[#E8590C] bg-white py-4 pl-4 pr-5 text-[0.97rem] leading-relaxed shadow-[0_1px_0_#E3E7EC]">
+              <TriangleAlert className="mt-0.5 h-5 w-5 shrink-0 text-[#E8590C]" aria-hidden />
+              <p>
+                <strong className="font-semibold">Smell burning, hear buzzing, or the panel feels hot?</strong> Don&apos;t wait for our call. Call{' '}
+                <CallLink location="thank_you_urgent" className="whitespace-nowrap font-semibold text-[#E8590C] underline underline-offset-2">
+                  {siteConfig.phone}
+                </CallLink>{' '}
+                now.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Proof */}
-      <section className="py-12 sm:py-16">
-        <div className={wrap}>
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className={h2}>You&apos;re in good hands</h2>
-            <GoogleRatingCard />
+      {/* Proof: one compact dark band, quotes side by side */}
+      <section className="bg-[#0A1322] text-white">
+        <div className={`${wrap} py-14 sm:py-16`}>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="text-[1.6rem] font-bold tracking-[-0.02em] sm:text-[1.9rem]">What homeowners say</h2>
+            <p className="flex items-center gap-2.5 text-white/75">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
+                <GoogleG className="h-4 w-4" />
+              </span>
+              <span className="font-semibold text-white">{siteConfig.rating.toFixed(1)}</span>
+              <Stars className="h-4 w-4" />
+              <span className="text-sm">on Google</span>
+            </p>
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3 md:gap-6">
-            {PROOF.map((r) => (
-              <figure key={r.id} className="flex flex-col rounded-xl border border-[#E6E8EC] p-5 sm:p-6">
-                <div className="flex items-center justify-between">
-                  <Stars />
-                  <GoogleG className="h-5 w-5" />
-                </div>
-                <blockquote className="mt-3 line-clamp-6 flex-1 leading-relaxed text-[#2D3748]">{r.quote}</blockquote>
-                <figcaption className="mt-4 border-t border-[#EEF0F3] pt-4 text-sm">
-                  <span className="font-semibold">{r.author}</span> <span className="text-[#718096]">Google review</span>
+          <div className="mt-10 grid gap-10 md:grid-cols-3 md:gap-0 md:divide-x md:divide-white/10">
+            {PROOF.map((r, i) => (
+              <figure key={r.id} className={`flex flex-col ${i === 0 ? 'md:pr-8' : i === PROOF.length - 1 ? 'md:pl-8' : 'md:px-8'}`}>
+                <Stars className="h-4 w-4" />
+                <blockquote className="mt-4 line-clamp-5 flex-1 leading-relaxed text-white/80">{r.quote}</blockquote>
+                <figcaption className="mt-5 text-sm">
+                  <span className="font-semibold">{r.author}</span> <span className="text-white/50">· Google review</span>
                 </figcaption>
               </figure>
             ))}
@@ -170,24 +213,24 @@ export default function ThankYouPage() {
         </div>
       </section>
 
-      {/* Main site, for people who want to read more */}
-      <section className="border-t border-[#E6E8EC] bg-[#F7F6F3] py-12 sm:py-14">
-        <div className={wrap}>
-          <h2 className={h2}>While you wait</h2>
-          <ul className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
+      {/* Footer: links into the main site */}
+      <footer className="bg-white">
+        <div className={`${wrap} flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between`}>
+          <p className="text-[0.95rem] text-[#5A6B7F]">Want to read more while you wait?</p>
+          <nav aria-label="More from Solivance Electric" className="flex flex-wrap gap-x-7 gap-y-3">
             {LEARN.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="flex h-full items-center justify-between gap-3 rounded-lg border border-[#E2E4E8] bg-white px-4 py-3.5 font-medium hover:border-[#0A1322]"
-                >
-                  {l.label} <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
-                </Link>
-              </li>
+              <Link key={l.href} href={l.href} className="inline-flex items-center gap-1 font-semibold hover:text-[#E8590C]">
+                {l.label} <ChevronRight className="h-4 w-4" aria-hidden />
+              </Link>
             ))}
-          </ul>
+          </nav>
         </div>
-      </section>
+        <div className="border-t border-[#E3E7EC]">
+          <p className={`${wrap} py-5 text-sm text-[#8A97A8]`}>
+            {siteConfig.businessName} · {siteConfig.address.full}
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
