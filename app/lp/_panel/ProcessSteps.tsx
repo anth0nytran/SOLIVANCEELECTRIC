@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useStill } from './useStill';
 import { BadgeCheck, ClipboardCheck, FileText, Wrench, Zap } from 'lucide-react';
 
 // The panel job in four steps. Everything starts greyed out; when the row
@@ -22,7 +23,7 @@ const STEP_GAP = 0.95; // seconds between steps lighting up
 const SPRING = { type: 'spring', stiffness: 320, damping: 12, mass: 0.8 } as const;
 
 export function ProcessSteps() {
-  const still = useReducedMotion();
+  const still = useStill();
   const at = (i: number) => START + i * STEP_GAP;
   const t = (delay: number, duration = 0.5) => (still ? { duration: 0 } : { delay, duration, ease: EASE });
 

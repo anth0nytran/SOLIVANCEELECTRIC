@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useStill } from './useStill';
 
 // Background life for wide screens (xl+, where the side margins are real): a
 // few hairline circuit traces in the margins, ending in small solder points,
@@ -17,7 +18,7 @@ const TRACES = [
 ] as const;
 
 export function CircuitTraces() {
-  const still = useReducedMotion();
+  const still = useStill();
   return (
     <svg
       className="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full xl:block"

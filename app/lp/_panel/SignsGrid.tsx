@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useStill } from './useStill';
 import { CalendarClock, Flame, Lightbulb, ShieldAlert, FileWarning, Zap } from 'lucide-react';
 
 // The six warning signs: a light two-column list (no boxes) with a small icon
@@ -16,7 +17,7 @@ const SIGNS: { icon: typeof Zap; title: string; detail: string }[] = [
 ];
 
 export function SignsGrid() {
-  const still = useReducedMotion();
+  const still = useStill();
   return (
     <ul className="grid border-t border-[#E4E0D7] sm:grid-cols-2 sm:gap-x-10">
       {SIGNS.map(({ icon: Icon, title, detail }, i) => (

@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useStill } from '../../_panel/useStill';
 import { Check } from 'lucide-react';
 
 // "Your inspection" status card. Done steps are green and solid, the current
@@ -13,7 +14,7 @@ export type TrackStep = { title: string; detail: string };
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function StatusTracker({ steps, current }: { steps: TrackStep[]; current: number }) {
-  const still = useReducedMotion();
+  const still = useStill();
   const t = (delay: number, duration = 0.5) => (still ? { duration: 0 } : { delay, duration, ease: EASE });
   const lineDone = 0.35 + steps.length * 0.08; // after the rows are in
 
