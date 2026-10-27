@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { Poppins } from 'next/font/google';
-import { BadgeCheck, Check, Phone, ShieldCheck } from 'lucide-react';
+import { BadgeCheck, Check, FileCheck, Landmark, Phone, ShieldCheck } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from '../_panel/PanelLeadForm';
@@ -32,8 +32,6 @@ const section = 'py-14 sm:py-16';
 const h2 = 'text-[2rem] font-bold leading-[1.08] tracking-[-0.025em] sm:text-[3.1rem]';
 const label = 'text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#E8590C]';
 const ink = 'bg-[#0A1322]';
-// Solivance orange in the spot Acquisition uses gold. Flat color only.
-const callout = 'text-[#FF7A2F]';
 const cta =
   'inline-flex items-center justify-center rounded-lg bg-[#E8590C] px-9 py-4 text-[1.05rem] font-semibold text-white transition-colors hover:bg-[#CF4E0A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white';
 
@@ -44,6 +42,13 @@ const HERO_POINTS = [
 ];
 
 const AREAS = ['Westbury', 'Meyerland', 'Bellaire', 'West University', 'Medical Center', 'The Heights', 'Garden Oaks', 'Memorial Villages', 'Stafford', 'Missouri City', 'Sugar Land'];
+
+// What the permit gets the homeowner (the "We pull the permit" section).
+const PERMIT_GETS = [
+  { icon: Landmark, title: 'A city inspector checks our work', detail: 'After we finish, the city inspects the install and signs off.' },
+  { icon: FileCheck, title: 'A clean record when you sell', detail: 'Buyers and their inspectors can see the work was permitted.' },
+  { icon: ShieldCheck, title: 'Proof for your insurance', detail: 'A permitted, inspected panel is on record if you ever file a claim.' },
+];
 
 const review = (id: string) => reviews.find((r) => r.id === id)!;
 const FIRE_REVIEW = review('yeny-v');
@@ -189,31 +194,50 @@ export default function PanelInspectionPage() {
         </div>
       </section>
 
-      {/* One statement */}
+      {/* The permit: what it gets you, beside the proof photo */}
       <section className={`relative isolate overflow-hidden ${ink} text-white`}>
-        <div className={`${wrap} ${section} grid items-center gap-12 lg:grid-cols-2 lg:gap-16`}>
-          <div>
-            <h2 className={`${h2} max-w-[16ch]`}>
-              We pull the permit on <span className={callout}>every</span> panel job.
-            </h2>
+        <div className={`${wrap} ${section} grid items-center gap-12 lg:grid-cols-12 lg:gap-16`}>
+          <div className="lg:col-span-6">
+            <h2 className={`${h2} max-w-[16ch]`}>We pull the permit on every panel job.</h2>
             <p className="mt-6 max-w-xl text-[1.05rem] leading-[1.7] text-white/70 sm:text-lg">
-              Not every electrician does. The permit means a city inspector checks our work after we finish, and it gives you a clean record when you sell the house or file an insurance claim.
+              Not every electrician does. Here&apos;s what the permit gets you:
             </p>
+            <ul className="mt-8 divide-y divide-white/10 border-y border-white/10">
+              {PERMIT_GETS.map(({ icon: Icon, title, detail }) => (
+                <li key={title} className="flex gap-4 py-5">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/[0.07] text-[#FF7A2F] ring-1 ring-white/10">
+                    <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />
+                  </span>
+                  <div>
+                    <p className="font-semibold">{title}</p>
+                    <p className="mt-1 text-[0.95rem] leading-relaxed text-white/60">{detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
             <a href="#form" className={`${cta} mt-9 w-full sm:w-auto`}>
               Schedule my inspection
             </a>
           </div>
-          {/* Proof, not a claim: the city's tag on a Solivance panel. */}
-          <figure className="w-full">
+          {/* Proof, not a claim: the city's tag on a Solivance panel, labelled. */}
+          <figure className="relative lg:col-span-6">
             <Image
               src="/lp/panel-new-inspected.jpg"
               alt="The city inspection tag on a new Solivance panel"
               width={1600}
               height={2133}
-              className="aspect-[4/3] w-full rounded-xl object-cover object-[50%_62%]"
-              sizes="(min-width:1024px) 540px, 100vw"
+              className="aspect-[4/3] w-full rounded-2xl object-cover object-[50%_62%] lg:aspect-[5/6]"
+              sizes="(min-width:1024px) 560px, 100vw"
             />
-            <figcaption className="mt-3 text-sm text-white/60">The green tag is the city inspector&apos;s sign-off, on one of our panels.</figcaption>
+            <figcaption className="absolute bottom-4 left-4 right-4 flex items-center gap-3 rounded-xl bg-white/95 p-4 text-[#0A1322] shadow-[0_12px_32px_-12px_rgba(0,0,0,0.5)] backdrop-blur sm:right-auto sm:max-w-sm">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1F7A4D] text-white">
+                <BadgeCheck className="h-5 w-5" aria-hidden />
+              </span>
+              <span>
+                <span className="block font-semibold leading-tight">City inspection passed</span>
+                <span className="mt-0.5 block text-sm text-[#5A6B7F]">The green tag on one of our panels.</span>
+              </span>
+            </figcaption>
           </figure>
         </div>
       </section>
