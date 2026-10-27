@@ -25,13 +25,31 @@ export function StatusTracker({ steps, current }: { steps: TrackStep[]; current:
           Step {current + 1} of {steps.length}
         </p>
       </div>
-      <div className="mt-4 h-1 w-full overflow-hidden rounded-full bg-[#E3E7EC]" aria-hidden>
+      {/* Progress: finished steps fill green; the current step's segment is
+          orange with a light sweep running through it, so it reads as underway. */}
+      <div className="relative mt-4 h-1.5 w-full overflow-hidden rounded-full bg-[#E3E7EC]" aria-hidden>
         <motion.div
-          className="h-full rounded-full bg-[#1F7A4D]"
-          initial={{ width: still ? `${((current + 0.5) / steps.length) * 100}%` : '0%' }}
-          animate={{ width: `${((current + 0.5) / steps.length) * 100}%` }}
-          transition={t(0.25, 0.9)}
+          className="absolute inset-y-0 left-0 bg-[#1F7A4D]"
+          initial={{ width: still ? `${(current / steps.length) * 100}%` : '0%' }}
+          animate={{ width: `${(current / steps.length) * 100}%` }}
+          transition={t(0.25, 0.6)}
         />
+        <motion.div
+          className="absolute inset-y-0 overflow-hidden rounded-r-full bg-[#E8590C]"
+          style={{ left: `${(current / steps.length) * 100}%` }}
+          initial={{ width: still ? `${100 / steps.length}%` : '0%' }}
+          animate={{ width: `${100 / steps.length}%` }}
+          transition={t(0.85, 0.5)}
+        >
+          {still ? null : (
+            <motion.span
+              className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-white/70 to-transparent"
+              initial={{ x: '-100%' }}
+              animate={{ x: '220%' }}
+              transition={{ delay: 1.4, duration: 1.4, repeat: Infinity, repeatDelay: 0.4, ease: 'easeInOut' }}
+            />
+          )}
+        </motion.div>
       </div>
 
       <ol className="mt-5">
@@ -47,15 +65,33 @@ export function StatusTracker({ steps, current }: { steps: TrackStep[]; current:
               animate={{ opacity: 1, y: 0 }}
               transition={t(0.15 + i * 0.08, 0.45)}
             >
-              {/* The current step's raised card fades in under the row once the line reaches it. */}
+              {/* The current step's raised card fades in once the line reaches it,
+                  then its orange edge and glow breathe slowly: this is where you are. */}
               {now ? (
                 <motion.span
-                  className="absolute inset-0 rounded-xl bg-white shadow-[0_10px_28px_-14px_rgba(10,19,34,0.35)] ring-1 ring-[#E8590C]/35"
+                  className="absolute inset-0 rounded-xl bg-white shadow-[0_10px_28px_-14px_rgba(10,19,34,0.35)]"
                   initial={still ? false : { opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={t(lineDone + 0.35, 0.45)}
                   aria-hidden
-                />
+                >
+                  <motion.span
+                    className="absolute inset-0 rounded-xl"
+                    initial={{ boxShadow: '0 0 0 1px rgba(232,89,12,0.35), 0 0 0 0 rgba(232,89,12,0)' }}
+                    animate={
+                      still
+                        ? undefined
+                        : {
+                            boxShadow: [
+                              '0 0 0 1px rgba(232,89,12,0.35), 0 0 0 0 rgba(232,89,12,0)',
+                              '0 0 0 1.5px rgba(232,89,12,0.8), 0 0 0 6px rgba(232,89,12,0.12)',
+                              '0 0 0 1px rgba(232,89,12,0.35), 0 0 0 0 rgba(232,89,12,0)',
+                            ],
+                          }
+                    }
+                    transition={{ delay: lineDone + 0.9, duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                </motion.span>
               ) : null}
 
               {/* Connector to the next step: solid green once passed (drawn down), dashed grey ahead. */}
@@ -76,15 +112,6 @@ export function StatusTracker({ steps, current }: { steps: TrackStep[]; current:
               <div className="relative flex gap-4">
                 {/* Dot and title share one 32px row, so the dot is centred on the title. */}
                 <span className="relative flex h-8 w-8 shrink-0 items-center justify-center">
-                  {now && !still ? (
-                    <motion.span
-                      className="absolute inset-0 rounded-full bg-[#E8590C]/25"
-                      initial={{ scale: 1, opacity: 0 }}
-                      animate={{ scale: [1, 1.7], opacity: [0.6, 0] }}
-                      transition={{ delay: lineDone + 0.6, duration: 1.6, repeat: Infinity, ease: 'easeOut' }}
-                      aria-hidden
-                    />
-                  ) : null}
                   <span
                     className={`relative flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${
                       done ? 'bg-[#1F7A4D] text-white' : now ? 'bg-[#E8590C] text-white' : 'border-2 border-[#D5DBE2] bg-[#F7F8FA] text-[#A3ADBA]'
