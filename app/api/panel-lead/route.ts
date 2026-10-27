@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { kvDel, kvGet, kvMode, kvSet, kvSetNX } from '../../lib/kv';
 import { pushPanelLeadToGHL, type PanelLead } from '../../lib/ghlGoogle';
-import { CONCERNS, TIMELINES } from '../../lib/panelOptions';
+import { CONCERNS, TIMELINES, getPropertyType } from '../../lib/panelOptions';
 
 export const runtime = 'nodejs';
 
@@ -87,7 +87,7 @@ export async function POST(req: Request) {
   const zipCode = str(data.zipCode, 10);
   const concern = str(data.concern);
   const timeline = str(data.timeline);
-  const decisionMaker = str(data.decisionMaker);
+  const property = getPropertyType(str(data.propertyType));
   const email = str(data.email, 120);
   const preferredDate = str(data.preferredDate, 10);
   const description = str(data.description, 1000);
@@ -101,7 +101,7 @@ export async function POST(req: Request) {
     !/^\d{5}$/.test(zipCode) && 'a 5-digit ZIP code',
     !CONCERNS.includes(concern) && "what's going on with your panel",
     !TIMELINES.includes(timeline) && 'your timeline',
-    !['Yes', 'No'].includes(decisionMaker) && 'whether you own the home',
+    !property && 'who the property is for',
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && 'a valid email',
     preferredDate && !/^\d{4}-\d{2}-\d{2}$/.test(preferredDate) && 'a valid date (or leave it blank)',
   ].filter(Boolean);
@@ -120,7 +120,9 @@ export async function POST(req: Request) {
     zipCode,
     concern,
     timeline,
-    decisionMaker,
+    propertyType: property!.label,
+    decisionMaker: property!.decisionMaker,
+    commercial: property!.commercial,
     smsOptIn: data.smsConsent === true,
     page: str(data.page, 300),
     gclid: str(data.gclid, 200) || undefined,

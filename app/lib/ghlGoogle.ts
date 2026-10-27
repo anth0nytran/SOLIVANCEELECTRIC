@@ -11,6 +11,7 @@ import { splitName, toE164 } from './ghl';
 const GHL_BASE = 'https://services.leadconnectorhq.com';
 export const GOOGLE_SOURCE = 'Google Ads - Electrical Panels';
 export const GOOGLE_TAG = 'google-ads-lead';
+export const COMMERCIAL_TAG = 'commercial-lead';
 
 const SALES_PIPELINE_ID = 'tY4vvw6LBoZDIibPngCk';
 const NEW_LEAD_STAGE_ID = 'f5b10d79-0187-4be5-acc9-ba3ce0b57c57';
@@ -56,7 +57,11 @@ export type PanelLead = {
   zipCode: string;
   concern: string;
   timeline: string;
+  /** "This is for…" answer, e.g. "A home I rent". */
+  propertyType: string;
+  /** "Yes" / "No", or "" for commercial (unknown from one tap). */
   decisionMaker: string;
+  commercial: boolean;
   smsOptIn: boolean;
   page?: string;
   gclid?: string;
@@ -88,7 +93,7 @@ const buildNote = (lead: PanelLead, repeat: boolean): string =>
     `Timeline: ${lead.timeline}`,
     lead.preferredDate ? `Preferred date: ${lead.preferredDate}` : '',
     lead.description ? `What they said: ${lead.description}` : '',
-    `Homeowner / decision maker: ${lead.decisionMaker}`,
+    `Property: ${lead.propertyType}${lead.commercial ? ' (COMMERCIAL)' : ''}`,
     `SMS Consent: ${lead.smsOptIn ? 'YES — opted in to SMS' : 'No (not checked)'}`,
     lead.gclid ? 'Google click ID: captured' : lead.gbraid || lead.wbraid ? 'Google click ID: gbraid/wbraid captured' : 'Google click ID: none',
     lead.utmCampaign ? `Campaign: ${lead.utmCampaign}` : '',
@@ -148,6 +153,7 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
       FIELD_IDS.message,
       [
         `Panel concern: ${lead.concern}`,
+        `Property: ${lead.propertyType}`,
         lead.preferredDate && `Preferred date: ${lead.preferredDate}`,
         lead.description && `Details: ${lead.description}`,
       ]
@@ -178,7 +184,7 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     phone: toE164(lead.phone),
     address1: lead.address,
     postalCode: lead.zipCode,
-    tags: [GOOGLE_TAG],
+    tags: lead.commercial ? [GOOGLE_TAG, COMMERCIAL_TAG] : [GOOGLE_TAG],
     source: GOOGLE_SOURCE,
     email: lead.email,
     customFields,

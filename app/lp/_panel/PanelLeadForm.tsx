@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Loader2, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Loader2, X } from 'lucide-react';
 import { newSubmissionId, readAttribution } from '../../lib/tracking';
-import { CONCERNS, TIMELINES } from '../../lib/panelOptions';
+import { CONCERNS, PROPERTY_TYPES, TIMELINES } from '../../lib/panelOptions';
 
 // The hero shows step 1 inline. Tapping an answer — or any "#form" CTA on the
 // page — opens the whole form full screen so the visitor only sees the next
@@ -32,13 +32,25 @@ const today = () => {
 };
 
 const optionCls = (active: boolean) =>
-  `w-full rounded-lg border px-4 py-3.5 text-left text-[1rem] font-medium leading-snug transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#0E2240] ${
+  `flex w-full items-center justify-between gap-3 rounded-lg border px-4 py-3.5 text-left text-[1rem] font-medium leading-snug transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#0E2240] ${
     active ? 'border-[#0E2240] bg-[#0E2240] text-white' : 'border-[#CBD2DA] bg-white text-[#0E2240] hover:border-[#0E2240]'
   }`;
 const inputCls =
   'w-full rounded-lg border border-[#CBD2DA] bg-white px-4 py-3.5 text-base text-[#0E2240] outline-none placeholder:text-[#7D8A99] focus:border-[#0E2240] focus:ring-2 focus:ring-[#0E2240]/15';
 const questionCls = 'font-[family-name:var(--font-app-display)] text-[1.5rem] font-bold leading-tight text-[#0E2240] sm:text-[1.9rem]';
 const labelCls = 'mb-1.5 block text-[0.9rem] font-semibold text-[#0E2240]';
+// Phones: the Back/Next row sticks to the bottom (clear of the iPhone home bar)
+// so the next tap is always on screen. Larger screens: it sits under the fields.
+const actionBarCls =
+  'sticky bottom-0 -mx-5 flex gap-2 border-t border-[#E3E6EA] bg-white px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:static sm:mx-0 sm:border-0 sm:p-0';
+
+// The picked answer shows a check, so after going Back it's clear what's chosen.
+const OptionLabel = ({ text, active }: { text: string; active: boolean }) => (
+  <>
+    <span>{text}</span>
+    {active ? <Check className="h-5 w-5 shrink-0" strokeWidth={3} aria-hidden /> : null}
+  </>
+);
 
 export function PanelLeadForm({ id = 'form' }: { id?: string }) {
   const router = useRouter();
@@ -46,7 +58,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
   const [step, setStep] = useState(0);
   const [concern, setConcern] = useState('');
   const [timeline, setTimeline] = useState('');
-  const [decisionMaker, setDecisionMaker] = useState('');
+  const [propertyType, setPropertyType] = useState('');
   const [preferredDate, setPreferredDate] = useState('');
   const [contact, setContact] = useState({ name: '', email: '', address: '', zipCode: '', description: '' });
   const [phone, setPhone] = useState('');
@@ -122,7 +134,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
       submissionId: sid,
       concern,
       timeline,
-      decisionMaker,
+      propertyType,
       preferredDate,
       ...contact,
       phone,
@@ -173,8 +185,8 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
   const concernButtons = (
     <div className="grid gap-2">
       {CONCERNS.map((c) => (
-        <button key={c} type="button" className={optionCls(concern === c)} onClick={() => pickConcern(c)}>
-          {c}
+        <button key={c} type="button" aria-pressed={concern === c} className={optionCls(concern === c)} onClick={() => pickConcern(c)}>
+          <OptionLabel text={c} active={concern === c} />
         </button>
       ))}
     </div>
@@ -189,6 +201,15 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
           What&apos;s going on with your panel?
         </p>
         {concernButtons}
+        {concern ? (
+          <button
+            type="button"
+            onClick={() => openAt(Math.max(step, 1))}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-[#E8590C] px-4 py-4 font-bold text-white hover:bg-[#CF4E0A]"
+          >
+            Continue <ArrowRight className="h-5 w-5" />
+          </button>
+        ) : null}
       </div>
 
       <AnimatePresence>
@@ -207,8 +228,8 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
               <div className="mx-auto flex w-full max-w-xl items-center gap-4 px-5 py-4">
                 <div className="flex-1">
                   <div className="flex items-baseline justify-between text-sm text-[#5A6B7F]">
-                    <span className="font-semibold text-[#0E2240]">No-cost panel inspection</span>
-                    <span>
+                    <span className="hidden font-semibold text-[#0E2240] min-[360px]:inline">No-cost panel inspection</span>
+                    <span className="whitespace-nowrap">
                       Step {step + 1} of {STEPS}
                     </span>
                   </div>
@@ -228,7 +249,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="mx-auto w-full max-w-xl flex-1 px-5 pb-10 pt-7 sm:pt-10">
+            <form onSubmit={handleSubmit} className="mx-auto w-full max-w-xl flex-1 px-5 pb-0 pt-7 sm:pb-10 sm:pt-10">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={step}
@@ -241,6 +262,16 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                     <fieldset>
                       <legend className={`${questionCls} mb-5`}>What&apos;s going on with your panel?</legend>
                       {concernButtons}
+                      <div className={`mt-8 ${actionBarCls}`}>
+                        <button
+                          type="button"
+                          disabled={!concern}
+                          onClick={() => setStep(1)}
+                          className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#0E2240] px-4 py-4 font-semibold text-white disabled:opacity-35"
+                        >
+                          Next <ArrowRight className="h-5 w-5" />
+                        </button>
+                      </div>
                     </fieldset>
                   )}
 
@@ -249,17 +280,23 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                       <legend className={`${questionCls} mb-5`}>How soon do you need it done?</legend>
                       <div className="grid gap-2">
                         {TIMELINES.map((t) => (
-                          <button key={t} type="button" className={optionCls(timeline === t)} onClick={() => setTimeline(t)}>
-                            {t}
+                          <button key={t} type="button" aria-pressed={timeline === t} className={optionCls(timeline === t)} onClick={() => setTimeline(t)}>
+                            <OptionLabel text={t} active={timeline === t} />
                           </button>
                         ))}
                       </div>
 
-                      <p className="mb-2.5 mt-7 font-semibold text-[#0E2240]">Do you own the home?</p>
-                      <div className="grid grid-cols-2 gap-2">
-                        {['Yes', 'No'].map((v) => (
-                          <button key={v} type="button" className={optionCls(decisionMaker === v)} onClick={() => setDecisionMaker(v)}>
-                            {v}
+                      <p className="mb-2.5 mt-7 font-semibold text-[#0E2240]">This is for…</p>
+                      <div className="grid gap-2 sm:grid-cols-2">
+                        {PROPERTY_TYPES.map(({ label }) => (
+                          <button
+                            key={label}
+                            type="button"
+                            aria-pressed={propertyType === label}
+                            className={optionCls(propertyType === label)}
+                            onClick={() => setPropertyType(label)}
+                          >
+                            <OptionLabel text={label} active={propertyType === label} />
                           </button>
                         ))}
                       </div>
@@ -271,13 +308,13 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                         <input type="date" min={today()} value={preferredDate} onChange={(e) => setPreferredDate(e.target.value)} className={inputCls} />
                       </label>
 
-                      <div className="mt-8 flex gap-2">
+                      <div className={`mt-8 ${actionBarCls}`}>
                         <button type="button" onClick={() => setStep(0)} className="rounded-lg border border-[#CBD2DA] px-4 py-3.5 text-[#5A6B7F]" aria-label="Back">
                           <ArrowLeft className="h-5 w-5" />
                         </button>
                         <button
                           type="button"
-                          disabled={!timeline || !decisionMaker}
+                          disabled={!timeline || !propertyType}
                           onClick={() => setStep(2)}
                           className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#0E2240] px-4 py-4 font-semibold text-white disabled:opacity-35"
                         >
@@ -368,7 +405,8 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                           {error}
                         </p>
                       ) : null}
-                      <div className="flex gap-2">
+                      <p className="text-center text-sm text-[#5A6B7F]">No cost and no obligation. We&apos;ll call to set a time.</p>
+                      <div className={actionBarCls}>
                         <button type="button" onClick={() => setStep(1)} className="rounded-lg border border-[#CBD2DA] px-4 py-3.5 text-[#5A6B7F]" aria-label="Back">
                           <ArrowLeft className="h-5 w-5" />
                         </button>
@@ -381,7 +419,6 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                           {status === 'sending' ? 'Sending…' : 'Schedule my inspection'}
                         </button>
                       </div>
-                      <p className="text-center text-sm text-[#5A6B7F]">No cost and no obligation. We&apos;ll call to set a time.</p>
                     </fieldset>
                   )}
                 </motion.div>
