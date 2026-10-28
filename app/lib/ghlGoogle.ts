@@ -1,4 +1,5 @@
-// GoHighLevel push for Google Ads panel-inspection leads (/lp/panel-inspection).
+// GoHighLevel push for Google Ads landing-page leads: panel inspections
+// (/lp/panel-inspection) and parking-lot lighting (/lp/parking-lot-lighting).
 //
 // Kept separate from the website-form sync in ./ghl.ts so Google leads stay
 // independently attributable: own source, own tag, and their own workflow
@@ -7,11 +8,42 @@
 // of the same request never does).
 
 import { splitName, toE164 } from './ghl';
+import { LIGHTING_REPAIR_CONCERNS } from './lightingOptions';
 
 const GHL_BASE = 'https://services.leadconnectorhq.com';
 export const GOOGLE_SOURCE = 'Google Ads - Electrical Panels';
 export const GOOGLE_TAG = 'google-ads-lead';
 export const COMMERCIAL_TAG = 'commercial-lead';
+export const LIGHTING_TAG = 'parking-lot-lighting';
+
+export type LeadOffer = 'panel' | 'lighting';
+
+// Everything that differs between the two landing pages on the CRM side.
+// Values for the dropdown fields must match the GHL options exactly.
+const OFFERS = {
+  panel: {
+    source: GOOGLE_SOURCE,
+    tags: [GOOGLE_TAG],
+    serviceNeeded: 'Panel Upgrade / Replacement',
+    projectType: (concern: string) => (concern === 'Breakers trip or lights flicker' ? "Something isn't working right" : 'Upgrading my electrical panel'),
+    formType: 'Google Ads Panel Landing Page',
+    concernLabel: 'Panel concern',
+    newNote: 'New Google Ads panel inspection request',
+    repeatNote: 'REPEAT Google Ads panel request (same phone within 24h — no new workflow)',
+    opportunity: 'Panel Inspection (Google)',
+  },
+  lighting: {
+    source: 'Google Ads - Parking Lot Lighting',
+    tags: [GOOGLE_TAG, LIGHTING_TAG],
+    serviceNeeded: 'Lighting (LED / Parking Lot / Soffit)',
+    projectType: (concern: string) => (LIGHTING_REPAIR_CONCERNS.includes(concern) ? "Something isn't working right" : 'General estimate / consultation'),
+    formType: 'Google Ads Parking Lot Lighting Landing Page',
+    concernLabel: 'Lighting need',
+    newNote: 'New Google Ads parking lot lighting request',
+    repeatNote: 'REPEAT Google Ads lighting request (same phone within 24h — no new workflow)',
+    opportunity: 'Parking Lot Lighting (Google)',
+  },
+} as const;
 
 const SALES_PIPELINE_ID = 'tY4vvw6LBoZDIibPngCk';
 const NEW_LEAD_STAGE_ID = 'f5b10d79-0187-4be5-acc9-ba3ce0b57c57';
@@ -39,12 +71,9 @@ const FIELD_IDS = {
   utmContent: '2oLutWuONV1Ao7bbsSX5',
 } as const;
 
-// Panel concern on the landing page -> CRM "Wants Evaluated" dropdown.
-const PROJECT_TYPE_MAP: Record<string, string> = {
-  'Breakers trip or lights flicker': "Something isn't working right",
-};
-
 export type PanelLead = {
+  /** Which landing page the lead came from. */
+  offer: LeadOffer;
   submissionId: string;
   name: string;
   phone: string;
@@ -62,6 +91,10 @@ export type PanelLead = {
   /** "Yes" / "No", or "" for commercial (unknown from one tap). */
   decisionMaker: string;
   commercial: boolean;
+  /** Lighting only: rough fixture count, e.g. "6–20 lights". */
+  lightCount?: string;
+  /** Lighting only: company or property name. */
+  company?: string;
   smsOptIn: boolean;
   page?: string;
   gclid?: string;
@@ -82,14 +115,16 @@ const fields = (pairs: [string, string | undefined][]): Field[] =>
 
 const buildNote = (lead: PanelLead, repeat: boolean): string =>
   [
-    repeat ? 'REPEAT Google Ads panel request (same phone within 24h — no new workflow)' : 'New Google Ads panel inspection request',
+    repeat ? OFFERS[lead.offer].repeatNote : OFFERS[lead.offer].newNote,
     `Submitted: ${lead.timestamp}`,
     `Submission ID: ${lead.submissionId}`,
     `Name: ${lead.name}`,
+    lead.company ? `Company / property: ${lead.company}` : '',
     `Phone: ${lead.phone}`,
     lead.email ? `Email: ${lead.email}` : '',
     `Address: ${lead.address} ${lead.zipCode}`,
-    `Panel concern: ${lead.concern}`,
+    `${OFFERS[lead.offer].concernLabel}: ${lead.concern}`,
+    lead.lightCount ? `How many lights: ${lead.lightCount}` : '',
     `Timeline: ${lead.timeline}`,
     lead.preferredDate ? `Preferred date: ${lead.preferredDate}` : '',
     lead.description ? `What they said: ${lead.description}` : '',
@@ -141,10 +176,11 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     throw new Error('GHL is not configured (GHL_API_TOKEN / GHL_LOCATION_ID).');
   }
 
+  const offer = OFFERS[lead.offer];
   const { firstName, lastName } = splitName(lead.name);
   const customFields = fields([
-    [FIELD_IDS.serviceNeeded, 'Panel Upgrade / Replacement'],
-    [FIELD_IDS.projectType, PROJECT_TYPE_MAP[lead.concern] || 'Upgrading my electrical panel'],
+    [FIELD_IDS.serviceNeeded, offer.serviceNeeded],
+    [FIELD_IDS.projectType, offer.projectType(lead.concern)],
     [FIELD_IDS.timeline, lead.timeline],
     [FIELD_IDS.decisionMaker, lead.decisionMaker],
     [FIELD_IDS.projectAddress, lead.address],
@@ -152,7 +188,9 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     [
       FIELD_IDS.message,
       [
-        `Panel concern: ${lead.concern}`,
+        `${offer.concernLabel}: ${lead.concern}`,
+        lead.lightCount && `How many lights: ${lead.lightCount}`,
+        lead.company && `Company / property: ${lead.company}`,
         `Property: ${lead.propertyType}`,
         lead.preferredDate && `Preferred date: ${lead.preferredDate}`,
         lead.description && `Details: ${lead.description}`,
@@ -161,7 +199,7 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
         .join('\n'),
     ],
     [FIELD_IDS.leadSource, 'Google'],
-    [FIELD_IDS.formType, 'Google Ads Panel Landing Page'],
+    [FIELD_IDS.formType, offer.formType],
     [FIELD_IDS.smsConsent, lead.smsOptIn ? 'Yes' : 'No'],
     [FIELD_IDS.smsConsentSource, lead.page],
     [FIELD_IDS.gclid, lead.gclid],
@@ -184,8 +222,9 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     phone: toE164(lead.phone),
     address1: lead.address,
     postalCode: lead.zipCode,
-    tags: lead.commercial ? [GOOGLE_TAG, COMMERCIAL_TAG] : [GOOGLE_TAG],
-    source: GOOGLE_SOURCE,
+    tags: lead.commercial ? [...offer.tags, COMMERCIAL_TAG] : [...offer.tags],
+    source: offer.source,
+    ...(lead.company ? { companyName: lead.company } : {}),
     email: lead.email,
     customFields,
   };
@@ -207,9 +246,9 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
       contactId,
       pipelineId: SALES_PIPELINE_ID,
       pipelineStageId: NEW_LEAD_STAGE_ID,
-      name: `${lead.name} - Panel Inspection (Google)`,
+      name: `${lead.name} - ${offer.opportunity}`,
       status: 'open',
-      source: GOOGLE_SOURCE,
+      source: offer.source,
     }).catch((err) => warnings.push(`opportunity: ${(err as Error).message}`));
   }
 

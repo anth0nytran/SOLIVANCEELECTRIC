@@ -10,7 +10,11 @@ import { BadgeCheck, ClipboardCheck, FileText, Wrench, Zap } from 'lucide-react'
 // draws on to the next step, and the card fills in from grey. Step 4 ends
 // green: the city inspector's sign-off.
 
-const STEPS: { icon: typeof Zap; title: string; detail: string }[] = [
+type Step = { icon: typeof Zap; title: string; detail: string };
+
+// Lists live here, not in the pages: icons are components and can't be passed
+// from a server page into this client component.
+const PANEL_STEPS: Step[] = [
   { icon: ClipboardCheck, title: 'Inspection', detail: 'A licensed electrician checks your panel in person. No cost, no obligation.' },
   { icon: FileText, title: 'Written quote', detail: 'Itemized and in writing before any work starts. If your panel is fine, we tell you that.' },
   { icon: Wrench, title: 'Permit and install', detail: 'We file the permit, coordinate the power shut-off with the utility, and install your new panel to code.' },
@@ -22,7 +26,18 @@ const START = 0.3; // seconds after scroll-in before step 1
 const STEP_GAP = 0.95; // seconds between steps lighting up
 const SPRING = { type: 'spring', stiffness: 320, damping: 12, mass: 0.8 } as const;
 
-export function ProcessSteps() {
+const LIGHTING_STEPS: Step[] = [
+  { icon: ClipboardCheck, title: 'Lot walk', detail: 'We walk the lot, find what’s out and why. Free, no obligation.' },
+  { icon: FileText, title: 'Written quote', detail: 'Itemized and in writing before any work starts.' },
+  { icon: Wrench, title: 'Repair or install', detail: 'Scheduled around your tenants and customers, after hours when needed.' },
+  { icon: BadgeCheck, title: 'Tested after dark', detail: 'We check the lights at night and set the photocell so the lot turns on by itself.' },
+];
+
+const SETS = { panel: PANEL_STEPS, lighting: LIGHTING_STEPS };
+
+// The last step always ends green: it's the sign-off.
+export function ProcessSteps({ variant = 'panel' }: { variant?: keyof typeof SETS }) {
+  const STEPS = SETS[variant];
   const still = useStill();
   const at = (i: number) => START + i * STEP_GAP;
   const t = (delay: number, duration = 0.5) => (still ? { duration: 0 } : { delay, duration, ease: EASE });

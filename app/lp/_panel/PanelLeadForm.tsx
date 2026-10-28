@@ -6,9 +6,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, Loader2, Phone, X } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { newSubmissionId, readAttribution } from '../../lib/tracking';
-import { CONCERNS, PROPERTY_TYPES, TIMELINES } from '../../lib/panelOptions';
+import { TIMELINES } from '../../lib/panelOptions';
 import { CallLink } from './CallLink';
 import { GoogleG, Stars } from './Badges';
+import { PANEL_FORM, type LeadFormConfig } from './formConfig';
 
 // The hero shows step 1 inline. Tapping an answer — or any "#form" CTA on the
 // page — opens the whole form full screen so the visitor only sees the next
@@ -49,22 +50,13 @@ const actionBarCls =
 
 // Desktop-only side panel in the full-screen form: what they get, one real
 // review, and the phone number for people who'd rather talk.
-const PROMISES = [
-  `Licensed Texas electrical contractor, ${siteConfig.license.label}`,
-  'Permit pulled and city-inspected on every panel job',
-  'Itemized written quote before any work starts',
-  'No cost and no obligation',
-];
-
-const TrustPanel = () => (
+const TrustPanel = ({ trust }: { trust: LeadFormConfig['trust'] }) => (
   <aside className="hidden w-[40%] max-w-[560px] shrink-0 flex-col justify-between bg-[#0A1322] p-12 text-white lg:flex xl:p-16">
     <div>
-      <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#FF7A2F]">No-cost panel inspection</p>
-      <p className="mt-4 text-[2.2rem] font-bold leading-[1.1] tracking-[-0.025em]">
-        A licensed electrician checks your panel. You get a written quote.
-      </p>
+      <p className="text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#FF7A2F]">{trust.kicker}</p>
+      <p className="mt-4 text-[2.2rem] font-bold leading-[1.1] tracking-[-0.025em]">{trust.headline}</p>
       <ul className="mt-9 space-y-4">
-        {PROMISES.map((p) => (
+        {trust.promises.map((p) => (
           <li key={p} className="flex items-start gap-3 text-[1.02rem] text-white/85">
             <Check className="mt-0.5 h-5 w-5 shrink-0 text-[#4ADE80]" strokeWidth={2.5} aria-hidden />
             {p}
@@ -75,14 +67,14 @@ const TrustPanel = () => (
     <div>
       <figure className="rounded-xl bg-white/[0.06] p-6">
         <Stars className="h-4 w-4" />
-        <blockquote className="mt-3 text-[1.15rem] font-semibold leading-snug">
-          &ldquo;They found other issues in the panel that could have caused a fire.&rdquo;
-        </blockquote>
+        <blockquote className="mt-3 text-[1.15rem] font-semibold leading-snug">&ldquo;{trust.quote}&rdquo;</blockquote>
         <figcaption className="mt-4 flex items-center gap-2 text-sm text-white/60">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white">
-            <GoogleG className="h-3.5 w-3.5" />
-          </span>
-          Yeny V. · Google review
+          {trust.source === 'Google' ? (
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white">
+              <GoogleG className="h-3.5 w-3.5" />
+            </span>
+          ) : null}
+          {trust.author} · {trust.source} review
         </figcaption>
       </figure>
       <p className="mt-8 text-sm text-white/55">Prefer to talk?</p>
@@ -101,13 +93,14 @@ const OptionLabel = ({ text, active }: { text: string; active: boolean }) => (
   </>
 );
 
-export function PanelLeadForm({ id = 'form' }: { id?: string }) {
+export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: string; config?: LeadFormConfig }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [concern, setConcern] = useState('');
   const [timeline, setTimeline] = useState('');
   const [propertyType, setPropertyType] = useState('');
+  const [lightCount, setLightCount] = useState('');
   const [preferredDate, setPreferredDate] = useState('');
   const [contact, setContact] = useState({
     name: '',
@@ -115,6 +108,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
     address: '',
     zipCode: '',
     description: '',
+    company: '',
   });
   const [phone, setPhone] = useState('');
   const [smsConsent, setSmsConsent] = useState(false);
@@ -186,10 +180,12 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
 
     const sid = submissionId();
     const payload = {
+      offer: config.offer,
       submissionId: sid,
       concern,
       timeline,
       propertyType,
+      lightCount,
       preferredDate,
       ...contact,
       phone,
@@ -221,7 +217,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
           try {
             sessionStorage.removeItem(SUB_KEY);
           } catch {}
-          router.push(`/lp/panel-inspection/thank-you?sid=${sid}`);
+          router.push(`${config.thankYouPath}?sid=${sid}`);
           return;
         }
         if (res.status === 409 && data?.retry) {
@@ -246,7 +242,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
 
   const concernButtons = (wide = false) => (
     <div className={`grid gap-2 ${wide ? 'xl:grid-cols-2' : ''}`}>
-      {CONCERNS.map((c) => (
+      {config.concerns.map((c) => (
         <button key={c} type="button" aria-pressed={concern === c} className={optionCls(concern === c)} onClick={() => pickConcern(c)}>
           <OptionLabel text={c} active={concern === c} />
         </button>
@@ -258,9 +254,9 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
     <>
       {/* Inline teaser in the hero: question 1 only. */}
       <div id={id} className="scroll-mt-4 rounded-xl border border-[#D5DAE0] bg-white p-4 shadow-[0_20px_50px_-24px_rgba(14,34,64,0.35)] sm:p-7">
-        <p className="text-sm font-semibold text-[#0E2240]">No-cost panel inspection · takes 30 seconds</p>
+        <p className="text-sm font-semibold text-[#0E2240]">{config.teaserKicker}</p>
         <p className="mb-4 mt-2 font-[family-name:var(--font-app-display)] text-[1.2rem] font-bold leading-snug text-[#0E2240] sm:text-[1.3rem]">
-          What&apos;s going on with your panel?
+          {config.concernQuestion}
         </p>
         {concernButtons()}
         {concern ? (
@@ -279,20 +275,20 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
           <motion.div
             role="dialog"
             aria-modal="true"
-            aria-label="Schedule your panel inspection"
+            aria-label={config.offerName}
             className="fixed inset-0 z-[100] flex bg-white"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 24 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
           >
-            <TrustPanel />
+            <TrustPanel trust={config.trust} />
             <div className="flex min-w-0 flex-1 flex-col overflow-y-auto">
               <div className="sticky top-0 z-10 border-b border-[#E3E6EA] bg-white">
                 <div className="mx-auto flex w-full max-w-2xl items-center gap-4 px-5 py-4 lg:px-10">
                   <div className="flex-1">
                     <div className="flex items-baseline justify-between text-sm text-[#5A6B7F]">
-                      <span className="hidden font-semibold text-[#0E2240] min-[360px]:inline">No-cost panel inspection</span>
+                      <span className="hidden font-semibold text-[#0E2240] min-[360px]:inline">{config.offerName}</span>
                       <span className="whitespace-nowrap">
                         Step {step + 1} of {STEPS}
                       </span>
@@ -330,7 +326,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                   >
                     {step === 0 && (
                       <fieldset>
-                        <legend className={`${questionCls} mb-5`}>What&apos;s going on with your panel?</legend>
+                        <legend className={`${questionCls} mb-5`}>{config.concernQuestion}</legend>
                         {concernButtons(true)}
                         <div className={`mt-8 ${actionBarCls}`}>
                           <button
@@ -362,9 +358,9 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                           ))}
                         </div>
 
-                        <p className="mb-2.5 mt-7 font-semibold text-[#0E2240]">This is for…</p>
+                        <p className="mb-2.5 mt-7 font-semibold text-[#0E2240]">{config.roleQuestion}</p>
                         <div className="grid gap-2 sm:grid-cols-2">
-                          {PROPERTY_TYPES.map(({ label }) => (
+                          {config.roles.map(({ label }) => (
                             <button
                               key={label}
                               type="button"
@@ -376,6 +372,19 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                             </button>
                           ))}
                         </div>
+
+                        {config.counts ? (
+                          <>
+                            <p className="mb-2.5 mt-7 font-semibold text-[#0E2240]">{config.countQuestion}</p>
+                            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                              {config.counts.map((c) => (
+                                <button key={c} type="button" aria-pressed={lightCount === c} className={optionCls(lightCount === c)} onClick={() => setLightCount(c)}>
+                                  <OptionLabel text={c} active={lightCount === c} />
+                                </button>
+                              ))}
+                            </div>
+                          </>
+                        ) : null}
 
                         <label className="mt-7 block">
                           <span className={labelCls}>
@@ -401,7 +410,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                           </button>
                           <button
                             type="button"
-                            disabled={!timeline || !propertyType}
+                            disabled={!timeline || !propertyType || (!!config.counts && !lightCount)}
                             onClick={() => setStep(2)}
                             className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#0E2240] px-4 py-4 font-semibold text-white disabled:opacity-35"
                           >
@@ -418,6 +427,14 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                           <span className={labelCls}>Full name</span>
                           <input name="name" required autoComplete="name" className={inputCls} {...field('name')} />
                         </label>
+                        {config.askCompany ? (
+                          <label>
+                            <span className={labelCls}>
+                              Company or property name <span className="font-normal text-[#6B7A8C]">(optional)</span>
+                            </span>
+                            <input name="company" autoComplete="organization" className={inputCls} {...field('company')} />
+                          </label>
+                        ) : null}
                         <label>
                           <span className={labelCls}>Mobile phone</span>
                           <input
@@ -439,7 +456,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                         </label>
                         <div className="grid grid-cols-[minmax(0,3fr)_minmax(0,1.3fr)] gap-2">
                           <label>
-                            <span className={labelCls}>Street address</span>
+                            <span className={labelCls}>{config.addressLabel}</span>
                             <input name="address" required autoComplete="street-address" className={inputCls} {...field('address')} />
                           </label>
                           <label>
@@ -464,7 +481,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                             name="description"
                             rows={3}
                             maxLength={1000}
-                            placeholder="e.g. The breaker for the kitchen trips every night."
+                            placeholder={config.descriptionPlaceholder}
                             className={`${inputCls} resize-y`}
                             {...field('description')}
                           />
@@ -515,7 +532,7 @@ export function PanelLeadForm({ id = 'form' }: { id?: string }) {
                             className="flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-[#E8590C] px-4 py-4 text-[1.05rem] font-bold text-white hover:bg-[#CF4E0A] disabled:opacity-70"
                           >
                             {status === 'sending' ? <Loader2 className="h-5 w-5 animate-spin" /> : null}
-                            {status === 'sending' ? 'Sending…' : 'Schedule my inspection'}
+                            {status === 'sending' ? 'Sending…' : config.submitLabel}
                           </button>
                         </div>
                       </fieldset>

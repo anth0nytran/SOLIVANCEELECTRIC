@@ -1,11 +1,16 @@
 import { createHash } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { kvDel, kvGet, kvMode, kvSet, kvSetNX } from '../../lib/kv';
-import { pushPanelLeadToGHL, type PanelLead } from '../../lib/ghlGoogle';
+import { pushPanelLeadToGHL, type LeadOffer, type PanelLead } from '../../lib/ghlGoogle';
 import { CONCERNS, TIMELINES, getPropertyType } from '../../lib/panelOptions';
+import { LIGHTING_CONCERNS, LIGHT_COUNTS, getLightingRole } from '../../lib/lightingOptions';
 
 export const runtime = 'nodejs';
 
+// Serves both Google Ads landing pages: offer 'panel' (/lp/panel-inspection,
+// the default) and 'lighting' (/lp/parking-lot-lighting). Each offer checks the
+// answers against its own option list.
+//
 // Idempotency design (see /lp/panel-inspection):
 //   pl:sub:{submissionId}  one record per logical submission. SET NX is the lock,
 //                          so a double-click, retry or replayed request can never
@@ -85,9 +90,13 @@ export async function POST(req: Request) {
   const phone = phone10.length === 10 ? `(${phone10.slice(0, 3)}) ${phone10.slice(3, 6)}-${phone10.slice(6)}` : phone10;
   const address = str(data.address, 120);
   const zipCode = str(data.zipCode, 10);
+  const offer: LeadOffer = data.offer === 'lighting' ? 'lighting' : 'panel';
+  const lighting = offer === 'lighting';
   const concern = str(data.concern);
   const timeline = str(data.timeline);
-  const property = getPropertyType(str(data.propertyType));
+  const property = lighting ? getLightingRole(str(data.propertyType)) : getPropertyType(str(data.propertyType));
+  const lightCount = lighting ? str(data.lightCount) : '';
+  const company = lighting ? str(data.company, 100) : '';
   const email = str(data.email, 120);
   const preferredDate = str(data.preferredDate, 10);
   const description = str(data.description, 1000);
@@ -99,9 +108,10 @@ export async function POST(req: Request) {
     !/^[2-9]\d{2}[2-9]\d{6}$/.test(phone10) && 'a valid 10-digit phone number',
     address.length < 4 && 'your street address',
     !/^\d{5}$/.test(zipCode) && 'a 5-digit ZIP code',
-    !CONCERNS.includes(concern) && "what's going on with your panel",
+    !(lighting ? LIGHTING_CONCERNS : CONCERNS).includes(concern) && (lighting ? 'what you need' : "what's going on with your panel"),
     !TIMELINES.includes(timeline) && 'your timeline',
-    !property && 'who the property is for',
+    !property && (lighting ? 'your role' : 'who the property is for'),
+    lighting && !LIGHT_COUNTS.includes(lightCount) && 'about how many lights',
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && 'a valid email',
     preferredDate && !/^\d{4}-\d{2}-\d{2}$/.test(preferredDate) && 'a valid date (or leave it blank)',
   ].filter(Boolean);
@@ -110,6 +120,7 @@ export async function POST(req: Request) {
   }
 
   const lead: PanelLead = {
+    offer,
     submissionId,
     name,
     phone,
@@ -123,6 +134,8 @@ export async function POST(req: Request) {
     propertyType: property!.label,
     decisionMaker: property!.decisionMaker,
     commercial: property!.commercial,
+    lightCount: lightCount || undefined,
+    company: company || undefined,
     smsOptIn: data.smsConsent === true,
     page: str(data.page, 300),
     gclid: str(data.gclid, 200) || undefined,
