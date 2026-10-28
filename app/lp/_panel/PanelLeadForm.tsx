@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, Loader2, Phone, X } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { newSubmissionId, readAttribution } from '../../lib/tracking';
-import { TIMELINES } from '../../lib/panelOptions';
 import { CallLink } from './CallLink';
 import { GoogleG, Stars } from './Badges';
 import { PANEL_FORM, type LeadFormConfig } from './formConfig';
@@ -41,7 +40,7 @@ const optionCls = (active: boolean) =>
   }`;
 const inputCls =
   'w-full rounded-lg border border-[#CBD2DA] bg-white px-4 py-3.5 text-base text-[#0E2240] outline-none placeholder:text-[#7D8A99] focus:border-[#0E2240] focus:ring-2 focus:ring-[#0E2240]/15';
-const questionCls = 'font-[family-name:var(--font-app-display)] text-[1.5rem] font-bold leading-tight text-[#0E2240] sm:text-[1.9rem]';
+const questionCls = 'text-balance font-[family-name:var(--font-app-display)] text-[1.5rem] font-bold leading-tight text-[#0E2240] sm:text-[1.9rem]';
 const labelCls = 'mb-1.5 block text-[0.9rem] font-semibold text-[#0E2240]';
 // Phones: the Back/Next row sticks to the bottom (clear of the iPhone home bar)
 // so the next tap is always on screen. Larger screens: it sits under the fields.
@@ -345,7 +344,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
                       <fieldset>
                         <legend className={`${questionCls} mb-5`}>How soon do you need it done?</legend>
                         <div className="grid gap-2 sm:grid-cols-2">
-                          {TIMELINES.map((t) => (
+                          {config.timelines.map((t) => (
                             <button
                               key={t}
                               type="button"

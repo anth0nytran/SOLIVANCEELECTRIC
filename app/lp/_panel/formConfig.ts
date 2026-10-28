@@ -1,6 +1,6 @@
 import { siteConfig } from '../../config';
-import { CONCERNS, PROPERTY_TYPES } from '../../lib/panelOptions';
-import { LIGHTING_CONCERNS, LIGHTING_ROLES, LIGHT_COUNTS } from '../../lib/lightingOptions';
+import { CONCERNS, PROPERTY_TYPES, TIMELINES } from '../../lib/panelOptions';
+import { LIGHTING_CONCERNS, LIGHTING_ROLES, LIGHTING_TIMELINES, LIGHT_COUNTS } from '../../lib/lightingOptions';
 
 // Everything that differs between the landing-page forms. The flow, layout,
 // validation and submit/retry logic in PanelLeadForm stay the same for both.
@@ -14,6 +14,7 @@ export type LeadFormConfig = {
   teaserKicker: string;
   concernQuestion: string;
   concerns: readonly string[];
+  timelines: readonly string[];
   roleQuestion: string;
   roles: readonly { label: string }[];
   /** Lighting only: "About how many lights?" */
@@ -41,6 +42,7 @@ export const PANEL_FORM: LeadFormConfig = {
   teaserKicker: 'No-cost panel inspection · takes 30 seconds',
   concernQuestion: 'What’s going on with your panel?',
   concerns: CONCERNS,
+  timelines: TIMELINES,
   roleQuestion: 'This is for…',
   roles: PROPERTY_TYPES,
   addressLabel: 'Street address',
@@ -65,9 +67,10 @@ export const LIGHTING_FORM: LeadFormConfig = {
   offer: 'lighting',
   thankYouPath: '/lp/parking-lot-lighting/thank-you',
   offerName: 'Free lot walk and quote',
-  teaserKicker: 'Free lot walk and written quote · takes 30 seconds',
+  teaserKicker: 'Free lot walk and quote · takes 30 seconds',
   concernQuestion: 'What does your lot need?',
   concerns: LIGHTING_CONCERNS,
+  timelines: LIGHTING_TIMELINES,
   roleQuestion: 'Your role',
   roles: LIGHTING_ROLES,
   countQuestion: 'About how many lights?',
@@ -82,7 +85,7 @@ export const LIGHTING_FORM: LeadFormConfig = {
     promises: [
       `Licensed Texas electrical contractor, ${siteConfig.license.label}`,
       'Repairs, LED upgrades and new poles',
-      'Work scheduled around your tenants and customers',
+      'Scheduled around your tenants',
       'Itemized written quote before any work starts',
     ],
     quote: 'Despite a busy schedule, Solivance Electric responded promptly and professionally.',

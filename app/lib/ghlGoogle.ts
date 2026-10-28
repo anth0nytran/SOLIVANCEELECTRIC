@@ -8,7 +8,7 @@
 // of the same request never does).
 
 import { splitName, toE164 } from './ghl';
-import { LIGHTING_REPAIR_CONCERNS } from './lightingOptions';
+import { GHL_TIMELINE, LIGHTING_REPAIR_CONCERNS } from './lightingOptions';
 
 const GHL_BASE = 'https://services.leadconnectorhq.com';
 export const GOOGLE_SOURCE = 'Google Ads - Electrical Panels';
@@ -181,7 +181,7 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
   const customFields = fields([
     [FIELD_IDS.serviceNeeded, offer.serviceNeeded],
     [FIELD_IDS.projectType, offer.projectType(lead.concern)],
-    [FIELD_IDS.timeline, lead.timeline],
+    [FIELD_IDS.timeline, GHL_TIMELINE[lead.timeline] || lead.timeline],
     [FIELD_IDS.decisionMaker, lead.decisionMaker],
     [FIELD_IDS.projectAddress, lead.address],
     [FIELD_IDS.zipCode, lead.zipCode],

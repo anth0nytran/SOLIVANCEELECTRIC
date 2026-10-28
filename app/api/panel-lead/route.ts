@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { kvDel, kvGet, kvMode, kvSet, kvSetNX } from '../../lib/kv';
 import { pushPanelLeadToGHL, type LeadOffer, type PanelLead } from '../../lib/ghlGoogle';
 import { CONCERNS, TIMELINES, getPropertyType } from '../../lib/panelOptions';
-import { LIGHTING_CONCERNS, LIGHT_COUNTS, getLightingRole } from '../../lib/lightingOptions';
+import { LIGHTING_CONCERNS, LIGHTING_TIMELINES, LIGHT_COUNTS, getLightingRole } from '../../lib/lightingOptions';
 
 export const runtime = 'nodejs';
 
@@ -109,7 +109,7 @@ export async function POST(req: Request) {
     address.length < 4 && 'your street address',
     !/^\d{5}$/.test(zipCode) && 'a 5-digit ZIP code',
     !(lighting ? LIGHTING_CONCERNS : CONCERNS).includes(concern) && (lighting ? 'what you need' : "what's going on with your panel"),
-    !TIMELINES.includes(timeline) && 'your timeline',
+    !(lighting ? LIGHTING_TIMELINES : TIMELINES).includes(timeline) && 'your timeline',
     !property && (lighting ? 'your role' : 'who the property is for'),
     lighting && !LIGHT_COUNTS.includes(lightCount) && 'about how many lights',
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && 'a valid email',
