@@ -11,19 +11,19 @@ import { carePlanFinePrint, getCarePlan } from '../carePlans';
 
 export const metadata: Metadata = {
   title: 'Solivance Care Plan — Basic, Plus & Commercial Electrical Memberships',
-  description: `Electrical peace of mind for your home or business. Basic $199/yr, Plus $299/yr, Commercial $649/yr per site. ${siteConfig.businessName}, ${siteConfig.license.label}.`,
+  description: `Electrical peace of mind for your home or business. Basic $199/yr, Plus $299/yr, Commercial $1,495/yr per site. ${siteConfig.businessName}, ${siteConfig.license.label}.`,
   alternates: { canonical: '/care-plans' },
 };
 
 const BENEFITS = [
-  { icon: ShieldCheck, text: 'Prevent fires and outages' },
+  { icon: ShieldCheck, text: 'Yearly safety inspection' },
   { icon: CalendarDays, text: 'Priority scheduling' },
   { icon: Tag, text: 'Member discounts' },
 ];
 
 const STEPS = [
-  { icon: ClipboardList, title: 'Join', body: 'Pay the year and get inspected right away, or pay monthly.' },
-  { icon: CalendarDays, title: 'We schedule', body: 'We call you to book your annual inspection.' },
+  { icon: ClipboardList, title: 'Sign up', body: 'Pay the year and get inspected right away, or pay monthly.' },
+  { icon: CalendarDays, title: 'We schedule', body: 'We call you to book your yearly inspection.' },
   { icon: HardHat, title: 'Inspect & report', body: 'A licensed electrician checks your system and explains the results.' },
   { icon: House, title: 'Save all year', body: 'Priority service and member pricing on repairs.' },
 ];
@@ -106,8 +106,8 @@ export default async function CarePlansPage({ searchParams }: { searchParams: Pr
                 <Phone className="h-6 w-6" aria-hidden />
               </span>
               <span>
-                <span className="block text-[1.05rem] font-semibold">Join today or ask your electrician.</span>
-                <span className="block font-[family-name:var(--font-app-display)] whitespace-nowrap text-[1.75rem] font-extrabold leading-tight tracking-[-0.01em] sm:text-[2.4rem]">{siteConfig.phone}</span>
+                <span className="block text-[1.05rem] font-semibold">Ask your technician or call to join.</span>
+                <span className="block font-[family-name:var(--font-app-display)] whitespace-nowrap text-[1.5rem] min-[400px]:text-[1.75rem] font-extrabold leading-tight tracking-[-0.01em] sm:text-[2.4rem]">{siteConfig.phone}</span>
               </span>
             </a>
             <span className="hidden h-16 w-px bg-white/30 md:block" aria-hidden />

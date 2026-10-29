@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { currentLang } from './LanguageToggle';
 
 const MAX_DURATION_MS = 8500;
 const AUTOPLAY_WATCHDOG_MS = 900;
@@ -39,7 +40,9 @@ export function IntroVideo() {
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
     const slow = !!conn && (conn.saveData === true || ['slow-2g', '2g', '3g'].includes(conn.effectiveType || ''));
 
-    if (isMobile || prefersReduced || slow) {
+    // In Spanish every internal link is a full page load (see LanguageToggle),
+    // so the intro would replay on each click.
+    if (isMobile || prefersReduced || slow || currentLang() === 'es') {
       setPhase('done');
       return;
     }

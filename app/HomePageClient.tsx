@@ -17,8 +17,9 @@ import {
 } from 'lucide-react';
 import { siteConfig, serviceData } from './config';
 import { ReviewsSection } from './components/ReviewsSection';
-import { CarePlanBand } from './components/CarePlanUpsell';
+import { CarePlanShowcase } from './components/CarePlanShowcase';
 import { trackMarketingEvent } from './components/MarketingAnalytics';
+import { LineBreak } from './components/LineBreak';
 
 /* ─── COMPACT HERO FORM ─── */
 function HeroEstimateForm() {
@@ -243,7 +244,7 @@ export default function HomePageClient() {
               </motion.div>
 
               <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }} className="text-[2.1rem] sm:text-[2.75rem] lg:text-[3.15rem] xl:text-[3.6rem] font-extrabold leading-[1] tracking-[-0.035em] text-white mb-5 sm:mb-6">
-                Southwest Houston&rsquo;s<br/><span className="relative inline-block text-white">electrician.<span aria-hidden className="absolute left-0 -bottom-1 h-[3px] w-full bg-[var(--onestop-red)]" /></span>
+                Southwest Houston&rsquo;s<LineBreak /><span className="relative inline-block text-white">electrician.<span aria-hidden className="absolute left-0 -bottom-1 h-[3px] w-full bg-[var(--onestop-red)]" /></span>
               </motion.h1>
 
               <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.25 }} className="text-[0.95rem] sm:text-base leading-[1.7] text-white/95 max-w-[520px] mb-6 sm:mb-7">
@@ -383,7 +384,7 @@ export default function HomePageClient() {
         </div>
       </section>
 
-      <CarePlanBand />
+      <CarePlanShowcase />
 
       {/* ═══ SERVICE AREAS — clean professional ═══ */}
       <section className="num-host bg-white py-16 sm:py-24 border-t border-slate-100 overflow-hidden">
@@ -462,7 +463,7 @@ export default function HomePageClient() {
                 <span className="h-px w-6 bg-[var(--onestop-gold)]" />
                 02 — About
               </div>
-              <h2 className="text-3xl font-bold leading-[1.08] text-[var(--onestop-navy-deep)] sm:text-4xl tracking-[-0.03em]">Commercial electrical.<br/>Done right the first time.</h2>
+              <h2 className="text-3xl font-bold leading-[1.08] text-[var(--onestop-navy-deep)] sm:text-4xl tracking-[-0.03em]">Commercial electrical.<LineBreak />Done right the first time.</h2>
               <p className="mt-4 text-[0.95rem] leading-relaxed text-slate-600">
                 Solivance Electric is a licensed Texas electrical contractor working commercial,
                 light-industrial, and premium residential sites. The shop sits at 13035 S Post Oak Rd Suite I, 77045 — Southwest Houston, the Heights, Bellaire, and the Memorial Villages are the daily run.

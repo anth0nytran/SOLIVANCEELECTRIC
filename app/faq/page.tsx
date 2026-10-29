@@ -5,6 +5,7 @@ import { ArrowRight, Phone, HelpCircle } from 'lucide-react';
 import { siteConfig, serviceData } from '../config';
 import { serviceContent } from '../services/serviceContent';
 import { locationContent, locationOrder } from '../locations/locationContent';
+import { LineBreak } from '../components/LineBreak';
 
 export const metadata: Metadata = {
   title: 'FAQ — Commercial Electrical in Greater Houston',
@@ -276,7 +277,7 @@ export default function FaqPage() {
               Still curious?
             </div>
             <h2 className="text-[2rem] sm:text-[2.75rem] font-bold text-white leading-[1.05] tracking-[-0.025em] mb-5">
-              Call the line.<br/>Get the answer.
+              Call the line.<LineBreak />Get the answer.
             </h2>
             <p className="text-[0.95rem] sm:text-base text-white/55 max-w-lg leading-relaxed mb-8">
               A licensed electrician picks up the 24-hour line. If your question is not in the list above, it is one conversation away.

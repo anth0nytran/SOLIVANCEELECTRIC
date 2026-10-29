@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { reviews, reviewStats } from '../reviews';
 import { Stars } from './Stars';
+import { LineBreak } from './LineBreak';
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
@@ -25,7 +26,7 @@ export function ReviewsSection({
   eyebrow = '03 — What clients say',
   heading = (
     <>
-      Real reviews from <br className="hidden sm:block" />
+      Real reviews from <LineBreak className="hidden sm:block" />
       Google and Thumbtack.
     </>
   ),

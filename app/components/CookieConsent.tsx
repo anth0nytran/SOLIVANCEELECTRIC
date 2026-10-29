@@ -65,7 +65,7 @@ export function CookieConsent() {
                 <button
                   type="button"
                   onClick={() => choose('declined')}
-                  className="min-h-11 flex-1 whitespace-nowrap rounded-md border-2 border-[var(--onestop-navy-deep)] bg-white px-3 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.08em] sm:px-5 sm:text-[0.78rem] sm:tracking-[0.1em] text-[var(--onestop-navy-deep)] transition-colors hover:bg-slate-50"
+                  className="min-h-11 flex-1 rounded-md text-balance leading-tight border-2 border-[var(--onestop-navy-deep)] bg-white px-3 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.08em] sm:px-5 sm:text-[0.78rem] sm:tracking-[0.1em] text-[var(--onestop-navy-deep)] transition-colors hover:bg-slate-50"
                 >
                   Essential only
                 </button>
@@ -73,7 +73,7 @@ export function CookieConsent() {
                   ref={acceptRef}
                   type="button"
                   onClick={() => choose('accepted')}
-                  className="min-h-11 flex-1 whitespace-nowrap rounded-md border-2 border-[var(--onestop-navy-deep)] bg-[var(--onestop-navy-deep)] px-3 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.08em] sm:px-5 sm:text-[0.78rem] sm:tracking-[0.1em] text-white transition-colors hover:bg-[var(--onestop-navy)]"
+                  className="min-h-11 flex-1 rounded-md text-balance leading-tight border-2 border-[var(--onestop-navy-deep)] bg-[var(--onestop-navy-deep)] px-3 py-2.5 text-[0.72rem] font-bold uppercase tracking-[0.08em] sm:px-5 sm:text-[0.78rem] sm:tracking-[0.1em] text-white transition-colors hover:bg-[var(--onestop-navy)]"
                 >
                   Accept all
                 </button>

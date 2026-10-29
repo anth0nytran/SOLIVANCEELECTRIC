@@ -88,7 +88,7 @@ export default function ReviewsPage() {
             </div>
             <div className="px-3 sm:px-5 text-center md:text-left">
               <div className="text-[0.66rem] font-bold uppercase tracking-[0.14em] text-slate-500 mb-1">Sources</div>
-              <div className="text-2xl font-extrabold text-[var(--onestop-navy-deep)]">Google · Thumbtack</div>
+              <div className="text-base font-extrabold leading-tight text-[var(--onestop-navy-deep)] sm:text-2xl">Google · Thumbtack</div>
             </div>
           </div>
         </div>

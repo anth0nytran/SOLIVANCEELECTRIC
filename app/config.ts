@@ -288,15 +288,18 @@ export interface NavChild {
 
 export interface NavLink {
   label: string;
+  /** Short Spanish label for the desktop nav; Google's translation runs long and wraps. */
+  labelEs?: string;
   href: string;
   children?: NavChild[];
   featured?: { heading: string; body: string; ctaLabel: string; ctaHref: string };
 }
 
 export const navLinks: NavLink[] = [
-  { label: 'Home', href: '/' },
+  { label: 'Home', labelEs: 'Inicio', href: '/' },
   {
     label: 'Services',
+    labelEs: 'Servicios',
     href: '/services',
     children: [
       { label: 'Panel Upgrades',             href: '/services/panel-upgrades',           description: '100A through 3-phase switchgear.',            icon: 'panel' },
@@ -319,6 +322,7 @@ export const navLinks: NavLink[] = [
   },
   {
     label: 'Areas',
+    labelEs: 'Zonas',
     href: '/locations',
     children: [
       { label: 'Southwest Houston', href: '/locations/southwest-houston', description: 'Westbury · Meyerland · Med Center · 77045.',  icon: 'map-pin' },
@@ -337,8 +341,8 @@ export const navLinks: NavLink[] = [
       ctaHref: '/locations',
     },
   },
-  { label: 'Care Plans', href: '/care-plans' },
-  { label: 'About',   href: '/about' },
-  { label: 'FAQ',     href: '/faq' },
-  { label: 'Blog',    href: '/blog' },
+  { label: 'Care Plans', labelEs: 'Planes', href: '/care-plans' },
+  { label: 'About',   labelEs: 'Nosotros', href: '/about' },
+  { label: 'FAQ',     labelEs: 'Preguntas', href: '/faq' },
+  { label: 'Blog',    labelEs: 'Blog', href: '/blog' },
 ];

@@ -719,3 +719,40 @@ summary:focus-visible,
   outline: 3px solid var(--onestop-red);
   outline-offset: 2px;
 }
+
+/* Google Translate (Spanish toggle): hide its top banner, hover tooltips and
+   text highlight, and stop it pushing the page down. */
+iframe.skiptranslate,
+.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+.goog-text-highlight,
+font[style*="background-color"] {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Spanish runs ~25% longer than the English copy. While the page is
+   translated, long words hyphenate and wrap inside their box instead of
+   pushing past it, and the wide tracking on small uppercase labels eases off. */
+html.translated-ltr .onestop-site {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+html.translated-ltr .onestop-site :where(div, span, a, p, li, dt, dd, label, strong) {
+  overflow-wrap: anywhere;
+}
+html.translated-ltr .onestop-site :where(h1, h2) {
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+html.translated-ltr .onestop-site .uppercase {
+  letter-spacing: 0.08em;
+}

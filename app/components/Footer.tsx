@@ -254,24 +254,10 @@ export function Footer() {
         </div>
       </div>
 
-      {/* TDLR CONSUMER NOTICE */}
-      <div className="border-t border-white/10">
-        <div className={`${shell} py-5 text-xs leading-5 text-white/75`}>
-          <p>
-            {siteConfig.businessName} · {siteConfig.license.type} {siteConfig.license.label}.{' '}
-            Regulated by the {siteConfig.regulator.name}, {siteConfig.regulator.address},{' '}
-            {siteConfig.regulator.phones.join(', ')};{' '}
-            <a href={siteConfig.regulator.url} target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
-              www.tdlr.texas.gov<span className="sr-only"> (opens in a new tab)</span>
-            </a>
-            . Verify this license or file a complaint through TDLR.
-          </p>
-        </div>
-      </div>
-
       {/* BOTTOM BAR */}
       <div className="border-t border-white/10 bg-black/25">
-        <div className={`${shell} pt-5 pb-24 sm:pb-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/75`}>
+        <div className={`${shell} pt-5 pb-24 sm:pb-5`}>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/75">
           <p>&copy; {new Date().getFullYear()} {siteConfig.businessName}. All rights reserved.</p>
           <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-5 gap-y-1">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
@@ -290,6 +276,18 @@ export function Footer() {
               </a>
             </span>
           </div>
+        </div>
+
+        {/* TDLR consumer notice: last line on the page, quieter than the bar above */}
+        <p className="mt-4 border-t border-white/[0.06] pt-4 text-center text-[0.7rem] leading-[1.6] text-white/50 md:text-left">
+          {siteConfig.businessName} · {siteConfig.license.type} {siteConfig.license.label}.{' '}
+          Regulated by the {siteConfig.regulator.name}, {siteConfig.regulator.address},{' '}
+          {siteConfig.regulator.phones.join(', ')};{' '}
+          <a href={siteConfig.regulator.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-white/80">
+            www.tdlr.texas.gov<span className="sr-only"> (opens in a new tab)</span>
+          </a>
+          . Verify this license or file a complaint through TDLR.
+        </p>
         </div>
       </div>
 

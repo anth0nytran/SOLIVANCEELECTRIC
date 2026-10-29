@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { siteConfig } from '../config';
 import { ReviewsSection } from '../components/ReviewsSection';
+import { LineBreak } from '../components/LineBreak';
 
 const shell = 'mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10';
 
@@ -120,7 +121,7 @@ export default function AboutPageClient() {
                   01 — What we do
                 </div>
                 <h2 className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl leading-tight mb-8">
-                  A licensed Texas crew.<br/>One standard across every job.
+                  A licensed Texas crew.<LineBreak />One standard across every job.
                 </h2>
                 <div className="space-y-5 text-[0.95rem] leading-[1.8] text-slate-600">
                 <p>
@@ -191,7 +192,7 @@ export default function AboutPageClient() {
         eyebrow="Customer reviews"
         heading={
           <>
-            What Houston clients<br className="hidden sm:block" /> say about the work.
+            What Houston clients<LineBreak className="hidden sm:block" /> say about the work.
           </>
         }
       />
@@ -215,7 +216,7 @@ export default function AboutPageClient() {
               02 — How we work
             </div>
             <h2 className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl leading-tight">
-              Six things the spec sheet<br/>does not tell you.
+              Six things the spec sheet<LineBreak />does not tell you.
             </h2>
           </motion.div>
 
@@ -262,7 +263,7 @@ export default function AboutPageClient() {
               03 — Where we work
             </div>
             <h2 className="text-3xl font-extrabold text-[var(--onestop-navy-deep)] sm:text-4xl leading-tight">
-              Greater Houston, south to Sugar Land,<br/>north to Conroe, and beyond.
+              Greater Houston, south to Sugar Land,<LineBreak />north to Conroe, and beyond.
             </h2>
             <p className="mt-4 text-base text-slate-500 leading-relaxed">
               <Users className="inline h-4 w-4 mr-1 align-[-2px]" />

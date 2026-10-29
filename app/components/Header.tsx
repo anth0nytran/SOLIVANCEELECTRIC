@@ -30,6 +30,7 @@ import {
   Mail,
 } from 'lucide-react';
 import { siteConfig, navLinks, type NavChild } from '../config';
+import { LanguageToggle, useLang } from './LanguageToggle';
 
 const childIconMap: Record<NonNullable<NavChild['icon']>, typeof Zap> = {
   panel: Zap,
@@ -51,6 +52,10 @@ const childIconMap: Record<NonNullable<NavChild['icon']>, typeof Zap> = {
 
 export function Header() {
   const pathname = usePathname();
+  const lang = useLang();
+  // Our own short Spanish nav labels, kept away from Google's longer wording.
+  const navLabel = (l: { label: string; labelEs?: string }) =>
+    lang === 'es' && l.labelEs ? <span translate="no" className="notranslate">{l.labelEs}</span> : l.label;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -148,26 +153,22 @@ export function Header() {
           </div>
           <div className="flex items-center gap-3 mx-auto sm:mx-0">
             {/* Mobile: license + action-driven CTA */}
-            <span className="sm:hidden whitespace-nowrap text-white/80 text-[0.62rem]">{siteConfig.license.label}</span>
-            <span className="sm:hidden h-3 w-px bg-white/25" aria-hidden />
+            {/* License drops below 414px so the call link and language toggle fit,
+                including the longer Spanish label. */}
+            <span className="hidden min-[414px]:inline sm:hidden whitespace-nowrap text-white/80 text-[0.62rem]">{siteConfig.license.label}</span>
+            <span className="hidden min-[414px]:inline-block sm:hidden h-3 w-px bg-white/25" aria-hidden />
             <a
               href={`tel:${siteConfig.cleanPhone}`}
               className="sm:hidden inline-flex items-center whitespace-nowrap font-bold text-white hover:text-[var(--onestop-gold)] transition-colors uppercase tracking-[0.12em] text-[0.66rem]"
             >
               Call · {siteConfig.phone}
             </a>
-            {/* Desktop: areas + phone */}
-            <span className="hidden 2xl:inline-block whitespace-nowrap font-semibold text-white/90">
-              SW Houston · Heights · Bellaire · Memorial Villages
-            </span>
-            <span className="h-3 w-px bg-white/25 hidden 2xl:inline-block" aria-hidden />
-            <a href={`mailto:${siteConfig.email}`} className="hidden xl:inline-flex whitespace-nowrap items-center gap-1.5 font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal">
-              <Mail className="h-3 w-3" aria-hidden /> {siteConfig.email}
-            </a>
-            <span className="h-3 w-px bg-white/25 hidden xl:inline-block" aria-hidden />
+            {/* Desktop: phone + language only; areas live in the nav, email in the footer */}
             <a href={`tel:${siteConfig.cleanPhone}`} className="hidden sm:inline-flex whitespace-nowrap items-center gap-1.5 font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal">
               <Phone className="h-3 w-3" aria-hidden /> {siteConfig.phone}
             </a>
+            <span className="h-3 w-px bg-white/25" aria-hidden />
+            <LanguageToggle className="text-[0.66rem] sm:text-[0.72rem]" />
           </div>
         </div>
       </motion.div>
@@ -183,7 +184,7 @@ export function Header() {
           <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10 flex items-center justify-between h-20 sm:h-28 lg:h-32">
 
             {/* Brand */}
-            <Link href="/" className="group leading-none relative shrink-0 min-w-0 sm:min-w-[200px] lg:min-w-[250px] max-w-[60%] sm:max-w-none">
+            <Link href="/" className="group leading-none relative shrink-0 min-w-0 sm:min-w-[200px] lg:min-w-[210px] xl:min-w-[250px] max-w-[60%] sm:max-w-none">
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -195,13 +196,13 @@ export function Header() {
                   width={600}
                   height={400}
                   priority
-                  className="h-16 sm:h-24 lg:h-28 w-auto max-w-full scale-100 sm:scale-110 lg:scale-[1.35] origin-left"
+                  className="h-16 sm:h-24 lg:h-28 w-auto max-w-full scale-100 sm:scale-110 lg:scale-[1.2] xl:scale-[1.35] origin-left"
                 />
               </motion.div>
             </Link>
 
             {/* Nav links */}
-            <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-2 xl:gap-3">
+            <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-0.5 xl:gap-3">
               {navLinks.map((l, i) => {
                 const isActive =
                   l.href === '/'
@@ -220,13 +221,13 @@ export function Header() {
                     >
                       <Link
                         href={l.href}
-                        className={`relative inline-flex items-center px-4 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] rounded-lg transition-all duration-200 group ${
+                        className={`relative inline-flex items-center whitespace-nowrap px-2.5 xl:px-4 py-2.5 text-[0.88rem] xl:text-[0.95rem] font-semibold tracking-[-0.005em] rounded-lg transition-all duration-200 group ${
                           isActive
                             ? 'text-[var(--onestop-navy-deep)] bg-[var(--onestop-navy)]/5'
                             : 'text-slate-600 hover:text-[var(--onestop-navy-deep)] hover:bg-[var(--onestop-navy)]/5'
                         }`}
                       >
-                        {l.label}
+                        {navLabel(l)}
                         <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-[var(--onestop-red)]' : 'w-0 bg-[var(--onestop-red)] group-hover:w-6'}`} />
                       </Link>
                     </motion.div>
@@ -248,13 +249,13 @@ export function Header() {
                       onClick={() => setOpenDropdown(isOpen ? null : l.label)}
                       aria-expanded={isOpen}
                       aria-controls={`nav-panel-${i}`}
-                      className={`relative inline-flex items-center gap-1.5 px-4 py-2.5 text-[0.95rem] font-semibold tracking-[-0.005em] rounded-lg transition-all duration-200 group ${
+                      className={`relative inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 xl:px-4 py-2.5 text-[0.88rem] xl:text-[0.95rem] font-semibold tracking-[-0.005em] rounded-lg transition-all duration-200 group ${
                         isActive || isOpen
                           ? 'text-[var(--onestop-navy-deep)] bg-[var(--onestop-navy)]/5'
                           : 'text-slate-600 hover:text-[var(--onestop-navy-deep)] hover:bg-[var(--onestop-navy)]/5'
                       }`}
                     >
-                      {l.label}
+                      {navLabel(l)}
                       <ChevronDown aria-hidden className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                       <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-[var(--onestop-red)]' : 'w-0 bg-[var(--onestop-red)] group-hover:w-6'}`} />
                     </button>
@@ -360,9 +361,9 @@ export function Header() {
               transition={{ duration: 0.5, delay: 0.35 }}
               className="hidden sm:flex items-center gap-3 shrink-0"
             >
-              <Link href="/contact" className="btn-solid relative bg-[var(--onestop-red)] px-6 py-3 text-[0.74rem] font-bold uppercase tracking-[0.15em] text-white rounded-md overflow-hidden hover:bg-[#e55f15] group">
-                <span className="relative z-10 inline-flex items-center gap-1.5">
-                  Free Quote
+              <Link href="/contact" className="btn-solid relative bg-[var(--onestop-red)] px-4 xl:px-6 py-3 text-[0.74rem] font-bold uppercase tracking-[0.1em] xl:tracking-[0.15em] text-white rounded-md overflow-hidden hover:bg-[#e55f15] group">
+                <span className="relative z-10 inline-flex items-center gap-1.5 whitespace-nowrap">
+                  {lang === 'es' ? <span translate="no" className="notranslate">Cotizar gratis</span> : 'Free Quote'}
                   <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </span>
               </Link>

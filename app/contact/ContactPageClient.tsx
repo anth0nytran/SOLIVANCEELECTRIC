@@ -17,6 +17,7 @@ import {
 import { siteConfig } from '../config';
 import { EstimateForm } from '../components/EstimateForm';
 import { ConsentMap } from '../components/ConsentMap';
+import { LineBreak } from '../components/LineBreak';
 
 const shell = 'mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10';
 
@@ -203,7 +204,7 @@ export default function ContactPageClient({ faqs, initialService }: { faqs: { q:
               {/* Talk to a Licensed Electrician Card */}
               <div className="bg-[var(--onestop-cream)] border border-slate-200 rounded-xl p-7 sm:p-8 relative overflow-hidden">
                 <div className="absolute top-0 right-0 -mt-2 -mr-1 text-8xl text-[var(--onestop-navy-deep)]/5 font-[family-name:var(--font-app-display)] leading-none select-none">&ldquo;</div>
-                <h4 className="text-[1.05rem] font-bold text-[var(--onestop-navy-deep)] mb-3 relative z-10 leading-snug">Rather walk it through<br/>on the phone?</h4>
+                <h4 className="text-[1.05rem] font-bold text-[var(--onestop-navy-deep)] mb-3 relative z-10 leading-snug">Rather walk it through<LineBreak />on the phone?</h4>
                 <p className="text-slate-500 text-sm leading-relaxed mb-5 relative z-10 font-medium">
                   Describe the site, scope, and timing. A licensed electrician
                   picks up — not a dispatcher, not a call center. Emergencies are
