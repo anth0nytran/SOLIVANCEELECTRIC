@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: 'Parking Lot Lighting Repair & Installation in Houston',
     description: 'Free lot lighting audit from a licensed Houston electrician. Every pole checked, quoted two ways: fix what’s out, or switch to LED.',
     url: '/lp/parking-lot-lighting',
-    images: [{ url: '/lp/og-parking-lot-lighting.jpg', width: 1200, height: 630, alt: 'Parking lot lit by LED pole lights at night' }],
+    images: [{ url: '/lp/og-parking-lot-lighting.jpg', width: 1200, height: 630, alt: 'Commercial parking lot lit by LED pole lights at dusk' }],
   },
   twitter: { card: 'summary_large_image', images: ['/lp/og-parking-lot-lighting.jpg'] },
 };
@@ -166,8 +166,8 @@ export default async function ParkingLotLightingPage({ searchParams }: { searchP
       {/* Hero: headline, subheadline, form. */}
       {/* Lit lot at night behind a dark wash: sets the scene without competing with the form. */}
       <section className={`relative isolate overflow-hidden ${ink} text-white`}>
-        <Image src="/lp/lot-lights-hero.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[50%_20%]" aria-hidden />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0A1322]/95 via-[#0A1322]/85 to-[#0A1322]/70" aria-hidden />
+        <Image src="/lp/lot-lights-hero.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[75%_50%] lg:object-[50%_12%]" aria-hidden />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0A1322]/90 via-[#0A1322]/60 to-[#0A1322]/15" aria-hidden />
         <div className={`${wrap} grid gap-8 pb-12 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-16 lg:py-14`}>
           <div>
             {/* H1 repeats the search term: what Google matches the ad against. */}
