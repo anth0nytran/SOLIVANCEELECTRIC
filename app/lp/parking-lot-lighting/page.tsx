@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'], display: 'swap' });
 
 const wrap = 'mx-auto w-full max-w-6xl px-5 sm:px-8';
-const section = 'py-14 sm:py-16';
+const section = 'py-10 sm:py-16';
 const h2 = 'text-[2rem] font-bold leading-[1.08] tracking-[-0.025em] sm:text-[3.1rem]';
 const label = 'text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-[#B23F07]';
 const ink = 'bg-[#0A1322]';
@@ -125,7 +125,7 @@ export default async function ParkingLotLightingPage({ searchParams }: { searchP
   const fontVars = { '--font-app-display': poppins.style.fontFamily } as CSSProperties;
 
   return (
-    <div className={`${poppins.className} bg-white pb-20 text-[#0A1322] sm:pb-0`} style={fontVars}>
+    <div data-lp-root className={`${poppins.className} overflow-x-clip bg-white pb-20 text-[#0A1322] sm:pb-0`} style={fontVars}>
       {/* Company header: who we are and how to verify it, before anything else. */}
       <header className="border-b border-[#E6E8EC] bg-white">
         <div className={`${wrap} flex h-[68px] items-center justify-between gap-4`}>
@@ -168,7 +168,7 @@ export default async function ParkingLotLightingPage({ searchParams }: { searchP
       <section className={`relative isolate overflow-hidden ${ink} text-white`}>
         <Image src="/lp/lot-lights-hero.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[75%_50%] lg:object-[50%_12%]" aria-hidden />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0A1322]/90 via-[#0A1322]/60 to-[#0A1322]/15" aria-hidden />
-        <div className={`${wrap} grid gap-8 pb-12 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-16 lg:py-14`}>
+        <div className={`${wrap} grid gap-6 pb-8 pt-6 sm:gap-8 sm:pb-12 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-16 lg:py-14`}>
           <div>
             {/* H1 repeats the search term: what Google matches the ad against. */}
             <h1 className="text-balance text-[2.3rem] font-bold leading-[1.04] tracking-[-0.03em] sm:text-[3.6rem]">{hero.h1}</h1>
@@ -341,7 +341,7 @@ export default async function ParkingLotLightingPage({ searchParams }: { searchP
           </div>
 
           {/* A commercial customer, set large. */}
-          <figure className="mt-10 grid gap-6 rounded-xl bg-[#0A1322] p-6 text-white sm:mt-14 sm:gap-8 sm:p-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-14">
+          <figure className="mt-7 grid gap-6 rounded-xl bg-[#0A1322] p-6 text-white sm:mt-14 sm:gap-8 sm:p-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-14">
             <div>
               <Stars className="h-5 w-5" />
               <p className="mt-5 text-[1.6rem] font-semibold leading-[1.25] tracking-[-0.02em] sm:text-[2.1rem]">
@@ -424,7 +424,7 @@ export default async function ParkingLotLightingPage({ searchParams }: { searchP
         <div className={`${wrap} py-20 text-center sm:py-28`}>
           <h2 className={`${h2} mx-auto max-w-[20ch]`}>{hero.close}</h2>
           <p className="mx-auto mt-5 max-w-md text-[1.05rem] leading-relaxed text-white/70">It takes about a minute. We&apos;ll call you to set up the lot walk.</p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row">
             <a href="#form" className={`${cta} w-full sm:w-auto`}>
               Request my quote
             </a>

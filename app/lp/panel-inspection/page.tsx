@@ -75,7 +75,7 @@ export default function PanelInspectionPage() {
   const fontVars = { '--font-app-display': poppins.style.fontFamily } as CSSProperties;
 
   return (
-    <div className={`${poppins.className} bg-white pb-20 text-[#0A1322] sm:pb-0`} style={fontVars}>
+    <div data-lp-root className={`${poppins.className} overflow-x-clip bg-white pb-20 text-[#0A1322] sm:pb-0`} style={fontVars}>
       {/* Company header: who we are and how to verify it, before anything else. */}
       <header className="border-b border-[#E6E8EC] bg-white">
         <div className={`${wrap} flex h-[68px] items-center justify-between gap-4`}>

@@ -2,6 +2,7 @@
 
 import { LP_PHONE } from './phone';
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, Loader2, Phone, X } from 'lucide-react';
@@ -35,12 +36,12 @@ const today = () => {
 };
 
 const optionCls = (active: boolean) =>
-  `flex w-full items-center justify-between gap-3 rounded-lg border px-4 py-3.5 text-left text-[1rem] font-medium leading-snug transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#0E2240] ${
+  `flex w-full items-center justify-between gap-3 rounded-lg border px-4 py-3 text-left text-[1rem] sm:py-3.5 font-medium leading-snug transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#0E2240] ${
     active ? 'border-[#0E2240] bg-[#0E2240] text-white' : 'border-[#CBD2DA] bg-white text-[#0E2240] hover:border-[#0E2240]'
   }`;
 const inputCls =
-  'w-full rounded-lg border border-[#CBD2DA] bg-white px-4 py-3.5 text-base text-[#0E2240] outline-none placeholder:text-[#7D8A99] focus:border-[#0E2240] focus:ring-2 focus:ring-[#0E2240]/15';
-const questionCls = 'text-balance font-[family-name:var(--font-app-display)] text-[1.5rem] font-bold leading-tight text-[#0E2240] sm:text-[1.9rem]';
+  'w-full rounded-lg border border-[#CBD2DA] bg-white px-4 py-3 sm:py-3.5 text-base text-[#0E2240] outline-none placeholder:text-[#7D8A99] focus:border-[#0E2240] focus:ring-2 focus:ring-[#0E2240]/15';
+const questionCls = 'text-balance font-[family-name:var(--font-app-display)] font-bold leading-tight text-[#0E2240] text-[1.35rem] sm:text-[1.9rem]';
 const labelCls = 'mb-1.5 block text-[0.9rem] font-semibold text-[#0E2240]';
 // Phones: the Back/Next row sticks to the bottom (clear of the iPhone home bar)
 // so the next tap is always on screen. Larger screens: it sits under the fields.
@@ -117,6 +118,13 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
   const sending = useRef(false);
   const honeypot = useRef<HTMLInputElement>(null);
   const closeBtn = useRef<HTMLButtonElement>(null);
+  // The full-screen form renders at the page root, not inside the hero: the hero
+  // is its own stacking context, which put the sticky Call/Book bar on top of
+  // the form's Next button. The root carries the page font, so the form keeps it.
+  const [portalTo, setPortalTo] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    setPortalTo((document.getElementById(id)?.closest('[data-lp-root]') as HTMLElement | null) ?? document.body);
+  }, [id]);
 
   const openAt = useCallback((s: number) => {
     setStep(s);
@@ -270,6 +278,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
         ) : null}
       </div>
 
+      {portalTo && createPortal(
       <AnimatePresence>
         {open && (
           <motion.div
@@ -283,9 +292,10 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
             transition={{ duration: 0.25, ease: 'easeOut' }}
           >
             <TrustPanel trust={config.trust} />
-            <div className="flex min-w-0 flex-1 flex-col overflow-y-auto">
+            {/* overflow-x-hidden: the step slide-in must never let the form scroll sideways. */}
+            <div className="flex min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden overscroll-contain">
               <div className="sticky top-0 z-10 border-b border-[#E3E6EA] bg-white">
-                <div className="mx-auto flex w-full max-w-2xl items-center gap-4 px-5 py-4 lg:px-10">
+                <div className="mx-auto flex w-full max-w-2xl items-center gap-4 px-5 py-2.5 sm:py-4 lg:px-10">
                   <div className="flex-1">
                     <div className="flex items-baseline justify-between text-sm text-[#5A6B7F]">
                       <span className="hidden font-semibold text-[#0E2240] min-[360px]:inline">{config.offerName}</span>
@@ -314,7 +324,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
 
               <form
                 onSubmit={handleSubmit}
-                className="mx-auto w-full max-w-2xl flex-1 px-5 pb-0 pt-7 sm:pb-10 sm:pt-10 lg:flex lg:flex-col lg:justify-center lg:px-10"
+                className="mx-auto w-full max-w-2xl flex-1 px-5 pb-0 pt-5 sm:pb-10 sm:pt-10 lg:flex lg:flex-col lg:justify-center lg:px-10"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
@@ -326,9 +336,9 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
                   >
                     {step === 0 && (
                       <fieldset>
-                        <legend className={`${questionCls} mb-5`}>{config.concernQuestion}</legend>
+                        <legend className={`${questionCls} mb-4`}>{config.concernQuestion}</legend>
                         {concernButtons(true)}
-                        <div className={`mt-8 ${actionBarCls}`}>
+                        <div className={`mt-5 ${actionBarCls} sm:mt-8`}>
                           <button
                             type="button"
                             disabled={!concern}
@@ -343,7 +353,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
 
                     {step === 1 && (
                       <fieldset>
-                        <legend className={`${questionCls} mb-5`}>How soon do you need it done?</legend>
+                        <legend className={`${questionCls} mb-4`}>How soon do you need it done?</legend>
                         <div className="grid gap-2 sm:grid-cols-2">
                           {config.timelines.map((t) => (
                             <button
@@ -358,7 +368,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
                           ))}
                         </div>
 
-                        <p className="mb-2.5 mt-7 font-semibold text-[#0E2240]">{config.roleQuestion}</p>
+                        <p className="mb-2 mt-5 font-semibold sm:mt-7 text-[#0E2240]">{config.roleQuestion}</p>
                         <div className="grid gap-2 sm:grid-cols-2">
                           {config.roles.map(({ label }) => (
                             <button
@@ -375,7 +385,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
 
                         {config.counts ? (
                           <>
-                            <p className="mb-2.5 mt-7 font-semibold text-[#0E2240]">{config.countQuestion}</p>
+                            <p className="mb-2 mt-5 font-semibold sm:mt-7 text-[#0E2240]">{config.countQuestion}</p>
                             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                               {config.counts.map((c) => (
                                 <button key={c} type="button" aria-pressed={lightCount === c} className={optionCls(lightCount === c)} onClick={() => setLightCount(c)}>
@@ -386,7 +396,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
                           </>
                         ) : null}
 
-                        <label className="mt-7 block">
+                        <label className="mt-5 block sm:mt-7">
                           <span className={labelCls}>
                             Pick a day that works <span className="font-normal text-[#6B7A8C]">(optional)</span>
                           </span>
@@ -399,7 +409,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
                           />
                         </label>
 
-                        <div className={`mt-8 ${actionBarCls}`}>
+                        <div className={`mt-5 ${actionBarCls} sm:mt-8`}>
                           <button
                             type="button"
                             onClick={() => setStep(0)}
@@ -421,7 +431,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
                     )}
 
                     {step === 2 && (
-                      <fieldset className="grid gap-4">
+                      <fieldset className="grid gap-3 sm:gap-4">
                         <legend className={`${questionCls} mb-1`}>Where should we send the electrician?</legend>
                         <label>
                           <span className={labelCls}>Full name</span>
@@ -543,7 +553,8 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      portalTo)}
     </>
   );
 }
