@@ -28,6 +28,13 @@ const STALE_PROCESSING_MS = 45_000; // a crashed attempt can be taken over after
 const IP_LIMIT = 5; // submissions per network per hour before we treat it as a bot
 const IP_WINDOW = 60 * 60;
 
+// Test mode: open the landing page with ?test=<this key>. The lead goes through
+// the real path (GHL, alert workflow, confirmation email) but skips the network
+// flood limit and the 24h repeat-phone lock, is tagged test-lead, and is never
+// conversion-eligible, so nothing reaches Google Ads. Checked here only; the
+// key never ships in the browser bundle.
+const TEST_KEY = 'FrvXkbm3FYyQ';
+
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 type SubmissionRecord = {
@@ -69,6 +76,7 @@ export async function POST(req: Request) {
   // check is invisible to a real person (no captcha, no strict email rules):
   // a hidden field only bots fill, a form finished faster than a human can,
   // links pasted into the name or description, and a flood from one network.
+  const test = str(data.testKey, 40) === TEST_KEY;
   const startedAt = Number(str(data._ts, 20));
   const links = (str(data.description, 1000).match(/https?:\/\/|www\./gi) || []).length;
   const ipKey = `pl:ip:${createHash('sha256').update(req.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown').digest('hex')}`;
@@ -77,12 +85,12 @@ export async function POST(req: Request) {
     (str(data.company_url) && 'honeypot') ||
     ((!startedAt || Date.now() - startedAt < 3000) && 'too_fast') ||
     ((/https?:\/\/|www\./i.test(str(data.name)) || links > 1) && 'links') ||
-    (ipCount >= IP_LIMIT && 'ip_flood');
+    (!test && ipCount >= IP_LIMIT && 'ip_flood');
   if (spamReason) {
     log('panel_lead.spam_dropped', { submissionId, reason: spamReason });
     return NextResponse.json({ ok: true, submissionId, conversionEligible: false, repeat: false, replayed: false });
   }
-  if (kvMode() !== 'unavailable') await kvSet(ipKey, String(ipCount + 1), IP_WINDOW);
+  if (!test && kvMode() !== 'unavailable') await kvSet(ipKey, String(ipCount + 1), IP_WINDOW);
 
   const name = str(data.name, 60);
   // US numbers only. A leading 1 / +1 is the country code (area codes never
@@ -139,7 +147,8 @@ export async function POST(req: Request) {
     company: company || undefined,
     smsOptIn: data.smsConsent === true,
     page: str(data.page, 300),
-    gclid: str(data.gclid, 200) || undefined,
+    // A test lead counts as an ad click so it passes the alert's google-ads-lead filter.
+    gclid: str(data.gclid, 200) || (test ? 'TEST' : undefined),
     gbraid: str(data.gbraid, 200) || undefined,
     wbraid: str(data.wbraid, 200) || undefined,
     utmSource: str(data.utm_source, 100) || undefined,
@@ -186,15 +195,16 @@ export async function POST(req: Request) {
     await kvSet(subKey, JSON.stringify({ state: 'processing', startedAt: Date.now() }), SUBMISSION_TTL);
   }
 
+  // Test leads neither set nor check the repeat lock, so every test fires the alert.
   const phoneKey = `pl:phone:${createHash('sha256').update(phoneDigits.slice(-10)).digest('hex')}`;
-  const firstForPhone = await kvSetNX(phoneKey, submissionId, REPEAT_WINDOW);
-  const repeat = !firstForPhone && (await kvGet(phoneKey)) !== submissionId;
+  const firstForPhone = test ? false : await kvSetNX(phoneKey, submissionId, REPEAT_WINDOW);
+  const repeat = !test && !firstForPhone && (await kvGet(phoneKey)) !== submissionId;
 
   try {
-    const { contactId, warnings } = await pushPanelLeadToGHL(lead, { repeat });
-    const rec: SubmissionRecord = { state: 'done', startedAt: Date.now(), conversionEligible: !repeat, repeat };
+    const { contactId, warnings } = await pushPanelLeadToGHL(lead, { repeat, test });
+    const rec: SubmissionRecord = { state: 'done', startedAt: Date.now(), conversionEligible: !repeat && !test, repeat };
     await kvSet(subKey, JSON.stringify(rec), SUBMISSION_TTL);
-    log('panel_lead.accepted', { submissionId, contactId, repeat, hasClickId, warnings });
+    log('panel_lead.accepted', { submissionId, contactId, repeat, test, hasClickId, warnings });
     // Confirmation email after the response is sent, once per new request.
     if (!repeat) {
       after(() =>

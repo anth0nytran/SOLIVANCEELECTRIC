@@ -192,6 +192,7 @@ export function PanelLeadForm({ id = 'form', config = PANEL_FORM }: { id?: strin
       company_url: honeypot.current?.value || '',
       _ts: startedAt,
       page: window.location.origin + window.location.pathname,
+      testKey: new URLSearchParams(window.location.search).get('test') || undefined,
       ...readAttribution(),
     };
 

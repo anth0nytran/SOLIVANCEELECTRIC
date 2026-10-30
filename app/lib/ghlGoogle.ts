@@ -16,6 +16,7 @@ export const GOOGLE_TAG = 'google-ads-lead';
 export const COMMERCIAL_TAG = 'commercial-lead';
 export const LIGHTING_TAG = 'parking-lot-lighting';
 export const NO_AD_CLICK_TAG = 'lp-no-ad-click';
+export const TEST_TAG = 'test-lead';
 
 export type LeadOffer = 'panel' | 'lighting';
 
@@ -161,7 +162,7 @@ async function ghl(path: string, body: unknown): Promise<Record<string, unknown>
  * contact is updated and noted, but the submission-ID field — the workflow
  * trigger — and the opportunity are left alone so no second SMS/call fires.
  */
-export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolean }) {
+export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolean; test?: boolean }) {
   // Dev-only test double: GHL_MOCK=ok|fail, GHL_MOCK_DELAY_MS=n. Logs each
   // would-be GHL write so duplicate tests can count them without touching the CRM.
   const mock = process.env.NODE_ENV !== 'production' ? process.env.GHL_MOCK : undefined;
@@ -219,8 +220,12 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
   // reached the page another way (a shared link, a bookmark), so the lead keeps
   // its offer tag but isn't labeled as a Google Ads lead.
   const fromAd = !!(lead.gclid || lead.gbraid || lead.wbraid);
-  const source = fromAd ? offer.source : `${offer.source} (no ad click)`;
-  const tags = [...(fromAd ? offer.tags : offer.tags.filter((t) => t !== GOOGLE_TAG)), ...(fromAd ? [] : [NO_AD_CLICK_TAG])];
+  const source = opts.test ? `${offer.source} (TEST)` : fromAd ? offer.source : `${offer.source} (no ad click)`;
+  const tags = [
+    ...(fromAd ? offer.tags : offer.tags.filter((t) => t !== GOOGLE_TAG)),
+    ...(fromAd ? [] : [NO_AD_CLICK_TAG]),
+    ...(opts.test ? [TEST_TAG] : []),
+  ];
 
   const contactBody: Record<string, unknown> = {
     locationId,
