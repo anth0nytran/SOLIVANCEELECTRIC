@@ -66,8 +66,8 @@ export const PANEL_FORM: LeadFormConfig = {
 export const LIGHTING_FORM: LeadFormConfig = {
   offer: 'lighting',
   thankYouPath: '/lp/parking-lot-lighting/thank-you',
-  offerName: 'Free lot walk and quote',
-  teaserKicker: 'Free lot walk and quote · takes 30 seconds',
+  offerName: 'Free lot lighting audit',
+  teaserKicker: 'Free lot lighting audit · takes 30 seconds',
   concernQuestion: 'What does your lot need?',
   concerns: LIGHTING_CONCERNS,
   timelines: LIGHTING_TIMELINES,
@@ -81,12 +81,12 @@ export const LIGHTING_FORM: LeadFormConfig = {
   submitLabel: 'Request my quote',
   trust: {
     kicker: 'Commercial parking lot lighting',
-    headline: 'We walk the lot, find what’s out, and send a written quote.',
+    headline: 'We walk every pole and quote it two ways: fix what’s out, or switch the lot to LED.',
     promises: [
       `Licensed Texas electrical contractor, ${siteConfig.license.label}`,
-      'Repairs, LED upgrades and new poles',
-      'Scheduled around your tenants',
       'Itemized written quote before any work starts',
+      'Photo report after every job',
+      'Certificate of insurance on request',
     ],
     quote: 'Despite a busy schedule, Solivance Electric responded promptly and professionally.',
     author: 'Tamika A., salon owner',

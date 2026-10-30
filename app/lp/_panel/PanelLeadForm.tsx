@@ -1,10 +1,10 @@
 'use client';
 
+import { LP_PHONE } from './phone';
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, Loader2, Phone, X } from 'lucide-react';
-import { siteConfig } from '../../config';
 import { newSubmissionId, readAttribution } from '../../lib/tracking';
 import { CallLink } from './CallLink';
 import { GoogleG, Stars } from './Badges';
@@ -78,7 +78,7 @@ const TrustPanel = ({ trust }: { trust: LeadFormConfig['trust'] }) => (
       </figure>
       <p className="mt-8 text-sm text-white/55">Prefer to talk?</p>
       <CallLink location="form_panel" className="mt-1 inline-flex items-center gap-2 text-[1.4rem] font-bold hover:text-[#FF7A2F]">
-        <Phone className="h-5 w-5" aria-hidden /> {siteConfig.phone}
+        <Phone className="h-5 w-5" aria-hidden /> {LP_PHONE}
       </CallLink>
     </div>
   </aside>

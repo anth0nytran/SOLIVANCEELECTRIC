@@ -1,8 +1,9 @@
+import { LP_PHONE } from '../_panel/phone';
 import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { Poppins } from 'next/font/google';
-import { BadgeCheck, CalendarClock, Check, Gauge, Phone, ShieldCheck, Wrench } from 'lucide-react';
+import { BadgeCheck, CalendarClock, Camera, Check, ClipboardCheck, Gauge, Phone, Scale, ShieldCheck, Wrench } from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { PanelLeadForm } from '../_panel/PanelLeadForm';
@@ -13,9 +14,9 @@ import { SignsGrid } from '../_panel/SignsGrid';
 import { GoogleG, Stars, TrustBadges } from '../_panel/Badges';
 
 export const metadata: Metadata = {
-  title: 'Parking Lot Lighting Repair in Houston',
+  title: 'Parking Lot Lighting Repair & Installation in Houston',
   description:
-    'Licensed Houston electrician for parking lot lighting. Lights out, damaged poles and LED upgrades. Free lot walk and itemized written quote. One light or a whole lot.',
+    'Licensed Houston electrician for parking lot lighting. Lights out, damaged poles, LED upgrades and new installs. Free lot walk and one itemized written quote for the whole lot.',
   alternates: { canonical: '/lp/parking-lot-lighting' },
 };
 
@@ -36,8 +37,8 @@ const cta =
 
 const HERO_POINTS = [
   `Licensed Texas electrical contractor, ${siteConfig.license.label}`,
-  'One light out or a whole lot. No job too small',
-  'Itemized written quote before any work starts',
+  'Free lot lighting audit: repair price and LED price, side by side',
+  'Photo report after every job. COI on request',
 ];
 
 // The LED band: taken from Solivance's own parking-lot lighting service page.
@@ -47,6 +48,41 @@ const LED_GETS = [
   { icon: CalendarClock, title: 'On at dusk, every night', detail: 'Photocells come standard on every fixture we install, with timers where you need them.' },
 ];
 
+// The offer the ads sell. Josh confirmed the photo report and COI on request.
+const AUDIT = [
+  { icon: ClipboardCheck, title: 'Every pole checked', detail: 'We walk the whole lot and mark every light that’s out, failing or damaged, not just the one you called about.' },
+  { icon: Scale, title: 'Two prices, side by side', detail: 'Fix what’s out now, or switch the lot to LED. Both itemized in writing, so you can pick.' },
+  { icon: Camera, title: 'Photo report after every job', detail: 'Before and after photos of the work, ready to forward to the owner.' },
+  { icon: ShieldCheck, title: 'COI on request', detail: 'A certificate of insurance before we set foot on the property.' },
+];
+
+// One page for all three Google Ads ad groups. Each ad group's final URL adds
+// ?s=repair|led|install so the headline repeats what was searched; no tag
+// (or an unknown one) gets the combined headline.
+const HEROES = {
+  all: {
+    h1: 'Parking lot lighting repair & installation in Houston',
+    sub: 'Book a free lot lighting audit. We walk every pole and quote it two ways: fix what’s out, or switch the lot to LED.',
+    close: 'Get your lot lit right.',
+  },
+  repair: {
+    h1: 'Parking lot lighting repair in Houston',
+    sub: 'Lights out, damaged poles or a lot that’s too dark. We walk the whole lot, find every problem and send one written quote.',
+    close: 'Get your lot lit again.',
+  },
+  led: {
+    h1: 'LED parking lot lighting upgrades in Houston',
+    sub: 'Swap old lights for LED that uses far less power. Most lots keep their poles. We walk the lot and send a written quote.',
+    close: 'Make the switch to LED.',
+  },
+  install: {
+    h1: 'Parking lot lighting installation in Houston',
+    sub: 'New lights, new poles or a lot that needs more light. We walk the lot, find what it needs and send a written quote.',
+    close: 'Get your lot lit right.',
+  },
+};
+type HeroKey = keyof typeof HEROES;
+
 const review = (id: string) => reviews.find((r) => r.id === id)!;
 const PULL = review('tamika-a');
 const WALL = ['zno-z', 'harrison', 'donyal-w', 'cody-o', 'alco', 'michelle'].map(review);
@@ -55,10 +91,11 @@ const AREAS = ['Southwest Houston', 'Bellaire', 'Medical Center', 'Galleria', 'W
 
 const FAQS = [
   {
-    q: 'Is one light out worth a call?',
-    a: 'Yes. We take single-fixture repairs as well as whole lots. There is a minimum service charge, and we will tell you what it is on the phone before we come out.',
+    q: 'Can you quote the whole lot at once?',
+    a: 'Yes. We walk every pole, not just the one that’s out, and put repairs, LED upgrades and new poles in one itemized written quote. Managing more than one property? We can walk them all.',
   },
-  { q: 'What does the quote cost?', a: 'Nothing. The lot walk and the written quote are free, with no obligation.' },
+  { q: 'What does the audit cost?', a: 'Nothing. The lot walk and both written prices are free, with no obligation.' },
+  { q: 'Can you send a certificate of insurance?', a: 'Yes. We send a COI on request before any work starts.' },
   {
     q: 'Can you work around our tenants and customers?',
     a: 'Yes. Work is scheduled so traffic keeps moving, and after hours when the lot is busy during the day.',
@@ -71,7 +108,11 @@ const FAQS = [
   { q: 'What areas do you serve?', a: `Houston and the surrounding area. Our shop is at ${siteConfig.address.full}.` },
 ];
 
-export default function ParkingLotLightingPage() {
+export default async function ParkingLotLightingPage({ searchParams }: { searchParams: Promise<{ s?: string | string[] }> }) {
+  const { s } = await searchParams;
+  const key = typeof s === 'string' ? s.toLowerCase() : '';
+  const hero = Object.hasOwn(HEROES, key) ? HEROES[key as HeroKey] : HEROES.all;
+
   // The form and shared LP pieces use --font-app-display; point it at Poppins here.
   const fontVars = { '--font-app-display': poppins.style.fontFamily } as CSSProperties;
 
@@ -106,7 +147,7 @@ export default function ParkingLotLightingPage() {
               <Phone className="h-4 w-4" aria-hidden />
               <span className="hidden sm:inline">
                 <span className="mr-1.5 font-normal text-white/60">24/7</span>
-                {siteConfig.phone}
+                {LP_PHONE}
               </span>
               <span className="sm:hidden">Call 24/7</span>
             </CallLink>
@@ -119,10 +160,8 @@ export default function ParkingLotLightingPage() {
         <div className={`${wrap} grid gap-8 pb-12 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-16 lg:py-14`}>
           <div>
             {/* H1 repeats the search term: what Google matches the ad against. */}
-            <h1 className="text-[2.3rem] font-bold leading-[1.04] tracking-[-0.03em] sm:text-[3.6rem]">Parking lot lighting repair in Houston</h1>
-            <p className="mt-5 max-w-[34rem] text-[1.05rem] leading-[1.6] text-[#4A5568] sm:text-[1.2rem]">
-              Lights out, a damaged pole or a lot that&apos;s too dark. We walk the lot, find the problem and send a written quote.
-            </p>
+            <h1 className="text-balance text-[2.3rem] font-bold leading-[1.04] tracking-[-0.03em] sm:text-[3.6rem]">{hero.h1}</h1>
+            <p className="mt-5 max-w-[34rem] text-[1.05rem] leading-[1.6] text-[#4A5568] sm:text-[1.2rem]">{hero.sub}</p>
             <ul className="mt-7 hidden space-y-3 lg:block">
               {HERO_POINTS.map((p) => (
                 <li key={p} className="flex items-center gap-3 text-[1.02rem] font-medium">
@@ -156,6 +195,30 @@ export default function ParkingLotLightingPage() {
         </div>
       </section>
 
+      {/* The offer: what the free audit actually hands the property manager. */}
+      <section className={`bg-white ${section}`}>
+        <div className={wrap}>
+          <div className="max-w-2xl">
+            <p className={label}>The free lot lighting audit</p>
+            <h2 className={`mt-3 ${h2}`}>Every pole checked. Two prices. Paperwork you can forward.</h2>
+          </div>
+          <ul className="mt-9 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
+            {AUDIT.map(({ icon: Icon, title, detail }) => (
+              <li key={title} className="rounded-xl border border-[#E6E8EC] bg-[#F7F8FA] p-6">
+                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-white text-[#E8590C] ring-1 ring-[#E6E8EC]">
+                  <Icon className="h-5 w-5" strokeWidth={2} aria-hidden />
+                </span>
+                <p className="mt-5 font-semibold">{title}</p>
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-[#4A5568]">{detail}</p>
+              </li>
+            ))}
+          </ul>
+          <a href="#form" className={`${cta} mt-9 w-full sm:w-auto`}>
+            Book my free audit
+          </a>
+        </div>
+      </section>
+
       {/* The problem */}
       <section className={`bg-[#F7F6F3] ${section}`}>
         <div className={`${wrap} grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-center lg:gap-20`}>
@@ -164,8 +227,8 @@ export default function ParkingLotLightingPage() {
             <p className="mb-5 mt-7 text-[1.05rem] text-[#4A5568] sm:mt-9">What we get called for:</p>
             <SignsGrid variant="lighting" />
             <p className="mt-8 text-[1.1rem] font-semibold leading-[1.65]">
-              Most of these come down to a fixture, a driver or ballast, a photocell or the wiring. We find which one and fix it, whether it&apos;s one light or the
-              whole lot.
+              Most of these come down to a fixture, a driver or ballast, a photocell or the wiring. We check every pole on the lot, not just the one that&apos;s
+              out, so you get one quote that covers all of it.
             </p>
           </div>
           <figure>
@@ -192,7 +255,7 @@ export default function ParkingLotLightingPage() {
               <p className="mt-4 text-[1.05rem] leading-[1.65] text-[#4A5568]">One licensed crew, from the first walk to the night check.</p>
             </div>
             <CallLink location="process" className="inline-flex shrink-0 items-center gap-2 self-start rounded-lg bg-[#0A1322] px-5 py-3 font-semibold text-white hover:bg-[#1B2A42] lg:self-end">
-              <Phone className="h-4 w-4" aria-hidden /> Rather talk? {siteConfig.phone}
+              <Phone className="h-4 w-4" aria-hidden /> Rather talk? {LP_PHONE}
             </CallLink>
           </div>
           <div className="mt-9 lg:mt-12">
@@ -324,7 +387,7 @@ export default function ParkingLotLightingPage() {
             <h2 className={h2}>Questions property managers ask</h2>
             <p className="mt-5 text-[1.05rem] leading-[1.65] text-[#4A5568]">Don&apos;t see yours? Give us a call.</p>
             <CallLink location="faq" className="mt-6 inline-flex items-center gap-2 text-[1.1rem] font-semibold text-[#E8590C] hover:underline">
-              <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
+              <Phone className="h-4 w-4" aria-hidden /> {LP_PHONE}
             </CallLink>
           </div>
           <div className="space-y-3">
@@ -348,7 +411,7 @@ export default function ParkingLotLightingPage() {
         <Image src="/photos_new/houston.jpg" alt="" fill sizes="100vw" className="-z-20 object-cover object-[50%_60%]" aria-hidden />
         <div className="absolute inset-0 -z-10 bg-[#0A1322]/85" aria-hidden />
         <div className={`${wrap} py-20 text-center sm:py-28`}>
-          <h2 className={`${h2} mx-auto max-w-[20ch]`}>Get your lot lit again.</h2>
+          <h2 className={`${h2} mx-auto max-w-[20ch]`}>{hero.close}</h2>
           <p className="mx-auto mt-5 max-w-md text-[1.05rem] leading-relaxed text-white/70">It takes about a minute. We&apos;ll call you to set up the lot walk.</p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a href="#form" className={`${cta} w-full sm:w-auto`}>
@@ -358,10 +421,10 @@ export default function ParkingLotLightingPage() {
               location="final_cta"
               className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/25 px-9 py-4 font-semibold hover:bg-white/10 sm:w-auto"
             >
-              <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
+              <Phone className="h-4 w-4" aria-hidden /> {LP_PHONE}
             </CallLink>
           </div>
-          <p className="mt-6 text-sm text-white/50">Free lot walk. No obligation.</p>
+          <p className="mt-6 text-sm text-white/50">Free lot lighting audit. No obligation.</p>
         </div>
       </section>
 
@@ -391,7 +454,7 @@ export default function ParkingLotLightingPage() {
           <Phone className="h-4 w-4" aria-hidden /> Call
         </CallLink>
         <a href="#form" className="flex items-center justify-center rounded-lg bg-[#E8590C] py-3 font-semibold text-white">
-          Get a quote
+          Book free audit
         </a>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { LP_PHONE } from '../_panel/phone';
 import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Image from 'next/image';
@@ -104,7 +105,7 @@ export default function PanelInspectionPage() {
               <Phone className="h-4 w-4" aria-hidden />
               <span className="hidden sm:inline">
                 <span className="mr-1.5 font-normal text-white/60">24/7</span>
-                {siteConfig.phone}
+                {LP_PHONE}
               </span>
               <span className="sm:hidden">Call 24/7</span>
             </CallLink>
@@ -200,7 +201,7 @@ export default function PanelInspectionPage() {
               </p>
             </div>
             <CallLink location="process" className="inline-flex shrink-0 items-center gap-2 self-start rounded-lg bg-[#0A1322] px-5 py-3 font-semibold text-white hover:bg-[#1B2A42] lg:self-end">
-              <Phone className="h-4 w-4" aria-hidden /> Rather talk? {siteConfig.phone}
+              <Phone className="h-4 w-4" aria-hidden /> Rather talk? {LP_PHONE}
             </CallLink>
           </div>
 
@@ -349,7 +350,7 @@ export default function PanelInspectionPage() {
             <h2 className={h2}>Questions homeowners ask before they call</h2>
             <p className="mt-5 text-[1.05rem] leading-[1.65] text-[#4A5568]">Don&apos;t see yours? Give us a call.</p>
             <CallLink location="faq" className="mt-6 inline-flex items-center gap-2 text-[1.1rem] font-semibold text-[#E8590C] hover:underline">
-              <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
+              <Phone className="h-4 w-4" aria-hidden /> {LP_PHONE}
             </CallLink>
           </div>
           <div className="space-y-3">
@@ -385,7 +386,7 @@ export default function PanelInspectionPage() {
               location="final_cta"
               className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/25 px-9 py-4 font-semibold hover:bg-white/10 sm:w-auto"
             >
-              <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
+              <Phone className="h-4 w-4" aria-hidden /> {LP_PHONE}
             </CallLink>
           </div>
           <p className="mt-6 text-sm text-white/50">No cost and no obligation.</p>

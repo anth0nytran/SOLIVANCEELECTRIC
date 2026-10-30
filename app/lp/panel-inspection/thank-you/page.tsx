@@ -1,3 +1,4 @@
+import { LP_PHONE } from '../../_panel/phone';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import Image from 'next/image';
@@ -32,7 +33,7 @@ const sectionTitle = 'text-[1.75rem] font-bold leading-tight tracking-[-0.025em]
 const CURRENT = 1;
 const TRACK = [
   { title: 'Request received', detail: 'Your details are with our team.' },
-  { title: 'We call you', detail: `From ${siteConfig.phone}, to pick a time that works for you.` },
+  { title: 'We call you', detail: `From ${LP_PHONE}, to pick a time that works for you.` },
   { title: 'Panel inspection', detail: 'A licensed electrician checks your panel in person. No cost, no obligation.' },
   { title: 'Written quote', detail: 'Itemized, before any work starts. If your panel is fine, we tell you that.' },
 ];
@@ -84,7 +85,7 @@ export default function ThankYouPage() {
               We&apos;ll call you shortly.
             </h1>
             <p className="mx-auto mt-5 max-w-[32rem] text-[1.08rem] leading-relaxed text-[#4A5568] lg:mx-0">
-              The call comes from <strong className="whitespace-nowrap font-semibold text-[#0A1322]">{siteConfig.phone}</strong>. Save it now so it
+              The call comes from <strong className="whitespace-nowrap font-semibold text-[#0A1322]">{LP_PHONE}</strong>. Save it now so it
               doesn&apos;t show up as an unknown number.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
@@ -99,7 +100,7 @@ export default function ThankYouPage() {
                 location="thank_you"
                 className="inline-flex items-center justify-center gap-2.5 rounded-lg border border-[#CBD2DA] px-6 py-4 font-semibold transition-colors hover:border-[#0A1322] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A1322]"
               >
-                <Phone className="h-5 w-5" aria-hidden /> Call {siteConfig.phone}
+                <Phone className="h-5 w-5" aria-hidden /> Call {LP_PHONE}
               </CallLink>
             </div>
           </div>
@@ -149,7 +150,7 @@ export default function ThankYouPage() {
               <p>
                 <strong className="font-semibold">Smell burning, hear buzzing, or the panel feels hot?</strong> Don&apos;t wait for our call. Call{' '}
                 <CallLink location="thank_you_urgent" className="whitespace-nowrap font-semibold text-[#E8590C] underline underline-offset-2">
-                  {siteConfig.phone}
+                  {LP_PHONE}
                 </CallLink>{' '}
                 now.
               </p>
