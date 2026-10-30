@@ -1,7 +1,8 @@
 import { createHash } from 'node:crypto';
-import { NextResponse } from 'next/server';
+import { NextResponse, after } from 'next/server';
 import { kvDel, kvGet, kvMode, kvSet, kvSetNX } from '../../lib/kv';
 import { pushPanelLeadToGHL, type LeadOffer, type PanelLead } from '../../lib/ghlGoogle';
+import { sendLpConfirmEmail } from '../../lib/lpConfirmEmail';
 import { CONCERNS, TIMELINES, getPropertyType } from '../../lib/panelOptions';
 import { LIGHTING_CONCERNS, LIGHTING_TIMELINES, LIGHT_COUNTS, getLightingRole } from '../../lib/lightingOptions';
 
@@ -194,6 +195,14 @@ export async function POST(req: Request) {
     const rec: SubmissionRecord = { state: 'done', startedAt: Date.now(), conversionEligible: !repeat, repeat };
     await kvSet(subKey, JSON.stringify(rec), SUBMISSION_TTL);
     log('panel_lead.accepted', { submissionId, contactId, repeat, hasClickId, warnings });
+    // Confirmation email after the response is sent, once per new request.
+    if (!repeat) {
+      after(() =>
+        sendLpConfirmEmail({ name: lead.name, email: lead.email, offer: lead.offer, address: lead.address, timeline: lead.timeline }).catch(
+          (e) => log('panel_lead.confirm_email_failed', { submissionId, error: (e as Error).message })
+        )
+      );
+    }
     return receipt(submissionId, rec, false);
   } catch (err) {
     // Release the locks so the browser's retry (same submission ID) can try again.
