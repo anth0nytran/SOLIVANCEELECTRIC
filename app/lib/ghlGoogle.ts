@@ -30,8 +30,6 @@ const OFFERS = {
     projectType: (concern: string) => (concern === 'Breakers trip or lights flicker' ? "Something isn't working right" : 'Upgrading my electrical panel'),
     formType: 'Google Ads Panel Landing Page',
     concernLabel: 'Panel concern',
-    // The landing-page questions word for word, so the alert reads like the form.
-    questions: { concern: 'What’s going on with your panel?', role: 'This is for…', count: '' },
     newNote: 'New Google Ads panel inspection request',
     repeatNote: 'REPEAT Google Ads panel request (same phone within 24h — no new workflow)',
     opportunity: 'Panel Inspection (Google)',
@@ -43,7 +41,6 @@ const OFFERS = {
     projectType: (concern: string) => (LIGHTING_REPAIR_CONCERNS.includes(concern) ? "Something isn't working right" : 'General estimate / consultation'),
     formType: 'Google Ads Parking Lot Lighting Landing Page',
     concernLabel: 'Lighting need',
-    questions: { concern: 'What does your lot need?', role: 'Your role', count: 'About how many lights?' },
     newNote: 'New Google Ads parking lot lighting request',
     repeatNote: 'REPEAT Google Ads lighting request (same phone within 24h — no new workflow)',
     opportunity: 'Parking Lot Lighting (Google)',
@@ -197,13 +194,13 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     [
       FIELD_IDS.message,
       [
-        `${offer.questions.concern} ${lead.concern}`,
-        `How soon do you need it done? ${lead.timeline}`,
-        lead.lightCount && `${offer.questions.count} ${lead.lightCount}`,
-        `${offer.questions.role} ${lead.propertyType}`,
-        `Pick a day that works: ${lead.preferredDate ? prettyDate(lead.preferredDate) : '(skipped)'}`,
-        lead.company && `Company / property: ${lead.company}`,
-        `Tell us what's going on: ${lead.description || '(skipped)'}`,
+        // Short labels, one answer per line: this field is the body of the SMS alert.
+        `Need: ${lead.concern}`,
+        `Timeline: ${lead.timeline}`,
+        lead.lightCount && `Lights: ${lead.lightCount}`,
+        `Role: ${lead.propertyType}`,
+        `Preferred day: ${lead.preferredDate ? prettyDate(lead.preferredDate) : 'Not picked'}`,
+        `Notes: ${lead.description || 'None'}`,
       ]
         .filter(Boolean)
         .join('\n'),
