@@ -13,7 +13,7 @@ export type TrackStep = { title: string; detail: string };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-export function StatusTracker({ steps, current }: { steps: TrackStep[]; current: number }) {
+export function StatusTracker({ steps, current, title = 'Your inspection' }: { steps: TrackStep[]; current: number; title?: string }) {
   const still = useStill();
   const t = (delay: number, duration = 0.5) => (still ? { duration: 0 } : { delay, duration, ease: EASE });
   const lineDone = 0.35 + steps.length * 0.08; // after the rows are in
@@ -21,7 +21,7 @@ export function StatusTracker({ steps, current }: { steps: TrackStep[]; current:
   return (
     <div className="rounded-2xl border border-[#E3E7EC] bg-[#F7F8FA] p-5 sm:p-7">
       <div className="flex items-baseline justify-between">
-        <h2 className="text-[1.05rem] font-semibold">Your inspection</h2>
+        <h2 className="text-[1.05rem] font-semibold">{title}</h2>
         <p className="text-sm text-[#5A6B7F]">
           Step {current + 1} of {steps.length}
         </p>

@@ -99,7 +99,7 @@ export default function LightingThankYouPage() {
             </div>
           </div>
           <div className="lg:col-span-5">
-            <StatusTracker steps={TRACK} current={CURRENT} />
+            <StatusTracker steps={TRACK} current={CURRENT} title="Your lot audit" />
           </div>
         </div>
       </section>

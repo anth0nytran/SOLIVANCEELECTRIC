@@ -15,6 +15,7 @@ export const GOOGLE_SOURCE = 'Google Ads - Electrical Panels';
 export const GOOGLE_TAG = 'google-ads-lead';
 export const COMMERCIAL_TAG = 'commercial-lead';
 export const LIGHTING_TAG = 'parking-lot-lighting';
+export const NO_AD_CLICK_TAG = 'lp-no-ad-click';
 
 export type LeadOffer = 'panel' | 'lighting';
 
@@ -198,7 +199,7 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
         .filter(Boolean)
         .join('\n'),
     ],
-    [FIELD_IDS.leadSource, 'Google'],
+    [FIELD_IDS.leadSource, lead.gclid || lead.gbraid || lead.wbraid ? 'Google' : 'Website Form'],
     [FIELD_IDS.formType, offer.formType],
     [FIELD_IDS.smsConsent, lead.smsOptIn ? 'Yes' : 'No'],
     [FIELD_IDS.smsConsentSource, lead.page],
@@ -214,6 +215,13 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     [FIELD_IDS.googleSubmissionId, opts.repeat ? undefined : lead.submissionId],
   ]);
 
+  // Auto-tagging puts a click id on every real ad click. Without one the visitor
+  // reached the page another way (a shared link, a bookmark), so the lead keeps
+  // its offer tag but isn't labeled as a Google Ads lead.
+  const fromAd = !!(lead.gclid || lead.gbraid || lead.wbraid);
+  const source = fromAd ? offer.source : `${offer.source} (no ad click)`;
+  const tags = [...(fromAd ? offer.tags : offer.tags.filter((t) => t !== GOOGLE_TAG)), ...(fromAd ? [] : [NO_AD_CLICK_TAG])];
+
   const contactBody: Record<string, unknown> = {
     locationId,
     firstName,
@@ -222,8 +230,8 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     phone: toE164(lead.phone),
     address1: lead.address,
     postalCode: lead.zipCode,
-    tags: lead.commercial ? [...offer.tags, COMMERCIAL_TAG] : [...offer.tags],
-    source: offer.source,
+    tags: lead.commercial ? [...tags, COMMERCIAL_TAG] : tags,
+    source,
     ...(lead.company ? { companyName: lead.company } : {}),
     email: lead.email,
     customFields,
@@ -248,7 +256,7 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
       pipelineStageId: NEW_LEAD_STAGE_ID,
       name: `${lead.name} - ${offer.opportunity}`,
       status: 'open',
-      source: offer.source,
+      source,
     }).catch((err) => warnings.push(`opportunity: ${(err as Error).message}`));
   }
 
