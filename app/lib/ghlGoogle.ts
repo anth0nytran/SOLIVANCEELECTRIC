@@ -30,6 +30,8 @@ const OFFERS = {
     projectType: (concern: string) => (concern === 'Breakers trip or lights flicker' ? "Something isn't working right" : 'Upgrading my electrical panel'),
     formType: 'Google Ads Panel Landing Page',
     concernLabel: 'Panel concern',
+    // The landing-page questions word for word, so the alert reads like the form.
+    questions: { concern: 'What’s going on with your panel?', role: 'This is for…', count: '' },
     newNote: 'New Google Ads panel inspection request',
     repeatNote: 'REPEAT Google Ads panel request (same phone within 24h — no new workflow)',
     opportunity: 'Panel Inspection (Google)',
@@ -41,6 +43,7 @@ const OFFERS = {
     projectType: (concern: string) => (LIGHTING_REPAIR_CONCERNS.includes(concern) ? "Something isn't working right" : 'General estimate / consultation'),
     formType: 'Google Ads Parking Lot Lighting Landing Page',
     concernLabel: 'Lighting need',
+    questions: { concern: 'What does your lot need?', role: 'Your role', count: 'About how many lights?' },
     newNote: 'New Google Ads parking lot lighting request',
     repeatNote: 'REPEAT Google Ads lighting request (same phone within 24h — no new workflow)',
     opportunity: 'Parking Lot Lighting (Google)',
@@ -111,6 +114,10 @@ export type PanelLead = {
 };
 
 type Field = { id: string; field_value: string };
+
+// "2026-11-06" -> "Fri, Nov 6"
+const prettyDate = (ymd: string) =>
+  new Date(`${ymd}T12:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'short', month: 'short', day: 'numeric' });
 
 const fields = (pairs: [string, string | undefined][]): Field[] =>
   pairs.filter(([, v]) => v).map(([id, v]) => ({ id, field_value: v as string }));
@@ -190,12 +197,13 @@ export async function pushPanelLeadToGHL(lead: PanelLead, opts: { repeat: boolea
     [
       FIELD_IDS.message,
       [
-        `${offer.concernLabel}: ${lead.concern}`,
-        lead.lightCount && `How many lights: ${lead.lightCount}`,
+        `${offer.questions.concern} ${lead.concern}`,
+        `How soon do you need it done? ${lead.timeline}`,
+        lead.lightCount && `${offer.questions.count} ${lead.lightCount}`,
+        `${offer.questions.role} ${lead.propertyType}`,
+        `Pick a day that works: ${lead.preferredDate ? prettyDate(lead.preferredDate) : '(skipped)'}`,
         lead.company && `Company / property: ${lead.company}`,
-        `Property: ${lead.propertyType}`,
-        lead.preferredDate && `Preferred date: ${lead.preferredDate}`,
-        lead.description && `Details: ${lead.description}`,
+        `Tell us what's going on: ${lead.description || '(skipped)'}`,
       ]
         .filter(Boolean)
         .join('\n'),
