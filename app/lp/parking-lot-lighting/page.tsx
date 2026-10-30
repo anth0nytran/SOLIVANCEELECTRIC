@@ -18,6 +18,14 @@ export const metadata: Metadata = {
   description:
     'Licensed Houston electrician for parking lot lighting. Lights out, damaged poles, LED upgrades and new installs. Free lot walk and one itemized written quote for the whole lot.',
   alternates: { canonical: '/lp/parking-lot-lighting' },
+  // Shared links preview a lit lot, not the site-wide logo card.
+  openGraph: {
+    title: 'Parking Lot Lighting Repair & Installation in Houston',
+    description: 'Free lot lighting audit from a licensed Houston electrician. Every pole checked, quoted two ways: fix what’s out, or switch to LED.',
+    url: '/lp/parking-lot-lighting',
+    images: [{ url: '/lp/og-parking-lot-lighting.jpg', width: 1200, height: 630, alt: 'Parking lot lit by LED pole lights at night' }],
+  },
+  twitter: { card: 'summary_large_image', images: ['/lp/og-parking-lot-lighting.jpg'] },
 };
 
 // Same layout and form as /lp/panel-inspection, written for the people who
@@ -156,21 +164,24 @@ export default async function ParkingLotLightingPage({ searchParams }: { searchP
       </header>
 
       {/* Hero: headline, subheadline, form. */}
-      <section className="border-b border-[#E6E8EC] bg-[#F4F6F9]">
+      {/* Lit lot at night behind a dark wash: sets the scene without competing with the form. */}
+      <section className={`relative isolate overflow-hidden ${ink} text-white`}>
+        <Image src="/lp/lot-lights-hero.jpg" alt="" fill priority sizes="100vw" className="-z-20 object-cover object-[50%_20%]" aria-hidden />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0A1322]/95 via-[#0A1322]/85 to-[#0A1322]/70" aria-hidden />
         <div className={`${wrap} grid gap-8 pb-12 pt-8 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:gap-16 lg:py-14`}>
           <div>
             {/* H1 repeats the search term: what Google matches the ad against. */}
             <h1 className="text-balance text-[2.3rem] font-bold leading-[1.04] tracking-[-0.03em] sm:text-[3.6rem]">{hero.h1}</h1>
-            <p className="mt-5 max-w-[34rem] text-[1.05rem] leading-[1.6] text-[#4A5568] sm:text-[1.2rem]">{hero.sub}</p>
+            <p className="mt-5 max-w-[34rem] text-[1.05rem] leading-[1.6] text-[#C9D2DE] sm:text-[1.2rem]">{hero.sub}</p>
             <ul className="mt-7 hidden space-y-3 lg:block">
               {HERO_POINTS.map((p) => (
                 <li key={p} className="flex items-center gap-3 text-[1.02rem] font-medium">
-                  <Check className="h-5 w-5 shrink-0 text-[#1F7A4D]" strokeWidth={2.5} aria-hidden />
+                  <Check className="h-5 w-5 shrink-0 text-[#4ADE80]" strokeWidth={2.5} aria-hidden />
                   {p}
                 </li>
               ))}
             </ul>
-            <div className="mt-9 hidden max-w-[34rem] items-center gap-4 rounded-xl border border-[#E3E7EC] bg-white px-5 py-4 shadow-[0_1px_2px_rgba(10,19,34,0.05)] lg:flex">
+            <div className="mt-9 hidden max-w-[34rem] items-center gap-4 rounded-xl border border-[#E3E7EC] bg-white px-5 py-4 text-[#0A1322] shadow-[0_1px_2px_rgba(10,19,34,0.05)] lg:flex">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F4F6F9]">
                 <GoogleG className="h-6 w-6" />
               </span>
