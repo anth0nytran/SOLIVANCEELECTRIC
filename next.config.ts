@@ -44,6 +44,7 @@ const nextConfig: NextConfig = {
       { source: '/generators/powerprotect-pp18dx-plus-040760', destination: '/generators/powerprotect-pp18-plus-040757', permanent: true },
       { source: '/generators/powerprotect-pp22dx-plus-040790', destination: '/generators/powerprotect-pp22-plus-040787', permanent: true },
       { source: '/generators/powerprotect-pp26dx-plus-040810', destination: '/generators/powerprotect-pp26-plus-040807', permanent: true },
+      { source: '/generators/200a-sed-transfer-switch-10-yr-071272', destination: '/generators/200a-sed-transfer-switch-071270', permanent: true },
     ];
   },
   async headers() {
