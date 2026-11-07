@@ -12,18 +12,18 @@ import { trackMarketingEvent } from './MarketingAnalytics';
 // form (/contact?plan=…).
 
 const HEAD: Record<CarePlanId, string> = {
-  basic: 'bg-[#DCE9F8] text-[#0B1F3F]',
-  plus: 'bg-[#0B4EA2] text-white',
-  commercial: 'bg-[#D7DEE7] text-[#0B1F3F]',
+  basic: 'bg-[#fff1e8] text-[#0f2847]',
+  plus: 'bg-[#0f2847] text-white',
+  commercial: 'bg-[#D7DEE7] text-[#0f2847]',
 };
 const SUB: Record<CarePlanId, string> = {
-  basic: 'text-[#0B4EA2]',
+  basic: 'text-[#0f2847]',
   plus: 'text-white/85',
-  commercial: 'text-[#0B4EA2]',
+  commercial: 'text-[#0f2847]',
 };
 
 const Tick = () => (
-  <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0B4EA2]" aria-hidden>
+  <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0f2847]" aria-hidden>
     <Check className="h-3 w-3 text-white" strokeWidth={3.5} />
   </span>
 );
@@ -42,10 +42,10 @@ export function CarePlanPicker({ initial = 'plus' }: { initial?: CarePlanId }) {
             return (
               <label
                 key={p.id}
-                className={`relative flex cursor-pointer flex-col rounded-2xl bg-white transition-shadow duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-[#0B4EA2] ${
+                className={`relative flex cursor-pointer flex-col rounded-2xl bg-white transition-shadow duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-[#0f2847] ${
                   active
-                    ? 'ring-[3px] ring-[#0B4EA2] shadow-[0_24px_50px_-24px_rgba(11,78,162,0.55)]'
-                    : 'ring-1 ring-[#D5DCE5] shadow-[0_10px_30px_-20px_rgba(11,31,63,0.35)] hover:ring-[#9DB3CF]'
+                    ? 'ring-[3px] ring-[#0f2847] shadow-[0_24px_50px_-24px_rgba(11,78,162,0.55)]'
+                    : 'ring-1 ring-[#D5DCE5] shadow-[0_10px_30px_-20px_rgba(11,31,63,0.35)] hover:ring-[#F26B1F]'
                 }`}
               >
                 <input
@@ -60,7 +60,7 @@ export function CarePlanPicker({ initial = 'plus' }: { initial?: CarePlanId }) {
                   className="sr-only"
                 />
                 {p.popular && (
-                  <span className="absolute -top-3.5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#F9C74F] px-4 py-1 text-[0.78rem] font-extrabold uppercase tracking-[0.04em] text-[#0B1F3F]">
+                  <span className="absolute -top-3.5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#F9C74F] px-4 py-1 text-[0.78rem] font-extrabold uppercase tracking-[0.04em] text-[#0f2847]">
                     Most popular
                   </span>
                 )}
@@ -72,20 +72,20 @@ export function CarePlanPicker({ initial = 'plus' }: { initial?: CarePlanId }) {
 
                 <div className="flex flex-1 flex-col px-6 pb-6 pt-6">
                   <div className="text-center">
-                    <p className="font-[family-name:var(--font-app-display)] text-[3.4rem] font-extrabold leading-none tracking-[-0.03em] text-[#0B1F3F] tabular-nums">{p.price}</p>
-                    <p className="mt-2 text-[1.2rem] font-medium text-[#0B1F3F]">{p.period}</p>
-                    <p className="mt-1.5 text-[0.92rem] text-[#4A5A70]">{p.monthly}</p>
+                    <p className="font-[family-name:var(--font-app-display)] text-[3.4rem] font-extrabold leading-none tracking-[-0.03em] text-[#0f2847] tabular-nums">{p.price}</p>
+                    <p className="mt-2 text-[1.2rem] font-medium text-[#0f2847]">{p.period}</p>
+                    <p className="mt-1.5 text-[0.92rem] text-[#475569]">{p.monthly}</p>
                   </div>
 
                   <ul className="mt-6 grid gap-3.5 border-t border-[#E3E8EF] pt-6">
                     {p.includes && (
-                      <li className="flex items-start gap-3 text-[1rem] font-bold leading-snug text-[#0B1F3F]">
+                      <li className="flex items-start gap-3 text-[1rem] font-bold leading-snug text-[#0f2847]">
                         <Tick />
                         Everything in {p.includes}
                       </li>
                     )}
                     {p.features.map((f) => (
-                      <li key={f} className="flex items-start gap-3 text-[1rem] leading-snug text-[#1F2D42]">
+                      <li key={f} className="flex items-start gap-3 text-[1rem] leading-snug text-[#0f2847]">
                         <Tick />
                         {f}
                       </li>
@@ -96,7 +96,7 @@ export function CarePlanPicker({ initial = 'plus' }: { initial?: CarePlanId }) {
                     <span
                       aria-hidden
                       className={`flex h-11 items-center justify-center rounded-lg text-[0.95rem] font-bold transition-colors ${
-                        active ? 'bg-[#0B4EA2] text-white' : 'bg-[#EEF3F9] text-[#0B4EA2]'
+                        active ? 'bg-[#0f2847] text-white' : 'bg-[#f4f6f9] text-[#0f2847]'
                       }`}
                     >
                       {active ? `${p.name} selected` : `Choose ${p.name}`}
@@ -109,7 +109,7 @@ export function CarePlanPicker({ initial = 'plus' }: { initial?: CarePlanId }) {
         </div>
       </fieldset>
 
-      <div className="mt-6 flex flex-col gap-3 rounded-2xl bg-[#0B1F3F] p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <div className="mt-6 flex flex-col gap-3 rounded-2xl bg-[#0f2847] p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p className="text-[1.02rem] text-white/75" aria-live="polite">
           You picked <span className="font-bold text-white">{plan.name}</span> · {plan.price} {plan.period}
         </p>

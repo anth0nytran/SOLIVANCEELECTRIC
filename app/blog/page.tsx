@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import { CtaBackdrop } from '../components/CtaBackdrop';
+import { FinancingNote } from '../components/FinancingBanner';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
-import { blogPosts } from './posts';
+import { getPublishedPosts } from './posts';
 import { siteConfig } from '../config';
 
 export const metadata: Metadata = {
@@ -27,7 +29,11 @@ export const metadata: Metadata = {
 
 const shell = 'mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10';
 
+// Re-render hourly so queued posts go live on their publish date without a redeploy.
+export const revalidate = 3600;
+
 export default function BlogPage() {
+  const blogPosts = getPublishedPosts();
   return (
     <>
       {/* ── JSON-LD: BreadcrumbList ── */}
@@ -87,9 +93,9 @@ export default function BlogPage() {
             alt="Solivance Electric blog — commercial and residential electrical insights from Houston"
             fill
             sizes="100vw"
-            className="object-cover opacity-55"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/5" />
         </div>
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
@@ -178,16 +184,7 @@ export default function BlogPage() {
 
       {/* ── CTA ── */}
       <section className="relative isolate overflow-hidden bg-slate-950 py-12 sm:py-14">
-        <div className="absolute inset-0">
-          <Image
-            src="/photos_new/cta-footer.jpg"
-            alt="Solivance Electric Houston — call for a free commercial electrical quote"
-            fill
-            sizes="100vw"
-            className="object-cover opacity-20 mix-blend-luminosity"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-slate-950/40" />
+        <CtaBackdrop />
         <div className={`${shell} relative z-10`}>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="text-center sm:text-left">
@@ -209,6 +206,7 @@ export default function BlogPage() {
               </a>
             </div>
           </div>
+          <FinancingNote />
         </div>
       </section>
     </>

@@ -1,13 +1,20 @@
 import type { Metadata } from 'next';
+import { CtaBackdrop } from '../../components/CtaBackdrop';
+import { FinancingNote } from '../../components/FinancingBanner';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
-import { blogPosts, getPostBySlug, getAllSlugs } from '../posts';
+import { notFound } from 'next/navigation';
+import { getPublishedPosts, getPostBySlug, getAllSlugs } from '../posts';
 import { siteConfig } from '../../config';
 
 const shell = 'mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10';
 
-/* ── Static params for all slugs ── */
+// Hourly re-render: scheduled posts 404 until their date, then render on the first request after.
+export const revalidate = 3600;
+export const dynamicParams = true;
+
+/* ── Static params for all live slugs ── */
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
 }
@@ -58,22 +65,7 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
-  if (!post) {
-    return (
-      <section className="py-32 text-center">
-        <div className={shell}>
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">Post Not Found</h1>
-          <p className="text-slate-500 mb-8">The blog post you are looking for does not exist.</p>
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-[var(--onestop-gold)] font-semibold hover:underline"
-          >
-            <ArrowLeft className="h-4 w-4" /> Back to Blog
-          </Link>
-        </div>
-      </section>
-    );
-  }
+  if (!post) notFound();
 
   const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -82,7 +74,7 @@ export default async function BlogPostPage({
   });
 
   /* Related posts: same category first, then most recent, excluding current */
-  const relatedPosts = blogPosts
+  const relatedPosts = getPublishedPosts()
     .filter((p) => p.slug !== post.slug)
     .sort((a, b) => {
       if (a.category === post.category && b.category !== post.category) return -1;
@@ -182,6 +174,10 @@ export default async function BlogPostPage({
 
       {/* ── Hero ── */}
       <section className="page-hero">
+        <div className="absolute inset-0 z-0">
+          <Image src={post.image} alt="" fill priority sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/5" />
+        </div>
         <div className={`${shell} relative z-10`}>
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
@@ -296,16 +292,7 @@ export default async function BlogPostPage({
 
       {/* ── CTA ── */}
       <section className="relative isolate overflow-hidden bg-slate-950 py-16 sm:py-20">
-        <div className="absolute inset-0">
-          <Image
-            src="/photos_new/cta-footer.jpg"
-            alt="Solivance Electric Houston — call for a free commercial electrical quote"
-            fill
-            sizes="100vw"
-            className="object-cover opacity-20 mix-blend-luminosity"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-slate-950/40" />
+        <CtaBackdrop />
         <div className={`${shell} relative z-10 text-center`}>
           <h2 className="font-[family-name:var(--font-app-display)] text-3xl sm:text-4xl font-bold text-white mb-4">
             Walk a site. Get a number.
@@ -329,6 +316,7 @@ export default async function BlogPostPage({
               Call {siteConfig.phone}
             </a>
           </div>
+          <FinancingNote />
         </div>
       </section>
     </>

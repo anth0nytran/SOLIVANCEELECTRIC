@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Phone } from 'lucide-react';
 import { siteConfig } from '../config';
 import { reviews, reviewStats } from '../reviews';
@@ -42,6 +43,10 @@ export default function ReviewsPage() {
 
       {/* Hero */}
       <section className="page-hero">
+        <div className="absolute inset-0 z-0">
+          <Image src="/photos_new/reviews-houston-oaks.jpg" alt="" fill priority sizes="100vw" className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/5" />
+        </div>
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
             <ol className="flex flex-wrap items-center gap-2 text-white/55">

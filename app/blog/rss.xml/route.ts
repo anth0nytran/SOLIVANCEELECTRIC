@@ -1,4 +1,6 @@
-import { blogPosts } from '../posts';
+import { getPublishedPosts } from '../posts';
+
+export const revalidate = 3600;
 
 const SITE_URL = 'https://solivanceelectric.com';
 
@@ -24,9 +26,7 @@ export async function GET(): Promise<Response> {
   const channelLink = `${SITE_URL}/blog`;
   const selfLink = `${SITE_URL}/blog/rss.xml`;
 
-  const sorted = [...blogPosts].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  const sorted = getPublishedPosts();
 
   const lastBuildDate = sorted[0]
     ? toRfc822(sorted[0].date)

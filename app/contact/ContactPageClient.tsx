@@ -1,5 +1,7 @@
 'use client';
 
+import { CtaBackdrop } from '../components/CtaBackdrop';
+import { FinancingNote } from '../components/FinancingBanner';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -26,7 +28,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 };
 
-export default function ContactPageClient({ faqs, initialService }: { faqs: { q: string; a: string }[]; initialService?: string }) {
+export default function ContactPageClient({ faqs, initialService, initialMessage }: { faqs: { q: string; a: string }[]; initialService?: string; initialMessage?: string }) {
   return (
     <>
       {/* ═══ PAGE HEADER ═══ */}
@@ -38,9 +40,9 @@ export default function ContactPageClient({ faqs, initialService }: { faqs: { q:
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-55"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/5" />
         </div>
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
@@ -108,7 +110,7 @@ export default function ContactPageClient({ faqs, initialService }: { faqs: { q:
                   over the phone.
                 </p>
               </div>
-              <EstimateForm initialService={initialService} />
+              <EstimateForm initialService={initialService} initialMessage={initialMessage} />
             </motion.div>
 
             {/* Right — Sidebar */}
@@ -289,7 +291,7 @@ export default function ContactPageClient({ faqs, initialService }: { faqs: { q:
 
       {/* ═══ BOTTOM CTA ═══ */}
       <section className="relative isolate overflow-hidden bg-slate-950 py-16 sm:py-20">
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-slate-950/40" />
+        <CtaBackdrop />
         <div className={`${shell} relative z-10`}>
           <motion.div
             initial="hidden"
@@ -322,6 +324,7 @@ export default function ContactPageClient({ faqs, initialService }: { faqs: { q:
               </Link>
             </div>
           </motion.div>
+          <FinancingNote />
         </div>
       </section>
     </>

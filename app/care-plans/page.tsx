@@ -34,9 +34,9 @@ export default async function CarePlansPage({ searchParams }: { searchParams: Pr
   const initial = getCarePlan((await searchParams).plan)?.id;
 
   return (
-    <div className="bg-[#F4F7FB] text-[#0B1F3F]">
+    <div className="bg-[#f4f6f9] text-[#0f2847]">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#0B4EA2] text-white">
+      <section className="relative overflow-hidden bg-[#0f2847] text-white">
         <div className="absolute inset-y-0 right-0 hidden w-[46%] lg:block [clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]" aria-hidden>
           <Image src="/photos_new/soffit-lighting.jpg" alt="" fill priority sizes="46vw" className="object-cover object-[75%_75%]" />
         </div>
@@ -81,12 +81,12 @@ export default async function CarePlansPage({ searchParams }: { searchParams: Pr
             {STEPS.map(({ icon: Icon, title, body }, i) => (
               <li key={title} className="relative">
                 <div className="flex items-center gap-4">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0B4EA2] font-[family-name:var(--font-app-display)] text-[1.35rem] font-bold text-white">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0f2847] font-[family-name:var(--font-app-display)] text-[1.35rem] font-bold text-white">
                     {i + 1}
                   </span>
-                  <Icon className="h-10 w-10 text-[#0B1F3F]" strokeWidth={1.5} aria-hidden />
+                  <Icon className="h-10 w-10 text-[#0f2847]" strokeWidth={1.5} aria-hidden />
                   {i < STEPS.length - 1 && (
-                    <ArrowRight className="ml-auto hidden h-6 w-6 text-[#9DB3CF] lg:block" aria-hidden />
+                    <ArrowRight className="ml-auto hidden h-6 w-6 text-[#F26B1F] lg:block" aria-hidden />
                   )}
                 </div>
                 <h3 className="mt-4 text-[1.3rem] font-bold">{title}</h3>
@@ -100,7 +100,7 @@ export default async function CarePlansPage({ searchParams }: { searchParams: Pr
       {/* Contact band */}
       <section className="pb-8">
         <div className={shell}>
-          <div className="flex flex-col gap-6 rounded-2xl bg-[#0B4EA2] px-5 py-7 text-white sm:px-8 md:flex-row md:items-center md:justify-between md:gap-10">
+          <div className="flex flex-col gap-6 rounded-2xl bg-[#0f2847] px-5 py-7 text-white sm:px-8 md:flex-row md:items-center md:justify-between md:gap-10">
             <a href={`tel:${siteConfig.cleanPhone}`} className="flex items-center gap-4">
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-white/90">
                 <Phone className="h-6 w-6" aria-hidden />
@@ -123,7 +123,7 @@ export default async function CarePlansPage({ searchParams }: { searchParams: Pr
 
       {/* Fine print */}
       <section className="pb-14">
-        <p className={`${shell} text-[0.82rem] leading-[1.55] text-[#5A6B80]`}>{carePlanFinePrint}</p>
+        <p className={`${shell} text-[0.82rem] leading-[1.55] text-[#5b6b80]`}>{carePlanFinePrint}</p>
       </section>
     </div>
   );

@@ -6,15 +6,17 @@ import { ArrowRight, ShieldCheck } from 'lucide-react';
 import { carePlans } from '../carePlans';
 
 // Pages that already sell the plans (or are mid-conversion) skip the site-wide band.
-const HIDE_BAND_ON = ['/', '/care-plans', '/contact'];
+const HIDE_BAND_ON = ['/', '/care-plans', '/contact', '/financing'];
+// Shop pages end on their own sizing CTA; a membership pitch there competes with the purchase.
+const HIDE_BAND_PREFIXES = ['/lp', '/generators'];
 
-// Slim band that opens the footer on every other page. Same navy as the footer
-// so the page steps down into one dark block instead of a grey strip on top.
+// Slim light band above the footer. Light on purpose: page CTAs are navy and the
+// footer is near-black, so this keeps the two dark blocks from merging.
 export function CarePlanBand() {
   return (
-    <section aria-labelledby="care-plan-band" className="bg-[var(--onestop-navy-deep)] text-white">
+    <section aria-labelledby="care-plan-band" className="border-t border-slate-200 bg-[#f4f6f9] text-[var(--onestop-navy-deep)]">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="flex flex-col gap-6 border-b border-white/10 py-10 sm:py-12 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+        <div className="flex flex-col gap-6 py-9 sm:py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
           <div className="flex items-start gap-4">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--onestop-red)]" aria-hidden>
               <ShieldCheck className="h-5 w-5" />
@@ -23,7 +25,7 @@ export function CarePlanBand() {
               <h2 id="care-plan-band" className="text-[1.3rem] font-bold leading-tight tracking-[-0.015em] sm:text-[1.5rem]">
                 Solivance Care Plans
               </h2>
-              <p className="mt-1 text-[0.93rem] text-white/65">
+              <p className="mt-1 text-[0.93rem] text-slate-600">
                 Yearly inspection, priority scheduling, member pricing on repairs.
               </p>
             </div>
@@ -35,10 +37,10 @@ export function CarePlanBand() {
                 <li key={p.id}>
                   <Link
                     href={`/care-plans?plan=${p.id}`}
-                    className="flex flex-col items-center rounded-lg px-1.5 py-2 ring-1 sm:px-3 ring-white/15 transition-colors hover:bg-white/5 hover:ring-white/40 sm:min-w-[6.5rem]"
+                    className="flex flex-col items-center rounded-lg px-1.5 py-2 ring-1 sm:px-3 ring-slate-300 bg-white transition-colors hover:ring-[var(--onestop-navy-deep)] sm:min-w-[6.5rem]"
                   >
-                    <span className="whitespace-nowrap text-[0.66rem] font-semibold uppercase tracking-[0.04em] text-white/60 sm:text-[0.72rem] sm:tracking-[0.1em]">{p.name}</span>
-                    <span className="whitespace-nowrap text-[0.95rem] font-extrabold tabular-nums sm:text-[1.05rem]">{p.price}<span className="text-[0.75rem] font-medium text-white/55">/yr</span></span>
+                    <span className="whitespace-nowrap text-[0.66rem] font-semibold uppercase tracking-[0.04em] text-slate-500 sm:text-[0.72rem] sm:tracking-[0.1em]">{p.name}</span>
+                    <span className="whitespace-nowrap text-[0.95rem] font-extrabold tabular-nums sm:text-[1.05rem]">{p.price}<span className="text-[0.75rem] font-medium text-slate-500">/yr</span></span>
                   </Link>
                 </li>
               ))}
@@ -58,7 +60,7 @@ export function CarePlanBand() {
 
 export function SiteCarePlanBand() {
   const pathname = usePathname();
-  if (!pathname || HIDE_BAND_ON.includes(pathname) || pathname.startsWith('/lp')) return null;
+  if (!pathname || HIDE_BAND_ON.includes(pathname) || HIDE_BAND_PREFIXES.some((p) => pathname.startsWith(p))) return null;
   return <CarePlanBand />;
 }
 

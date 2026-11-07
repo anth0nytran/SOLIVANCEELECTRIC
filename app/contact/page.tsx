@@ -1,3 +1,4 @@
+import { products, formatUsd, GENERATOR_SERVICES } from '../generators/products';
 import type { Metadata } from 'next';
 import { siteConfig } from '../config';
 import ContactPageClient from './ContactPageClient';
@@ -65,8 +66,17 @@ const faqJsonLd = {
   })),
 };
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ plan?: string }> }) {
-  const plan = getCarePlan((await searchParams).plan);
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ plan?: string; generator?: string; install?: string }> }) {
+  const params = await searchParams;
+  const plan = getCarePlan(params.plan);
+  // /generators links here with ?generator=<model>&install=0|1
+  const generator = params.generator ? products.find((p) => p.model === params.generator) : undefined;
+  const generatorService = params.generator !== undefined
+    ? GENERATOR_SERVICES[params.install === '0' ? 1 : 0]
+    : undefined;
+  const generatorMessage = generator
+    ? `Interested in: Briggs & Stratton ${generator.name} (model ${generator.model}, ${formatUsd(generator.map)} unit price).`
+    : undefined;
   return (
     <>
       <script
@@ -77,7 +87,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <ContactPageClient faqs={contactFaqs} initialService={plan ? carePlanService(plan) : undefined} />
+      <ContactPageClient faqs={contactFaqs} initialService={plan ? carePlanService(plan) : generatorService} initialMessage={generatorMessage} />
     </>
   );
 }

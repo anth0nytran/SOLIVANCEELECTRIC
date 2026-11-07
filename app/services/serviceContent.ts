@@ -130,7 +130,7 @@ export const serviceContent: Record<string, ServiceContent> = {
     eyebrowNumber: '02',
     heroH1: 'Commercial Standby Generators — Installed, Commissioned, Documented.',
     heroLede:
-      'Sized to the metered load, sited on a proper pad, fuel planned for the longest outage on record. ATS wiring and live commissioning on every build.',
+      'Authorized Briggs & Stratton dealer. Sized to the metered load, sited on a proper pad, fuel planned for the longest outage on record. ATS wiring and live commissioning on every build. Financing available through Synchrony.',
     overview:
       'When the grid drops, your business should not. Solivance Electric installs commercial standby generators from 22 kW single-phase through 150 kW three-phase — medical suites, warehouses, multi-tenant offices, retail pads, and high-end residential across Greater Houston. Every install starts with a load calc against metered demand, not a sales-sheet guess. Generator siting accounts for exhaust clearance, noise to the nearest property line, refueling access, and the concrete pad spec the manufacturer actually called for. The Automatic Transfer Switch is wired, mechanically interlocked where required, and commissioned with a live grid-drop test. The first annual service date is on the calendar before we leave.',
     cost: {

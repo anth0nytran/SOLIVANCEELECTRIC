@@ -6,9 +6,12 @@ import { ArrowRight, Phone, User, MapPin, ClipboardList, Lock, Calendar, Clock, 
 import { siteConfig } from '../config';
 import { carePlans, carePlanService } from '../carePlans';
 import { trackMarketingEvent } from './MarketingAnalytics';
+import { GENERATOR_SERVICES } from '../generators/products';
+import { FormFinancingTag } from './FinancingBanner';
 
 // initialService preselects the dropdown, e.g. a care plan picked on /care-plans.
-export function EstimateForm({ variant = 'light', initialService = '' }: { variant?: 'light' | 'dark'; initialService?: string }) {
+// initialMessage prefills Project Details, e.g. the generator model picked on /generators.
+export function EstimateForm({ variant = 'light', initialService = '', initialMessage = '', defaultFinancing = false }: { variant?: 'light' | 'dark'; initialService?: string; initialMessage?: string; defaultFinancing?: boolean }) {
   const uid = useId();
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [formError, setFormError] = useState('');
@@ -31,6 +34,11 @@ export function EstimateForm({ variant = 'light', initialService = '' }: { varia
     const form = e.currentTarget;
     const fd = new FormData(form);
     const service = String(fd.get('service') || 'not selected');
+    if (fd.get('financing') === 'yes') {
+      const msg = String(fd.get('message') || '').trim();
+      const line = 'Financing: wants Synchrony monthly payment options';
+      fd.set('message', msg ? `${msg}\n${line}` : line);
+    }
     trackMarketingEvent('Lead Form Submit', { form: 'contact', service });
     if (typeof window !== 'undefined') {
       fd.set('page', window.location.href);
@@ -115,6 +123,7 @@ export function EstimateForm({ variant = 'light', initialService = '' }: { varia
           >
             <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <input type="hidden" name="_ts" value={formTimestamp} />
+            <FormFinancingTag />
 
             <div className="grid gap-2.5 sm:grid-cols-2">
               <div>
@@ -195,6 +204,9 @@ export function EstimateForm({ variant = 'light', initialService = '' }: { varia
                   <select required id={`${uid}-service`} name="service" value={service} onChange={(e) => setService(e.target.value)} className={`${inputCls} appearance-none`}>
                     <option value="" disabled>Select service...</option>
                     {[siteConfig.primaryService, ...siteConfig.services].map((s) => <option key={s} value={s}>{s}</option>)}
+                    <optgroup label="Briggs & Stratton Generators">
+                      {GENERATOR_SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </optgroup>
                     <optgroup label="Solivance Care Plans">
                       {carePlans.map((p) => <option key={p.id} value={carePlanService(p)}>{carePlanService(p)}</option>)}
                     </optgroup>
@@ -205,8 +217,13 @@ export function EstimateForm({ variant = 'light', initialService = '' }: { varia
 
             <div>
               <label htmlFor={`${uid}-message`} className={labelCls}>Project Details <span className={`font-normal normal-case tracking-normal ${isDark ? 'text-white/70' : 'text-slate-500'}`}>(Optional)</span></label>
-              <textarea id={`${uid}-message`} name="message" rows={2} maxLength={5000} placeholder="Scope of work, site access notes, or specific concerns..." className="w-full rounded-md border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 resize-none" />
+              <textarea id={`${uid}-message`} name="message" defaultValue={initialMessage} rows={2} maxLength={5000} placeholder="Scope of work, site access notes, or specific concerns..." className="w-full rounded-md border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-500 focus:bg-white focus:border-[var(--onestop-navy)] focus:ring-2 focus:ring-[var(--onestop-navy)]/20 resize-none" />
             </div>
+
+            <label className="flex items-center gap-2 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-2.5 py-2">
+              <input type="checkbox" name="financing" value="yes" defaultChecked={defaultFinancing} className="h-3.5 w-3.5 shrink-0 border-slate-300 text-[var(--onestop-navy)] focus:ring-1 focus:ring-[var(--onestop-navy)] rounded-sm" />
+              <span className="text-[0.72rem] leading-snug text-slate-700"><span className="font-bold">Ask me about financing.</span> Monthly payment options through Synchrony, subject to credit approval.</span>
+            </label>
 
             <label className="flex items-start gap-2 cursor-pointer border border-slate-200 bg-slate-50 rounded-md px-2.5 py-2">
               <input type="checkbox" name="sms_consent" value="yes" className="mt-0.5 h-3.5 w-3.5 shrink-0 border-slate-300 text-[var(--onestop-navy)] focus:ring-1 focus:ring-[var(--onestop-navy)] rounded-sm" />

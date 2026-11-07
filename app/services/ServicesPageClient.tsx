@@ -1,5 +1,7 @@
 'use client';
 
+import { CtaBackdrop } from '../components/CtaBackdrop';
+import { FinancingInline, FinancingNote } from '../components/FinancingBanner';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -50,9 +52,9 @@ export default function ServicesPageClient({
             alt="Solivance Electric services — panel upgrades, generators, EV chargers, and commercial lighting in Houston"
             fill
             sizes="100vw"
-            className="object-cover opacity-55"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/5" />
         </div>
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 relative z-10">
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
@@ -74,6 +76,7 @@ export default function ServicesPageClient({
           <p className="mt-5 max-w-2xl text-[0.98rem] sm:text-base text-white/80 leading-[1.7]">
             Ten years of commercial and residential electrical work across Southwest Houston, the Heights, Bellaire, and the Memorial Villages — based at 13035 S Post Oak Rd Suite I, 77045. Permits pulled, utility coordinated, inspection passed on the first walk.
           </p>
+          <FinancingInline />
         </div>
       </section>
 
@@ -186,7 +189,8 @@ export default function ServicesPageClient({
       </section>
 
       {/* ═══ BOTTOM CTA ═══ */}
-      <section className="bg-[var(--onestop-navy-deep)] py-14 sm:py-16">
+      <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] py-16 sm:py-20">
+        <CtaBackdrop />
         <div className="mx-auto w-full max-w-3xl px-5 sm:px-8 text-center">
           <div className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[var(--onestop-gold)] mb-3">
             Free estimate
@@ -212,6 +216,7 @@ export default function ServicesPageClient({
               <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem]">{siteConfig.phone}</span>
             </a>
           </div>
+          <FinancingNote />
         </div>
       </section>
     </>

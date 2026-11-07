@@ -26,8 +26,8 @@ import {
   FileText,
   HelpCircle,
   Shield,
-  Clock,
   Mail,
+  BadgeDollarSign,
 } from 'lucide-react';
 import { siteConfig, navLinks, type NavChild } from '../config';
 import { LanguageToggle, useLang } from './LanguageToggle';
@@ -146,10 +146,10 @@ export function Header() {
               Licensed TX Contractor · <span className="text-white font-bold">{siteConfig.license.label}</span>
             </span>
             <span className="hidden lg:inline-block h-3 w-px bg-white/20" aria-hidden />
-            <span className="hidden lg:inline-flex items-center gap-1.5">
-              <Clock className="h-3 w-3 text-[var(--onestop-gold)]" aria-hidden />
-              24-Hour Response
-            </span>
+            <Link href="/financing" className="hidden lg:inline-flex items-center gap-1.5 text-white font-bold hover:text-[var(--onestop-gold)] transition-colors">
+              <BadgeDollarSign className="h-3 w-3 text-[var(--onestop-gold)]" aria-hidden />
+              Financing available
+            </Link>
           </div>
           <div className="flex items-center gap-3 mx-auto sm:mx-0">
             {/* Mobile: license + action-driven CTA */}
@@ -203,7 +203,7 @@ export function Header() {
 
             {/* Nav links */}
             <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-0.5 xl:gap-3">
-              {navLinks.map((l, i) => {
+              {navLinks.filter((l) => l.href !== '/').map((l, i) => {
                 const isActive =
                   l.href === '/'
                     ? pathname === '/'
@@ -473,6 +473,9 @@ export function Header() {
                   <a href={`mailto:${siteConfig.email}`} className="flex items-center justify-center gap-2 text-sm font-semibold text-[var(--onestop-navy-deep)]">
                     <Mail className="h-4 w-4" aria-hidden /> {siteConfig.email}
                   </a>
+                  <Link href="/financing" onClick={closeMobileMenu} className="flex items-center justify-center gap-2 rounded-lg border border-[var(--onestop-red)]/30 bg-[#fff6f0] py-3 text-[0.8rem] font-bold text-[var(--onestop-navy-deep)]">
+                    <BadgeDollarSign className="h-4 w-4 text-[var(--onestop-red)]" aria-hidden /> Financing available
+                  </Link>
                   <Link href="/contact" onClick={closeMobileMenu} className="block text-center bg-[var(--onestop-red)] py-4 rounded-lg text-xs font-bold uppercase tracking-[0.15em] text-white transition-colors hover:bg-[var(--onestop-navy-deep)]">
                     Request Free Quote
                   </Link>

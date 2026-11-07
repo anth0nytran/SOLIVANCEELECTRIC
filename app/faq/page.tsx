@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { CtaBackdrop } from '../components/CtaBackdrop';
+import { FinancingNote } from '../components/FinancingBanner';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Phone, HelpCircle } from 'lucide-react';
@@ -96,9 +98,9 @@ export default function FaqPage() {
             alt="Solivance Electric FAQ — Houston commercial electrical questions answered"
             fill
             sizes="100vw"
-            className="object-cover opacity-55"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/5" />
         </div>
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
@@ -269,7 +271,8 @@ export default function FaqPage() {
       ))}
 
       {/* ═══ BOTTOM CTA ═══ */}
-      <section className="bg-slate-950 py-20 sm:py-24">
+      <section className="relative isolate overflow-hidden bg-slate-950 py-20 sm:py-24">
+        <CtaBackdrop />
         <div className={shell}>
           <div className="max-w-2xl">
             <div className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.28em] text-[var(--onestop-gold)]">
@@ -297,6 +300,7 @@ export default function FaqPage() {
                 Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
+            <FinancingNote align="left" />
           </div>
         </div>
       </section>

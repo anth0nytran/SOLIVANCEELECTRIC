@@ -1,17 +1,10 @@
-export interface BlogPost {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  readTime: string;
-  category: string;
-  image: string;
-  keywords: string[];
-  faqs: { q: string; a: string }[];
-  content: string;
-}
+import type { BlogPost } from './types';
+import { scheduledPosts } from './queue';
 
-export const blogPosts: BlogPost[] = [
+export type { BlogPost };
+
+/** Original evergreen posts. Scheduled posts live in ./queue (one file per month). */
+const basePosts: BlogPost[] = [
   {
     slug: 'panel-upgrade-signs-commercial',
     title: 'When Does Your Commercial Building Need a Panel Upgrade?',
@@ -319,10 +312,28 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
+/** Every post, including ones scheduled for a future date. */
+export const allPosts: BlogPost[] = [...basePosts, ...scheduledPosts];
+
+/** A post goes live at midnight Central (06:00 UTC) on its `date`. */
+export function isPublished(post: BlogPost, now: Date = new Date()): boolean {
+  // `next dev` shows the whole queue so drafts can be reviewed locally. Production follows the dates.
+  if (process.env.NODE_ENV === 'development') return true;
+  return new Date(`${post.date}T06:00:00Z`).getTime() <= now.getTime();
+}
+
+/** Live posts only, newest first. Pages using this revalidate hourly so queued posts appear on schedule. */
+export function getPublishedPosts(now: Date = new Date()): BlogPost[] {
+  return allPosts
+    .filter((p) => isPublished(p, now))
+    .sort((a, b) => b.date.localeCompare(a.date));
+}
+
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find((post) => post.slug === slug);
+  const post = allPosts.find((p) => p.slug === slug);
+  return post && isPublished(post) ? post : undefined;
 }
 
 export function getAllSlugs(): string[] {
-  return blogPosts.map((post) => post.slug);
+  return getPublishedPosts().map((post) => post.slug);
 }

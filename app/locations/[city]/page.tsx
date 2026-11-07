@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { CtaBackdrop } from '../../components/CtaBackdrop';
+import { FinancingInline, FinancingNote } from '../../components/FinancingBanner';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -131,9 +133,9 @@ export default async function LocationDetailPage({
             alt={`${loc.name} electrician — Solivance Electric commercial and residential service`}
             fill
             sizes="100vw"
-            className="object-cover opacity-60"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/5" />
         </div>
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 relative z-10">
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
@@ -173,6 +175,7 @@ export default async function LocationDetailPage({
               <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem]">{siteConfig.phone}</span>
             </a>
           </div>
+          <FinancingInline />
         </div>
       </section>
 
@@ -429,7 +432,8 @@ export default async function LocationDetailPage({
       </section>
 
       {/* ═══ BOTTOM CTA ═══ */}
-      <section className="bg-[var(--onestop-navy-deep)] py-14 sm:py-16">
+      <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] py-16 sm:py-20">
+        <CtaBackdrop />
         <div className="mx-auto w-full max-w-3xl px-5 sm:px-8 text-center">
           <h2 className="h-section text-white">
             Ready to start a project in {loc.name}?
@@ -452,6 +456,7 @@ export default async function LocationDetailPage({
               <span className="font-[family-name:var(--font-app-mono)] tracking-normal normal-case text-[0.82rem]">{siteConfig.phone}</span>
             </a>
           </div>
+          <FinancingNote />
         </div>
       </section>
     </>

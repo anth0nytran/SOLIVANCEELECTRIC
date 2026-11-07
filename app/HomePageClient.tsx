@@ -1,5 +1,7 @@
 'use client';
 
+import { CtaBackdrop } from './components/CtaBackdrop';
+import { FinancingNote, FormFinancingTag } from './components/FinancingBanner';
 import { useId, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -117,6 +119,7 @@ function HeroEstimateForm() {
     <form className="grid gap-2.5" action="/api/lead" method="POST" onSubmit={handleSubmit}>
       <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <input type="hidden" name="_ts" value={formTimestamp} />
+      <FormFinancingTag />
 
       <div className="grid gap-2.5 sm:grid-cols-2">
         <div>
@@ -240,7 +243,8 @@ export default function HomePageClient() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }} className="text-white">
               <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }} className="mb-5 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.7rem] uppercase tracking-[0.24em] text-white/80">
                 <span className="h-px w-6 bg-[var(--onestop-gold)]" />
-                Southwest Houston · Heights · Bellaire · Memorial Villages
+                <span className="sm:hidden">Southwest Houston · Heights · Bellaire</span>
+                <span className="hidden sm:inline">Southwest Houston · Heights · Bellaire · Memorial Villages</span>
               </motion.div>
 
               <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }} className="text-[2.1rem] sm:text-[2.75rem] lg:text-[3.15rem] xl:text-[3.6rem] font-extrabold leading-[1] tracking-[-0.035em] text-white mb-5 sm:mb-6">
@@ -275,10 +279,10 @@ export default function HomePageClient() {
                 <div className="flex items-center justify-between gap-3 bg-[var(--onestop-navy-deep)] px-5 sm:px-6 lg:px-7 py-2.5 text-white">
                   <div className="flex items-center gap-2 font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.22em] text-white/70">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--onestop-gold)] animate-pulse" />
-                    Free Quote · No Obligation
+                    Free Quote<span className="hidden min-[420px]:inline"> · No Obligation</span>
                   </div>
                   <div className="font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.18em] text-[var(--onestop-gold)]">
-                    Response &lt; 24 hrs
+                    <span className="min-[420px]:hidden">&lt; 24 hrs</span><span className="hidden min-[420px]:inline">Response &lt; 24 hrs</span>
                   </div>
                 </div>
                 <div className="p-5 sm:p-6 lg:p-7">
@@ -543,16 +547,7 @@ export default function HomePageClient() {
 
       {/* ═══ BOTTOM CTA + SECOND FORM ═══ */}
       <section className="relative isolate overflow-hidden bg-slate-950 py-20 sm:py-28">
-        <div className="absolute inset-0">
-          <Image
-            src="/photos_new/cta-footer.jpg"
-            alt="Solivance Electric licensed electrician wiring a commercial panel in Houston TX"
-            fill
-            sizes="100vw"
-            className="object-cover opacity-35"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/70 to-slate-950/40" />
+        <CtaBackdrop />
 
         <div className={`${shell} relative z-10`}>
           <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16 lg:items-center">
@@ -568,6 +563,7 @@ export default function HomePageClient() {
                 <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 24/7 Emergency</span>
                 <span className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5" /> Free Quotes</span>
               </div>
+              <FinancingNote align="left" />
             </div>
             {/* Right — form */}
             <div className="rounded-2xl bg-white p-6 sm:p-8 lg:p-10 shadow-2xl">

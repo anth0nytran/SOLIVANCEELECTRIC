@@ -1,5 +1,7 @@
 'use client';
 
+import { CtaBackdrop } from '../components/CtaBackdrop';
+import { FinancingNote } from '../components/FinancingBanner';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -38,9 +40,9 @@ export default function AboutPageClient() {
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-55"
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2847]/95 via-[#0f2847]/80 to-[#0f2847]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/5" />
         </div>
         <div className={`${shell} relative z-10`}>
           <nav aria-label="Breadcrumb" className="mb-5 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.18em]">
@@ -314,16 +316,7 @@ export default function AboutPageClient() {
 
       {/* ═══ BOTTOM CTA ═══ */}
       <section className="relative isolate overflow-hidden bg-slate-950 py-20 sm:py-24">
-        <div className="absolute inset-0">
-          <Image
-            src="/photos_new/cta-footer.jpg"
-            alt="Solivance Electric Houston commercial electrician — call for a free quote"
-            fill
-            sizes="100vw"
-            className="object-cover opacity-20 mix-blend-luminosity"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-slate-950/40" />
+        <CtaBackdrop />
 
         <div className={`${shell} relative z-10`}>
           <motion.div
@@ -355,6 +348,7 @@ export default function AboutPageClient() {
                 Free Quote <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
+            <FinancingNote />
 
             <div className="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-[0.66rem] sm:text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/70">
               <span className="flex items-center gap-2"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" /> Licensed &amp; Insured</span>
