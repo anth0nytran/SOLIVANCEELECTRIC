@@ -39,6 +39,11 @@ const nextConfig: NextConfig = {
       { source: '/home', destination: '/', permanent: true },
       { source: '/index', destination: '/', permanent: true },
       { source: '/index.html', destination: '/', permanent: true },
+      // PowerProtect DX models were removed from the site; send old URLs to the standard model
+      { source: '/generators/powerprotect-pp13-dx-040740', destination: '/generators/powerprotect-pp13-040746', permanent: true },
+      { source: '/generators/powerprotect-pp18dx-plus-040760', destination: '/generators/powerprotect-pp18-plus-040757', permanent: true },
+      { source: '/generators/powerprotect-pp22dx-plus-040790', destination: '/generators/powerprotect-pp22-plus-040787', permanent: true },
+      { source: '/generators/powerprotect-pp26dx-plus-040810', destination: '/generators/powerprotect-pp26-plus-040807', permanent: true },
     ];
   },
   async headers() {

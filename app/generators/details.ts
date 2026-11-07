@@ -32,7 +32,7 @@ export function specRows(p: Product): SpecRow[] {
     { label: 'Model number', value: p.model },
     { label: 'Series', value: groupOf(p).title },
   ];
-  const isPP = p.group === 'powerprotect' || p.group === 'powerprotect-dx';
+  const isPP = p.group === 'powerprotect';
 
   if (isPP && p.kw) {
     const [lp, ng] = p.kw.replace(' kW', '').split('/').map((s) => s.trim());
@@ -96,15 +96,6 @@ export const groupDetail: Record<ProductGroupId, { overview: string; bestFor: st
       'Single-family homes on a 100A to 200A service',
       'Whole-home backup with load management on the AC',
       'Essential-circuit backup on the 13 kW model',
-    ],
-  },
-  'powerprotect-dx': {
-    overview:
-      'PowerProtect DX is the same air-cooled platform as PowerProtect, sold only through authorized Briggs & Stratton dealers. The difference is the warranty: 10 years in place of 7. Solivance Electric is an authorized dealer and carries the full DX line.',
-    bestFor: [
-      'Owners who plan to keep the house 10+ years',
-      'Whole-home backup on a 100A to 200A service',
-      'The longest warranty on an air-cooled unit',
     ],
   },
   fortress: {

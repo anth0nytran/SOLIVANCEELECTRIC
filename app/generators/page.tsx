@@ -13,7 +13,7 @@ import { brandOf, fullName, productHref } from './details';
 
 const title = 'Briggs & Stratton Generators Houston | Authorized Dealer';
 const description =
-  'Buy Briggs & Stratton standby generators from an authorized Houston dealer. PowerProtect, dealer-exclusive DX, and Fortress 13–60 kW, priced. Installed or unit only. Financing through Synchrony.';
+  'Buy Briggs & Stratton standby generators from an authorized Houston dealer. PowerProtect and Fortress 13–60 kW, every model priced. Installed or unit only. Financing through Synchrony.';
 
 export const metadata: Metadata = {
   title,
@@ -43,7 +43,6 @@ const sizingHref = '/contact?generator=&install=1#form';
 /** Navigator labels, short enough to fit on one line on a phone. */
 const navLabel: Record<string, string> = {
   powerprotect: 'PowerProtect',
-  'powerprotect-dx': 'PowerProtect DX',
   fortress: 'Fortress',
   'bs-transfer': 'Transfer switches',
   'power-management': 'Power management',
@@ -75,17 +74,13 @@ const faqs = [
     a: 'It depends on the AC tonnage, electric appliances, and service size. Many 2,000–3,500 sq ft homes land in the 18–26 kW range with load management on the AC; larger homes with multiple systems move to Fortress liquid-cooled. Solivance Electric runs a free load calc on the site walk before recommending a size.',
   },
   {
-    q: 'What is the difference between PowerProtect and PowerProtect DX?',
-    a: 'Same generator and sizes. DX models are sold only through authorized dealers and carry a 10-year warranty instead of 7. Solivance Electric is an authorized Briggs & Stratton dealer and carries both.',
-  },
-  {
     q: 'Do you offer financing?',
     a: 'Yes. Financing is available through Synchrony on generators, transfer switches, and installation. Ask about monthly payment options when you call or request a quote. Subject to credit approval.',
   },
 ];
 
 export default function GeneratorsPage() {
-  const hero = products.find((p) => p.model === '040790')!; // PP22DX+
+  const hero = products.find((p) => p.model === '040787')!; // PP22+
   const generatorGroups = productGroups.filter((g) => g.kind === 'generator');
   const otherGroups = productGroups.filter((g) => g.kind !== 'generator');
 
@@ -169,7 +164,7 @@ export default function GeneratorsPage() {
               <span className="text-[1.05rem] font-bold text-[var(--onestop-navy-deep)] group-hover:underline">{hero.name}</span>
               <span className="text-[1.3rem] font-extrabold tabular-nums text-[var(--onestop-navy-deep)]">{formatUsd(hero.map)}</span>
             </span>
-            <span className="block text-[0.95rem] text-slate-600">{hero.kw} · Warranty: {hero.warrantyYears} years · Dealer exclusive</span>
+            <span className="block text-[0.95rem] text-slate-600">{hero.kw} · Warranty: {hero.warrantyYears} years · Whole-home standby</span>
           </Link>
         </div>
       </section>

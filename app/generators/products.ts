@@ -9,7 +9,6 @@ export const GENERATOR_SERVICES = ['Generator Purchase + Install (Briggs & Strat
 
 export type ProductGroupId =
   | 'powerprotect'
-  | 'powerprotect-dx'
   | 'fortress'
   | 'bs-transfer'
   | 'power-management'
@@ -51,14 +50,6 @@ export const productGroups: ProductGroup[] = [
     title: 'PowerProtect Series',
     blurb:
       'Home standby from 13 kW to 26 kW. 120/240V single phase, aluminum enclosure. The 18, 22, and 26 kW units ship with EnergyTrak monitoring.',
-  },
-  {
-    id: 'powerprotect-dx',
-    kind: 'generator',
-    kicker: 'Dealer exclusive · 10-year warranty',
-    title: 'PowerProtect DX Series',
-    blurb:
-      'The same PowerProtect platform sold only through authorized dealers, with a 10-year warranty in place of 7. Solivance Electric carries the full DX line.',
   },
   {
     id: 'fortress',
@@ -111,12 +102,6 @@ export const products: Product[] = [
   { model: '040757', group: 'powerprotect', name: 'PowerProtect PP18+', kw: '18 / 18 kW', spec: '18/18 kW (LP/NG) · 120/240V · GC-1033 controller · EnergyTrak', phase: 'Single Phase', warrantyYears: 7, map: 6017, image: pp('18'), badge: 'New', note: energyTrakNote },
   { model: '040787', group: 'powerprotect', name: 'PowerProtect PP22+', kw: '22 / 22 kW', spec: '22/22 kW (LP/NG) · 120/240V · GC-1033 controller · EnergyTrak', phase: 'Single Phase', warrantyYears: 7, map: 6406, image: pp('22'), note: energyTrakNote },
   { model: '040807', group: 'powerprotect', name: 'PowerProtect PP26+', kw: '26 / 24 kW', spec: '26/24 kW (LP/NG) · 120/240V · GC-1033 controller · EnergyTrak', phase: 'Single Phase', warrantyYears: 7, map: 7195, image: pp('26'), badge: 'New', note: energyTrakNote },
-
-  // ── PowerProtect DX (dealer exclusive) ──
-  { model: '040740', group: 'powerprotect-dx', name: 'PowerProtect PP13 DX', kw: '13 / 11.5 kW', spec: '13/11.5 kW (LP/NG) · 120/240V · GC-1032 controller', phase: 'Single Phase', warrantyYears: 10, map: 5058, image: pp('13'), badge: 'Dealer exclusive', note: 'Monitoring needs the separate EnergyTrak Universal 6943.' },
-  { model: '040760', group: 'powerprotect-dx', name: 'PowerProtect PP18DX+', kw: '18 / 18 kW', spec: '18/18 kW (LP/NG) · 120/240V · GC-1033 controller · EnergyTrak', phase: 'Single Phase', warrantyYears: 10, map: 6541, image: pp('18'), badge: 'Dealer exclusive', note: energyTrakNote },
-  { model: '040790', group: 'powerprotect-dx', name: 'PowerProtect PP22DX+', kw: '22 / 22 kW', spec: '22/22 kW (LP/NG) · 120/240V · GC-1033 controller · EnergyTrak', phase: 'Single Phase', warrantyYears: 10, map: 7014, image: pp('22'), badge: 'Dealer exclusive', note: energyTrakNote },
-  { model: '040810', group: 'powerprotect-dx', name: 'PowerProtect PP26DX+', kw: '26 / 24 kW', spec: '26/24 kW (LP/NG) · 120/240V · GC-1033 controller · EnergyTrak', phase: 'Single Phase', warrantyYears: 10, map: 7802, image: pp('26'), badge: 'Dealer exclusive', note: energyTrakNote },
 
   // ── Fortress (liquid-cooled) ──
   { model: '076880', group: 'fortress', name: 'Fortress 30 kW', kw: '30 kW', spec: 'Liquid-cooled · steel enclosure · block heater · B&S controller', phase: 'Single Phase', warrantyYears: 6, map: 14624, image: img('fortress-30.jpg') },

@@ -55,7 +55,7 @@ function keyFacts(p: Product): string[] {
     const [lp, ng] = p.kw.replace(' kW', '').split('/').map((s) => s.trim());
     facts.push(ng ? `${lp} kW on propane, ${ng} kW on natural gas` : `${lp} kW output`);
   }
-  if (p.group === 'powerprotect' || p.group === 'powerprotect-dx') facts.push('120/240 volt, single phase, air-cooled');
+  if (p.group === 'powerprotect') facts.push('120/240 volt, single phase, air-cooled');
   if (p.group === 'fortress') facts.push('Liquid-cooled engine with block heater');
   if (p.amps) {
     const volts = p.spec.match(/(208|240|480)V/)?.[1];
@@ -79,12 +79,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const rows = specRows(p);
   const pairs = pairsWith(p);
   const compare = [p, ...siblings(p, 3)].sort((a, b) => a.map - b.map);
-  const dxTwin =
-    p.group === 'powerprotect'
-      ? products.find((x) => x.group === 'powerprotect-dx' && x.kw === p.kw)
-      : p.group === 'powerprotect-dx'
-        ? products.find((x) => x.group === 'powerprotect' && x.kw === p.kw)
-        : undefined;
 
   const faqs = [
     {
@@ -201,20 +195,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             {p.note && <p className="mt-4 rounded-lg bg-slate-50 p-3.5 text-[0.95rem] text-slate-700">{p.note}</p>}
 
-            {dxTwin && (
-              <Link
-                href={productHref(dxTwin)}
-                className="mt-5 flex items-center justify-between gap-4 rounded-lg border-2 border-slate-200 p-4 hover:border-[var(--onestop-navy-deep)] transition-colors"
-              >
-                <span>
-                  <span className="block text-[0.9rem] text-slate-600">{p.group === 'powerprotect-dx' ? 'Standard version' : 'Dealer-only version'}</span>
-                  <span className="block text-[1.02rem] font-bold text-[var(--onestop-navy-deep)]">
-                    {dxTwin.name}, {dxTwin.warrantyYears}-year warranty
-                  </span>
-                </span>
-                <span className="shrink-0 text-[1.1rem] font-extrabold tabular-nums text-[var(--onestop-navy-deep)]">{formatUsd(dxTwin.map)}</span>
-              </Link>
-            )}
           </div>
 
           <aside className="mt-8 xl:col-span-3 xl:mt-0" aria-label="Order options">
