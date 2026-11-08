@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { CSSProperties } from 'react';
 import { Poppins } from 'next/font/google';
 import { SizingFlow } from './SizingFlow';
 
@@ -15,7 +16,8 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700
 // header/footer (ChromeGate), loads GTM for conversion tracking, and stays noindex.
 export default function GeneratorSizingPage() {
   return (
-    <div className={poppins.className}>
+    // Headings use --font-app-display site-wide; point it at Poppins here (same as the panel page).
+    <div className={poppins.className} style={{ '--font-app-display': poppins.style.fontFamily } as CSSProperties}>
       <SizingFlow />
     </div>
   );

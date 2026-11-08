@@ -2,22 +2,32 @@
 
 // Generator sizing lead magnet: /lp/generator-sizing (no site nav, one job).
 //   1. What do you want running?   2. How many AC units?
-//   3. "Your size is ready. Where should we send it?"  -> lead created, Josh alerted
-//   4. Result: size range + matching models, then everything funnels to ONE action:
-//      request the free site walk (day + time window, plus optional details).
-// Leaving: the X asks first; on desktop, moving to leave before the lead is in shows
-// one gentle "wait" prompt. The browser Back button is never hijacked.
+//   3. "Your size is ready" (blurred teaser) + trustworthy form  -> lead created, Josh alerted
+//   4. Result: big size range, matching models, then ONE action: book the free site walk.
+// Leaving: the X asks first; on desktop, moving to leave before the lead is in shows one
+// gentle prompt. The browser Back button is never hijacked.
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, ArrowRight, CalendarCheck, Check, ClipboardCheck, FileCheck2, Phone, ShieldCheck, Wrench, X, Zap } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  BadgeCheck,
+  CalendarCheck,
+  Check,
+  FileCheck2,
+  Home,
+  Lightbulb,
+  Lock,
+  Phone,
+  ShieldCheck,
+  X,
+  Zap,
+} from 'lucide-react';
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { products, formatUsd } from '../../generators/products';
 import { ProductImage } from '../../generators/ProductImage';
-import { BrandLogo } from '../../components/BrandLogo';
-import { SynchronyLogo } from '../../components/FinancingBanner';
-import { brands } from '../../lib/brands';
 import { GoogleG, Stars } from '../_panel/Badges';
 import { captureAttribution, newSubmissionId, pushDataLayer, readAttribution } from '../../lib/tracking';
 import {
@@ -39,29 +49,61 @@ import {
 type View = 'goal' | 'ac' | 'contact' | 'result';
 type ServerResult = { tier: string; range: string; headline: string; explanation: string; modelIds: string[]; checkOnSite: string[] };
 
-const card =
-  'flex w-full items-center justify-between gap-3 rounded-xl border-2 border-[#E3E6EA] bg-white px-5 py-4 text-left text-[1.05rem] font-semibold text-[#0A1322] transition-colors hover:border-[#E8590C] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[#0A1322]';
+const wrap = 'mx-auto w-full max-w-[640px] px-4 sm:px-6';
+const option =
+  'group flex w-full items-center gap-4 rounded-2xl border border-[#E3E6EA] bg-white px-4 py-4 text-left shadow-[0_1px_2px_rgba(10,19,34,0.06)] transition-all hover:border-[#E8590C] hover:shadow-[0_6px_18px_-8px_rgba(232,89,12,0.45)] active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A1322]';
 const chip = (on: boolean) =>
-  `rounded-full border-2 px-3.5 py-2 text-[0.9rem] font-semibold transition-colors ${on ? 'border-[#0A1322] bg-[#0A1322] text-white' : 'border-[#E3E6EA] bg-white text-[#0A1322] hover:border-slate-400'}`;
-const input = 'h-13 w-full rounded-lg border-2 border-[#E3E6EA] px-4 py-3 text-[1rem] text-[#0A1322] outline-none focus:border-[#0A1322]';
-const ctaBtn = 'inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#E8590C] px-6 py-4 text-[1.05rem] font-bold text-white transition-colors hover:bg-[#CF4E0A] disabled:opacity-60';
+  `min-h-11 rounded-xl border px-3.5 py-2 text-[0.92rem] font-medium transition-colors ${
+    on ? 'border-[#0A1322] bg-[#0A1322] text-white' : 'border-[#DDE1E6] bg-white text-[#0A1322] hover:border-[#9AA5B1]'
+  }`;
+const label = 'mb-1.5 block text-[0.88rem] font-semibold text-[#0A1322]';
+const field =
+  'block h-12 w-full rounded-xl border border-[#CDD3DA] bg-white px-4 text-[1rem] text-[#0A1322] outline-none transition-colors placeholder:text-[#9AA5B1] focus:border-[#0A1322] focus:ring-4 focus:ring-[#0A1322]/10';
+const cta =
+  'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#E8590C] px-6 text-[1.05rem] font-semibold text-white shadow-[0_8px_20px_-8px_rgba(232,89,12,0.7)] transition-colors hover:bg-[#CF4E0A] disabled:opacity-60';
+const eyebrow = 'text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#B23F07]';
 const WINDOWS = ['Morning (8am–12pm)', 'Afternoon (12pm–5pm)'] as const;
+const GOAL_ICON = { essentials: Lightbulb, whole: Home } as const;
 
-// Proof: real reviews only. Yeny's is the generator/outage story.
+// Proof: real Google reviews only. Yeny's is the outage/generator story.
 const review = (id: string) => reviews.find((r) => r.id === id);
-const PROOF_REVIEWS = ['yeny-v', 'tonya-n', 'zno-z'].map(review).filter(Boolean) as NonNullable<ReturnType<typeof review>>[];
+const PROOF = ['yeny-v', 'tonya-n', 'zno-z'].map(review).filter(Boolean) as NonNullable<ReturnType<typeof review>>[];
+const excerpt = (q: string, n = 170) => (q.length <= n ? q : `${q.slice(0, q.lastIndexOf(' ', n))}…`);
 
-// Next 10 working days (Mon–Sat), starting tomorrow, as YYYY-MM-DD in Houston time.
-function nextDays(): { ymd: string; label: string }[] {
-  const out: { ymd: string; label: string }[] = [];
+// Next 10 working days (Mon–Sat), starting tomorrow, Houston time.
+function nextDays(): { ymd: string; dow: string; mon: string; dom: string }[] {
+  const out: { ymd: string; dow: string; mon: string; dom: string }[] = [];
   const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
   for (let i = 1; out.length < 10 && i < 20; i++) {
     const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
     if (d.getDay() === 0) continue;
-    const ymd = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    out.push({ ymd, label: d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) });
+    out.push({
+      ymd: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`,
+      dow: d.toLocaleDateString('en-US', { weekday: 'short' }),
+      mon: d.toLocaleDateString('en-US', { month: 'short' }),
+      dom: String(d.getDate()),
+    });
   }
   return out;
+}
+
+function Logo() {
+  // The logo file has wide transparent margins; crop them in a fixed-height box.
+  return (
+    <div className="flex h-11 items-center overflow-hidden">
+      <Image src="/logo/logo_horzontial.PNG" alt="Solivance Electric LLC" width={6144} height={4096} priority className="h-[96px] w-auto max-w-none" sizes="150px" />
+    </div>
+  );
+}
+
+function TrustRow() {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[0.82rem] text-[#4A5A6C]">
+      <span className="flex items-center gap-1.5"><GoogleG className="h-4 w-4" /> {siteConfig.rating.toFixed(1)} Google rating</span>
+      <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-[#1F7A4D]" /> Licensed {siteConfig.license.label}</span>
+      <span className="flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-[#1F7A4D]" /> Briggs &amp; Stratton dealer</span>
+    </div>
+  );
 }
 
 export function SizingFlow() {
@@ -86,13 +128,13 @@ export function SizingFlow() {
   const [booking, setBooking] = useState(false);
   const [booked, setBooked] = useState(false);
   const [exitPrompt, setExitPrompt] = useState(false);
-  const [days, setDays] = useState<{ ymd: string; label: string }[]>([]);
+  const [days, setDays] = useState<ReturnType<typeof nextDays>>([]);
 
   const submissionId = useRef('');
   const openedAt = useRef(0);
   const leadDone = useRef(false);
   const exitShown = useRef(false);
-  const scheduleRef = useRef<HTMLDivElement>(null);
+  const scheduleRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     submissionId.current = newSubmissionId();
@@ -102,7 +144,6 @@ export function SizingFlow() {
     pushDataLayer({ event: 'generator_sizing_view' });
   }, []);
 
-  // Desktop exit intent: once, only before the lead is in.
   useEffect(() => {
     const onLeave = (e: MouseEvent) => {
       if (e.clientY > 0 || exitShown.current || leadDone.current) return;
@@ -118,7 +159,6 @@ export function SizingFlow() {
   }, [view]);
 
   const answers = (): EstimatorAnswers => ({ goal: goal!, ac: ac!, homeSize, loads: noLoads ? [] : loads.length ? loads : undefined, fuel, timeline });
-  const testKey = () => new URLSearchParams(window.location.search).get('test') || undefined;
 
   async function submitLead(e: React.FormEvent) {
     e.preventDefault();
@@ -136,7 +176,7 @@ export function SizingFlow() {
       company_url: honeypot,
       _ts: String(openedAt.current),
       page: window.location.href.split('?')[0],
-      testKey: testKey(),
+      testKey: new URLSearchParams(window.location.search).get('test') || undefined,
       ...readAttribution(),
     };
     try {
@@ -154,7 +194,6 @@ export function SizingFlow() {
         leadDone.current = true;
         setResult(json.result);
         setView('result');
-        // One conversion per accepted submission (server decides; repeats and tests never count).
         if (json.conversionEligible) pushDataLayer({ event: 'generator_lead_success', transaction_id: submissionId.current, lead_tier: json.result.tier });
         return;
       }
@@ -190,79 +229,100 @@ export function SizingFlow() {
     setLoads((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]));
   };
 
-  // Live refined range while they tap; the server's answer replaces it on submit.
   const live = goal && ac ? estimate(answers()) : undefined;
   const range = live && result ? live.range : result?.range;
   const modelIds = live && result ? live.models.map((m) => m.model) : result?.modelIds || [];
   const models = modelIds.map((id) => products.find((p) => p.model === id)).filter(Boolean) as typeof products;
   const stepNo = view === 'goal' ? 1 : view === 'ac' ? 2 : 3;
-  const dayLabel = days.find((d) => d.ymd === day)?.label;
+  const picked = days.find((d) => d.ymd === day);
+  const dayLabel = picked ? `${picked.dow}, ${picked.mon} ${picked.dom}` : '';
+  const first = name.trim().split(/\s+/)[0];
+  // "18–26 kW on natural gas" -> big "18–26 kW" + small "on natural gas"
+  const m = (range || '').match(/^(.*?kW)(.*)$/);
+  const rangeNum = m ? m[1] : range;
+  const rangeRest = m ? m[2].trim() : '';
 
   return (
-    <div className="min-h-[100dvh] bg-[#F4F6F9] text-[#0A1322]">
-      {/* Top bar: logo, phone, and the only way out (X asks first). */}
-      <header className="sticky top-0 z-40 border-b border-[#E3E6EA] bg-white/95 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-3xl items-center justify-between gap-3 px-4">
-          <span className="relative h-9 w-[120px] overflow-hidden">
-            <Image src="/logo/logo_horzontial.PNG" alt="Solivance Electric LLC" width={6144} height={4096} priority className="absolute left-1/2 top-1/2 h-[80px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2" sizes="130px" />
-          </span>
+    <div className="min-h-[100dvh] overflow-x-clip bg-[#F5F6F8] text-[#0A1322]">
+      <header className="sticky top-0 z-40 border-b border-[#E6E8EC] bg-white">
+        <div className={`${wrap} flex h-16 items-center justify-between`}>
+          <Logo />
           <div className="flex items-center gap-1">
-            <a href={`tel:${siteConfig.cleanPhone}`} className="flex items-center gap-1.5 rounded-md px-2.5 py-2 text-[0.9rem] font-semibold">
-              <Phone className="h-4 w-4" /> <span className="hidden sm:inline">{siteConfig.phone}</span><span className="sm:hidden">Call</span>
+            <a href={`tel:${siteConfig.cleanPhone}`} className="flex h-10 items-center gap-2 rounded-lg px-3 text-[0.92rem] font-semibold hover:bg-[#F5F6F8]">
+              <Phone className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">{siteConfig.phone}</span>
+              <span className="sm:hidden">Call</span>
             </a>
-            <button type="button" onClick={() => setExitPrompt(true)} aria-label="Leave" className="rounded-md p-2 text-slate-500 hover:bg-slate-100">
+            <button type="button" onClick={() => setExitPrompt(true)} aria-label="Leave" className="flex h-10 w-10 items-center justify-center rounded-lg text-[#5A6B7F] hover:bg-[#F5F6F8]">
               <X className="h-5 w-5" />
             </button>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl px-4 pb-28 pt-6 sm:pt-10">
-        {view !== 'result' && (
-          <div className="mx-auto max-w-lg">
-            <div className="mb-5 flex items-center justify-between">
-              {view === 'goal' ? (
-                <span className="flex items-center gap-1.5 text-[0.8rem] font-bold uppercase tracking-[0.14em] text-[#B23F07]">
-                  <Zap className="h-4 w-4" /> Free 20-second generator sizing
-                </span>
-              ) : (
-                <button type="button" onClick={() => setView(view === 'ac' ? 'goal' : 'ac')} className="flex items-center gap-1 text-[0.9rem] font-semibold text-slate-600">
-                  <ArrowLeft className="h-4 w-4" /> Back
-                </button>
-              )}
-              <div className="flex gap-1.5" aria-label={`Step ${stepNo} of 3`}>
-                {[1, 2, 3].map((n) => (
-                  <span key={n} className={`h-1.5 w-8 rounded-full ${n <= stepNo ? 'bg-[#E8590C]' : 'bg-slate-300'}`} />
-                ))}
+      {view !== 'result' && (
+        <>
+          {/* Dark band carries the headline; the question card overlaps it. */}
+          <section className="bg-[#0A1322] pb-24 pt-6 text-white sm:pb-28 sm:pt-10">
+            <div className={wrap}>
+              <div className="flex h-9 items-center justify-between gap-4">
+                {view === 'goal' ? (
+                  <span className="flex items-center gap-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#FDBA74]">
+                    <Zap className="h-3.5 w-3.5" /> Free · 20 seconds
+                  </span>
+                ) : (
+                  <button type="button" onClick={() => setView(view === 'ac' ? 'goal' : 'ac')} className="-ml-1 flex h-9 items-center gap-1 rounded-lg px-1 text-[0.9rem] font-medium text-white/80 hover:text-white">
+                    <ArrowLeft className="h-4 w-4" /> Back
+                  </button>
+                )}
+                <span className="text-[0.8rem] font-medium text-white/60">Step {stepNo} of 3</span>
               </div>
+              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/15" aria-hidden>
+                <div className="h-full rounded-full bg-[#E8590C] transition-all duration-300" style={{ width: `${(stepNo / 3) * 100}%` }} />
+              </div>
+              <h1 className="mt-6 text-[1.75rem] font-bold leading-[1.12] tracking-[-0.02em] sm:text-[2.3rem]">
+                {view === 'contact' ? 'Your generator size is ready.' : 'What size generator does your home need?'}
+              </h1>
+              <p className="mt-2.5 text-[1rem] leading-relaxed text-white/75">
+                {view === 'contact' ? 'Tell us where to send it. You’ll see it on the next screen.' : 'Answer 2 quick questions. See which standby generators fit your home.'}
+              </p>
             </div>
+          </section>
 
-            <div className="rounded-2xl bg-white p-5 shadow-[0_10px_30px_-15px_rgba(10,19,34,0.25)] sm:p-7">
+          <main className={`${wrap} -mt-16 pb-16 sm:-mt-20`}>
+            <div className="rounded-3xl bg-white p-5 shadow-[0_20px_50px_-20px_rgba(10,19,34,0.35)] sm:p-8">
               {view === 'goal' && (
                 <>
-                  <h1 className="text-[1.6rem] font-bold leading-tight tracking-[-0.02em] sm:text-[2rem]">What size generator does your home need?</h1>
-                  <p className="mt-2 text-[1rem] text-slate-600">First: what do you want running when the power goes out?</p>
-                  <div className="mt-5 grid gap-3">
-                    {GOALS.map((g) => (
-                      <button key={g.id} type="button" className={card} onClick={() => { setGoal(g.id); setView('ac'); pushDataLayer({ event: 'generator_sizing_start' }); }}>
-                        <span>
-                          {g.label}
-                          <span className="block text-[0.88rem] font-normal text-slate-500">{g.hint}</span>
-                        </span>
-                        <ArrowRight className="h-5 w-5 shrink-0 text-slate-400" />
-                      </button>
-                    ))}
+                  <h2 className="text-[1.2rem] font-semibold leading-snug sm:text-[1.35rem]">What do you want running when the power goes out?</h2>
+                  <div className="mt-4 grid gap-3">
+                    {GOALS.map((g) => {
+                      const Icon = GOAL_ICON[g.id];
+                      return (
+                        <button key={g.id} type="button" className={option} onClick={() => { setGoal(g.id); setView('ac'); pushDataLayer({ event: 'generator_sizing_start' }); }}>
+                          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#FFF1E8] text-[#C2410C]"><Icon className="h-5 w-5" /></span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-[1.02rem] font-semibold">{g.label}</span>
+                            <span className="block text-[0.88rem] text-[#5A6B7F]">{g.hint}</span>
+                          </span>
+                          <ArrowRight className="h-5 w-5 shrink-0 text-[#9AA5B1] transition-transform group-hover:translate-x-0.5 group-hover:text-[#E8590C]" />
+                        </button>
+                      );
+                    })}
                   </div>
                 </>
               )}
 
               {view === 'ac' && (
                 <>
-                  <h1 className="text-[1.6rem] font-bold leading-tight tracking-[-0.02em] sm:text-[2rem]">How many AC units does your home have?</h1>
-                  <p className="mt-2 text-[1rem] text-slate-600">Count the outdoor units. AC is the biggest factor in generator size.</p>
-                  <div className="mt-5 grid grid-cols-2 gap-3">
+                  <h2 className="text-[1.2rem] font-semibold leading-snug sm:text-[1.35rem]">How many AC units does your home have?</h2>
+                  <p className="mt-1 text-[0.92rem] text-[#5A6B7F]">Count the outdoor units. AC is the biggest factor in generator size.</p>
+                  <div className="mt-4 grid grid-cols-2 gap-3">
                     {AC_COUNTS.map((a) => (
-                      <button key={a.id} type="button" className={`${card} justify-center ${a.id === 'unsure' ? 'col-span-2' : ''}`} onClick={() => { setAc(a.id); setView('contact'); }}>
+                      <button
+                        key={a.id}
+                        type="button"
+                        className={`${option} min-h-16 justify-center text-center text-[1.05rem] font-semibold ${a.id === 'unsure' ? 'col-span-2' : ''}`}
+                        onClick={() => { setAc(a.id); setView('contact'); }}
+                      >
                         {a.label}
                       </button>
                     ))}
@@ -272,229 +332,283 @@ export function SizingFlow() {
 
               {view === 'contact' && (
                 <form onSubmit={submitLead} noValidate>
-                  <div className="flex items-center gap-2 text-[0.95rem] font-semibold text-[#1F7A4D]">
-                    <Check className="h-5 w-5" /> Your generator size is ready
+                  {/* Blurred teaser: the answer is right there. */}
+                  <div className="flex items-center gap-3 rounded-2xl border border-[#E3E6EA] bg-[#F8FAFB] p-4">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E8F3EC] text-[#1F7A4D]"><Check className="h-5 w-5" /></span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[0.8rem] font-medium text-[#5A6B7F]">Your recommended range</p>
+                      <p className="select-none text-[1.4rem] font-bold tracking-tight blur-[7px]" aria-hidden>{live?.range.match(/^.*?kW/)?.[0] ?? '18–26 kW'}</p>
+                    </div>
+                    <Lock className="h-5 w-5 shrink-0 text-[#9AA5B1]" aria-hidden />
                   </div>
-                  <h1 className="mt-2 text-[1.6rem] font-bold leading-tight tracking-[-0.02em] sm:text-[2rem]">Where should we send it?</h1>
-                  <p className="mt-2 text-[1rem] text-slate-600">You&apos;ll see it on the next screen. Josh, a licensed electrician, confirms the exact size.</p>
-                  <div className="mt-5 grid gap-3">
-                    <input className={input} placeholder="First name" autoComplete="given-name" value={name} onChange={(e) => setName(e.target.value)} />
-                    <input className={input} placeholder="Mobile phone" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                    <input className={input} placeholder="ZIP code" inputMode="numeric" autoComplete="postal-code" maxLength={5} value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, ''))} />
+
+                  <div className="mt-5 grid gap-4">
+                    <div>
+                      <label htmlFor="gs-name" className={label}>First name</label>
+                      <input id="gs-name" className={field} autoComplete="given-name" value={name} onChange={(e) => setName(e.target.value)} />
+                    </div>
+                    <div>
+                      <label htmlFor="gs-phone" className={label}>Mobile phone</label>
+                      <input id="gs-phone" className={field} type="tel" inputMode="tel" autoComplete="tel" placeholder="(713) 555-0123" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                    </div>
+                    <div>
+                      <label htmlFor="gs-zip" className={label}>ZIP code <span className="font-normal text-[#5A6B7F]">(to confirm we serve your area)</span></label>
+                      <input id="gs-zip" className={field} inputMode="numeric" autoComplete="postal-code" maxLength={5} placeholder="77096" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, ''))} />
+                    </div>
                     <input tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
-                    <label className="flex items-start gap-2 text-[0.72rem] leading-snug text-slate-500">
-                      <input type="checkbox" checked={sms} onChange={(e) => setSms(e.target.checked)} className="mt-0.5" />
+
+                    {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-[0.92rem] text-red-700" role="alert">{error}</p>}
+
+                    <button type="submit" disabled={sending} className={cta}>
+                      {sending ? 'One moment…' : <>Show my generator size <ArrowRight className="h-5 w-5" /></>}
+                    </button>
+
+                    <p className="flex items-start justify-center gap-1.5 text-center text-[0.82rem] leading-snug text-[#5A6B7F]">
+                      <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+                      Only used to send your result and set up your free site walk.
+                    </p>
+
+                    <label className="flex items-start gap-2.5 rounded-xl bg-[#F8FAFB] p-3 text-[0.72rem] leading-snug text-[#5A6B7F]">
+                      <input type="checkbox" checked={sms} onChange={(e) => setSms(e.target.checked)} className="mt-0.5 h-4 w-4 shrink-0 accent-[#0A1322]" />
                       <span>
-                        Optional: text me about my request. I agree to receive texts from Solivance Electric LLC about my quote and appointment. Msg frequency varies. Msg &amp;
-                        data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of service. See{' '}
+                        Optional: text me about my request. I agree to receive texts from Solivance Electric LLC about my quote and appointment. Msg frequency varies. Msg &amp; data rates
+                        may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of service. See{' '}
                         <a href="/privacy" target="_blank" rel="noopener" className="underline">Privacy</a>.
                       </span>
                     </label>
-                    {error && <p className="rounded-md bg-red-50 px-3 py-2 text-[0.9rem] text-red-700" role="alert">{error}</p>}
-                    <button type="submit" disabled={sending} className={ctaBtn}>
-                      {sending ? 'Sending…' : <>Show My Generator Size <ArrowRight className="h-5 w-5" /></>}
-                    </button>
-                    <p className="text-center text-[0.82rem] text-slate-500">Free · No obligation</p>
+                  </div>
+
+                  {/* Who's on the other end. */}
+                  <div className="mt-5 flex items-center gap-3 border-t border-[#EEF0F3] pt-5">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0A1322] text-[0.95rem] font-bold text-white">J</span>
+                    <p className="text-[0.88rem] leading-snug text-[#4A5A6C]">
+                      <b className="text-[#0A1322]">Josh, licensed electrician at Solivance.</b> He reviews every estimate and follows up to confirm your exact size.
+                    </p>
                   </div>
                 </form>
               )}
             </div>
 
-            {/* Quiet proof under the quiz. */}
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[0.85rem] text-slate-600">
-              <span className="flex items-center gap-1.5"><GoogleG className="h-4 w-4" /> {siteConfig.rating.toFixed(1)} on Google</span>
-              <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-[#1F7A4D]" /> {siteConfig.license.label}</span>
-              <span className="flex items-center gap-1.5"><BrandLogo src={brands.briggs.logo} name="Briggs & Stratton" className="h-4" fallbackClassName="text-[0.8rem]" /> Authorized dealer</span>
-            </div>
-          </div>
-        )}
+            <div className="mt-6"><TrustRow /></div>
 
-        {view === 'result' && result && (
-          <div className="grid gap-5">
-            {/* 1. The answer */}
-            <section className="rounded-2xl bg-white p-5 shadow-[0_10px_30px_-15px_rgba(10,19,34,0.25)] sm:p-7">
-              <div className="text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#B23F07]">{name ? `${name.split(' ')[0]}, your` : 'Your'} preliminary size</div>
-              <h1 className="mt-1.5 text-[1.9rem] font-bold leading-tight tracking-[-0.02em] sm:text-[2.4rem]">{range}</h1>
-              <p className="mt-2 text-[1rem] leading-relaxed text-slate-600">{result.explanation}</p>
-              <button type="button" onClick={toSchedule} className={`${ctaBtn} mt-5`}>
-                <CalendarCheck className="h-5 w-5" /> Book My Free Site Walk
+            {view === 'contact' && PROOF[0] && (
+              <figure className="mt-6 rounded-2xl bg-white p-4 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
+                <div className="flex items-center gap-2"><Stars className="h-3.5 w-3.5" /><GoogleG className="h-4 w-4" /></div>
+                <blockquote className="mt-2 text-[0.92rem] leading-relaxed text-[#334155]">“{excerpt(PROOF[0].quote, 190)}”</blockquote>
+                <figcaption className="mt-2 text-[0.82rem] font-semibold">{PROOF[0].author}, Google review</figcaption>
+              </figure>
+            )}
+          </main>
+        </>
+      )}
+
+      {view === 'result' && result && (
+        <>
+          {/* 1. The answer */}
+          <section className="bg-[#0A1322] pb-10 pt-8 text-white sm:pb-14 sm:pt-12">
+            <div className={wrap}>
+              <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#FDBA74]">{first ? `${first}, your` : 'Your'} preliminary size</p>
+              <p className="mt-3 text-[3rem] font-bold leading-none tracking-[-0.03em] sm:text-[4rem]">{rangeNum}</p>
+              {rangeRest && <p className="mt-1.5 text-[1rem] font-medium text-white/75">{rangeRest}</p>}
+              <p className="mt-4 text-[1rem] leading-relaxed text-white/75">{result.explanation}</p>
+              <button type="button" onClick={toSchedule} className={`${cta} mt-6`}>
+                <CalendarCheck className="h-5 w-5" /> Book my free site walk
               </button>
-              <p className="mt-2 text-center text-[0.8rem] text-slate-500">Josh confirms the exact size and gives you one fixed install price.</p>
-            </section>
+              <p className="mt-3 text-center text-[0.82rem] text-white/60">Josh confirms the exact size and gives you one fixed install price.</p>
+            </div>
+          </section>
 
-            {/* 2. Models that fit, every one funnels to the site walk */}
+          <main className={`${wrap} grid grid-cols-[minmax(0,1fr)] gap-8 pb-32 pt-8 sm:pb-16`}>
+            {/* 2. Models */}
             <section>
-              <h2 className="px-1 text-[1.15rem] font-bold">Generators in your range</h2>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                {models.map((m) => (
-                  <div key={m.model} className="rounded-2xl bg-white p-4 shadow-[0_6px_20px_-12px_rgba(10,19,34,0.2)]">
-                    <ProductImage src={m.image} alt={`Briggs & Stratton ${m.name}`} className="h-32 w-full" sizes="(min-width: 640px) 360px, 90vw" />
-                    <div className="mt-3 flex items-baseline justify-between gap-2">
-                      <span className="text-[1.02rem] font-bold">{m.name}</span>
-                      <span className="text-[1.05rem] font-extrabold tabular-nums">{formatUsd(m.map)}</span>
+              <p className={eyebrow}>Generators in your range</p>
+              <div className="mt-3 grid gap-3">
+                {models.map((p) => (
+                  <div key={p.model} className="flex items-center gap-4 rounded-2xl bg-white p-3 pr-4 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
+                    <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-[#F5F6F8] p-2">
+                      <ProductImage src={p.image} alt={`Briggs & Stratton ${p.name}`} className="h-full w-full" sizes="96px" />
                     </div>
-                    <p className="text-[0.85rem] text-slate-600">{m.kw} (propane / natural gas) · {m.warrantyYears}-year warranty</p>
-                    <p className="text-[0.75rem] text-slate-500">Unit price. Installation quoted after the site walk.</p>
-                    <button type="button" onClick={toSchedule} className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-lg border-2 border-[#0A1322] py-2.5 text-[0.92rem] font-bold hover:bg-[#0A1322] hover:text-white">
-                      See if this fits my home <ArrowRight className="h-4 w-4" />
-                    </button>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[1rem] font-semibold leading-tight">{p.name}</p>
+                      <p className="mt-1 text-[0.85rem] text-[#5A6B7F]">{p.kw} · propane / natural gas</p>
+                      <p className="text-[0.85rem] text-[#5A6B7F]">{p.warrantyYears}-year warranty</p>
+                      <p className="mt-1.5 text-[1.05rem] font-bold tabular-nums">
+                        {formatUsd(p.map)} <span className="text-[0.75rem] font-normal text-[#5A6B7F]">unit only</span>
+                      </p>
+                    </div>
                   </div>
                 ))}
               </div>
-              <p className="mt-2 px-1 text-[0.75rem] leading-snug text-slate-500">
-                Preliminary guidance, not a load calculation. A licensed electrician confirms the size on site before you buy.
+              <p className="mt-3 text-[0.78rem] leading-snug text-[#5A6B7F]">
+                Preliminary guidance, not a load calculation. Installation is quoted after a licensed electrician confirms the size on site.
               </p>
             </section>
 
-            {/* 3. Proof */}
-            <section className="rounded-2xl bg-white p-5 sm:p-7">
-              <div className="flex flex-wrap items-center gap-4">
-                <span className="flex items-center gap-2"><GoogleG className="h-7 w-7" /><span className="text-[1.6rem] font-bold">{siteConfig.rating.toFixed(1)}</span><Stars /></span>
-                <span className="text-[0.9rem] text-slate-600">Google reviews · Houston homeowners</span>
-              </div>
-              <div className="mt-4 grid gap-3">
-                {PROOF_REVIEWS.map((r) => (
-                  <figure key={r.id} className="rounded-xl bg-[#F4F6F9] p-4">
-                    <Stars className="h-3.5 w-3.5" />
-                    <blockquote className="mt-2 text-[0.95rem] leading-relaxed text-slate-700">“{r.quote}”</blockquote>
-                    <figcaption className="mt-2 text-[0.85rem] font-semibold">{r.author} · {r.source}</figcaption>
-                  </figure>
-                ))}
-              </div>
-            </section>
-
-            <section className="grid gap-3 sm:grid-cols-3">
-              {[
-                { icon: ShieldCheck, t: 'Texas licensed', d: siteConfig.license.label },
-                { icon: FileCheck2, t: 'Permitted + inspected', d: 'We pull the permit and pass the city inspection' },
-                { icon: Wrench, t: 'Briggs & Stratton dealer', d: 'Up to 7-year manufacturer warranty on PowerProtect' },
-              ].map(({ icon: Icon, t, d }) => (
-                <div key={t} className="rounded-2xl bg-white p-4">
-                  <Icon className="h-6 w-6 text-[#1F7A4D]" />
-                  <p className="mt-2 text-[0.98rem] font-bold">{t}</p>
-                  <p className="text-[0.85rem] text-slate-600">{d}</p>
-                </div>
-              ))}
-            </section>
-
-            <section className="flex flex-col gap-3 rounded-2xl bg-white p-5 sm:flex-row sm:items-center">
-              <SynchronyLogo size="md" />
-              <p className="text-[0.92rem] text-slate-700">
-                <b>Financing available</b> through Synchrony on generator installs. Ask about monthly payments at your site walk. Subject to credit approval.
-              </p>
-            </section>
-
-            <section className="rounded-2xl bg-white p-5 sm:p-7">
-              <h2 className="text-[1.15rem] font-bold">What happens at your free site walk</h2>
-              <ol className="mt-3 grid gap-3">
-                {[
-                  { icon: ClipboardCheck, t: 'Josh checks your home', d: 'Panel, AC units, large appliances, and gas meter or propane.' },
-                  { icon: Zap, t: 'You get the exact size', d: 'No guessing: the generator that runs what you want, without paying for more than you need.' },
-                  { icon: FileCheck2, t: 'One fixed install price', d: 'Generator, transfer switch, permit, and startup in one written quote.' },
-                ].map(({ icon: Icon, t, d }, i) => (
-                  <li key={t} className="flex gap-3">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FFF1E8] text-[0.95rem] font-bold text-[#B23F07]">{i + 1}</span>
-                    <span><span className="flex items-center gap-1.5 font-bold"><Icon className="h-4 w-4" /> {t}</span><span className="text-[0.9rem] text-slate-600">{d}</span></span>
-                  </li>
-                ))}
-              </ol>
-            </section>
-
-            {/* 4. The one action */}
-            <section ref={scheduleRef} id="schedule" className="scroll-mt-20 rounded-2xl border-2 border-[#0A1322] bg-white p-5 sm:p-7">
+            {/* 3. The one action */}
+            <section ref={scheduleRef} id="schedule" className="scroll-mt-20 rounded-3xl bg-white p-5 shadow-[0_20px_50px_-24px_rgba(10,19,34,0.35)] ring-2 ring-[#0A1322] sm:p-7">
               {booked ? (
-                <div className="text-center">
-                  <CalendarCheck className="mx-auto h-10 w-10 text-[#1F7A4D]" />
-                  <h2 className="mt-2 text-[1.4rem] font-bold">Site walk requested{dayLabel ? ` for ${dayLabel}` : ''}</h2>
-                  <p className="mt-1.5 text-[0.98rem] text-slate-600">Josh will reach out to confirm the time. Need it sooner? Call {siteConfig.phone}.</p>
-                  <a href={`tel:${siteConfig.cleanPhone}`} className={`${ctaBtn} mt-4`}><Phone className="h-5 w-5" /> Call {siteConfig.phone}</a>
+                <div className="py-2 text-center">
+                  <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#E8F3EC] text-[#1F7A4D]"><CalendarCheck className="h-7 w-7" /></span>
+                  <h2 className="mt-3 text-[1.4rem] font-bold">Site walk requested{dayLabel ? ` for ${dayLabel}` : ''}</h2>
+                  <p className="mt-1.5 text-[0.98rem] text-[#4A5A6C]">Josh will reach out to confirm your time. Need it sooner?</p>
+                  <a href={`tel:${siteConfig.cleanPhone}`} className={`${cta} mt-5`}><Phone className="h-5 w-5" /> Call {siteConfig.phone}</a>
                 </div>
               ) : (
                 <>
-                  <h2 className="text-[1.4rem] font-bold leading-tight">Book your free generator site walk</h2>
-                  <p className="mt-1 text-[0.95rem] text-slate-600">Pick a day that works. Josh confirms the time with you.</p>
+                  <p className={eyebrow}>Next step</p>
+                  <h2 className="mt-1.5 text-[1.45rem] font-bold leading-tight">Book your free generator site walk</h2>
+                  <p className="mt-1 text-[0.95rem] text-[#4A5A6C]">Pick a day. Josh confirms the exact time with you.</p>
 
-                  <div className="mt-4 text-[0.88rem] font-semibold text-slate-700">Day</div>
-                  <div className="mt-1.5 flex flex-wrap gap-2">
-                    {days.map((d) => (
-                      <button key={d.ymd} type="button" className={chip(day === d.ymd)} onClick={() => setDay(d.ymd)}>{d.label}</button>
-                    ))}
+                  <div className="-mx-1 mt-5 flex snap-x gap-2 overflow-x-auto px-1 pb-1">
+                    {days.map((d) => {
+                      const on = day === d.ymd;
+                      return (
+                        <button
+                          key={d.ymd}
+                          type="button"
+                          onClick={() => setDay(d.ymd)}
+                          className={`flex h-[72px] w-16 shrink-0 snap-start flex-col items-center justify-center rounded-xl border text-center transition-colors ${
+                            on ? 'border-[#0A1322] bg-[#0A1322] text-white' : 'border-[#DDE1E6] bg-white hover:border-[#9AA5B1]'
+                          }`}
+                        >
+                          <span className={`text-[0.7rem] font-medium uppercase ${on ? 'text-white/70' : 'text-[#5A6B7F]'}`}>{d.dow}</span>
+                          <span className="text-[1.15rem] font-bold leading-tight">{d.dom}</span>
+                          <span className={`text-[0.68rem] ${on ? 'text-white/70' : 'text-[#9AA5B1]'}`}>{d.mon}</span>
+                        </button>
+                      );
+                    })}
                   </div>
-                  <div className="mt-3 text-[0.88rem] font-semibold text-slate-700">Time</div>
-                  <div className="mt-1.5 flex flex-wrap gap-2">
+                  <div className="mt-3 grid grid-cols-2 gap-2">
                     {WINDOWS.map((w) => (
                       <button key={w} type="button" className={chip(timeWindow === w)} onClick={() => setTimeWindow(w)}>{w}</button>
                     ))}
                   </div>
 
-                  <details className="mt-4 rounded-xl bg-[#F4F6F9] p-4">
-                    <summary className="cursor-pointer text-[0.95rem] font-bold">Optional: help Josh come prepared</summary>
-                    <div className="mt-3 text-[0.85rem] font-semibold text-slate-600">Home size</div>
-                    <div className="mt-1.5 flex flex-wrap gap-2">
-                      {HOME_SIZES.map((h) => <button key={h.id} type="button" className={chip(homeSize === h.id)} onClick={() => setHomeSize(h.id)}>{h.label}</button>)}
+                  <details className="group mt-4 rounded-2xl border border-[#E3E6EA] p-4">
+                    <summary className="flex cursor-pointer list-none items-center justify-between text-[0.95rem] font-semibold">
+                      Optional: help Josh come prepared
+                      <ArrowRight className="h-4 w-4 rotate-90 text-[#9AA5B1] transition-transform group-open:-rotate-90" />
+                    </summary>
+                    <div className="mt-4 grid gap-4">
+                      <div>
+                        <p className="mb-2 text-[0.85rem] font-semibold text-[#4A5A6C]">Home size</p>
+                        <div className="flex flex-wrap gap-2">{HOME_SIZES.map((h) => <button key={h.id} type="button" className={chip(homeSize === h.id)} onClick={() => setHomeSize(h.id)}>{h.label}</button>)}</div>
+                      </div>
+                      <div>
+                        <p className="mb-2 text-[0.85rem] font-semibold text-[#4A5A6C]">Any of these? Pick all that apply</p>
+                        <div className="flex flex-wrap gap-2">
+                          {BIG_LOADS.map((l) => <button key={l.id} type="button" className={chip(loads.includes(l.id))} onClick={() => toggleLoad(l.id)}>{l.label}</button>)}
+                          <button type="button" className={chip(noLoads)} onClick={() => { setNoLoads(!noLoads); setLoads([]); }}>None of these</button>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="mb-2 text-[0.85rem] font-semibold text-[#4A5A6C]">Generator fuel</p>
+                        <div className="flex flex-wrap gap-2">{FUELS.map((f) => <button key={f.id} type="button" className={chip(fuel === f.id)} onClick={() => setFuel(f.id)}>{f.label}</button>)}</div>
+                      </div>
+                      <div>
+                        <p className="mb-2 text-[0.85rem] font-semibold text-[#4A5A6C]">When do you want it installed?</p>
+                        <div className="flex flex-wrap gap-2">{TIMELINES.map((t) => <button key={t} type="button" className={chip(timeline === t)} onClick={() => setTimeline(t)}>{t}</button>)}</div>
+                      </div>
+                      {live && <p className="rounded-xl bg-[#F5F6F8] px-3 py-2 text-[0.88rem]">Updated estimate: <b>{live.range}</b></p>}
                     </div>
-                    <div className="mt-3 text-[0.85rem] font-semibold text-slate-600">Any of these? (pick all)</div>
-                    <div className="mt-1.5 flex flex-wrap gap-2">
-                      {BIG_LOADS.map((l) => <button key={l.id} type="button" className={chip(loads.includes(l.id))} onClick={() => toggleLoad(l.id)}>{l.label}</button>)}
-                      <button type="button" className={chip(noLoads)} onClick={() => { setNoLoads(!noLoads); setLoads([]); }}>None of these</button>
-                    </div>
-                    <div className="mt-3 text-[0.85rem] font-semibold text-slate-600">Generator fuel</div>
-                    <div className="mt-1.5 flex flex-wrap gap-2">
-                      {FUELS.map((f) => <button key={f.id} type="button" className={chip(fuel === f.id)} onClick={() => setFuel(f.id)}>{f.label}</button>)}
-                    </div>
-                    <div className="mt-3 text-[0.85rem] font-semibold text-slate-600">When do you want it installed?</div>
-                    <div className="mt-1.5 flex flex-wrap gap-2">
-                      {TIMELINES.map((t) => <button key={t} type="button" className={chip(timeline === t)} onClick={() => setTimeline(t)}>{t}</button>)}
-                    </div>
-                    {live && <p className="mt-3 text-[0.88rem] text-slate-700">Updated estimate: <b>{live.range}</b></p>}
                   </details>
 
-                  <button type="button" disabled={!day || booking} onClick={requestSiteWalk} className={`${ctaBtn} mt-5`}>
-                    {booking ? 'Sending…' : <><CalendarCheck className="h-5 w-5" /> {day ? `Request my site walk${dayLabel ? ` for ${dayLabel}` : ''}` : 'Pick a day above'}</>}
+                  <button type="button" disabled={!day || booking} onClick={requestSiteWalk} className={`${cta} mt-5`}>
+                    {booking ? 'One moment…' : day ? <><CalendarCheck className="h-5 w-5" /> Book my site walk{dayLabel ? `: ${dayLabel}` : ''}</> : 'Pick a day above'}
                   </button>
-                  <p className="mt-2 text-center text-[0.8rem] text-slate-500">Free · No obligation</p>
+                  <p className="mt-2.5 text-center text-[0.8rem] text-[#5A6B7F]">Free · No obligation · Licensed {siteConfig.license.label}</p>
                 </>
               )}
             </section>
-          </div>
-        )}
-      </main>
 
-      {/* Sticky action on the result page */}
-      {view === 'result' && !booked && (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#E3E6EA] bg-white/95 p-3 backdrop-blur">
-          <div className="mx-auto flex max-w-3xl gap-2">
-            <a href={`tel:${siteConfig.cleanPhone}`} className="inline-flex items-center justify-center gap-1.5 rounded-lg border-2 border-[#0A1322] px-4 font-bold">
-              <Phone className="h-5 w-5" />
-            </a>
-            <button type="button" onClick={toSchedule} className={ctaBtn}>
-              <CalendarCheck className="h-5 w-5" /> Book My Free Site Walk
-            </button>
-          </div>
-        </div>
+            {/* 4. Proof */}
+            <section>
+              <div className="flex items-center gap-3">
+                <GoogleG className="h-7 w-7" />
+                <span className="text-[1.6rem] font-bold leading-none">{siteConfig.rating.toFixed(1)}</span>
+                <div><Stars className="h-4 w-4" /><p className="mt-0.5 text-[0.8rem] text-[#5A6B7F]">Google reviews from Houston homeowners</p></div>
+              </div>
+              <div className="mt-4 grid gap-3">
+                {PROOF.map((r) => (
+                  <figure key={r.id} className="rounded-2xl bg-white p-4 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
+                    <Stars className="h-3.5 w-3.5" />
+                    <blockquote className="mt-2 text-[0.94rem] leading-relaxed text-[#334155]">“{excerpt(r.quote)}”</blockquote>
+                    <figcaption className="mt-2 text-[0.82rem] font-semibold">{r.author}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+
+            <section className="grid grid-cols-2 gap-3">
+              {[
+                { icon: ShieldCheck, t: 'Texas licensed', d: siteConfig.license.label },
+                { icon: FileCheck2, t: 'Permitted', d: 'City-inspected installs' },
+                { icon: BadgeCheck, t: 'B&S dealer', d: 'Up to 7-yr warranty' },
+                { icon: Zap, t: 'Financing', d: 'Through Synchrony*' },
+              ].map(({ icon: Icon, t, d }) => (
+                <div key={t} className="rounded-2xl bg-white p-4 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#E8F3EC] text-[#1F7A4D]"><Icon className="h-[18px] w-[18px]" /></span>
+                  <p className="mt-2.5 text-[0.95rem] font-semibold leading-tight">{t}</p>
+                  <p className="mt-0.5 text-[0.8rem] text-[#5A6B7F]">{d}</p>
+                </div>
+              ))}
+            </section>
+
+            <section className="rounded-3xl bg-white p-5 shadow-[0_1px_2px_rgba(10,19,34,0.06)] sm:p-7">
+              <p className={eyebrow}>How the site walk works</p>
+              <ol className="mt-4 grid gap-4">
+                {[
+                  { t: 'Josh checks your home', d: 'Panel, AC units, big appliances, and your gas meter or propane.' },
+                  { t: 'You get the exact size', d: 'The generator that runs what you want, without paying for more than you need.' },
+                  { t: 'One fixed install price', d: 'Generator, transfer switch, permit, and startup in one written quote.' },
+                ].map(({ t, d }, i) => (
+                  <li key={t} className="flex gap-3.5">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0A1322] text-[0.85rem] font-bold text-white">{i + 1}</span>
+                    <span><span className="block text-[0.98rem] font-semibold">{t}</span><span className="text-[0.9rem] text-[#5A6B7F]">{d}</span></span>
+                  </li>
+                ))}
+              </ol>
+              {!booked && (
+                <button type="button" onClick={toSchedule} className={`${cta} mt-6`}><CalendarCheck className="h-5 w-5" /> Book my free site walk</button>
+              )}
+            </section>
+
+            <p className="text-center text-[0.75rem] leading-snug text-[#5A6B7F]">*Financing through Synchrony, subject to credit approval. Prices are Briggs &amp; Stratton MAP, equipment only.</p>
+          </main>
+
+          {!booked && (
+            <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#E6E8EC] bg-white/95 px-4 py-3 backdrop-blur sm:hidden">
+              <div className="flex gap-2">
+                <a href={`tel:${siteConfig.cleanPhone}`} aria-label={`Call ${siteConfig.phone}`} className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[#CDD3DA]">
+                  <Phone className="h-5 w-5" />
+                </a>
+                <button type="button" onClick={toSchedule} className={cta}><CalendarCheck className="h-5 w-5" /> Book free site walk</button>
+              </div>
+            </div>
+          )}
+        </>
       )}
 
-      {/* Leave confirmation */}
       {exitPrompt && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/55 p-0 sm:items-center sm:p-4" onClick={() => setExitPrompt(false)}>
-          <div role="dialog" aria-modal="true" aria-labelledby="exit-title" onClick={(e) => e.stopPropagation()} className="w-full max-w-md rounded-t-2xl bg-white p-6 sm:rounded-2xl">
-            <h2 id="exit-title" className="text-[1.35rem] font-bold leading-tight">
-              {leadDone.current ? (booked ? 'You’re all set.' : 'Leave without booking your free site walk?') : 'Wait, your generator size is almost ready.'}
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-[#0A1322]/60 sm:items-center sm:p-4" onClick={() => setExitPrompt(false)}>
+          <div role="dialog" aria-modal="true" aria-labelledby="exit-title" onClick={(e) => e.stopPropagation()} className="w-full max-w-md rounded-t-3xl bg-white p-6 pb-8 sm:rounded-3xl">
+            <h2 id="exit-title" className="text-[1.3rem] font-bold leading-tight">
+              {leadDone.current ? (booked ? 'You’re all set.' : 'Leave without booking your free site walk?') : 'Your generator size is almost ready.'}
             </h2>
-            <p className="mt-2 text-[0.98rem] text-slate-600">
+            <p className="mt-2 text-[0.98rem] leading-relaxed text-[#4A5A6C]">
               {leadDone.current
                 ? booked
                   ? 'Josh will reach out to confirm your site walk.'
                   : 'It’s free, and it’s the only way to know the exact size before you spend thousands on a generator.'
-                : 'Two taps and you’ll see which generators fit your home. No cost, no obligation.'}
+                : 'You’re one step away from seeing which generators fit your home. Free, no obligation.'}
             </p>
-            <div className="mt-5 grid gap-2">
+            <div className="mt-6 grid gap-2">
               {!booked && (
-                <button type="button" onClick={() => { setExitPrompt(false); if (leadDone.current) toSchedule(); }} className={ctaBtn}>
+                <button type="button" onClick={() => { setExitPrompt(false); if (leadDone.current) toSchedule(); }} className={cta}>
                   {leadDone.current ? 'Book my free site walk' : 'Finish my estimate'}
                 </button>
               )}
-              <a href="/generators" className="py-2.5 text-center text-[0.92rem] font-semibold text-slate-500 underline">
+              <a href="/generators" className="py-3 text-center text-[0.92rem] font-medium text-[#5A6B7F] underline underline-offset-2">
                 {booked ? 'Back to generators' : 'Leave anyway'}
               </a>
             </div>
