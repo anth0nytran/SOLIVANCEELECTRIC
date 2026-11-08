@@ -17,7 +17,7 @@ export const siteConfig = {
     phones: ['1-800-803-9202', '512-463-6599'],
     url: 'https://www.tdlr.texas.gov',
   },
-  domain: 'https://solivanceelectric.com',
+  domain: 'https://www.solivanceelectric.com',
   address: {
     street: '13035 S Post Oak Rd Suite I',
     city: 'Houston',

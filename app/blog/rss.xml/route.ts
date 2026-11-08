@@ -2,7 +2,7 @@ import { getPublishedPosts } from '../posts';
 
 export const revalidate = 3600;
 
-const SITE_URL = 'https://solivanceelectric.com';
+const SITE_URL = 'https://www.solivanceelectric.com';
 
 function escapeXml(input: string): string {
   return input

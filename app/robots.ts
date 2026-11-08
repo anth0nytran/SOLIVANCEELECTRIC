@@ -42,6 +42,6 @@ export default function robots(): MetadataRoute.Robots {
                 allow: '/',
             },
         ],
-        sitemap: 'https://solivanceelectric.com/sitemap.xml',
+        sitemap: 'https://www.solivanceelectric.com/sitemap.xml',
     };
 }

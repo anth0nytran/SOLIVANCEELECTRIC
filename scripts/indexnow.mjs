@@ -3,9 +3,9 @@
 // hours instead of waiting weeks for a crawl.
 //
 // Run AFTER a production deploy:  node scripts/indexnow.mjs
-// The key file public/560c911d690222de7a992de6058ac6f5.txt must be live at https://solivanceelectric.com/560c911d690222de7a992de6058ac6f5.txt
+// The key file public/560c911d690222de7a992de6058ac6f5.txt must be live at https://www.solivanceelectric.com/560c911d690222de7a992de6058ac6f5.txt
 
-const HOST = 'solivanceelectric.com';
+const HOST = 'www.solivanceelectric.com';
 const KEY = '560c911d690222de7a992de6058ac6f5';
 
 const xml = await (await fetch(`https://${HOST}/sitemap.xml`)).text();

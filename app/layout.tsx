@@ -35,7 +35,7 @@ const monoFont = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://solivanceelectric.com'),
+  metadataBase: new URL('https://www.solivanceelectric.com'),
   title: {
     default: "Southwest Houston Commercial & Residential Electrician · Heights · Memorial Villages",
     template: "%s | Solivance Electric LLC",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Southwest Houston Electrician — Heights · Bellaire · Memorial Villages | Solivance Electric LLC",
     description: "Based on S Post Oak Rd (77045). Commercial & residential panel upgrades, standby generators, parking-lot lighting, EV chargers, warehouse builds across Southwest Houston, the Heights, Bellaire, and the Memorial Villages. Licensed & insured. 24hr emergency — (832) 965-9964.",
-    url: 'https://solivanceelectric.com',
+    url: 'https://www.solivanceelectric.com',
     siteName: 'Solivance Electric LLC',
     locale: 'en_US',
     type: 'website',
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     description: "Licensed Texas electrical contractor based on S Post Oak Rd (77045). Southwest Houston · Heights · Memorial Villages · Bellaire. 24hr emergency service.",
     images: ['/og-image.jpg'],
   },
-  authors: [{ name: 'Solivance Electric LLC', url: 'https://solivanceelectric.com' }],
+  authors: [{ name: 'Solivance Electric LLC', url: 'https://www.solivanceelectric.com' }],
   creator: 'Solivance Electric LLC',
   publisher: 'Solivance Electric LLC',
   category: 'Electrical Contractor',
@@ -124,10 +124,10 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": ["LocalBusiness", "ElectricalContractor"],
               "name": "Solivance Electric LLC",
-              "image": "https://solivanceelectric.com/og-image.jpg",
-              "logo": "https://solivanceelectric.com/logo/logo_horzontial.PNG",
-              "@id": "https://solivanceelectric.com",
-              "url": "https://solivanceelectric.com",
+              "image": "https://www.solivanceelectric.com/og-image.jpg",
+              "logo": "https://www.solivanceelectric.com/logo/logo_horzontial.PNG",
+              "@id": "https://www.solivanceelectric.com",
+              "url": "https://www.solivanceelectric.com",
               "telephone": "+18329659964",
               "email": "service@solivanceelectric.com",
               "description": "Licensed commercial & residential electrical contractor based on S Post Oak Rd (77045). Daily service across Southwest Houston, the Heights, Bellaire, and the Memorial Villages. Panel upgrades, standby generator installs, parking-lot lighting, EV chargers, warehouse electrical, RV park pedestals, and mobile home connections. 24-hour emergency response.",
@@ -226,7 +226,7 @@ export default function RootLayout({
               "@type": "WebSite",
               "name": "Solivance Electric LLC",
               "alternateName": ["Solivance Electric", "Solivance"],
-              "url": "https://solivanceelectric.com"
+              "url": "https://www.solivanceelectric.com"
             })
           }}
         />
@@ -236,13 +236,13 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "@id": "https://solivanceelectric.com/#organization",
+              "@id": "https://www.solivanceelectric.com/#organization",
               "name": "Solivance Electric LLC",
               "alternateName": ["Solivance Electric", "Solivance"],
-              "url": "https://solivanceelectric.com",
+              "url": "https://www.solivanceelectric.com",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://solivanceelectric.com/logo/logo_horzontial.PNG",
+                "url": "https://www.solivanceelectric.com/logo/logo_horzontial.PNG",
                 "width": 600,
                 "height": 400
               },

@@ -3,7 +3,7 @@ import { getPublishedPosts } from './blog/posts';
 import { serviceData } from './config';
 import { locationContent, locationOrder, locationImage } from './locations/locationContent';
 
-const BASE_URL = 'https://solivanceelectric.com';
+const BASE_URL = 'https://www.solivanceelectric.com';
 
 // Re-render hourly so scheduled blog posts enter the sitemap on their publish date.
 export const revalidate = 3600;

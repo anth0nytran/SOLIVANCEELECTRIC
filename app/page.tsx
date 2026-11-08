@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Solivance Electric | Houston Commercial & Residential Electrician',
     description: 'Panel upgrades, generator installs, parking lot lighting, EV chargers & commercial electrical services in Houston TX. Licensed & insured. 24hr emergency service.',
-    url: 'https://solivanceelectric.com',
+    url: 'https://www.solivanceelectric.com',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Solivance Electric LLC — Commercial Electrical Contractor in Houston TX' }],
   },
 };
