@@ -39,10 +39,10 @@ export const BIG_LOADS = [
   { id: 'water-heater', label: 'Electric water heater' },
   { id: 'stove', label: 'Electric stove / oven' },
   { id: 'dryer', label: 'Electric dryer' },
-  { id: 'pool', label: 'Pool or spa equipment' },
+  { id: 'pool', label: 'Pool or spa' },
   { id: 'ev', label: 'EV charger' },
   { id: 'well', label: 'Well pump' },
-  { id: 'electric-heat', label: 'Electric heat / heat pump' },
+  { id: 'electric-heat', label: 'Electric heat' },
 ] as const;
 
 export const FUELS = [
@@ -89,6 +89,9 @@ export interface EstimateResult {
   headline: string;
   explanation: string;
   models: Product[];
+  /** The model shown as "our pick for your home": a starting point, confirmed on site.
+   *  None for the specialist tier (that one needs a real load calc first). */
+  topPick?: Product;
   /** True whenever something is unknown or the load is complex. Almost always true. */
   reviewNeeded: boolean;
   /** Things Josh should check on site, in plain words. */
@@ -169,26 +172,35 @@ export function estimate(a: EstimatorAnswers): EstimateResult {
     essentials: {
       headline: `Homes like yours usually start around ${range}.`,
       explanation:
-        'For the essentials, a smaller air-cooled generator is often enough. We check your panel and appliances on a free site walk to confirm the exact size before you buy.',
+        'For the basics, a small generator is often enough. We come out for free and check your home to be sure.',
     },
     whole: {
       headline: `Homes like yours usually start around ${range}.`,
       explanation:
-        'Your AC is the biggest factor in the size you need, along with large electric items like a water heater. We check those on a free site walk so you don’t buy a generator that’s too small or bigger than you need.',
+        'Your AC is the biggest thing a generator has to run. We come out for free, check your AC and big appliances, and find the right size.',
     },
     large: {
       headline: `Your home likely needs the larger end: ${range}.`,
       explanation:
-        'More than one AC system or several big electric items can push you toward the top of the air-cooled line. We confirm the load on a free site walk, and power management can sometimes keep the size down.',
+        'Two AC units or lots of big appliances need a bigger generator. We come out for free and check your home. Sometimes we can keep the size down and save you money.',
     },
     specialist: {
       headline: 'Your home needs a closer look from an electrician.',
       explanation:
-        'Three or more AC systems, a very large home, electric heat, or an EV charger plus pool can go past the standard air-cooled line. Our licensed electricians will size it properly on a free site walk. These liquid-cooled models are where larger homes usually land.',
+        'Your home has a lot to power. We need to see it to size it right, and the visit is free. Big homes like yours often need one of these.',
     },
   };
 
-  return { version: ESTIMATOR_VERSION, tier, range, ...copy[tier], models, reviewNeeded, checkOnSite };
+  // Starting pick inside the range (DRAFT, Josh to approve with the tiers).
+  const pickId: Record<Tier, string | undefined> = {
+    essentials: a.ac === '0' ? '040746' : '040757', // PP13 with no AC, else PP18+
+    whole: '040787', // PP22+: middle of 18–26, headroom for one AC + a big appliance
+    large: '040807', // PP26+
+    specialist: undefined,
+  };
+  const topPick = models.find((m) => m.model === pickId[tier]);
+
+  return { version: ESTIMATOR_VERSION, tier, range, ...copy[tier], models, topPick, reviewNeeded, checkOnSite };
 }
 
 /** Plain-text answers for the CRM note and the alert. */

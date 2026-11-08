@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { kvDel, kvGet, kvMode, kvSet, kvSetNX } from '../../lib/kv';
 import { pushGeneratorLead, updateGeneratorDetails } from '../../lib/ghlGenerator';
 import { describeAnswers, estimate, parseAnswers, type EstimateResult } from '../../generators/estimator';
+import { products } from '../../generators/products';
 
 export const runtime = 'nodejs';
 
@@ -48,6 +49,7 @@ const publicResult = (r: EstimateResult) => ({
   headline: r.headline,
   explanation: r.explanation,
   modelIds: r.models.map((m) => m.model),
+  topPickId: r.topPick?.model,
   checkOnSite: r.checkOnSite,
 });
 
@@ -61,11 +63,14 @@ const noteFor = (title: string, id: string, answers: string[], r: EstimateResult
     `Estimator rules: ${r.version}`,
     `Preliminary range: ${r.range} (${r.tier})`,
     `Models shown: ${r.models.map((m) => m.name).join(', ')}`,
+    r.topPick ? `Our pick shown: ${r.topPick.name}` : '',
     ...answers,
     `Check on site: ${r.checkOnSite.join('; ')}`,
     'Preliminary only: exact size confirmed by a licensed electrician on site.',
     ...extra,
-  ].join('\n');
+  ]
+    .filter(Boolean)
+    .join('\n');
 
 export async function POST(req: Request) {
   let data: Record<string, unknown>;
@@ -100,7 +105,16 @@ export async function POST(req: Request) {
     const appointment = dayOk
       ? `${new Date(`${day}T12:00:00Z`).toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'short', month: 'short', day: 'numeric' })}${window ? ` - ${window}` : ''}`
       : undefined;
-    const lines = [...describeAnswers(answers), ...(appointment ? [`Site walk requested: ${appointment}`] : [])];
+    // What they looked at in the funnel: buying signals for the call.
+    const name = (id: unknown) => products.find((p) => p.model === id && (p.group === 'powerprotect' || p.group === 'fortress'))?.name;
+    const interest = name(data.interest);
+    const viewed = Array.isArray(data.viewed) ? Array.from(new Set(data.viewed.slice(0, 12).map(name).filter(Boolean))) : [];
+    const lines = [
+      ...describeAnswers(answers),
+      ...(appointment ? [`Site walk requested: ${appointment}`] : []),
+      ...(interest ? [`Interested in: ${interest}`] : []),
+      ...(viewed.length ? [`Looked at: ${viewed.join(', ')}`] : []),
+    ];
     try {
       await updateGeneratorDetails(
         rec.contactId,

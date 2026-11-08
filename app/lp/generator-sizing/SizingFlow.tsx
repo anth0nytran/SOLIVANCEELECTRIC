@@ -27,7 +27,7 @@ import {
 import { siteConfig } from '../../config';
 import { reviews } from '../../reviews';
 import { products, formatUsd } from '../../generators/products';
-import { ProductImage } from '../../generators/ProductImage';
+import { AllModels, ModelDetail, PickCards, byId } from './ModelViews';
 import { GoogleG, Stars } from '../_panel/Badges';
 import { captureAttribution, newSubmissionId, pushDataLayer, readAttribution } from '../../lib/tracking';
 import {
@@ -47,7 +47,7 @@ import {
 } from '../../generators/estimator';
 
 type View = 'goal' | 'ac' | 'contact' | 'result';
-type ServerResult = { tier: string; range: string; headline: string; explanation: string; modelIds: string[]; checkOnSite: string[] };
+type ServerResult = { tier: string; range: string; headline: string; explanation: string; modelIds: string[]; topPickId?: string; checkOnSite: string[] };
 
 const wrap = 'mx-auto w-full max-w-[640px] px-4 sm:px-6';
 const option =
@@ -129,6 +129,10 @@ export function SizingFlow() {
   const [booked, setBooked] = useState(false);
   const [exitPrompt, setExitPrompt] = useState(false);
   const [days, setDays] = useState<ReturnType<typeof nextDays>>([]);
+  // In-funnel browsing: a generator's detail screen, or the full list. Never leaves the page.
+  const [panel, setPanel] = useState<{ kind: 'detail'; id: string } | { kind: 'all' } | null>(null);
+  const [viewed, setViewed] = useState<string[]>([]);
+  const [interest, setInterest] = useState<string>();
 
   const submissionId = useRef('');
   const openedAt = useRef(0);
@@ -156,7 +160,7 @@ export function SizingFlow() {
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
-  }, [view]);
+  }, [view, panel]);
 
   const answers = (): EstimatorAnswers => ({ goal: goal!, ac: ac!, homeSize, loads: noLoads ? [] : loads.length ? loads : undefined, fuel, timeline });
 
@@ -212,7 +216,7 @@ export function SizingFlow() {
       const res = await fetch('/api/generator-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ step: 'details', submissionId: submissionId.current, answers: answers(), preferredDay: day, timeWindow }),
+        body: JSON.stringify({ step: 'details', submissionId: submissionId.current, answers: answers(), preferredDay: day, timeWindow, interest, viewed }),
       });
       const json = (await res.json().catch(() => ({}))) as { result?: ServerResult; siteWalk?: boolean };
       if (json.result) setResult(json.result);
@@ -224,6 +228,21 @@ export function SizingFlow() {
   }
 
   const toSchedule = () => scheduleRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const openModel = (id: string) => {
+    setPanel({ kind: 'detail', id });
+    setViewed((v) => (v.includes(id) ? v : [...v, id]));
+    pushDataLayer({ event: 'generator_model_view', model: id });
+  };
+  const openAll = () => {
+    setPanel({ kind: 'all' });
+    pushDataLayer({ event: 'generator_all_models_view' });
+  };
+  // Every "book" button: remember what they liked, go back to results, land on the booking card.
+  const bookFor = (id?: string) => {
+    if (id) setInterest(id);
+    setPanel(null);
+    setTimeout(toSchedule, 60);
+  };
   const toggleLoad = (id: BigLoad) => {
     setNoLoads(false);
     setLoads((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]));
@@ -233,6 +252,8 @@ export function SizingFlow() {
   const range = live && result ? live.range : result?.range;
   const modelIds = live && result ? live.models.map((m) => m.model) : result?.modelIds || [];
   const models = modelIds.map((id) => products.find((p) => p.model === id)).filter(Boolean) as typeof products;
+  const pickId = live && result ? live.topPick?.model : result?.topPickId;
+  const pick = byId(pickId);
   const stepNo = view === 'goal' ? 1 : view === 'ac' ? 2 : 3;
   const picked = days.find((d) => d.ymd === day);
   const dayLabel = picked ? `${picked.dow}, ${picked.mon} ${picked.dom}` : '';
@@ -283,7 +304,7 @@ export function SizingFlow() {
                 {view === 'contact' ? 'Your generator size is ready.' : 'What size generator does your home need?'}
               </h1>
               <p className="mt-2.5 text-[1rem] leading-relaxed text-white/75">
-                {view === 'contact' ? 'Tell us where to send it. You’ll see it on the next screen.' : 'Answer 2 quick questions. See which standby generators fit your home.'}
+                {view === 'contact' ? 'Tell us where to send it. You’ll see it on the next screen.' : 'Answer 2 quick questions. See which generators fit your home.'}
               </p>
             </div>
           </section>
@@ -314,7 +335,7 @@ export function SizingFlow() {
               {view === 'ac' && (
                 <>
                   <h2 className="text-[1.2rem] font-semibold leading-snug sm:text-[1.35rem]">How many AC units does your home have?</h2>
-                  <p className="mt-1 text-[0.92rem] text-[#5A6B7F]">Count the outdoor units. AC is the biggest factor in generator size.</p>
+                  <p className="mt-1 text-[0.92rem] text-[#5A6B7F]">Count the big boxes outside. AC is the biggest thing a generator runs.</p>
                   <div className="mt-4 grid grid-cols-2 gap-3">
                     {AC_COUNTS.map((a) => (
                       <button
@@ -336,7 +357,7 @@ export function SizingFlow() {
                   <div className="flex items-center gap-3 rounded-2xl border border-[#E3E6EA] bg-[#F8FAFB] p-4">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E8F3EC] text-[#1F7A4D]"><Check className="h-5 w-5" /></span>
                     <div className="min-w-0 flex-1">
-                      <p className="text-[0.8rem] font-medium text-[#5A6B7F]">Your recommended range</p>
+                      <p className="text-[0.8rem] font-medium text-[#5A6B7F]">Your size</p>
                       <p className="select-none text-[1.4rem] font-bold tracking-tight blur-[7px]" aria-hidden>{live?.range.match(/^.*?kW/)?.[0] ?? '18–26 kW'}</p>
                     </div>
                     <Lock className="h-5 w-5 shrink-0 text-[#9AA5B1]" aria-hidden />
@@ -352,7 +373,7 @@ export function SizingFlow() {
                       <input id="gs-phone" className={field} type="tel" inputMode="tel" autoComplete="tel" placeholder="(713) 555-0123" value={phone} onChange={(e) => setPhone(e.target.value)} />
                     </div>
                     <div>
-                      <label htmlFor="gs-zip" className={label}>ZIP code <span className="font-normal text-[#5A6B7F]">(to confirm we serve your area)</span></label>
+                      <label htmlFor="gs-zip" className={label}>ZIP code <span className="font-normal text-[#5A6B7F]">(so we know we can come to you)</span></label>
                       <input id="gs-zip" className={field} inputMode="numeric" autoComplete="postal-code" maxLength={5} placeholder="77096" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, ''))} />
                     </div>
                     <input tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
@@ -365,7 +386,7 @@ export function SizingFlow() {
 
                     <p className="flex items-start justify-center gap-1.5 text-center text-[0.82rem] leading-snug text-[#5A6B7F]">
                       <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
-                      Only used to send your result and set up your free site walk.
+                      We only use this to send your size and set up your free visit.
                     </p>
 
                     <label className="flex items-start gap-2.5 rounded-xl bg-[#F8FAFB] p-3 text-[0.72rem] leading-snug text-[#5A6B7F]">
@@ -382,7 +403,7 @@ export function SizingFlow() {
                   <div className="mt-5 flex items-center gap-3 border-t border-[#EEF0F3] pt-5">
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0A1322] text-white"><ShieldCheck className="h-5 w-5" aria-hidden /></span>
                     <p className="text-[0.88rem] leading-snug text-[#4A5A6C]">
-                      <b className="text-[#0A1322]">Reviewed by our licensed electricians.</b> Our team looks at every estimate and follows up to confirm your exact size.
+                      <b className="text-[#0A1322]">Real electricians check every answer.</b> We’ll call or text to find your exact size.
                     </p>
                   </div>
                 </form>
@@ -402,62 +423,67 @@ export function SizingFlow() {
         </>
       )}
 
-      {view === 'result' && result && (
+      {view === 'result' && result && panel && (
+        <main className={`${wrap} pb-32 pt-6 sm:pb-16`}>
+          {panel.kind === 'detail' && byId(panel.id) ? (
+            <ModelDetail
+              p={byId(panel.id)!}
+              isPick={panel.id === pickId}
+              inRange={modelIds.includes(panel.id)}
+              pickId={pickId}
+              rangeIds={modelIds}
+              viewed={viewed.length}
+              first={first}
+              onBack={() => setPanel(null)}
+              onBook={bookFor}
+              onAll={openAll}
+              onOpen={openModel}
+            />
+          ) : (
+            <AllModels pickId={pickId} rangeIds={modelIds} viewed={viewed.length} first={first} onBack={() => setPanel(null)} onOpen={openModel} onBook={() => bookFor()} />
+          )}
+        </main>
+      )}
+
+      {view === 'result' && result && !panel && (
         <>
           {/* 1. The answer */}
           <section className="bg-[#0A1322] pb-10 pt-8 text-white sm:pb-14 sm:pt-12">
             <div className={wrap}>
-              <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#FDBA74]">{first ? `${first}, your` : 'Your'} preliminary size</p>
+              <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#FDBA74]">{first ? `${first}, here’s your size` : 'Here’s your size'}</p>
               <p className="mt-3 text-[3rem] font-bold leading-none tracking-[-0.03em] sm:text-[4rem]">{rangeNum}</p>
               {rangeRest && <p className="mt-1.5 text-[1rem] font-medium text-white/75">{rangeRest}</p>}
               <p className="mt-4 text-[1rem] leading-relaxed text-white/75">{result.explanation}</p>
               <button type="button" onClick={toSchedule} className={`${cta} mt-6`}>
-                <CalendarCheck className="h-5 w-5" /> Book my free site walk
+                <CalendarCheck className="h-5 w-5" /> Book my free visit
               </button>
-              <p className="mt-3 text-center text-[0.82rem] text-white/60">Our licensed electricians confirm the exact size and give you one fixed install price.</p>
+              <p className="mt-3 text-center text-[0.82rem] text-white/60">We come out for free, find the exact size, and give you one set price.</p>
             </div>
           </section>
 
           <main className={`${wrap} grid grid-cols-[minmax(0,1fr)] gap-8 pb-32 pt-8 sm:pb-16`}>
-            {/* 2. Models */}
-            <section>
-              <p className={eyebrow}>Generators in your range</p>
-              <div className="mt-3 grid gap-3">
-                {models.map((p) => (
-                  <div key={p.model} className="flex items-center gap-4 rounded-2xl bg-white p-3 pr-4 shadow-[0_1px_2px_rgba(10,19,34,0.06)]">
-                    <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-[#F5F6F8] p-2">
-                      <ProductImage src={p.image} alt={`Briggs & Stratton ${p.name}`} className="h-full w-full" sizes="96px" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[1rem] font-semibold leading-tight">{p.name}</p>
-                      <p className="mt-1 text-[0.85rem] text-[#5A6B7F]">{p.kw} · propane / natural gas</p>
-                      <p className="text-[0.85rem] text-[#5A6B7F]">{p.warrantyYears}-year warranty</p>
-                      <p className="mt-1.5 text-[1.05rem] font-bold tabular-nums">
-                        {formatUsd(p.map)} <span className="text-[0.75rem] font-normal text-[#5A6B7F]">unit only</span>
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-3 text-[0.78rem] leading-snug text-[#5A6B7F]">
-                Preliminary guidance, not a load calculation. Installation is quoted after a licensed electrician confirms the size on site.
-              </p>
-            </section>
+            {/* 2. The prize: our pick, then the rest. Every card opens a screen inside the funnel. */}
+            <PickCards pick={pick} others={models.filter((x) => x.model !== pickId)} onOpen={openModel} onAll={openAll} />
 
             {/* 3. The one action */}
             <section ref={scheduleRef} id="schedule" className="scroll-mt-20 rounded-3xl bg-white p-5 shadow-[0_20px_50px_-24px_rgba(10,19,34,0.35)] ring-2 ring-[#0A1322] sm:p-7">
               {booked ? (
                 <div className="py-2 text-center">
                   <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#E8F3EC] text-[#1F7A4D]"><CalendarCheck className="h-7 w-7" /></span>
-                  <h2 className="mt-3 text-[1.4rem] font-bold">Site walk requested{dayLabel ? ` for ${dayLabel}` : ''}</h2>
-                  <p className="mt-1.5 text-[0.98rem] text-[#4A5A6C]">Our team will reach out to confirm your time. Need it sooner?</p>
+                  <h2 className="mt-3 text-[1.4rem] font-bold">Got it! You picked {dayLabel || 'a day'}.</h2>
+                  <p className="mt-1.5 text-[0.98rem] text-[#4A5A6C]">We’ll call or text to set the time. Need us sooner?</p>
                   <a href={`tel:${siteConfig.cleanPhone}`} className={`${cta} mt-5`}><Phone className="h-5 w-5" /> Call {siteConfig.phone}</a>
                 </div>
               ) : (
                 <>
                   <p className={eyebrow}>Next step</p>
-                  <h2 className="mt-1.5 text-[1.45rem] font-bold leading-tight">Book your free generator site walk</h2>
-                  <p className="mt-1 text-[0.95rem] text-[#4A5A6C]">Pick a day. Our team confirms the exact time with you.</p>
+                  <h2 className="mt-1.5 text-[1.45rem] font-bold leading-tight">Book your free visit</h2>
+                  <p className="mt-1 text-[0.95rem] text-[#4A5A6C]">Pick a day. We’ll call or text to set the time.</p>
+                  {interest && byId(interest) && (
+                    <p className="mt-3 rounded-xl bg-[#E8F3EC] px-3.5 py-2.5 text-[0.9rem] text-[#1F5132]">
+                      <Check className="mr-1 inline h-4 w-4" /> We’ll check if the <b>{byId(interest)!.name}</b> fits your home.
+                    </p>
+                  )}
 
                   <div className="-mx-1 mt-5 flex snap-x gap-2 overflow-x-auto px-1 pb-1">
                     {days.map((d) => {
@@ -486,7 +512,7 @@ export function SizingFlow() {
 
                   <details className="group mt-4 rounded-2xl border border-[#E3E6EA] p-4">
                     <summary className="flex cursor-pointer list-none items-center justify-between text-[0.95rem] font-semibold">
-                      Optional: help our team come prepared
+                      Optional: tell us a little more
                       <ArrowRight className="h-4 w-4 rotate-90 text-[#9AA5B1] transition-transform group-open:-rotate-90" />
                     </summary>
                     <div className="mt-4 grid gap-4">
@@ -502,21 +528,21 @@ export function SizingFlow() {
                         </div>
                       </div>
                       <div>
-                        <p className="mb-2 text-[0.85rem] font-semibold text-[#4A5A6C]">Generator fuel</p>
+                        <p className="mb-2 text-[0.85rem] font-semibold text-[#4A5A6C]">What gas do you have?</p>
                         <div className="flex flex-wrap gap-2">{FUELS.map((f) => <button key={f.id} type="button" className={chip(fuel === f.id)} onClick={() => setFuel(f.id)}>{f.label}</button>)}</div>
                       </div>
                       <div>
-                        <p className="mb-2 text-[0.85rem] font-semibold text-[#4A5A6C]">When do you want it installed?</p>
+                        <p className="mb-2 text-[0.85rem] font-semibold text-[#4A5A6C]">When do you want it?</p>
                         <div className="flex flex-wrap gap-2">{TIMELINES.map((t) => <button key={t} type="button" className={chip(timeline === t)} onClick={() => setTimeline(t)}>{t}</button>)}</div>
                       </div>
-                      {live && <p className="rounded-xl bg-[#F5F6F8] px-3 py-2 text-[0.88rem]">Updated estimate: <b>{live.range}</b></p>}
+                      {live && <p className="rounded-xl bg-[#F5F6F8] px-3 py-2 text-[0.88rem]">Your new size: <b>{live.range}</b></p>}
                     </div>
                   </details>
 
                   <button type="button" disabled={!day || booking} onClick={requestSiteWalk} className={`${cta} mt-5`}>
-                    {booking ? 'One moment…' : day ? <><CalendarCheck className="h-5 w-5" /> Book my site walk{dayLabel ? `: ${dayLabel}` : ''}</> : 'Pick a day above'}
+                    {booking ? 'One moment…' : day ? <><CalendarCheck className="h-5 w-5" /> Book my free visit{dayLabel ? `: ${dayLabel}` : ''}</> : 'Pick a day above'}
                   </button>
-                  <p className="mt-2.5 text-center text-[0.8rem] text-[#5A6B7F]">Free · No obligation · Licensed {siteConfig.license.label}</p>
+                  <p className="mt-2.5 text-center text-[0.8rem] text-[#5A6B7F]">Free · No cost · Licensed {siteConfig.license.label}</p>
                 </>
               )}
             </section>
@@ -555,12 +581,12 @@ export function SizingFlow() {
             </section>
 
             <section className="rounded-3xl bg-white p-5 shadow-[0_1px_2px_rgba(10,19,34,0.06)] sm:p-7">
-              <p className={eyebrow}>How the site walk works</p>
+              <p className={eyebrow}>How the free visit works</p>
               <ol className="mt-4 grid gap-4">
                 {[
-                  { t: 'We check your home', d: 'Panel, AC units, big appliances, and your gas meter or propane.' },
-                  { t: 'You get the exact size', d: 'The generator that runs what you want, without paying for more than you need.' },
-                  { t: 'One fixed install price', d: 'Generator, transfer switch, permit, and startup in one written quote.' },
+                  { t: 'We check your home', d: 'Your panel, AC, big appliances, and gas.' },
+                  { t: 'You get the right size', d: 'The one that runs what you want. You don’t pay for more than you need.' },
+                  { t: 'You get one set price', d: 'Generator, switch, permit, and start-up. All in one price, in writing.' },
                 ].map(({ t, d }, i) => (
                   <li key={t} className="flex gap-3.5">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0A1322] text-[0.85rem] font-bold text-white">{i + 1}</span>
@@ -569,43 +595,46 @@ export function SizingFlow() {
                 ))}
               </ol>
               {!booked && (
-                <button type="button" onClick={toSchedule} className={`${cta} mt-6`}><CalendarCheck className="h-5 w-5" /> Book my free site walk</button>
+                <button type="button" onClick={toSchedule} className={`${cta} mt-6`}><CalendarCheck className="h-5 w-5" /> Book my free visit</button>
               )}
             </section>
 
             <p className="text-center text-[0.75rem] leading-snug text-[#5A6B7F]">*Financing through Synchrony, subject to credit approval. Prices are Briggs &amp; Stratton MAP, equipment only.</p>
           </main>
-
-          {!booked && (
-            <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#E6E8EC] bg-white/95 px-4 py-3 backdrop-blur sm:hidden">
-              <div className="flex gap-2">
-                <a href={`tel:${siteConfig.cleanPhone}`} aria-label={`Call ${siteConfig.phone}`} className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[#CDD3DA]">
-                  <Phone className="h-5 w-5" />
-                </a>
-                <button type="button" onClick={toSchedule} className={cta}><CalendarCheck className="h-5 w-5" /> Book free site walk</button>
-              </div>
-            </div>
-          )}
         </>
+      )}
+
+      {/* Sticky book bar on phones: on the results AND inside every generator screen. */}
+      {view === 'result' && result && !booked && (
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#E6E8EC] bg-white/95 px-4 py-3 backdrop-blur sm:hidden">
+          <div className="flex gap-2">
+            <a href={`tel:${siteConfig.cleanPhone}`} aria-label={`Call ${siteConfig.phone}`} className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[#CDD3DA]">
+              <Phone className="h-5 w-5" />
+            </a>
+            <button type="button" onClick={() => bookFor(panel?.kind === 'detail' ? panel.id : undefined)} className={cta}>
+              <CalendarCheck className="h-5 w-5" /> Book my free visit
+            </button>
+          </div>
+        </div>
       )}
 
       {exitPrompt && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-[#0A1322]/60 sm:items-center sm:p-4" onClick={() => setExitPrompt(false)}>
           <div role="dialog" aria-modal="true" aria-labelledby="exit-title" onClick={(e) => e.stopPropagation()} className="w-full max-w-md rounded-t-3xl bg-white p-6 pb-8 sm:rounded-3xl">
             <h2 id="exit-title" className="text-[1.3rem] font-bold leading-tight">
-              {leadDone.current ? (booked ? 'You’re all set.' : 'Leave without booking your free site walk?') : 'Your generator size is almost ready.'}
+              {leadDone.current ? (booked ? 'You’re all set.' : 'Leave without your free visit?') : 'Your size is almost ready.'}
             </h2>
             <p className="mt-2 text-[0.98rem] leading-relaxed text-[#4A5A6C]">
               {leadDone.current
                 ? booked
-                  ? 'Our team will reach out to confirm your site walk.'
-                  : 'It’s free, and it’s the only way to know the exact size before you spend thousands on a generator.'
-                : 'You’re one step away from seeing which generators fit your home. Free, no obligation.'}
+                  ? 'We’ll call or text to set your time.'
+                  : 'It’s free. It’s the only way to know the right size before you spend thousands.'
+                : 'You’re one step away. It’s free.'}
             </p>
             <div className="mt-6 grid gap-2">
               {!booked && (
                 <button type="button" onClick={() => { setExitPrompt(false); if (leadDone.current) toSchedule(); }} className={cta}>
-                  {leadDone.current ? 'Book my free site walk' : 'Finish my estimate'}
+                  {leadDone.current ? 'Book my free visit' : 'See my size'}
                 </button>
               )}
               <a href="/generators" className="py-3 text-center text-[0.92rem] font-medium text-[#5A6B7F] underline underline-offset-2">

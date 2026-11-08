@@ -14,7 +14,7 @@ export function SizingBand() {
             <Zap className="h-4 w-4" /> Free 20-second estimate
           </div>
           <h2 className="mt-2 text-[1.6rem] font-bold leading-tight text-white sm:text-[2rem]">Not sure what size generator you need?</h2>
-          <p className="mt-1.5 text-[1rem] text-white/75">Answer two questions and see which generators fit your home. A licensed electrician confirms it for free.</p>
+          <p className="mt-1.5 text-[1rem] text-white/75">Answer 2 quick questions. See which generators fit your home. It’s free.</p>
         </div>
         <Link
           href={SIZING_HREF}
