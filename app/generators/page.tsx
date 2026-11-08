@@ -8,6 +8,7 @@ import { BrandLogo } from '../components/BrandLogo';
 import { CtaBackdrop } from '../components/CtaBackdrop';
 import { ProductImage } from './ProductImage';
 import { LineNav } from './LineNav';
+import { SizingBand, SIZING_HREF } from './SizingPromo';
 import { PRICE_LIST_EFFECTIVE, formatUsd, productGroups, products, productsIn, type Product, type ProductGroup } from './products';
 import { brandOf, fullName, productHref } from './details';
 
@@ -140,12 +141,12 @@ export default function GeneratorsPage() {
               install it for one fixed price.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#powerprotect"
+              <Link
+                href={SIZING_HREF}
                 className="inline-flex h-14 items-center justify-center gap-2 rounded-lg bg-[var(--onestop-red)] px-8 text-[1.02rem] font-bold text-white hover:bg-[#e55f15] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-[var(--onestop-navy-deep)]"
               >
-                See all generators
-              </a>
+                Find my generator size <ArrowRight className="h-5 w-5" aria-hidden />
+              </Link>
               <a
                 href={`tel:${siteConfig.cleanPhone}`}
                 className="inline-flex h-14 items-center justify-center gap-2 rounded-lg border-2 border-[var(--onestop-navy-deep)] px-8 text-[1.02rem] font-bold text-[var(--onestop-navy-deep)] hover:bg-[var(--onestop-navy-deep)] hover:text-white transition-colors"
@@ -168,6 +169,8 @@ export default function GeneratorsPage() {
           </Link>
         </div>
       </section>
+
+      <SizingBand />
 
       <LineNav items={productGroups.map((g) => ({ id: g.id, label: navLabel[g.id], count: productsIn(g.id).length }))} />
 
@@ -202,6 +205,8 @@ export default function GeneratorsPage() {
           </p>
         </div>
       </section>
+
+      <SizingBand />
 
       {/* ── FAQ ── */}
       <section aria-labelledby="faq-h" className="border-t border-slate-200 bg-white py-14 sm:py-16">
