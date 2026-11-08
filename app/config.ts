@@ -329,6 +329,7 @@ export const navLinks: NavLink[] = [
     href: '/locations',
     children: [
       { label: 'Southwest Houston', href: '/locations/southwest-houston', description: 'Westbury · Meyerland · Med Center · 77045.',  icon: 'map-pin' },
+      { label: 'Meyerland',         href: '/locations/meyerland',         description: 'Meyerland · Westbury · Willow Meadows · 77096.', icon: 'map-pin' },
       { label: 'The Heights',       href: '/locations/heights',           description: 'Heights · Garden Oaks · Oak Forest.',         icon: 'map-pin' },
       { label: 'Bellaire',          href: '/locations/bellaire',          description: 'Bellaire · West University · Braeswood.',     icon: 'map-pin' },
       { label: 'Memorial Villages', href: '/locations/memorial-villages', description: 'Hunters Creek · Spring Valley · Piney Point.',icon: 'map-pin' },

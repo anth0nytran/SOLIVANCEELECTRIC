@@ -8,6 +8,7 @@ export interface LocationContent {
   zipCodes: string[];
   neighborhoods: string;
   ahjNotes: string;
+  image?: string;       // defaults to /photos_new/{slug}.jpg
   projects: { scope: string; building: string; days: string }[];
   faqs: { q: string; a: string }[];
 }
@@ -334,10 +335,56 @@ export const locationContent: Record<string, LocationContent> = {
       },
     ],
   },
+  // Search Console (May–Nov 2026) showed ~300 impressions for "meyerland electrician",
+  // "electrician meyerland tx", "electrical company meyerland tx" etc. with no page to rank.
+  // No project list here on purpose: only add jobs Josh confirms actually happened.
+  meyerland: {
+    slug: 'meyerland',
+    name: 'Meyerland',
+    fullName: 'Meyerland, Houston, TX',
+    positionLine: 'Meyerland · Westbury · Willow Meadows · Braeswood · 77096',
+    image: '/photos_new/southwest-houston.jpg',
+    heroLede:
+      'Solivance Electric is a licensed electrician for Meyerland homes and businesses, based five minutes away at 13035 S Post Oak Rd (77045). Panel upgrades, meter and service relocation on raised homes, standby generators, EV chargers, and commercial work along the 610 and Beechnut corridor. TECL #41163.',
+    description:
+      'Meyerland sits along Brays Bayou inside the City of Houston, and the flooding of 2015, 2016, and Harvey in 2017 changed the housing stock here more than anywhere else in Southwest Houston. Many homes were raised or torn down and rebuilt, and older ranch homes that stayed are often still on their original 100A or 150A service. That mix drives most of the electrical work we see in Meyerland: service upgrades to 200A or larger, meter and service-entrance relocation when a house is elevated, whole-home standby generators, and Level 2 EV chargers. On the commercial side, the retail and office along Loop 610, Beechnut, and S Post Oak need panel work, parking lot lighting, and tenant finish-out. The shop is on S Post Oak Rd in 77045, so Meyerland is one of the closest neighborhoods we serve.',
+    zipCodes: ['77096', '77035', '77025', '77071'],
+    neighborhoods:
+      'Meyerland · Westbury · Willow Meadows · Willowbend · Maplewood · Marilyn Estates · Braeswood Place · Fondren Southwest',
+    ahjNotes:
+      'Meyerland and the surrounding neighborhoods are City of Houston AHJ, so permits go through the Houston Permitting Center and inspections are booked on the city portal. Bellaire, right next door, is its own city with its own permit office. CenterPoint Energy is the utility and handles the disconnect and reconnect whenever a service is upgraded or a meter is moved on a raised home. We confirm the jurisdiction by address before the quote is final.',
+    projects: [],
+    faqs: [
+      {
+        q: 'Is there a licensed electrician near Meyerland?',
+        a: 'Yes. Solivance Electric LLC is based at 13035 S Post Oak Rd Suite I, Houston, TX 77045, about five minutes from Meyerland. We hold Texas Electrical Contractor License TECL #41163 and serve Meyerland, Westbury, Willow Meadows, and Braeswood every week. Call (832) 965-9964, 24 hours for emergencies.',
+      },
+      {
+        q: 'My Meyerland house was raised. Does the electrical service need to move?',
+        a: 'Usually yes. When a home is elevated, the meter, service entrance, and often the main panel have to be relocated to the new height and brought up to current code. We pull the City of Houston permit, coordinate the disconnect and reconnect with CenterPoint, and get the inspection passed so the power company can restore service.',
+      },
+      {
+        q: 'Can you upgrade an older 100A panel in a Meyerland ranch home?',
+        a: 'Yes. Many original Meyerland and Westbury homes are still on 100A or 150A service, which is not enough for modern HVAC, a kitchen remodel, or an EV charger. A typical upgrade moves the home to 200A with a new panel and meter base. We quote it after an on-site look and pull the permit ourselves.',
+      },
+      {
+        q: 'Do you install standby generators in Meyerland?',
+        a: 'Yes. We install whole-home standby generators with an automatic transfer switch, including the permit, gas connection coordination, and startup. Financing is available on generator installs.',
+      },
+      {
+        q: 'Do you do commercial electrical work in Meyerland?',
+        a: 'Yes. We handle panel upgrades, parking lot lighting and LED retrofits, EV charging, and tenant finish-out for retail, office, and medical spaces along Loop 610, Beechnut, and S Post Oak Rd.',
+      },
+    ],
+  },
 };
 
 export function getLocationContent(slug: string): LocationContent | null {
   return locationContent[slug] || null;
 }
 
-export const locationOrder = ['southwest-houston', 'heights', 'bellaire', 'memorial-villages', 'houston', 'memorial', 'katy', 'cypress'];
+export function locationImage(loc: LocationContent): string {
+  return loc.image ?? `/photos_new/${loc.slug}.jpg`;
+}
+
+export const locationOrder = ['southwest-houston', 'meyerland', 'heights', 'bellaire', 'memorial-villages', 'houston', 'memorial', 'katy', 'cypress'];

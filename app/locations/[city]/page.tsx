@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { siteConfig, serviceData } from '../../config';
 import { serviceContent, type ServiceIcon } from '../../services/serviceContent';
-import { locationContent, getLocationContent } from '../locationContent';
+import { locationContent, getLocationContent, locationImage } from '../locationContent';
 import { reviews } from '../../reviews';
 import { Stars } from '../../components/Stars';
 import { CarePlanCard } from '../../components/CarePlanUpsell';
@@ -60,10 +60,12 @@ export async function generateMetadata(
   const { city } = await params;
   const loc = getLocationContent(city);
   if (!loc) return { title: 'Location Not Found' };
-  const title = `Commercial Electrician in ${loc.fullName}`;
+  // GSC queries are "meyerland electrician", "electrician bellaire", "southwest houston
+  // electrician": lead with "<Area> Electrician", keep commercial + residential both in.
+  const title = `${loc.name} Electrician | Commercial & Residential | Solivance Electric`;
   const description = loc.heroLede;
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: { canonical: `/locations/${city}` },
     openGraph: {
@@ -129,7 +131,7 @@ export default async function LocationDetailPage({
       <section className="page-hero">
         <div className="absolute inset-0 z-0">
           <Image
-            src={`/photos_new/${loc.slug}.jpg`}
+            src={locationImage(loc)}
             alt={`${loc.name} electrician — Solivance Electric commercial and residential service`}
             fill
             sizes="100vw"
@@ -154,7 +156,7 @@ export default async function LocationDetailPage({
           </div>
 
           <h1 className="h-display text-white max-w-4xl">
-            Commercial Electrician in {loc.name}
+            Electrician in {loc.name}: Commercial &amp; Residential
           </h1>
           <p className="mt-5 max-w-2xl text-[0.98rem] sm:text-base text-white/80 leading-[1.7]">
             {loc.heroLede}
@@ -264,7 +266,8 @@ export default async function LocationDetailPage({
                 </div>
               </div>
 
-              {/* Recent projects */}
+              {/* Recent projects (hidden when a location has no confirmed jobs) */}
+              {loc.projects.length > 0 && (
               <div className="mt-14">
                 <h3 className="text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[var(--onestop-navy-deep)] mb-5">
                   Recent work in {loc.name}
@@ -295,6 +298,7 @@ export default async function LocationDetailPage({
                   ))}
                 </div>
               </div>
+              )}
 
               {/* FAQ */}
               <div className="mt-14">
@@ -320,7 +324,7 @@ export default async function LocationDetailPage({
               {/* City photo */}
               <div className="relative aspect-[4/3] rounded-md overflow-hidden bg-[var(--onestop-navy-deep)]">
                 <Image
-                  src={`/photos_new/${loc.slug}.jpg`}
+                  src={locationImage(loc)}
                   alt={loc.fullName}
                   fill
                   sizes="(min-width: 1024px) 340px, 100vw"

@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { siteConfig, serviceData } from '../../config';
 import { serviceContent, getServiceContent, type ServiceIcon } from '../serviceContent';
+import { serviceSeo } from '../serviceSeo';
 import { reviews } from '../../reviews';
 import { Stars } from '../../components/Stars';
 import { CarePlanCard } from '../../components/CarePlanUpsell';
@@ -75,10 +76,11 @@ export async function generateMetadata(
   const service = serviceData.find((s) => s.slug === slug);
   if (!content || !service) return { title: 'Service Not Found' };
 
-  const title = `${service.title} in Greater Houston`;
-  const description = content.heroLede;
+  const seo = serviceSeo[slug];
+  const title = seo?.title ?? `${service.title} in Houston, TX`;
+  const description = seo?.description ?? content.heroLede;
   return {
-    title,
+    title: { absolute: title },
     description,
     alternates: { canonical: `/services/${slug}` },
     openGraph: {
@@ -209,7 +211,7 @@ export default async function ServiceDetailPage({
           </div>
 
           <h1 className="h-display text-white max-w-4xl">
-            {service.title}
+            {serviceSeo[slug]?.h1 ?? service.title}
           </h1>
           <p className="mt-5 text-[0.98rem] sm:text-base text-white/80 leading-[1.7] max-w-2xl">
             {content.heroLede}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, MapPin, Phone } from 'lucide-react';
 import { siteConfig } from '../config';
-import { locationContent, locationOrder } from './locationContent';
+import { locationContent, locationOrder, locationImage } from './locationContent';
 
 export const metadata: Metadata = {
   title: 'Service Areas — Southwest Houston · Heights · Bellaire · Memorial Villages',
@@ -102,7 +102,7 @@ export default function LocationsIndexPage() {
                 {/* City photo */}
                 <div className="relative aspect-[16/7] overflow-hidden bg-[var(--onestop-navy-deep)]">
                   <Image
-                    src={`/photos_new/${loc.slug}.jpg`}
+                    src={locationImage(loc)}
                     alt={loc.fullName}
                     fill
                     sizes="(min-width: 640px) 50vw, 100vw"

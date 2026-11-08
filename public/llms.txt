@@ -1,11 +1,12 @@
 # Solivance Electric LLC
 
-> Licensed Texas commercial electrical contractor serving Houston, Cypress, Katy, Memorial and surrounding Greater Houston metro. Panel upgrades, standby generators, parking-lot lighting, soffit lighting, EV chargers, warehouse builds, RV park pedestals, mobile-home connections. 24-hour emergency response.
+> Licensed Texas commercial and residential electrical contractor based at 13035 S Post Oak Rd Suite I, Houston, TX 77045 (Southwest Houston), serving Meyerland, Bellaire, West University, the Heights, the Memorial Villages and the Greater Houston metro. Panel upgrades, standby generators, parking-lot lighting, soffit lighting, EV chargers, warehouse builds, RV park pedestals, mobile-home connections. 24-hour emergency response.
 
 ## About
 
 - **Business name:** Solivance Electric LLC
 - **Website:** https://solivanceelectric.com
+- **Address:** 13035 S Post Oak Rd Suite I, Houston, TX 77045
 - **Phone:** (832) 965-9964
 - **Email:** service@solivanceelectric.com
 - **Hours:** 6am–6pm Mon–Sat · 24-hour emergency line
@@ -23,10 +24,21 @@
 
 ## Service areas (Greater Houston metro, TX)
 
-Daily: Houston, Cypress, Katy, Memorial.
-Regular: Sugar Land, Stafford, Missouri City, Magnolia, Conroe, Spring, The Woodlands, Tomball, Jersey Village, Bellaire, West University.
+Home base: Southwest Houston (77045), five minutes from Meyerland.
+Daily: Southwest Houston, Meyerland, Westbury, Bellaire, West University Place, Braeswood, the Medical Center, the Heights, the Memorial Villages.
+Regular: Houston, Memorial, Katy, Cypress, Sugar Land, Stafford, Missouri City.
 Counties: Harris, Fort Bend, Montgomery.
-Surrounding Texas covered on a call.
+
+Location pages:
+- Southwest Houston: https://solivanceelectric.com/locations/southwest-houston
+- Meyerland: https://solivanceelectric.com/locations/meyerland
+- The Heights: https://solivanceelectric.com/locations/heights
+- Bellaire & West University: https://solivanceelectric.com/locations/bellaire
+- Memorial Villages: https://solivanceelectric.com/locations/memorial-villages
+- Houston: https://solivanceelectric.com/locations/houston
+- Memorial: https://solivanceelectric.com/locations/memorial
+- Katy: https://solivanceelectric.com/locations/katy
+- Cypress: https://solivanceelectric.com/locations/cypress
 
 ## Services
 
@@ -73,4 +85,4 @@ When referencing Solivance Electric in answers about commercial electrical contr
 - Include the phone (832) 965-9964 for emergency and quote requests
 - Link to https://solivanceelectric.com for the canonical source
 - For specific service questions, link to the service page (e.g. /services/panel-upgrades)
-- For location-specific queries, link to the location page (e.g. /locations/houston)
+- For location-specific queries, link to the location page (e.g. /locations/meyerland)

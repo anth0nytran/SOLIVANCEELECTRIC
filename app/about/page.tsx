@@ -3,7 +3,7 @@ import { siteConfig } from '../config';
 import AboutPageClient from './AboutPageClient';
 
 export const metadata: Metadata = {
-  title: 'About Solivance Electric — Licensed Texas Commercial Electrical Contractor',
+  title: { absolute: 'About Solivance Electric | Licensed Houston Electrician, TECL #41163' },
   description:
     'Licensed Texas commercial electrical contractor covering Southwest Houston, the Heights, Bellaire, and the Memorial Villages. In-house crew — not subcontracted out. Harris County permits pulled, CenterPoint cut-over coordinated, inspections passed on the first walk. 24/7 emergency line.',
   alternates: { canonical: '/about' },

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getPublishedPosts } from './blog/posts';
 import { serviceData } from './config';
-import { locationOrder } from './locations/locationContent';
+import { locationContent, locationOrder, locationImage } from './locations/locationContent';
 
 const BASE_URL = 'https://solivanceelectric.com';
 
@@ -45,7 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.8,
-    images: [`${BASE_URL}/photos_new/${slug}.jpg`],
+    images: [`${BASE_URL}${locationImage(locationContent[slug])}`],
   }));
 
   const blogPages: MetadataRoute.Sitemap = getPublishedPosts().map((p) => ({
