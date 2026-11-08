@@ -380,9 +380,9 @@ export function SizingFlow() {
 
                   {/* Who's on the other end. */}
                   <div className="mt-5 flex items-center gap-3 border-t border-[#EEF0F3] pt-5">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0A1322] text-[0.95rem] font-bold text-white">J</span>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0A1322] text-white"><ShieldCheck className="h-5 w-5" aria-hidden /></span>
                     <p className="text-[0.88rem] leading-snug text-[#4A5A6C]">
-                      <b className="text-[#0A1322]">Josh, licensed electrician at Solivance.</b> He reviews every estimate and follows up to confirm your exact size.
+                      <b className="text-[#0A1322]">Reviewed by our licensed electricians.</b> Our team looks at every estimate and follows up to confirm your exact size.
                     </p>
                   </div>
                 </form>
@@ -414,7 +414,7 @@ export function SizingFlow() {
               <button type="button" onClick={toSchedule} className={`${cta} mt-6`}>
                 <CalendarCheck className="h-5 w-5" /> Book my free site walk
               </button>
-              <p className="mt-3 text-center text-[0.82rem] text-white/60">Josh confirms the exact size and gives you one fixed install price.</p>
+              <p className="mt-3 text-center text-[0.82rem] text-white/60">Our licensed electricians confirm the exact size and give you one fixed install price.</p>
             </div>
           </section>
 
@@ -450,14 +450,14 @@ export function SizingFlow() {
                 <div className="py-2 text-center">
                   <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#E8F3EC] text-[#1F7A4D]"><CalendarCheck className="h-7 w-7" /></span>
                   <h2 className="mt-3 text-[1.4rem] font-bold">Site walk requested{dayLabel ? ` for ${dayLabel}` : ''}</h2>
-                  <p className="mt-1.5 text-[0.98rem] text-[#4A5A6C]">Josh will reach out to confirm your time. Need it sooner?</p>
+                  <p className="mt-1.5 text-[0.98rem] text-[#4A5A6C]">Our team will reach out to confirm your time. Need it sooner?</p>
                   <a href={`tel:${siteConfig.cleanPhone}`} className={`${cta} mt-5`}><Phone className="h-5 w-5" /> Call {siteConfig.phone}</a>
                 </div>
               ) : (
                 <>
                   <p className={eyebrow}>Next step</p>
                   <h2 className="mt-1.5 text-[1.45rem] font-bold leading-tight">Book your free generator site walk</h2>
-                  <p className="mt-1 text-[0.95rem] text-[#4A5A6C]">Pick a day. Josh confirms the exact time with you.</p>
+                  <p className="mt-1 text-[0.95rem] text-[#4A5A6C]">Pick a day. Our team confirms the exact time with you.</p>
 
                   <div className="-mx-1 mt-5 flex snap-x gap-2 overflow-x-auto px-1 pb-1">
                     {days.map((d) => {
@@ -486,7 +486,7 @@ export function SizingFlow() {
 
                   <details className="group mt-4 rounded-2xl border border-[#E3E6EA] p-4">
                     <summary className="flex cursor-pointer list-none items-center justify-between text-[0.95rem] font-semibold">
-                      Optional: help Josh come prepared
+                      Optional: help our team come prepared
                       <ArrowRight className="h-4 w-4 rotate-90 text-[#9AA5B1] transition-transform group-open:-rotate-90" />
                     </summary>
                     <div className="mt-4 grid gap-4">
@@ -558,7 +558,7 @@ export function SizingFlow() {
               <p className={eyebrow}>How the site walk works</p>
               <ol className="mt-4 grid gap-4">
                 {[
-                  { t: 'Josh checks your home', d: 'Panel, AC units, big appliances, and your gas meter or propane.' },
+                  { t: 'We check your home', d: 'Panel, AC units, big appliances, and your gas meter or propane.' },
                   { t: 'You get the exact size', d: 'The generator that runs what you want, without paying for more than you need.' },
                   { t: 'One fixed install price', d: 'Generator, transfer switch, permit, and startup in one written quote.' },
                 ].map(({ t, d }, i) => (
@@ -598,7 +598,7 @@ export function SizingFlow() {
             <p className="mt-2 text-[0.98rem] leading-relaxed text-[#4A5A6C]">
               {leadDone.current
                 ? booked
-                  ? 'Josh will reach out to confirm your site walk.'
+                  ? 'Our team will reach out to confirm your site walk.'
                   : 'It’s free, and it’s the only way to know the exact size before you spend thousands on a generator.'
                 : 'You’re one step away from seeing which generators fit your home. Free, no obligation.'}
             </p>

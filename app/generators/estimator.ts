@@ -169,22 +169,22 @@ export function estimate(a: EstimatorAnswers): EstimateResult {
     essentials: {
       headline: `Homes like yours usually start around ${range}.`,
       explanation:
-        'For the essentials, a smaller air-cooled generator is often enough. Josh checks your panel and appliances on a free site walk to confirm the exact size before you buy.',
+        'For the essentials, a smaller air-cooled generator is often enough. We check your panel and appliances on a free site walk to confirm the exact size before you buy.',
     },
     whole: {
       headline: `Homes like yours usually start around ${range}.`,
       explanation:
-        'Your AC is the biggest factor in the size you need, along with large electric items like a water heater. Josh checks those on a free site walk so you don’t buy a generator that’s too small or bigger than you need.',
+        'Your AC is the biggest factor in the size you need, along with large electric items like a water heater. We check those on a free site walk so you don’t buy a generator that’s too small or bigger than you need.',
     },
     large: {
       headline: `Your home likely needs the larger end: ${range}.`,
       explanation:
-        'More than one AC system or several big electric items can push you toward the top of the air-cooled line. Josh confirms the load on a free site walk, and power management can sometimes keep the size down.',
+        'More than one AC system or several big electric items can push you toward the top of the air-cooled line. We confirm the load on a free site walk, and power management can sometimes keep the size down.',
     },
     specialist: {
       headline: 'Your home needs a closer look from an electrician.',
       explanation:
-        'Three or more AC systems, a very large home, electric heat, or an EV charger plus pool can go past the standard air-cooled line. Josh will size it properly on a free site walk. These liquid-cooled models are where larger homes usually land.',
+        'Three or more AC systems, a very large home, electric heat, or an EV charger plus pool can go past the standard air-cooled line. Our licensed electricians will size it properly on a free site walk. These liquid-cooled models are where larger homes usually land.',
     },
   };
 
