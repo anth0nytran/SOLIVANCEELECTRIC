@@ -50,6 +50,9 @@ type View = 'goal' | 'ac' | 'contact' | 'result';
 type ServerResult = { tier: string; range: string; headline: string; explanation: string; modelIds: string[]; topPickId?: string; checkOnSite: string[] };
 
 const wrap = 'mx-auto w-full max-w-[640px] px-4 sm:px-6';
+// Phones/tablets: one centered column. Desktop: wide two-column layouts.
+const shell = 'mx-auto w-full max-w-[1160px] px-4 sm:px-6 lg:px-8';
+const page = 'mx-auto w-full max-w-[680px] px-4 sm:px-6 lg:max-w-[1160px] lg:px-8';
 const option =
   'group flex w-full items-center gap-4 rounded-2xl border border-[#E3E6EA] bg-white px-4 py-4 text-left shadow-[0_1px_2px_rgba(10,19,34,0.06)] transition-all hover:border-[#E8590C] hover:shadow-[0_6px_18px_-8px_rgba(232,89,12,0.45)] active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A1322]';
 const chip = (on: boolean) =>
@@ -96,9 +99,9 @@ function Logo() {
   );
 }
 
-function TrustRow() {
+function TrustRow({ dark = false }: { dark?: boolean }) {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[0.82rem] text-[#4A5A6C]">
+    <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.82rem] ${dark ? 'text-white/75' : 'justify-center text-[#4A5A6C]'}`}>
       <span className="flex items-center gap-1.5"><GoogleG className="h-4 w-4" /> {siteConfig.rating.toFixed(1)} Google rating</span>
       <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-[#1F7A4D]" /> Licensed {siteConfig.license.label}</span>
       <span className="flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-[#1F7A4D]" /> Briggs &amp; Stratton dealer</span>
@@ -263,54 +266,8 @@ export function SizingFlow() {
   const rangeNum = m ? m[1] : range;
   const rangeRest = m ? m[2].trim() : '';
 
-  return (
-    <div className="min-h-[100dvh] overflow-x-clip bg-[#F5F6F8] text-[#0A1322]">
-      <header className="sticky top-0 z-40 border-b border-[#E6E8EC] bg-white">
-        <div className={`${wrap} flex h-16 items-center justify-between`}>
-          <Logo />
-          <div className="flex items-center gap-1">
-            <a href={`tel:${siteConfig.cleanPhone}`} className="flex h-10 items-center gap-2 rounded-lg px-3 text-[0.92rem] font-semibold hover:bg-[#F5F6F8]">
-              <Phone className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">{siteConfig.phone}</span>
-              <span className="sm:hidden">Call</span>
-            </a>
-            <button type="button" onClick={() => setExitPrompt(true)} aria-label="Leave" className="flex h-10 w-10 items-center justify-center rounded-lg text-[#5A6B7F] hover:bg-[#F5F6F8]">
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {view !== 'result' && (
-        <>
-          {/* Dark band carries the headline; the question card overlaps it. */}
-          <section className="bg-[#0A1322] pb-24 pt-6 text-white sm:pb-28 sm:pt-10">
-            <div className={wrap}>
-              <div className="flex h-9 items-center justify-between gap-4">
-                {view === 'goal' ? (
-                  <span className="flex items-center gap-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#FDBA74]">
-                    <Zap className="h-3.5 w-3.5" /> Free · 20 seconds
-                  </span>
-                ) : (
-                  <button type="button" onClick={() => setView(view === 'ac' ? 'goal' : 'ac')} className="-ml-1 flex h-9 items-center gap-1 rounded-lg px-1 text-[0.9rem] font-medium text-white/80 hover:text-white">
-                    <ArrowLeft className="h-4 w-4" /> Back
-                  </button>
-                )}
-                <span className="text-[0.8rem] font-medium text-white/60">Step {stepNo} of 3</span>
-              </div>
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/15" aria-hidden>
-                <div className="h-full rounded-full bg-[#E8590C] transition-all duration-300" style={{ width: `${(stepNo / 3) * 100}%` }} />
-              </div>
-              <h1 className="mt-6 text-[1.75rem] font-bold leading-[1.12] tracking-[-0.02em] sm:text-[2.3rem]">
-                {view === 'contact' ? 'Your generator size is ready.' : 'What size generator does your home need?'}
-              </h1>
-              <p className="mt-2.5 text-[1rem] leading-relaxed text-white/75">
-                {view === 'contact' ? 'Tell us where to send it. You’ll see it on the next screen.' : 'Answer 2 quick questions. See which generators fit your home.'}
-              </p>
-            </div>
-          </section>
-
-          <main className={`${wrap} -mt-16 pb-16 sm:-mt-20`}>
-            <div className="rounded-3xl bg-white p-5 shadow-[0_20px_50px_-20px_rgba(10,19,34,0.35)] sm:p-8">
+  const quizCard = (
+            <div className="rounded-3xl bg-white p-5 text-[#0A1322] shadow-[0_20px_50px_-20px_rgba(10,19,34,0.35)] sm:p-8 lg:shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]">
               {view === 'goal' && (
                 <>
                   <h2 className="text-[1.2rem] font-semibold leading-snug sm:text-[1.35rem]">What do you want running when the power goes out?</h2>
@@ -409,6 +366,77 @@ export function SizingFlow() {
                 </form>
               )}
             </div>
+  );
+
+  return (
+    <div className="min-h-[100dvh] overflow-x-clip bg-[#F5F6F8] text-[#0A1322]">
+      <header className="sticky top-0 z-40 border-b border-[#E6E8EC] bg-white">
+        <div className={`${shell} flex h-16 items-center justify-between`}>
+          <Logo />
+          <div className="flex items-center gap-1">
+            <a href={`tel:${siteConfig.cleanPhone}`} className="flex h-10 items-center gap-2 rounded-lg px-3 text-[0.92rem] font-semibold hover:bg-[#F5F6F8]">
+              <Phone className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">{siteConfig.phone}</span>
+              <span className="sm:hidden">Call</span>
+            </a>
+            <button type="button" onClick={() => setExitPrompt(true)} aria-label="Leave" className="flex h-10 w-10 items-center justify-center rounded-lg text-[#5A6B7F] hover:bg-[#F5F6F8]">
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {view !== 'result' && (
+        <>
+          {/* Dark band carries the headline; the question card overlaps it. */}
+          <section className="bg-[#0A1322] pb-24 pt-6 text-white sm:pb-28 sm:pt-10 lg:pb-20 lg:pt-14">
+            <div className={`${shell} lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:items-center lg:gap-16`}>
+            <div className="mx-auto max-w-[592px] lg:mx-0 lg:max-w-none">
+              <div className="flex h-9 items-center justify-between gap-4">
+                {view === 'goal' ? (
+                  <span className="flex items-center gap-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#FDBA74]">
+                    <Zap className="h-3.5 w-3.5" /> Free · 20 seconds
+                  </span>
+                ) : (
+                  <button type="button" onClick={() => setView(view === 'ac' ? 'goal' : 'ac')} className="-ml-1 flex h-9 items-center gap-1 rounded-lg px-1 text-[0.9rem] font-medium text-white/80 hover:text-white">
+                    <ArrowLeft className="h-4 w-4" /> Back
+                  </button>
+                )}
+                <span className="text-[0.8rem] font-medium text-white/60">Step {stepNo} of 3</span>
+              </div>
+              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/15" aria-hidden>
+                <div className="h-full rounded-full bg-[#E8590C] transition-all duration-300" style={{ width: `${(stepNo / 3) * 100}%` }} />
+              </div>
+              <h1 className="mt-6 text-[1.75rem] font-bold leading-[1.12] tracking-[-0.02em] sm:text-[2.3rem] lg:mt-10 lg:text-[3rem] lg:leading-[1.05]">
+                {view === 'contact' ? 'Your generator size is ready.' : 'What size generator does your home need?'}
+              </h1>
+              <p className="mt-2.5 text-[1rem] leading-relaxed text-white/75 lg:mt-4 lg:text-[1.15rem]">
+                {view === 'contact' ? 'Tell us where to send it. You’ll see it on the next screen.' : 'Answer 2 quick questions. See which generators fit your home.'}
+              </p>
+
+              {/* Desktop only: reasons + proof beside the card. */}
+              <ul className="mt-8 hidden gap-3 lg:grid">
+                {['Free, and it takes 20 seconds', 'See the generators that fit your home, with prices', 'Real electricians check every answer'].map((t) => (
+                  <li key={t} className="flex items-center gap-3 text-[1rem] text-white/85">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E8590C]/20 text-[#FDBA74]"><Check className="h-3.5 w-3.5" /></span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              {PROOF[0] && (
+                <figure className="mt-8 hidden max-w-[480px] rounded-2xl border border-white/10 bg-white/5 p-5 lg:block">
+                  <div className="flex items-center gap-2"><Stars className="h-3.5 w-3.5" /><GoogleG className="h-4 w-4" /></div>
+                  <blockquote className="mt-2 text-[0.95rem] leading-relaxed text-white/85">“{excerpt(PROOF[0].quote, 190)}”</blockquote>
+                  <figcaption className="mt-2 text-[0.85rem] font-semibold text-white">{PROOF[0].author}, Google review</figcaption>
+                </figure>
+              )}
+              <div className="mt-6 hidden lg:block"><TrustRow dark /></div>
+            </div>
+            <div className="hidden lg:block">{quizCard}</div>
+            </div>
+          </section>
+
+          <main className={`${wrap} -mt-16 pb-16 sm:-mt-20 lg:hidden`}>
+            {quizCard}
 
             <div className="mt-6"><TrustRow /></div>
 
@@ -424,7 +452,7 @@ export function SizingFlow() {
       )}
 
       {view === 'result' && result && panel && (
-        <main className={`${wrap} pb-32 pt-6 sm:pb-16`}>
+        <main className={`${page} pb-32 pt-6 sm:pb-16 lg:pt-8`}>
           {panel.kind === 'detail' && byId(panel.id) ? (
             <ModelDetail
               p={byId(panel.id)!}
@@ -448,25 +476,27 @@ export function SizingFlow() {
       {view === 'result' && result && !panel && (
         <>
           {/* 1. The answer */}
-          <section className="bg-[#0A1322] pb-10 pt-8 text-white sm:pb-14 sm:pt-12">
-            <div className={wrap}>
+          <section className="bg-[#0A1322] pb-10 pt-8 text-white sm:pb-14 sm:pt-12 lg:pb-16 lg:pt-14">
+            <div className={`${page} lg:max-w-[1160px]`}>
+            <div className="lg:max-w-[640px]">
               <p className="text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#FDBA74]">{first ? `${first}, here’s your size` : 'Here’s your size'}</p>
               <p className="mt-3 text-[3rem] font-bold leading-none tracking-[-0.03em] sm:text-[4rem]">{rangeNum}</p>
               {rangeRest && <p className="mt-1.5 text-[1rem] font-medium text-white/75">{rangeRest}</p>}
               <p className="mt-4 text-[1rem] leading-relaxed text-white/75">{result.explanation}</p>
-              <button type="button" onClick={toSchedule} className={`${cta} mt-6`}>
+              <button type="button" onClick={toSchedule} className={`${cta} mt-6 lg:w-auto lg:px-10`}>
                 <CalendarCheck className="h-5 w-5" /> Book my free visit
               </button>
-              <p className="mt-3 text-center text-[0.82rem] text-white/60">We come out for free, find the exact size, and give you one set price.</p>
+              <p className="mt-3 text-center text-[0.82rem] text-white/60 lg:text-left">We come out for free, find the exact size, and give you one set price.</p>
+            </div>
             </div>
           </section>
 
-          <main className={`${wrap} grid grid-cols-[minmax(0,1fr)] gap-8 pb-32 pt-8 sm:pb-16`}>
+          <main className={`${page} grid grid-cols-[minmax(0,1fr)] gap-8 pb-32 pt-8 sm:pb-16 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-10 lg:pt-10`}>
             {/* 2. The prize: our pick, then the rest. Every card opens a screen inside the funnel. */}
             <PickCards pick={pick} others={models.filter((x) => x.model !== pickId)} onOpen={openModel} onAll={openAll} />
 
             {/* 3. The one action */}
-            <section ref={scheduleRef} id="schedule" className="scroll-mt-20 rounded-3xl bg-white p-5 shadow-[0_20px_50px_-24px_rgba(10,19,34,0.35)] ring-2 ring-[#0A1322] sm:p-7">
+            <section ref={scheduleRef} id="schedule" className="scroll-mt-20 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-6 lg:row-start-1 lg:self-start rounded-3xl bg-white p-5 shadow-[0_20px_50px_-24px_rgba(10,19,34,0.35)] ring-2 ring-[#0A1322] sm:p-7">
               {booked ? (
                 <div className="py-2 text-center">
                   <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#E8F3EC] text-[#1F7A4D]"><CalendarCheck className="h-7 w-7" /></span>
