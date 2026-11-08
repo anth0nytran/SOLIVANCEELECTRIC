@@ -8,6 +8,7 @@ import { BrandLogo } from '../../components/BrandLogo';
 import { CtaBackdrop } from '../../components/CtaBackdrop';
 import { FinancingNote, SynchronyLogo } from '../../components/FinancingBanner';
 import { ProductImage } from '../ProductImage';
+import { SizingNudge } from '../SizingPromo';
 import { PRICE_LIST_EFFECTIVE, formatUsd, products, type Product } from '../products';
 import {
   brandOf,
@@ -218,6 +219,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <Phone className="h-4 w-4" aria-hidden /> {siteConfig.phone}
                 </a>
               </div>
+              {p.kw && <SizingNudge className="mt-4" />}
 
               <div className="mt-5 border-t border-slate-200 pt-4">
                 <SynchronyLogo />
