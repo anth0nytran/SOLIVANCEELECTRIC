@@ -142,20 +142,24 @@ export function estimate(a: EstimatorAnswers): EstimateResult {
   const checkOnSite: string[] = [];
 
   // Tier: the most demanding rule that matches wins.
+  // AC count and home size only push the size up when they want the WHOLE home backed up.
+  // "Just the essentials" skips the AC, so only big electric items can push it up.
+  const whole = a.goal === 'whole';
   let tier: Tier;
-  if (a.ac === '3+' || a.homeSize === '5000+' || has('electric-heat') || (has('ev') && has('pool'))) {
+  if ((whole && (a.ac === '3+' || a.homeSize === '5000+')) || has('electric-heat') || (has('ev') && has('pool'))) {
     tier = 'specialist';
-  } else if (a.ac === '2' || a.homeSize === '3500-5000' || loads.length >= 2) {
+  } else if ((whole && (a.ac === '2' || a.homeSize === '3500-5000')) || loads.length >= 2) {
     tier = 'large';
-  } else if (a.goal === 'essentials' && (a.ac === '0' || a.ac === '1') && loads.length === 0) {
+  } else if (!whole && loads.length === 0) {
     tier = 'essentials';
   } else {
-    // Whole home, or anything with a "Not sure" that keeps us from going smaller.
+    // Whole home with up to 1 AC, or a "Not sure" that keeps us from going smaller.
     tier = 'whole';
   }
 
   // What still needs a real look. Unknowns are never treated as zero load.
-  if (a.ac === 'unsure') checkOnSite.push('How many AC units you have and their size');
+  if (!whole) checkOnSite.push('Which circuits you want backed up');
+  else if (a.ac === 'unsure') checkOnSite.push('How many AC units you have and their size');
   else if (a.ac !== '0') checkOnSite.push(`Your AC size and starting load (${a.ac === '1' ? '1 unit' : `${a.ac} units`})`);
   if (!a.homeSize || a.homeSize === 'unsure') checkOnSite.push('Home size');
   if (a.loads === undefined) checkOnSite.push('Large electric items (water heater, stove, pool, EV charger)');
@@ -193,7 +197,7 @@ export function estimate(a: EstimatorAnswers): EstimateResult {
 
   // Starting pick inside the range (DRAFT, Josh to approve with the tiers).
   const pickId: Record<Tier, string | undefined> = {
-    essentials: a.ac === '0' ? '040746' : '040757', // PP13 with no AC, else PP18+
+    essentials: a.ac === '0' ? '040746' : '040757', // PP13 with no AC in the home, else PP18+
     whole: '040787', // PP22+: middle of 18–26, headroom for one AC + a big appliance
     large: '040807', // PP26+
     specialist: undefined,

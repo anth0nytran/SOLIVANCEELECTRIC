@@ -130,6 +130,7 @@ export function SizingFlow() {
   const [timeWindow, setTimeWindow] = useState<string>();
   const [booking, setBooking] = useState(false);
   const [booked, setBooked] = useState(false);
+  const [bookSaved, setBookSaved] = useState(true);
   const [exitPrompt, setExitPrompt] = useState(false);
   const [days, setDays] = useState<ReturnType<typeof nextDays>>([]);
   // In-funnel browsing: a generator's detail screen, or the full list. Never leaves the page.
@@ -221,10 +222,15 @@ export function SizingFlow() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ step: 'details', submissionId: submissionId.current, answers: answers(), preferredDay: day, timeWindow, interest, viewed }),
       });
-      const json = (await res.json().catch(() => ({}))) as { result?: ServerResult; siteWalk?: boolean };
+      const json = (await res.json().catch(() => ({}))) as { result?: ServerResult; siteWalk?: boolean; saved?: boolean };
       if (json.result) setResult(json.result);
+      // If the day didn't reach our CRM, don't pretend it did: ask them to call.
+      setBookSaved(!!json.siteWalk);
       setBooked(true);
       if (json.siteWalk) pushDataLayer({ event: 'generator_sitewalk_request', transaction_id: submissionId.current });
+    } catch {
+      setBookSaved(false);
+      setBooked(true);
     } finally {
       setBooking(false);
     }
@@ -500,8 +506,10 @@ export function SizingFlow() {
               {booked ? (
                 <div className="py-2 text-center">
                   <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#E8F3EC] text-[#1F7A4D]"><CalendarCheck className="h-7 w-7" /></span>
-                  <h2 className="mt-3 text-[1.4rem] font-bold">Got it! You picked {dayLabel || 'a day'}.</h2>
-                  <p className="mt-1.5 text-[0.98rem] text-[#4A5A6C]">We’ll call or text to set the time. Need us sooner?</p>
+                  <h2 className="mt-3 text-[1.4rem] font-bold">{bookSaved ? `Got it! You picked ${dayLabel || 'a day'}.` : 'Almost done!'}</h2>
+                  <p className="mt-1.5 text-[0.98rem] text-[#4A5A6C]">
+                    {bookSaved ? 'We’ll call or text to set the time. Need us sooner?' : `Please call us to lock in ${dayLabel || 'your day'}. It takes 1 minute.`}
+                  </p>
                   <a href={`tel:${siteConfig.cleanPhone}`} className={`${cta} mt-5`}><Phone className="h-5 w-5" /> Call {siteConfig.phone}</a>
                 </div>
               ) : (
