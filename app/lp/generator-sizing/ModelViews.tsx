@@ -73,19 +73,19 @@ export function ProductCard({ p, onOpen, badge, tone = 'soft' }: { p: Product; o
     <button
       type="button"
       onClick={() => onOpen(p.model)}
-      className={`group flex h-full flex-col overflow-hidden text-left transition-shadow hover:shadow-[0_10px_28px_-14px_rgba(10,19,34,0.35)] ${card} ${tone === 'pick' ? 'ring-2 ring-[#E8590C]' : ''}`}
+      className={`group flex h-full flex-row overflow-hidden text-left transition-shadow sm:flex-col hover:shadow-[0_10px_28px_-14px_rgba(10,19,34,0.35)] ${card} ${tone === 'pick' ? 'ring-2 ring-[#E8590C]' : ''}`}
     >
-      <div className="relative flex aspect-[4/3] w-full items-center justify-center bg-[#F7F8FA] p-4">
+      <div className="relative flex w-[38%] max-w-[150px] shrink-0 items-center justify-center bg-[#F7F8FA] p-3 sm:aspect-[4/3] sm:w-full sm:max-w-none sm:p-4">
         {badge && (
-          <span className={`absolute left-3 top-3 z-10 rounded-md px-2 py-1 text-[0.7rem] font-semibold ${tone === 'pick' ? 'bg-[#E8590C] text-white' : 'bg-[#E8F3EC] text-[#1F7A4D]'}`}>{badge}</span>
+          <span className={`absolute left-2 top-2 z-10 rounded-md px-1.5 py-0.5 text-[0.65rem] sm:left-3 sm:top-3 sm:px-2 sm:py-1 sm:text-[0.7rem] font-semibold ${tone === 'pick' ? 'bg-[#E8590C] text-white' : 'bg-[#E8F3EC] text-[#1F7A4D]'}`}>{badge}</span>
         )}
         <ProductImage src={p.image} alt={`Briggs & Stratton ${p.name}`} className="h-full w-full" sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 90vw" />
       </div>
-      <div className="flex w-full flex-1 flex-col p-4">
+      <div className="flex min-w-0 flex-1 flex-col p-3.5 sm:w-full sm:p-4">
         <p className="text-[0.75rem] font-medium text-[#5A6B7F]">Briggs &amp; Stratton</p>
         <p className="mt-0.5 text-[1rem] font-semibold leading-snug group-hover:underline">{p.name}</p>
         <p className="mt-1 text-[0.82rem] text-[#5A6B7F]">{kwLine(p)}</p>
-        <div className="mt-auto pt-3">
+        <div className="mt-auto pt-2.5 sm:pt-3">
           <p className="text-[1.25rem] font-bold tabular-nums leading-none">{formatUsd(p.map)}</p>
           <p className="mt-1 text-[0.72rem] text-[#5A6B7F]">Unit only · {p.warrantyYears}-yr warranty</p>
         </div>
@@ -134,7 +134,7 @@ export function PickCards({ pick, others, onOpen, onAll }: { pick?: Product; oth
             <h2 className={h3}>{pick ? 'Also a good fit' : 'Generators for your home'}</h2>
             <button type="button" onClick={onAll} className="text-[0.9rem] font-semibold text-[#B23F07] hover:underline">See all {GENERATORS.length}</button>
           </div>
-          <div className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-3">
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {others.map((p) => (
               <ProductCard key={p.model} p={p} onOpen={onOpen} badge="Fits your home" />
             ))}
@@ -227,7 +227,7 @@ export function ModelDetail({
   const badgeFor = (x: Product) => (x.model === pickId ? 'Our pick' : rangeIds.includes(x.model) ? 'Fits your home' : undefined);
 
   return (
-    <div className="grid gap-8">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-8">
       <div className="flex items-center justify-between gap-3">
         <button type="button" onClick={onBack} className="-ml-1 flex h-10 items-center gap-1 rounded-lg px-1 text-[0.95rem] font-semibold text-[#4A5A6C] hover:text-[#0A1322]">
           <ArrowLeft className="h-4 w-4" /> Back to my results
@@ -235,13 +235,13 @@ export function ModelDetail({
         <button type="button" onClick={onAll} className="text-[0.9rem] font-semibold text-[#B23F07] hover:underline">All generators</button>
       </div>
 
-      {/* Top: image · about this item · buy box */}
-      <section className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_320px] lg:items-start">
-        <div className={`${card} flex aspect-square items-center justify-center bg-[#F7F8FA] p-6 lg:sticky lg:top-24`}>
+      {/* Top. Phones: photo, name, buy box, then details. Desktop: photo · about · buy box. */}
+      <section className="grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_320px] lg:items-start lg:gap-x-6 lg:gap-y-0">
+        <div className={`${card} flex aspect-[4/3] items-center justify-center bg-[#F7F8FA] p-5 lg:sticky lg:top-24 lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:aspect-square lg:p-6`}>
           <ProductImage src={p.image} alt={`Briggs & Stratton ${p.name}`} className="h-full w-full" sizes="(min-width: 1024px) 440px, 95vw" priority />
         </div>
 
-        <div>
+        <div className="lg:col-start-2 lg:row-start-1">
           <div className="flex flex-wrap gap-2">
             {isPick && <span className="rounded-md bg-[#E8590C] px-2 py-1 text-[0.75rem] font-semibold text-white">Our pick for you</span>}
             <span className={`rounded-md px-2 py-1 text-[0.75rem] font-semibold ${inRange ? 'bg-[#E8F3EC] text-[#1F7A4D]' : 'bg-[#F0F2F5] text-[#4A5A6C]'}`}>
@@ -249,12 +249,19 @@ export function ModelDetail({
             </span>
           </div>
           <p className="mt-3 text-[0.85rem] font-medium text-[#5A6B7F]">Briggs &amp; Stratton · Model {p.model}</p>
-          <h2 className="text-[1.7rem] font-bold leading-tight lg:text-[2rem]">{p.name} Standby Generator</h2>
+          <h2 className="text-[1.5rem] font-bold leading-tight sm:text-[1.7rem] lg:text-[2rem]">{p.name} Standby Generator</h2>
           <p className="mt-1 text-[0.95rem] text-[#5A6B7F]">{kwLine(p)}</p>
-          <div className="mt-3 flex items-center gap-2 text-[0.85rem] text-[#4A5A6C]">
+          <div className="mt-2.5 flex items-center gap-2 text-[0.85rem] text-[#4A5A6C]">
             <Stars className="h-4 w-4" /> Solivance Electric: {siteConfig.rating.toFixed(1)} on Google
           </div>
-          <hr className="my-5 border-[#E6E8EC]" />
+        </div>
+
+        <div className="lg:sticky lg:top-24 lg:col-start-3 lg:row-span-2 lg:row-start-1">
+          <BuyBox p={p} onBook={onBook} />
+        </div>
+
+        <div className="lg:col-start-2 lg:row-start-2">
+          <hr className="mb-5 hidden border-[#E6E8EC] lg:mt-5 lg:block" />
           <p className="text-[1rem] leading-relaxed text-[#334155]">{whatItIsFor(p)}</p>
           <h3 className="mt-5 text-[1rem] font-bold">About this item</h3>
           <ul className="mt-2 grid gap-2">
@@ -263,18 +270,17 @@ export function ModelDetail({
             ))}
           </ul>
         </div>
-
-        <div className="lg:sticky lg:top-24">
-          <BuyBox p={p} onBook={onBook} />
-        </div>
       </section>
 
       <DepthNudge viewed={viewed} first={first} onBook={() => onBook(p.model)} />
 
       {/* Compare table */}
       <section>
-        <h3 className={h3}>Compare with similar</h3>
-        <div className={`${card} mt-3 overflow-x-auto`}>
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className={h3}>Compare with similar</h3>
+          <span className="text-[0.8rem] text-[#5A6B7F] md:hidden">Swipe to see more →</span>
+        </div>
+        <div className={`${card} mt-3 overflow-x-auto overscroll-x-contain`}>
           <table className="w-full min-w-[560px] text-left text-[0.88rem]">
             <thead>
               <tr className="border-b border-[#E6E8EC]">
@@ -317,7 +323,7 @@ export function ModelDetail({
         </div>
       </section>
 
-      <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-2 lg:items-start">
         <section className={`${card} p-5`}>
           <h3 className={h3}>What you get when we put it in</h3>
           <ul className="mt-3 grid gap-2.5">
@@ -350,7 +356,7 @@ export function ModelDetail({
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-2 lg:items-start">
         <section className={`${card} p-5`}>
           <h3 className={h3}>Product details</h3>
           <dl className="mt-3 divide-y divide-[#EEF0F3]">
@@ -437,7 +443,7 @@ export function AllModels({
     { title: 'Fortress', sub: 'Liquid-cooled · for big homes', items: GENERATORS.filter((p) => p.group === 'fortress') },
   ];
   return (
-    <div className="grid gap-8">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-8">
       <button type="button" onClick={onBack} className="-ml-1 flex h-10 w-fit items-center gap-1 rounded-lg px-1 text-[0.95rem] font-semibold text-[#4A5A6C] hover:text-[#0A1322]">
         <ArrowLeft className="h-4 w-4" /> Back to my results
       </button>
@@ -452,7 +458,7 @@ export function AllModels({
             <h3 className={h3}>{g.title}</h3>
             <span className="text-[0.88rem] text-[#5A6B7F]">{g.sub}</span>
           </div>
-          <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {g.items.map((p) => (
               <ProductCard
                 key={p.model}

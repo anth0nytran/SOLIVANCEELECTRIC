@@ -54,7 +54,7 @@ const wrap = 'mx-auto w-full max-w-[640px] px-4 sm:px-6';
 const shell = 'mx-auto w-full max-w-[1160px] px-4 sm:px-6 lg:px-8';
 const page = 'mx-auto w-full max-w-[680px] px-4 sm:px-6 lg:max-w-[1160px] lg:px-8';
 const option =
-  'group flex w-full items-center gap-4 rounded-2xl border border-[#E3E6EA] bg-white px-4 py-4 text-left shadow-[0_1px_2px_rgba(10,19,34,0.06)] transition-all hover:border-[#E8590C] hover:shadow-[0_6px_18px_-8px_rgba(232,89,12,0.45)] active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A1322]';
+  'group flex w-full items-center gap-3 rounded-2xl border border-[#E3E6EA] bg-white px-3.5 py-3.5 text-left sm:gap-4 sm:px-4 sm:py-4 shadow-[0_1px_2px_rgba(10,19,34,0.06)] transition-all hover:border-[#E8590C] hover:shadow-[0_6px_18px_-8px_rgba(232,89,12,0.45)] active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A1322]';
 const chip = (on: boolean) =>
   `min-h-11 rounded-xl border px-3.5 py-2 text-[0.92rem] font-medium transition-colors ${
     on ? 'border-[#0A1322] bg-[#0A1322] text-white' : 'border-[#DDE1E6] bg-white text-[#0A1322] hover:border-[#9AA5B1]'
@@ -66,6 +66,7 @@ const cta =
   'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#E8590C] px-6 text-[1.05rem] font-semibold text-white shadow-[0_8px_20px_-8px_rgba(232,89,12,0.7)] transition-colors hover:bg-[#CF4E0A] disabled:opacity-60';
 const eyebrow = 'text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#B23F07]';
 const WINDOWS = ['Morning (8am–12pm)', 'Afternoon (12pm–5pm)'] as const;
+const windowParts = (w: string) => { const m = w.match(/^(\w+) \((.*)\)$/); return m ? [m[1], m[2]] : [w, '']; };
 const GOAL_ICON = { essentials: Lightbulb, whole: Home } as const;
 
 // Proof: real Google reviews only. Yeny's is the outage/generator story.
@@ -273,7 +274,7 @@ export function SizingFlow() {
   const rangeRest = m ? m[2].trim() : '';
 
   const quizCard = (
-            <div className="rounded-3xl bg-white p-5 text-[#0A1322] shadow-[0_20px_50px_-20px_rgba(10,19,34,0.35)] sm:p-8 lg:shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]">
+            <div className="rounded-3xl bg-white p-4 text-[#0A1322] min-[400px]:p-5 shadow-[0_20px_50px_-20px_rgba(10,19,34,0.35)] sm:p-8 lg:shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]">
               {view === 'goal' && (
                 <>
                   <h2 className="text-[1.2rem] font-semibold leading-snug sm:text-[1.35rem]">What do you want running when the power goes out?</h2>
@@ -282,7 +283,7 @@ export function SizingFlow() {
                       const Icon = GOAL_ICON[g.id];
                       return (
                         <button key={g.id} type="button" className={option} onClick={() => { setGoal(g.id); setView('ac'); pushDataLayer({ event: 'generator_sizing_start' }); }}>
-                          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#FFF1E8] text-[#C2410C]"><Icon className="h-5 w-5" /></span>
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF1E8] text-[#C2410C] sm:h-11 sm:w-11"><Icon className="h-5 w-5" /></span>
                           <span className="min-w-0 flex-1">
                             <span className="block text-[1.02rem] font-semibold">{g.label}</span>
                             <span className="block text-[0.88rem] text-[#5A6B7F]">{g.hint}</span>
@@ -523,7 +524,7 @@ export function SizingFlow() {
                     </p>
                   )}
 
-                  <div className="-mx-1 mt-5 flex snap-x gap-2 overflow-x-auto px-1 pb-1">
+                  <div className="mt-5 grid grid-cols-5 gap-1.5 sm:gap-2">
                     {days.map((d) => {
                       const on = day === d.ymd;
                       return (
@@ -531,7 +532,7 @@ export function SizingFlow() {
                           key={d.ymd}
                           type="button"
                           onClick={() => setDay(d.ymd)}
-                          className={`flex h-[72px] w-16 shrink-0 snap-start flex-col items-center justify-center rounded-xl border text-center transition-colors ${
+                          className={`flex h-[68px] min-w-0 flex-col items-center justify-center rounded-xl border text-center transition-colors ${
                             on ? 'border-[#0A1322] bg-[#0A1322] text-white' : 'border-[#DDE1E6] bg-white hover:border-[#9AA5B1]'
                           }`}
                         >
@@ -543,9 +544,16 @@ export function SizingFlow() {
                     })}
                   </div>
                   <div className="mt-3 grid grid-cols-2 gap-2">
-                    {WINDOWS.map((w) => (
-                      <button key={w} type="button" className={chip(timeWindow === w)} onClick={() => setTimeWindow(w)}>{w}</button>
-                    ))}
+                    {WINDOWS.map((w) => {
+                      const [lbl, hrs] = windowParts(w);
+                      const on = timeWindow === w;
+                      return (
+                        <button key={w} type="button" onClick={() => setTimeWindow(w)} className={`${chip(on)} flex flex-col items-center py-2.5 leading-tight`}>
+                          <span className="font-semibold">{lbl}</span>
+                          <span className={`text-[0.78rem] ${on ? 'text-white/70' : 'text-[#5A6B7F]'}`}>{hrs}</span>
+                        </button>
+                      );
+                    })}
                   </div>
 
                   <details className="group mt-4 rounded-2xl border border-[#E3E6EA] p-4">
@@ -644,7 +652,7 @@ export function SizingFlow() {
 
       {/* Sticky book bar on phones: on the results AND inside every generator screen. */}
       {view === 'result' && result && !booked && (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#E6E8EC] bg-white/95 px-4 py-3 backdrop-blur sm:hidden">
+        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#E6E8EC] bg-white/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur sm:hidden">
           <div className="flex gap-2">
             <a href={`tel:${siteConfig.cleanPhone}`} aria-label={`Call ${siteConfig.phone}`} className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[#CDD3DA]">
               <Phone className="h-5 w-5" />
