@@ -115,7 +115,20 @@ function TrustRow({ dark = false }: { dark?: boolean }) {
  * variant 'site' — public, indexable calculator inside the normal site (header/footer from the layout).
  * Both accept ?goal=whole|essentials&ac=0|1|2|3+|unsure to skip answered questions (blog sizer links).
  */
-export function SizingFlow({ variant = 'lp' }: { variant?: 'lp' | 'site' } = {}) {
+export function SizingFlow({
+  variant = 'lp',
+  onExit,
+  initial,
+  scrollEl,
+}: {
+  variant?: 'lp' | 'site';
+  /** Pop-out mode: "Leave anyway" closes the overlay instead of leaving the page. */
+  onExit?: () => void;
+  /** Answers handed in by whatever opened the pop-out (overrides the URL). */
+  initial?: { goal?: string; ac?: string };
+  /** Pop-out mode: the overlay's scroll container (window is locked behind it). */
+  scrollEl?: () => HTMLElement | null;
+} = {}) {
   const isLp = variant === 'lp';
   const [view, setView] = useState<View>('goal');
   const [goal, setGoal] = useState<Goal>();
@@ -155,8 +168,8 @@ export function SizingFlow({ variant = 'lp' }: { variant?: 'lp' | 'site' } = {})
     submissionId.current = newSubmissionId();
     // Answers carried in from a blog sizer box or a link: skip straight to the next step.
     const q = new URLSearchParams(window.location.search);
-    const g = GOALS.find((x) => x.id === q.get('goal'))?.id;
-    const c = AC_COUNTS.find((x) => x.id === q.get('ac'))?.id;
+    const g = GOALS.find((x) => x.id === (initial?.goal ?? q.get('goal')))?.id;
+    const c = AC_COUNTS.find((x) => x.id === (initial?.ac ?? q.get('ac')))?.id;
     if (g) {
       setGoal(g);
       setView(c ? 'contact' : 'ac');
@@ -181,6 +194,7 @@ export function SizingFlow({ variant = 'lp' }: { variant?: 'lp' | 'site' } = {})
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
+    scrollEl?.()?.scrollTo({ top: 0 });
   }, [view, panel]);
 
   const answers = (): EstimatorAnswers => ({ goal: goal!, ac: ac!, homeSize, loads: noLoads ? [] : loads.length ? loads : undefined, fuel, timeline });
@@ -701,9 +715,15 @@ export function SizingFlow({ variant = 'lp' }: { variant?: 'lp' | 'site' } = {})
                   {leadDone.current ? 'Book my free visit' : 'See my size'}
                 </button>
               )}
-              <a href="/generators" className="py-3 text-center text-[0.92rem] font-medium text-[#5A6B7F] underline underline-offset-2">
-                {booked ? 'Back to generators' : 'Leave anyway'}
-              </a>
+              {onExit ? (
+                <button type="button" onClick={() => { setExitPrompt(false); onExit(); }} className="py-3 text-center text-[0.92rem] font-medium text-[#5A6B7F] underline underline-offset-2">
+                  {booked ? 'Close' : 'Leave anyway'}
+                </button>
+              ) : (
+                <a href="/generators" className="py-3 text-center text-[0.92rem] font-medium text-[#5A6B7F] underline underline-offset-2">
+                  {booked ? 'Back to generators' : 'Leave anyway'}
+                </a>
+              )}
             </div>
           </div>
         </div>
