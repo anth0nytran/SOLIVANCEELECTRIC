@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0, images: [`${BASE_URL}/photos_new/hero.jpg`, `${BASE_URL}/photos_new/cta-footer.jpg`] },
     { url: `${BASE_URL}/services`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE_URL}/generator-size-calculator`, lastModified: now, changeFrequency: 'monthly', priority: 0.95 },
     { url: `${BASE_URL}/generators`, lastModified: now, changeFrequency: 'weekly', priority: 0.95, images: [`${BASE_URL}/photos_new/generator-installs.jpg`] },
     { url: `${BASE_URL}/financing`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${BASE_URL}/locations`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },

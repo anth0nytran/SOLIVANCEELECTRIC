@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { ArrowRight, Zap } from 'lucide-react';
 
 // Every path on the generator pages points at the sizing lead magnet.
-export const SIZING_HREF = '/lp/generator-sizing';
+// Organic visitors go to the public calculator; ads keep using /lp/generator-sizing.
+export const SIZING_HREF = '/generator-size-calculator';
 
 /** Full-width band: the main push on /generators. */
 export function SizingBand() {

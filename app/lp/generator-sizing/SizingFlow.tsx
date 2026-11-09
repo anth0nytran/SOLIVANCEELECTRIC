@@ -110,7 +110,13 @@ function TrustRow({ dark = false }: { dark?: boolean }) {
   );
 }
 
-export function SizingFlow() {
+/**
+ * variant 'lp'   — paid landing page: own header, leave prompt, no site menu.
+ * variant 'site' — public, indexable calculator inside the normal site (header/footer from the layout).
+ * Both accept ?goal=whole|essentials&ac=0|1|2|3+|unsure to skip answered questions (blog sizer links).
+ */
+export function SizingFlow({ variant = 'lp' }: { variant?: 'lp' | 'site' } = {}) {
+  const isLp = variant === 'lp';
   const [view, setView] = useState<View>('goal');
   const [goal, setGoal] = useState<Goal>();
   const [ac, setAc] = useState<AcCount>();
@@ -147,6 +153,15 @@ export function SizingFlow() {
 
   useEffect(() => {
     submissionId.current = newSubmissionId();
+    // Answers carried in from a blog sizer box or a link: skip straight to the next step.
+    const q = new URLSearchParams(window.location.search);
+    const g = GOALS.find((x) => x.id === q.get('goal'))?.id;
+    const c = AC_COUNTS.find((x) => x.id === q.get('ac'))?.id;
+    if (g) {
+      setGoal(g);
+      setView(c ? 'contact' : 'ac');
+      if (c) setAc(c);
+    }
     openedAt.current = Date.now();
     captureAttribution();
     setDays(nextDays());
@@ -154,6 +169,7 @@ export function SizingFlow() {
   }, []);
 
   useEffect(() => {
+    if (!isLp) return;
     const onLeave = (e: MouseEvent) => {
       if (e.clientY > 0 || exitShown.current || leadDone.current) return;
       exitShown.current = true;
@@ -376,7 +392,8 @@ export function SizingFlow() {
   );
 
   return (
-    <div className="min-h-[100dvh] overflow-x-clip bg-[#F5F6F8] text-[#0A1322]">
+    <div className={`${isLp ? 'min-h-[100dvh]' : ''} overflow-x-clip bg-[#F5F6F8] text-[#0A1322]`}>
+      {isLp && (
       <header className="sticky top-0 z-40 border-b border-[#E6E8EC] bg-white">
         <div className={`${shell} flex h-16 items-center justify-between`}>
           <Logo />
@@ -391,6 +408,7 @@ export function SizingFlow() {
           </div>
         </div>
       </header>
+      )}
 
       {view !== 'result' && (
         <>
@@ -414,7 +432,7 @@ export function SizingFlow() {
                 <div className="h-full rounded-full bg-[#E8590C] transition-all duration-300" style={{ width: `${(stepNo / 3) * 100}%` }} />
               </div>
               <h1 className="mt-6 text-[1.75rem] font-bold leading-[1.12] tracking-[-0.02em] sm:text-[2.3rem] lg:mt-10 lg:text-[3rem] lg:leading-[1.05]">
-                {view === 'contact' ? 'Your generator size is ready.' : 'What size generator does your home need?'}
+                {view === 'contact' ? 'Your generator size is ready.' : isLp ? 'What size generator does your home need?' : 'What size generator does your Houston home need?'}
               </h1>
               <p className="mt-2.5 text-[1rem] leading-relaxed text-white/75 lg:mt-4 lg:text-[1.15rem]">
                 {view === 'contact' ? 'Tell us where to send it. You’ll see it on the next screen.' : 'Answer 2 quick questions. See which generators fit your home.'}

@@ -43,6 +43,7 @@ const footerServices: { href: string; label: string }[] = [
 
 const shopLinks = [
   { href: '/generators', label: 'Briggs & Stratton Generators' },
+  { href: '/generator-size-calculator', label: 'Generator Size Calculator' },
   { href: '/generators#fortress', label: 'Fortress Liquid-Cooled' },
   { href: '/generators#bs-transfer', label: 'Transfer Switches' },
   { href: '/financing', label: 'Financing' },

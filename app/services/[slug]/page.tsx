@@ -24,6 +24,7 @@ import {
 import { siteConfig, serviceData } from '../../config';
 import { serviceContent, getServiceContent, type ServiceIcon } from '../serviceContent';
 import { serviceSeo } from '../serviceSeo';
+import { SizerBox } from '../../generators/SizerBox';
 import { reviews } from '../../reviews';
 import { Stars } from '../../components/Stars';
 import { CarePlanCard } from '../../components/CarePlanUpsell';
@@ -252,6 +253,7 @@ export default async function ServiceDetailPage({
                 <p>{content.overview}</p>
                 <p className="text-slate-600">{content.heroLede}</p>
               </div>
+              {slug === 'generator-installs' && <SizerBox />}
 
               {/* Materials / includes list */}
               <div className="mt-12">

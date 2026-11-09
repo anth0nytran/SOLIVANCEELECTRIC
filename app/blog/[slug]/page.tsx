@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CtaBackdrop } from '../../components/CtaBackdrop';
 import { FinancingNote } from '../../components/FinancingBanner';
 import Link from 'next/link';
+import { SizerBox } from '../../generators/SizerBox';
 import Image from 'next/image';
 import { ArrowLeft, ArrowRight, Calendar, Clock, Tag } from 'lucide-react';
 import { notFound } from 'next/navigation';
@@ -235,10 +236,12 @@ export default async function BlogPostPage({
       <section className="py-14 sm:py-18 bg-white">
         <div className={shell}>
           <div className="max-w-3xl">
+            {post.category === 'Generators' && <SizerBox compact />}
             <article
               className="blog-prose"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
+            {post.category === 'Generators' && <SizerBox />}
           </div>
         </div>
       </section>

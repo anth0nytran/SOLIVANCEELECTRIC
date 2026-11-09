@@ -26,6 +26,7 @@ import {
 import { siteConfig, serviceData } from '../../config';
 import { serviceContent, type ServiceIcon } from '../../services/serviceContent';
 import { locationContent, getLocationContent, locationImage } from '../locationContent';
+import { SizerBox } from '../../generators/SizerBox';
 import { reviews } from '../../reviews';
 import { Stars } from '../../components/Stars';
 import { CarePlanCard } from '../../components/CarePlanUpsell';
@@ -265,6 +266,8 @@ export default async function LocationDetailPage({
                   })}
                 </div>
               </div>
+
+              <SizerBox compact />
 
               {/* Recent projects (hidden when a location has no confirmed jobs) */}
               {loc.projects.length > 0 && (
