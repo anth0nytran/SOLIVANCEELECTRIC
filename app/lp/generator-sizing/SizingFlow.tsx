@@ -54,16 +54,16 @@ const wrap = 'mx-auto w-full max-w-[640px] px-4 sm:px-6';
 const shell = 'mx-auto w-full max-w-[1160px] px-4 sm:px-6 lg:px-8';
 const page = 'mx-auto w-full max-w-[680px] px-4 sm:px-6 lg:max-w-[1160px] lg:px-8';
 const option =
-  'group flex w-full items-center gap-3 rounded-2xl border border-[#E3E6EA] bg-white px-3.5 py-3.5 text-left sm:gap-4 sm:px-4 sm:py-4 shadow-[0_1px_2px_rgba(10,19,34,0.06)] transition-all hover:border-[#E8590C] hover:shadow-[0_6px_18px_-8px_rgba(232,89,12,0.45)] active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A1322]';
+  'group flex w-full items-center gap-3 rounded-md border border-slate-200 bg-white px-3.5 py-3.5 text-left sm:gap-4 sm:px-4 transition-colors hover:border-[var(--onestop-navy-deep)] hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--onestop-navy-deep)]';
 const chip = (on: boolean) =>
   `min-h-11 rounded-xl border px-3.5 py-2 text-[0.92rem] font-medium transition-colors ${
     on ? 'border-[#0A1322] bg-[#0A1322] text-white' : 'border-[#DDE1E6] bg-white text-[#0A1322] hover:border-[#9AA5B1]'
   }`;
 const label = 'mb-1.5 block text-[0.88rem] font-semibold text-[#0A1322]';
 const field =
-  'block h-12 w-full rounded-xl border border-[#CDD3DA] bg-white px-4 text-[1rem] text-[#0A1322] outline-none transition-colors placeholder:text-[#9AA5B1] focus:border-[#0A1322] focus:ring-4 focus:ring-[#0A1322]/10';
+  'block h-12 w-full rounded-md border border-slate-300 bg-white px-4 text-[1rem] text-[#0A1322] outline-none transition-colors placeholder:text-[#9AA5B1] focus:border-[#0A1322] focus:ring-4 focus:ring-[#0A1322]/10';
 const cta =
-  'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#E8590C] px-6 text-[1.05rem] font-semibold text-white shadow-[0_8px_20px_-8px_rgba(232,89,12,0.7)] transition-colors hover:bg-[#CF4E0A] disabled:opacity-60';
+  'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-6 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#e55f15] disabled:opacity-60';
 const eyebrow = 'text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#B23F07]';
 const WINDOWS = ['Morning (8am–12pm)', 'Afternoon (12pm–5pm)'] as const;
 const windowParts = (w: string) => { const m = w.match(/^(\w+) \((.*)\)$/); return m ? [m[1], m[2]] : [w, '']; };
@@ -304,21 +304,31 @@ export function SizingFlow({
   const rangeRest = m ? m[2].trim() : '';
 
   const quizCard = (
-            <div className="rounded-3xl bg-white p-4 text-[#0A1322] min-[400px]:p-5 shadow-[0_20px_50px_-20px_rgba(10,19,34,0.35)] sm:p-8 lg:shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)]">
+            <div className="overflow-hidden rounded-md bg-white text-[var(--onestop-navy-deep)] shadow-[0_1px_0_rgba(15,40,71,0.06),0_4px_12px_rgba(15,40,71,0.10),0_30px_80px_-20px_rgba(0,0,0,0.55)] ring-1 ring-black/5">
+              <div className="flex items-center justify-between gap-3 bg-[var(--onestop-navy-deep)] px-4 py-2.5 text-white min-[400px]:px-5 sm:px-7">
+                <div className="flex items-center gap-2 font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.22em] text-white/70">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--onestop-gold)]" />
+                  Free Sizing<span className="hidden min-[420px]:inline"> · No Obligation</span>
+                </div>
+                <div className="font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.18em] text-[var(--onestop-gold)]">
+                  Step {view === 'goal' ? 1 : view === 'ac' ? 2 : 3} of 3
+                </div>
+              </div>
+              <div className="p-4 min-[400px]:p-5 sm:p-7">
               {view === 'goal' && (
                 <>
-                  <h2 className="text-[1.2rem] font-semibold leading-snug sm:text-[1.35rem]">What do you want running when the power goes out?</h2>
+                  <h2 className="text-xl font-bold leading-tight tracking-[-0.025em] text-[var(--onestop-navy-deep)] sm:text-[1.4rem]">What do you want running when the power goes out?</h2>
                   <div className="mt-4 grid gap-3">
                     {GOALS.map((g) => {
                       const Icon = GOAL_ICON[g.id];
                       return (
                         <button key={g.id} type="button" className={option} onClick={() => { setGoal(g.id); setView('ac'); pushDataLayer({ event: 'generator_sizing_start' }); }}>
-                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF1E8] text-[#C2410C] sm:h-11 sm:w-11"><Icon className="h-5 w-5" /></span>
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy)]/[0.06] text-[var(--onestop-navy-deep)]"><Icon className="h-[18px] w-[18px]" strokeWidth={1.9} /></span>
                           <span className="min-w-0 flex-1">
                             <span className="block text-[1.02rem] font-semibold">{g.label}</span>
                             <span className="block text-[0.88rem] text-[#5A6B7F]">{g.hint}</span>
                           </span>
-                          <ArrowRight className="h-5 w-5 shrink-0 text-[#9AA5B1] transition-transform group-hover:translate-x-0.5 group-hover:text-[#E8590C]" />
+                          <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 group-hover:text-[var(--onestop-red)]" />
                         </button>
                       );
                     })}
@@ -328,7 +338,7 @@ export function SizingFlow({
 
               {view === 'ac' && (
                 <>
-                  <h2 className="text-[1.2rem] font-semibold leading-snug sm:text-[1.35rem]">How many AC units does your home have?</h2>
+                  <h2 className="text-xl font-bold leading-tight tracking-[-0.025em] text-[var(--onestop-navy-deep)] sm:text-[1.4rem]">How many AC units does your home have?</h2>
                   <p className="mt-1 text-[0.92rem] text-[#5A6B7F]">Count the big boxes outside. AC is the biggest thing a generator runs.</p>
                   <div className="mt-4 grid grid-cols-2 gap-3">
                     {AC_COUNTS.map((a) => (
@@ -402,6 +412,7 @@ export function SizingFlow({
                   </div>
                 </form>
               )}
+              </div>
             </div>
   );
 
@@ -427,7 +438,10 @@ export function SizingFlow({
       {view !== 'result' && (
         <>
           {/* Dark band carries the headline; the question card overlaps it. */}
-          <section className="bg-[#0A1322] pb-24 pt-6 text-white sm:pb-28 sm:pt-10 lg:pb-20 lg:pt-14">
+          <section className="relative isolate overflow-hidden bg-[#0A1322] pb-24 pt-6 text-white sm:pb-28 sm:pt-10 lg:pb-20 lg:pt-14">
+            <Image src="/photos_new/cta-houston-night.jpg" alt="Houston skyline at night" fill priority sizes="100vw" className="-z-20 object-cover object-center" />
+            <div aria-hidden className="absolute inset-0 -z-10 bg-black/60 lg:bg-transparent" />
+            <div aria-hidden className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-black/75 via-black/50 to-black/20 lg:block" />
             <div className={`${shell} lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:items-center lg:gap-16`}>
             <div className="mx-auto max-w-[592px] lg:mx-0 lg:max-w-none">
               <div className="flex h-9 items-center justify-between gap-4">
@@ -474,7 +488,7 @@ export function SizingFlow({
             </div>
           </section>
 
-          <main className={`${wrap} -mt-16 pb-16 sm:-mt-20 lg:hidden`}>
+          <main className={`${wrap} relative z-10 -mt-16 pb-16 sm:-mt-20 lg:hidden`}>
             {quizCard}
 
             <div className="mt-6"><TrustRow /></div>

@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Poppins } from 'next/font/google';
-import { ArrowRight, BadgeCheck, ChevronDown, Clock, FileCheck2, Flame, Home, Lightbulb, ShieldCheck, Thermometer, Zap } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Check, Star, ChevronDown, Clock, FileCheck2, Flame, Home, Lightbulb, ShieldCheck, Thermometer, Zap } from 'lucide-react';
 import { siteConfig } from '../config';
-import { products, formatUsd } from '../generators/products';
+import { products, formatUsd, type Product } from '../generators/products';
+import { ProductImage } from '../generators/ProductImage';
+import { productHref } from '../generators/details';
 import { CalculatorPopout, OpenCalcButton } from './CalculatorPopout';
 
 // Public, indexable Houston generator size calculator. Same funnel as the paid
@@ -51,10 +54,10 @@ const STATS = [
 
 // Mirrors the calculator's rules (app/generators/estimator.ts).
 const CHART = [
-  { home: 'Just the essentials', detail: 'Lights, fridge, outlets, Wi-Fi', ac: 'AC not backed up', range: '11.5–18 kW', models: ['040746', '040757'] },
-  { home: 'Whole home, up to 3,500 sq ft', detail: 'Everything, including AC', ac: '1 AC unit', range: '18–26 kW', models: ['040757', '040787', '040807'] },
-  { home: 'Whole home, 3,500–5,000 sq ft', detail: 'Everything, including AC', ac: '2 AC units', range: '22–26 kW', models: ['040787', '040807'] },
-  { home: 'Whole home, over 5,000 sq ft', detail: 'Everything, including AC', ac: '3+ AC units', range: '30–60 kW', models: ['076880', '076830', '076850', '076860'] },
+  { home: 'Just the essentials', detail: 'Lights, fridge, outlets, Wi-Fi', ac: 'AC not backed up', range: '11.5–18 kW', models: ['040746', '040757'], pick: '040757' as string | undefined, goal: 'essentials' },
+  { home: 'Whole home, up to 3,500 sq ft', detail: 'Everything, including AC', ac: '1 AC unit', range: '18–26 kW', models: ['040757', '040787', '040807'], pick: '040787', goal: 'whole' },
+  { home: 'Whole home, 3,500–5,000 sq ft', detail: 'Everything, including AC', ac: '2 AC units', range: '22–26 kW', models: ['040787', '040807'], pick: '040807', goal: 'whole' },
+  { home: 'Whole home, over 5,000 sq ft', detail: 'Everything, including AC', ac: '3+ AC units', range: '30–60 kW', models: ['076880', '076830', '076850', '076860'], pick: undefined, goal: 'whole' },
 ];
 
 const APPLIANCES: [string, string, number][] = [
@@ -96,6 +99,55 @@ const FAQS = [
   },
 ];
 
+const GEN_COUNT = products.filter((p) => p.group === 'powerprotect' || p.group === 'fortress').length;
+const GRID_COLS: Record<number, string> = { 2: 'lg:grid-cols-3', 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4' };
+
+/** "26 / 24 kW" -> "26 kW propane · 24 kW natural gas"; "30 kW" -> "30 kW" */
+function fuelLine(p: Product) {
+  const [lp, ng] = (p.kw || '').replace(' kW', '').split('/').map((x) => x.trim());
+  return ng ? `${lp} kW propane · ${ng} kW natural gas` : `${lp} kW`;
+}
+
+function ChartProduct({ p, common, goal }: { p: Product; common: boolean; goal: string }) {
+  const liquid = p.group === 'fortress';
+  const facts = [
+    liquid ? 'Liquid-cooled engine for big homes' : 'Air-cooled home standby',
+    `${p.warrantyYears}-year limited warranty`,
+    liquid ? 'Heavy-duty all-weather case' : 'Turns on by itself when power goes out',
+  ];
+  return (
+    <div className={`relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white transition-shadow hover:shadow-[0_14px_32px_-16px_rgba(10,19,34,0.35)] ${common ? 'border-[#E8590C] ring-1 ring-[#E8590C]' : 'border-[#E6E8EC]'}`}>
+      <Link href={productHref(p)} className="relative block aspect-[4/3] border-b border-[#EEF0F3] bg-white p-5" aria-label={`${p.name} details`}>
+        {common && <span className="absolute left-3 top-3 z-10 rounded-md bg-[#E8590C] px-2 py-1 text-[0.7rem] font-semibold text-white">Our pick for this home</span>}
+        {!common && p.badge && <span className="absolute left-3 top-3 z-10 rounded-md bg-[#E8F3EC] px-2 py-1 text-[0.7rem] font-semibold text-[#1F7A4D]">{p.badge}</span>}
+        <ProductImage src={p.image} alt={`Briggs & Stratton ${p.name} standby generator`} className="h-full w-full" sizes="(min-width: 1024px) 260px, (min-width: 640px) 45vw, 90vw" />
+      </Link>
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
+        <p className="text-[0.75rem] font-medium text-[#5A6B7F]">Briggs &amp; Stratton</p>
+        <Link href={productHref(p)} className="mt-0.5 text-[1.05rem] font-semibold leading-snug text-[#0A1322] hover:underline">{p.name}</Link>
+        <p className="mt-1 text-[0.82rem] text-[#5A6B7F]">{fuelLine(p)}</p>
+        <ul className="mt-3 grid gap-1.5">
+          {facts.map((t) => (
+            <li key={t} className="flex items-start gap-2 text-[0.84rem] leading-snug text-[#334155]"><Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#1F7A4D]" /> {t}</li>
+          ))}
+        </ul>
+        <div className="mt-auto pt-4">
+          <p className="text-[1.35rem] font-bold leading-none tabular-nums">{formatUsd(p.map)}</p>
+          <p className="mt-1 text-[0.74rem] text-[#5A6B7F]">Unit only · install quoted after a free visit</p>
+          <div className="mt-4 grid gap-2">
+            <OpenCalcButton goal={goal} className="flex w-full items-center justify-center gap-1.5 rounded-xl bg-[#E8590C] px-3 py-2.5 text-[0.88rem] font-semibold text-white transition-colors hover:bg-[#C2410C]">
+              Will this fit my home? <ArrowRight className="h-4 w-4" />
+            </OpenCalcButton>
+            <Link href={productHref(p)} className="flex w-full items-center justify-center rounded-xl border border-[#E3E6EA] px-3 py-2.5 text-[0.86rem] font-semibold text-[#0A1322] transition-colors hover:border-[#0A1322]">
+              See full details
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const eyebrow = 'text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#B23F07]';
 const h2 = 'mt-2 text-[1.6rem] font-bold leading-tight tracking-[-0.02em] text-[#0A1322] sm:text-[2rem]';
 const card = 'rounded-2xl border border-[#E6E8EC] bg-white';
@@ -125,45 +177,140 @@ export default function GeneratorSizeCalculatorPage() {
       <CalculatorPopout className={poppins.className} style={{ '--font-app-display': poppins.style.fontFamily } as CSSProperties} />
 
       {/* Hero: the calculator opens full-screen from here. */}
-      <section className="bg-[#0A1322] text-white">
-        <div className="mx-auto grid max-w-[1040px] gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center lg:px-8 lg:py-20">
+      <section className="relative isolate overflow-hidden bg-[var(--onestop-navy-deep)] text-white">
+        <Image src="/photos_new/generator-installs.jpg" alt="Standby generator installed by Solivance Electric in Houston" fill priority sizes="100vw" className="-z-20 object-cover object-center" />
+        <div aria-hidden className="absolute inset-0 -z-10 bg-black/60 lg:bg-transparent" />
+        <div aria-hidden className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-black/75 via-black/50 to-black/20 lg:block" />
+        <div className="mx-auto grid max-w-[1120px] gap-12 px-4 pb-24 pt-10 sm:px-6 sm:pb-28 sm:pt-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center lg:gap-16 lg:px-8 lg:pb-28 lg:pt-24">
           <div>
-            <p className="flex items-center gap-1.5 text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-[#FDBA74]"><Zap className="h-3.5 w-3.5" /> Free · 20 seconds</p>
-            <h1 className="mt-4 text-[2rem] font-bold leading-[1.08] tracking-[-0.025em] sm:text-[2.6rem] lg:text-[3rem]">Houston Generator Size Calculator</h1>
-            <p className="mt-4 text-[1.05rem] leading-relaxed text-white/75 sm:text-[1.15rem]">
-              Answer 2 quick questions. See which standby generators fit your Houston home, with real prices. A licensed electrician confirms it for free.
+            <p className="flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-white/80"><span className="h-px w-6 bg-[var(--onestop-gold)]" /> Free · Takes 20 seconds</p>
+            <h1 className="mt-5 text-[2.1rem] font-bold leading-[1.06] tracking-[-0.025em] sm:text-[2.8rem] lg:text-[3.3rem]">
+              Houston Generator Size Calculator
+            </h1>
+            <p className="mt-5 max-w-[34rem] text-[1.05rem] leading-relaxed text-white/80 sm:text-[1.15rem]">
+              Answer 2 quick questions. See which standby generators fit your Houston home, with real prices. A licensed electrician checks it for free.
             </p>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[0.85rem] text-white/75">
-              <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-[#4ADE80]" /> Licensed {siteConfig.license.label}</span>
-              <span className="flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-[#4ADE80]" /> Briggs &amp; Stratton dealer</span>
-              <span className="flex items-center gap-1.5"><Zap className="h-4 w-4 text-[#4ADE80]" /> {siteConfig.rating.toFixed(1)} on Google</span>
-            </div>
-          </div>
-          <div className="rounded-3xl bg-white p-5 text-[#0A1322] shadow-[0_30px_70px_-20px_rgba(0,0,0,0.6)] sm:p-7">
-            <p className="text-[1.15rem] font-semibold leading-snug sm:text-[1.3rem]">What do you want running when the power goes out?</p>
-            <div className="mt-4 grid gap-3">
+            <div className="hidden lg:block">
+            <div className="mt-8 grid max-w-[34rem] grid-cols-3 divide-x divide-white/20 border-y border-white/20 py-4">
               {[
-                { goal: 'essentials', icon: Lightbulb, t: 'Just the essentials', d: 'Lights, fridge, outlets, Wi-Fi' },
-                { goal: 'whole', icon: Home, t: 'My whole home', d: 'AC included, like nothing happened' },
-              ].map(({ goal, icon: Icon, t, d }) => (
-                <OpenCalcButton
-                  key={goal}
-                  goal={goal}
-                  className="group flex w-full items-center gap-3 rounded-2xl border border-[#E3E6EA] bg-white px-4 py-4 text-left transition-all hover:border-[#E8590C] hover:shadow-[0_6px_18px_-8px_rgba(232,89,12,0.45)]"
-                >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFF1E8] text-[#C2410C]"><Icon className="h-5 w-5" /></span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-[1rem] font-semibold">{t}</span>
-                    <span className="block text-[0.86rem] text-[#5A6B7F]">{d}</span>
-                  </span>
-                  <ArrowRight className="h-5 w-5 shrink-0 text-[#9AA5B1] group-hover:text-[#E8590C]" />
-                </OpenCalcButton>
+                { big: `${GEN_COUNT}`, small: 'models to compare' },
+                { big: formatUsd(pp('040746').map), small: 'units start at' },
+                { big: '$0', small: 'home visit' },
+              ].map((x) => (
+                <div key={x.small} className="px-3 first:pl-0 sm:px-5">
+                  <p className="text-[1.25rem] font-bold leading-none tabular-nums sm:text-[1.45rem]">{x.big}</p>
+                  <p className="mt-1.5 text-[0.75rem] leading-tight text-white/70 sm:text-[0.8rem]">{x.small}</p>
+                </div>
               ))}
             </div>
-            <p className="mt-3 text-center text-[0.8rem] text-[#5A6B7F]">Step 1 of 3 · Free, no obligation</p>
+            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2.5 text-[0.86rem] text-white/80">
+              <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-[#4ADE80]" /> Licensed {siteConfig.license.label}</span>
+              <span className="flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-[#4ADE80]" /> Briggs &amp; Stratton dealer</span>
+              <span className="flex items-center gap-1.5"><Star className="h-4 w-4 fill-[#FBBF24] text-[#FBBF24]" /> {siteConfig.rating.toFixed(1)} on Google</span>
+            </div>
+            </div>
+          </div>
+          <div className="hidden lg:block">
+          <div className="overflow-hidden rounded-md bg-white text-[var(--onestop-navy-deep)] shadow-[0_1px_0_rgba(15,40,71,0.06),0_4px_12px_rgba(15,40,71,0.10),0_30px_80px_-20px_rgba(0,0,0,0.55)] ring-1 ring-black/5">
+            {/* Authority bar: same as the homepage quote form. */}
+            <div className="flex items-center justify-between gap-3 bg-[var(--onestop-navy-deep)] px-5 py-2.5 text-white sm:px-6 lg:px-7">
+              <div className="flex items-center gap-2 font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.22em] text-white/70">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--onestop-gold)]" />
+                Free Sizing<span className="hidden min-[420px]:inline"> · No Obligation</span>
+              </div>
+              <div className="font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.18em] text-[var(--onestop-gold)]">Step 1 of 3</div>
+            </div>
+            <div className="p-5 sm:p-6 lg:p-7">
+              <h2 className="mb-1.5 text-xl font-bold leading-tight tracking-[-0.025em] text-[var(--onestop-navy-deep)] sm:text-[1.4rem]">What do you want running in an outage?</h2>
+              <p className="mb-5 text-[0.82rem] leading-snug text-slate-500">Pick one. A licensed electrician confirms the size at a free home visit.</p>
+              <div className="grid gap-2.5">
+                {[
+                  { goal: 'essentials', icon: Lightbulb, t: 'Just the essentials', d: 'Lights, fridge, outlets, Wi-Fi' },
+                  { goal: 'whole', icon: Home, t: 'My whole home', d: 'Everything, including the AC' },
+                ].map(({ goal, icon: Icon, t, d }) => (
+                  <OpenCalcButton
+                    key={goal}
+                    goal={goal}
+                    className="group flex w-full items-center gap-3.5 rounded-md border border-slate-200 bg-white px-4 py-3.5 text-left transition-colors hover:border-[var(--onestop-navy-deep)] hover:bg-slate-50"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy)]/[0.06] text-[var(--onestop-navy-deep)]"><Icon className="h-[18px] w-[18px]" strokeWidth={1.9} /></span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[0.98rem] font-semibold">{t}</span>
+                      <span className="block text-[0.8rem] text-slate-500">{d}</span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 group-hover:text-[var(--onestop-red)]" />
+                  </OpenCalcButton>
+                ))}
+              </div>
+              <div className="mt-5 grid grid-cols-3 gap-2 border-t border-slate-200 pt-4 text-[0.6rem] font-semibold uppercase tracking-[0.1em] text-slate-500 sm:text-[0.64rem]">
+                <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[var(--onestop-navy-deep)]" /> Licensed</span>
+                <span className="flex items-center gap-1.5"><BadgeCheck className="h-3.5 w-3.5 shrink-0 text-[var(--onestop-navy-deep)]" /> B&amp;S Dealer</span>
+                <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 shrink-0 text-[var(--onestop-navy-deep)]" /> 20 Seconds</span>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </section>
+
+      {/* Phones: the card overlaps the photo band, like the calculator pop-out. */}
+      <div className="relative z-10 mx-auto -mt-16 max-w-[592px] px-4 sm:-mt-20 sm:px-6 lg:hidden">
+          <div className="overflow-hidden rounded-md bg-white text-[var(--onestop-navy-deep)] shadow-[0_1px_0_rgba(15,40,71,0.06),0_4px_12px_rgba(15,40,71,0.10),0_30px_80px_-20px_rgba(0,0,0,0.55)] ring-1 ring-black/5">
+            {/* Authority bar: same as the homepage quote form. */}
+            <div className="flex items-center justify-between gap-3 bg-[var(--onestop-navy-deep)] px-5 py-2.5 text-white sm:px-6 lg:px-7">
+              <div className="flex items-center gap-2 font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.22em] text-white/70">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--onestop-gold)]" />
+                Free Sizing<span className="hidden min-[420px]:inline"> · No Obligation</span>
+              </div>
+              <div className="font-[family-name:var(--font-app-mono)] text-[0.62rem] uppercase tracking-[0.18em] text-[var(--onestop-gold)]">Step 1 of 3</div>
+            </div>
+            <div className="p-5 sm:p-6 lg:p-7">
+              <h2 className="mb-1.5 text-xl font-bold leading-tight tracking-[-0.025em] text-[var(--onestop-navy-deep)] sm:text-[1.4rem]">What do you want running in an outage?</h2>
+              <p className="mb-5 text-[0.82rem] leading-snug text-slate-500">Pick one. A licensed electrician confirms the size at a free home visit.</p>
+              <div className="grid gap-2.5">
+                {[
+                  { goal: 'essentials', icon: Lightbulb, t: 'Just the essentials', d: 'Lights, fridge, outlets, Wi-Fi' },
+                  { goal: 'whole', icon: Home, t: 'My whole home', d: 'Everything, including the AC' },
+                ].map(({ goal, icon: Icon, t, d }) => (
+                  <OpenCalcButton
+                    key={goal}
+                    goal={goal}
+                    className="group flex w-full items-center gap-3.5 rounded-md border border-slate-200 bg-white px-4 py-3.5 text-left transition-colors hover:border-[var(--onestop-navy-deep)] hover:bg-slate-50"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy)]/[0.06] text-[var(--onestop-navy-deep)]"><Icon className="h-[18px] w-[18px]" strokeWidth={1.9} /></span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[0.98rem] font-semibold">{t}</span>
+                      <span className="block text-[0.8rem] text-slate-500">{d}</span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-slate-400 group-hover:text-[var(--onestop-red)]" />
+                  </OpenCalcButton>
+                ))}
+              </div>
+              <div className="mt-5 grid grid-cols-3 gap-2 border-t border-slate-200 pt-4 text-[0.6rem] font-semibold uppercase tracking-[0.1em] text-slate-500 sm:text-[0.64rem]">
+                <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[var(--onestop-navy-deep)]" /> Licensed</span>
+                <span className="flex items-center gap-1.5"><BadgeCheck className="h-3.5 w-3.5 shrink-0 text-[var(--onestop-navy-deep)]" /> B&amp;S Dealer</span>
+                <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 shrink-0 text-[var(--onestop-navy-deep)]" /> 20 Seconds</span>
+              </div>
+            </div>
+          </div>
+        <div className="mt-6 grid grid-cols-3 divide-x divide-[#DDE1E6] rounded-md border border-[#DDE1E6] bg-white py-3.5">
+          {[
+            { big: `${GEN_COUNT}`, small: 'models to compare' },
+            { big: formatUsd(pp('040746').map), small: 'units start at' },
+            { big: '$0', small: 'home visit' },
+          ].map((x) => (
+            <div key={x.small} className="px-3 text-center">
+              <p className="text-[1.2rem] font-bold leading-none tabular-nums text-[var(--onestop-navy-deep)]">{x.big}</p>
+              <p className="mt-1.5 text-[0.72rem] leading-tight text-slate-500">{x.small}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[0.8rem] text-[#334155]">
+          <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-[#1F7A4D]" /> Licensed {siteConfig.license.label}</span>
+          <span className="flex items-center gap-1.5"><BadgeCheck className="h-4 w-4 text-[#1F7A4D]" /> Briggs &amp; Stratton dealer</span>
+          <span className="flex items-center gap-1.5"><Star className="h-4 w-4 fill-[#FBBF24] text-[#FBBF24]" /> {siteConfig.rating.toFixed(1)} on Google</span>
+        </div>
+      </div>
 
       <div className="mx-auto grid max-w-[1040px] grid-cols-[minmax(0,1fr)] gap-14 px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
         {/* Short answer */}
@@ -205,24 +352,37 @@ export default function GeneratorSizeCalculatorPage() {
             Generac calls 22 kW the industry standard for a whole home of about 2,500–3,000 sq ft <Cite n={4} />. Here&apos;s where Houston homes usually land, with
             the models we carry.
           </p>
-          <div className="mt-6 grid gap-3 md:grid-cols-2">
-            {CHART.map((r) => (
-              <div key={r.home} className={`${card} p-5`}>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[1.02rem] font-semibold leading-snug">{r.home}</p>
-                    <p className="text-[0.85rem] text-[#5A6B7F]">{r.detail} · {r.ac}</p>
+          <div className="mt-8 grid gap-6">
+            {CHART.map((r, i) => (
+              <div key={r.home} className={`${card} overflow-hidden`}>
+                <div className="flex flex-col gap-3 border-b border-[#EEF0F3] bg-[#FAFBFC] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5">
+                  <div className="flex items-start gap-3.5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#0A1322] text-[0.95rem] font-bold text-white">{i + 1}</span>
+                    <div>
+                      <p className="text-[1.08rem] font-semibold leading-snug sm:text-[1.15rem]">{r.home}</p>
+                      <p className="mt-0.5 text-[0.86rem] text-[#5A6B7F]">{r.detail} · {r.ac}</p>
+                    </div>
                   </div>
-                  <span className="shrink-0 rounded-lg bg-[#0A1322] px-2.5 py-1.5 text-[0.9rem] font-bold text-white">{r.range}</span>
+                  <span className="self-start rounded-xl bg-[#FFF1E8] px-3 py-1.5 text-[0.95rem] font-bold text-[#B23F07] sm:self-center">{r.range}</span>
                 </div>
-                <ul className="mt-4 divide-y divide-[#EEF0F3] border-t border-[#EEF0F3]">
+                <div className={`grid gap-4 p-4 sm:grid-cols-2 sm:p-6 ${GRID_COLS[r.models.length] ?? ''}`}>
                   {r.models.map((id) => (
-                    <li key={id} className="flex justify-between gap-3 py-2 text-[0.9rem]">
-                      <span>Briggs &amp; Stratton {pp(id).name}</span>
-                      <span className="font-semibold tabular-nums">{formatUsd(pp(id).map)}</span>
-                    </li>
+                    <ChartProduct key={id} p={pp(id)} common={r.pick === id} goal={r.goal} />
                   ))}
-                </ul>
+                  {r.models.length === 2 && (
+                    <div className="flex flex-col justify-center rounded-2xl border border-dashed border-[#CBD2DA] bg-[#FAFBFC] p-5 sm:col-span-2 lg:col-span-1">
+                      <ShieldCheck className="h-7 w-7 text-[#1F7A4D]" />
+                      <p className="mt-3 text-[1.05rem] font-semibold leading-snug">Not sure which one?</p>
+                      <p className="mt-1.5 text-[0.9rem] leading-relaxed text-[#4A5A6C]">
+                        Our team comes out, checks your panel and AC, and tells you the right size. The visit is free.
+                      </p>
+                      <OpenCalcButton goal={r.goal} className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl bg-[#0A1322] px-3 py-2.5 text-[0.88rem] font-semibold text-white transition-colors hover:bg-[#1E293B]">
+                        Find my size <ArrowRight className="h-4 w-4" />
+                      </OpenCalcButton>
+                      <a href={`tel:${siteConfig.cleanPhone}`} className="mt-2 text-center text-[0.86rem] font-semibold text-[#0A1322] hover:underline">Or call {siteConfig.phone}</a>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
