@@ -143,7 +143,7 @@ export function Header() {
           <div className="hidden sm:flex items-center gap-4 text-white/80 whitespace-nowrap">
             <span className="inline-flex items-center gap-1.5">
               <Shield className="h-3 w-3 text-[var(--onestop-gold)]" aria-hidden />
-              Licensed TX Contractor · <span className="text-white font-bold">{siteConfig.license.label}</span>
+              <span className="hidden md:inline">Licensed TX Contractor · </span><span className="text-white font-bold">{siteConfig.license.label}</span>
             </span>
             <span className="hidden lg:inline-block h-3 w-px bg-white/20" aria-hidden />
             <Link href="/financing" className="hidden lg:inline-flex items-center gap-1.5 text-white font-bold hover:text-[var(--onestop-gold)] transition-colors">
@@ -163,7 +163,16 @@ export function Header() {
             >
               Call · {siteConfig.phone}
             </a>
-            {/* Desktop: phone + language only; areas live in the nav, email in the footer */}
+            {/* Email: icon below xl, full address from xl up */}
+            <a
+              href={`mailto:${siteConfig.email}`}
+              aria-label={`Email ${siteConfig.email}`}
+              className="inline-flex h-6 items-center gap-1.5 whitespace-nowrap font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal"
+            >
+              <Mail className="h-3.5 w-3.5 sm:h-3 sm:w-3" aria-hidden />
+              <span className="hidden xl:inline">{siteConfig.email}</span>
+            </a>
+            <span className="hidden sm:inline-block h-3 w-px bg-white/25" aria-hidden />
             <a href={`tel:${siteConfig.cleanPhone}`} className="hidden sm:inline-flex whitespace-nowrap items-center gap-1.5 font-bold text-white hover:text-[var(--onestop-gold)] transition-colors duration-200 normal-case tracking-normal">
               <Phone className="h-3 w-3" aria-hidden /> {siteConfig.phone}
             </a>
