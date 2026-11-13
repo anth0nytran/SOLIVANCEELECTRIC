@@ -11,7 +11,7 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'rea
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
-  ArrowLeft, ArrowRight, BadgeCheck, BatteryCharging, FileCheck2, HardHat, Star, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
+  ArrowLeft, ArrowRight, BadgeCheck, BatteryCharging, Star, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
   Lamp, Phone, Sun, Sunset, Timer, X, Zap,
 } from 'lucide-react';
 import { siteConfig } from '../config';
@@ -59,13 +59,13 @@ const QUESTION: Record<Exclude<Step, 'done'>, { title: string; sub: string }> = 
 };
 
 const option =
-  'group flex w-full items-center gap-3 rounded-md border border-slate-200 bg-white px-3.5 py-3.5 text-left transition-colors hover:border-[var(--onestop-navy-deep)] hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--onestop-navy-deep)] sm:gap-4 sm:px-4';
+  'group flex w-full items-center gap-3 rounded-md border border-slate-200 bg-white px-3.5 py-3 text-left transition-colors hover:border-[var(--onestop-navy-deep)] hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--onestop-navy-deep)] sm:gap-4 sm:px-4';
 const optionOn = 'border-[var(--onestop-navy-deep)] bg-slate-50 ring-1 ring-[var(--onestop-navy-deep)]';
 const field =
-  'block h-12 w-full rounded-md border border-slate-300 bg-white px-4 text-[1rem] text-[#0A1322] outline-none transition-colors placeholder:text-slate-400 focus:border-[var(--onestop-navy-deep)] focus:ring-4 focus:ring-[var(--onestop-navy-deep)]/10';
-const fieldLabel = 'mb-1.5 block text-[0.85rem] font-semibold text-[#0A1322]';
+  'block h-11 w-full rounded-md border border-slate-300 bg-white px-4 text-[1rem] text-[#0A1322] outline-none transition-colors placeholder:text-slate-400 focus:border-[var(--onestop-navy-deep)] focus:ring-4 focus:ring-[var(--onestop-navy-deep)]/10';
+const fieldLabel = 'sr-only sm:not-sr-only sm:mb-1 sm:block sm:text-[0.8rem] sm:font-semibold sm:text-[#0A1322]';
 const cta =
-  'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-6 text-[0.92rem] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#e55f15] disabled:opacity-60';
+  'inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-6 text-[0.92rem] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#e55f15] disabled:opacity-60';
 
 const formatPhone = (v: string) => {
   const d = v.replace(/\D/g, '').slice(0, 10);
@@ -75,17 +75,18 @@ const formatPhone = (v: string) => {
   return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
 };
 
-function Choice({ on, icon: Icon, label, sub, onClick }: { on?: boolean; icon: typeof Zap; label: string; sub: string; onClick: () => void }) {
+// tight = 2-up grid on phones: smaller icon, no subtitle/chevron until desktop.
+function Choice({ on, icon: Icon, label, sub, onClick, tight = false }: { on?: boolean; icon: typeof Zap; label: string; sub: string; onClick: () => void; tight?: boolean }) {
   return (
-    <button type="button" onClick={onClick} className={`${option} ${on ? optionOn : ''}`}>
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy-deep)]/[0.06] text-[var(--onestop-navy-deep)]">
-        <Icon className="h-5 w-5" aria-hidden />
+    <button type="button" onClick={onClick} className={`${option} ${on ? optionOn : ''} ${tight ? 'gap-2.5 px-2.5 py-2.5 lg:gap-3 lg:px-3.5 lg:py-3' : ''}`}>
+      <span className={`flex shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy-deep)]/[0.06] text-[var(--onestop-navy-deep)] ${tight ? 'h-8 w-8 lg:h-10 lg:w-10' : 'h-10 w-10'}`}>
+        <Icon className={tight ? 'h-4 w-4 lg:h-5 lg:w-5' : 'h-5 w-5'} aria-hidden />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-[0.98rem] font-semibold leading-tight text-[#0A1322]">{label}</span>
-        <span className="mt-0.5 block text-[0.8rem] leading-snug text-slate-500">{sub}</span>
+        <span className={`block font-semibold leading-tight text-[#0A1322] ${tight ? 'text-[0.84rem] lg:truncate lg:text-[0.95rem]' : 'text-[0.98rem]'}`}>{label}</span>
+        <span className={`mt-0.5 text-[0.8rem] leading-snug text-slate-500 ${tight ? 'hidden lg:block lg:truncate' : 'block'}`}>{sub}</span>
       </span>
-      <ChevronRight className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5" aria-hidden />
+      <ChevronRight className={`h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5 ${tight ? 'hidden' : ''}`} aria-hidden />
     </button>
   );
 }
@@ -94,7 +95,6 @@ function Choice({ on, icon: Icon, label, sub, onClick }: { on?: boolean; icon: t
 const PROOF = ['tonya-n', 'gabriella-o', 'zno-z']
   .map((id) => reviews.find((r) => r.id === id))
   .filter(Boolean) as (typeof reviews)[number][];
-const excerpt = (q: string, n: number) => (q.length <= n ? q : `${q.slice(0, q.lastIndexOf(' ', n))}…`);
 
 function Stars({ className = 'h-3.5 w-3.5' }: { className?: string }) {
   return (
@@ -104,37 +104,29 @@ function Stars({ className = 'h-3.5 w-3.5' }: { className?: string }) {
   );
 }
 
-// Trust stack under every popup step: credentials row + real reviews.
-function ProofStack({ step, narrow }: { step: number; narrow: boolean }) {
-  const creds = [
-    { icon: Star, title: `${siteConfig.rating.toFixed(1)} on Google`, sub: `${siteConfig.reviewCount} five-star reviews` },
-    { icon: BadgeCheck, title: 'Licensed & insured', sub: siteConfig.license.label },
-    { icon: FileCheck2, title: 'Permit pulled', sub: 'City inspected, every job' },
-    { icon: HardHat, title: `${siteConfig.yearsInBusiness}+ years in Houston`, sub: 'Local crew, not a call center' },
-  ];
-  const shown = narrow ? [PROOF[step % PROOF.length]] : PROOF;
+// Quiet trust line under every popup step: credentials + one real Google review (app/reviews.ts).
+// Muted on purpose so the eye stays on the question and the white answer panel.
+function Proof({ index, compact = false }: { index: number; compact?: boolean }) {
+  const r = PROOF[index % PROOF.length];
+  const dot = <span className="text-white/30" aria-hidden>·</span>;
   return (
-    <div className="mt-8 border-t border-white/15 pt-6">
-      <ul className="grid grid-cols-2 gap-x-4 gap-y-4 lg:grid-cols-4">
-        {creds.map((c) => (
-          <li key={c.title} className="flex items-start gap-2.5">
-            <c.icon className={`mt-0.5 h-4 w-4 shrink-0 text-[var(--onestop-gold)] ${c.icon === Star ? 'fill-current' : ''}`} aria-hidden />
-            <span className="min-w-0">
-              <span className="block text-[0.86rem] font-semibold leading-tight text-white">{c.title}</span>
-              <span className="mt-0.5 block text-[0.76rem] leading-snug text-white/65">{c.sub}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <div className={`mt-5 grid gap-3 ${narrow ? '' : 'lg:grid-cols-3'}`}>
-        {shown.map((r, i) => (
-          <figure key={r.id} className={`rounded-md bg-white p-4 text-left shadow-sm ${!narrow && i > 0 ? 'hidden lg:block' : ''}`}>
-            <Stars />
-            <blockquote className="mt-2 text-[0.86rem] leading-relaxed text-slate-700">&ldquo;{excerpt(r.quote, 150)}&rdquo;</blockquote>
-            <figcaption className="mt-2 text-[0.78rem] font-semibold text-[var(--onestop-navy-deep)]">{r.author} <span className="font-normal text-slate-500">· Google review</span></figcaption>
-          </figure>
-        ))}
+    <div className="mt-4 text-center lg:mt-5">
+      <div className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-[0.76rem] text-white/80">
+        <span className="flex items-center gap-1.5"><Stars className="h-3 w-3" /><span className="font-semibold text-white">{siteConfig.rating.toFixed(1)}</span> on Google ({siteConfig.reviewCount})</span>
+        {dot}
+        <span className="flex items-center gap-1"><BadgeCheck className="h-3.5 w-3.5 text-[var(--onestop-gold)]" aria-hidden />{siteConfig.license.label}</span>
+        {dot}
+        <span>Permit pulled</span>
+        <span className="hidden sm:contents">{dot}<span>{siteConfig.yearsInBusiness}+ yrs in Houston</span></span>
       </div>
+      {r && (
+        <figure className={`mx-auto mt-2.5 max-w-[600px] max-lg:[@media(max-height:780px)]:hidden ${compact ? "max-sm:hidden" : ""}`}>
+          <blockquote className="line-clamp-2 text-[0.82rem] italic leading-snug text-white/70">&ldquo;{r.quote}&rdquo;</blockquote>
+          <figcaption className="mt-1 flex items-center justify-center gap-1 text-[0.72rem] text-white/55">
+            {r.author} · <BadgeCheck className="h-3 w-3 text-emerald-400" aria-hidden /> Google review
+          </figcaption>
+        </figure>
+      )}
     </div>
   );
 }
@@ -142,27 +134,28 @@ function ProofStack({ step, narrow }: { step: number; narrow: boolean }) {
 function ServiceStep({ service, pick, compact = false }: { service: string; pick: (v: string) => void; compact?: boolean }) {
   if (compact) {
     return (
-      <div className="grid grid-cols-2 gap-2 min-[420px]:grid-cols-3">
+      <div className="grid gap-2 min-[420px]:grid-cols-2">
         {SERVICE_TILES.map((t) => (
           <button
             key={t.value}
             type="button"
             onClick={() => pick(t.value)}
-            className="group flex min-h-[52px] items-center gap-2 rounded-md border border-slate-200 bg-white p-2 text-left min-[420px]:min-h-[84px] min-[420px]:flex-col min-[420px]:items-start min-[420px]:justify-between min-[420px]:p-2.5 transition-colors hover:border-[var(--onestop-navy-deep)] hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--onestop-navy-deep)] sm:p-3"
+            className="group flex h-11 w-full items-center gap-2.5 rounded-md border border-slate-200 bg-white pl-2.5 pr-3 text-left transition-colors hover:border-[var(--onestop-navy-deep)] hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--onestop-navy-deep)]"
           >
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy-deep)]/[0.06] text-[var(--onestop-navy-deep)] transition-colors group-hover:bg-[var(--onestop-red)] group-hover:text-white min-[420px]:h-8 min-[420px]:w-8">
-              <t.icon className="h-4 w-4" aria-hidden />
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-[var(--onestop-navy-deep)]/[0.06] text-[var(--onestop-navy-deep)] transition-colors group-hover:bg-[var(--onestop-red)] group-hover:text-white">
+              <t.icon className="h-3.5 w-3.5" aria-hidden />
             </span>
-            <span className="text-[0.82rem] font-semibold leading-tight text-[#0A1322] sm:text-[0.86rem]">{t.label}</span>
+            <span className="min-w-0 flex-1 truncate text-[0.86rem] font-semibold text-[#0A1322]">{t.label}</span>
+            <ChevronRight className="h-4 w-4 shrink-0 text-slate-300 transition-all group-hover:translate-x-0.5 group-hover:text-[var(--onestop-red)]" aria-hidden />
           </button>
         ))}
       </div>
     );
   }
   return (
-    <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-2 gap-2 sm:gap-2.5 lg:grid-cols-3 xl:grid-cols-4">
       {SERVICE_TILES.map((t) => (
-        <Choice key={t.value} on={service === t.value} icon={t.icon} label={t.label} sub={t.sub} onClick={() => pick(t.value)} />
+        <Choice tight key={t.value} on={service === t.value} icon={t.icon} label={t.label} sub={t.sub} onClick={() => pick(t.value)} />
       ))}
     </div>
   );
@@ -334,38 +327,38 @@ export function QuoteQuiz({
         </div>
       </div>
 
-      <div className={`relative mx-auto flex min-h-[calc(100dvh-60px)] w-full flex-col px-4 pb-16 pt-6 sm:px-6 sm:pt-10 lg:justify-center lg:py-14 ${step === 'service' || step === 'urgency' ? 'max-w-[980px]' : step === 'contact' ? 'max-w-[760px]' : 'max-w-[820px]'}`}>
+      <div className={`relative mx-auto flex min-h-[calc(100dvh-61px)] w-full flex-col px-4 pb-8 pt-4 sm:px-6 sm:pt-8 lg:justify-center ${step === 'contact' ? 'lg:py-4' : 'lg:py-8'} ${step === 'service' ? 'max-w-[1120px]' : step === 'contact' ? 'max-w-[700px]' : 'max-w-[980px]'}`}>
         {done ? (
           <div className="mx-auto w-full max-w-[560px] rounded-md border border-slate-200 bg-white p-6 shadow-sm sm:p-8">{success}</div>
         ) : (
-          <div>
-          <div className="lg:text-center">
-            <div className="mb-3 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.22em] text-white/75 lg:justify-center">
-              <span className="h-px w-6 bg-[var(--onestop-gold)]" /> Solivance Electric · Houston <span className="hidden h-px w-6 bg-[var(--onestop-gold)] lg:inline-block" />
+          <div className={step === 'contact' ? 'mx-auto w-full max-w-[620px]' : ''}>
+            <div className="text-center">
+              <h2 className="text-[1.45rem] font-bold leading-[1.15] tracking-[-0.025em] text-balance text-white sm:text-[1.8rem] lg:text-[2.35rem] lg:leading-[1.08]">
+                {QUESTION[step].title}
+              </h2>
+              <p className="mt-1 text-[0.9rem] text-white/75 lg:mt-2 lg:text-[1rem]">{QUESTION[step].sub}</p>
             </div>
-            <h2 className="text-[1.6rem] font-bold leading-[1.15] tracking-[-0.025em] text-balance text-white sm:text-[1.9rem] lg:text-[2.5rem] lg:leading-[1.08]">
-              {QUESTION[step].title}
-            </h2>
-            <p className="mt-1.5 text-[0.95rem] text-white/80 lg:mt-3 lg:text-[1.05rem]">{QUESTION[step].sub}</p>
-          </div>
 
-            <div className="mt-5 lg:mt-9">
+            {/* The one bright thing on screen: the answers */}
+            <div className="mt-4 rounded-xl bg-white p-2.5 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.8)] sm:p-3 lg:mt-6 lg:p-4">
               {step === 'service' && <ServiceStep service={service} pick={pickService} />}
 
               {step === 'urgency' && (
-                <div className="grid gap-2.5 lg:grid-cols-3">
-                  {URGENCY.map((u) => (
-                    <Choice key={u.value} on={urgency === u.value} icon={u.icon} label={u.label} sub={u.sub} onClick={() => { setUrgency(u.value); go('window'); }} />
-                  ))}
-                  <a href={`tel:${siteConfig.cleanPhone}`} className="mt-1 flex items-center gap-2.5 rounded-md border border-[var(--onestop-red)]/30 bg-rose-50 px-3.5 py-3 text-[0.85rem] text-slate-700 hover:bg-rose-100 lg:col-span-3 lg:justify-center">
-                    <Phone className="h-4 w-4 shrink-0 text-[var(--onestop-red)]" aria-hidden />
-                    <span><span className="font-bold text-[var(--onestop-red)]">Power out or burning smell?</span> Call {siteConfig.phone} now, 24/7.</span>
+                <>
+                  <div className="grid gap-2 sm:gap-2.5 lg:grid-cols-3">
+                    {URGENCY.map((u) => (
+                      <Choice key={u.value} on={urgency === u.value} icon={u.icon} label={u.label} sub={u.sub} onClick={() => { setUrgency(u.value); go('window'); }} />
+                    ))}
+                  </div>
+                  <a href={`tel:${siteConfig.cleanPhone}`} className="mt-2.5 flex items-center justify-center gap-2 border-t border-slate-100 pt-2.5 text-[0.8rem] text-slate-600 hover:text-[var(--onestop-red)]">
+                    <Phone className="h-3.5 w-3.5 shrink-0 text-[var(--onestop-red)]" aria-hidden />
+                    <span><span className="font-semibold text-slate-800">Power out or burning smell?</span> Call {siteConfig.phone}, 24/7.</span>
                   </a>
-                </div>
+                </>
               )}
 
               {step === 'window' && (
-                <div className="grid gap-2.5 sm:grid-cols-2">
+                <div className="grid gap-2 sm:grid-cols-2 sm:gap-2.5">
                   {WINDOWS.map((w) => (
                     <Choice key={w.value} on={timeWindow === w.value} icon={w.icon} label={w.label} sub={w.sub} onClick={() => { setTimeWindow(w.value); go('contact'); }} />
                   ))}
@@ -373,59 +366,49 @@ export function QuoteQuiz({
               )}
 
               {step === 'contact' && (
-                <form onSubmit={submit} className="grid gap-4 rounded-md border border-slate-200 bg-white p-5 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.55)] sm:p-7">
+                <form onSubmit={submit} className="grid gap-2.5 p-1 sm:p-1.5">
                   <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-                  <div className="flex flex-wrap gap-1.5 text-[0.75rem] font-semibold text-[var(--onestop-navy-deep)]">
-                    {[service, urgency, timeWindow].map((v) => (
-                      <span key={v} className="rounded-full bg-slate-100 px-2.5 py-1">{v}</span>
-                    ))}
+                  {initialMessage && <input type="hidden" name="message" value={initialMessage} />}
+                  <div className="grid gap-2.5 sm:grid-cols-2">
+                    <label className="block">
+                      <span className={fieldLabel}>Full name</span>
+                      <input required name="name" type="text" autoComplete="name" placeholder="Full name" pattern="[A-Za-z\s\-']{2,50}" title="Letters, spaces and hyphens only" className={field} />
+                    </label>
+                    <label className="block">
+                      <span className={fieldLabel}>Mobile phone</span>
+                      <input required name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="Mobile phone" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit phone number" className={field} />
+                    </label>
+                    <label className="block">
+                      <span className={fieldLabel}>Email</span>
+                      <input required name="email" type="email" autoComplete="email" placeholder="Email" className={field} />
+                    </label>
+                    <label className="block">
+                      <span className={fieldLabel}>Service address</span>
+                      <input required name="address" type="text" autoComplete="street-address" placeholder="Service address" className={field} />
+                    </label>
                   </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block">
-                    <span className={fieldLabel}>Full name</span>
-                    <input required name="name" type="text" autoComplete="name" placeholder="John Doe" pattern="[A-Za-z\s\-']{2,50}" title="Letters, spaces and hyphens only" className={field} />
-                  </label>
-                  <label className="block">
-                    <span className={fieldLabel}>Mobile phone</span>
-                    <input required name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="(832) 555-0123" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit phone number" className={field} />
-                  </label>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block">
-                    <span className={fieldLabel}>Email</span>
-                    <input required name="email" type="email" autoComplete="email" placeholder="you@example.com" className={field} />
-                  </label>
-                  <label className="block">
-                    <span className={fieldLabel}>Service address</span>
-                    <input required name="address" type="text" autoComplete="street-address" placeholder="123 Main St, Houston" className={field} />
-                  </label>
-                  </div>
-                  <label className="block">
-                    <span className={fieldLabel}>Anything we should know? <span className="font-normal text-slate-500">(optional)</span></span>
-                    <textarea name="message" rows={2} maxLength={5000} defaultValue={initialMessage} placeholder="Panel age, what's tripping, gate code…" className={`${field} h-auto resize-none py-3`} />
-                  </label>
-                  <label className="flex cursor-pointer items-center gap-2.5 rounded-md border border-slate-200 bg-slate-50 px-3 py-2.5">
+                  <label className="flex cursor-pointer items-center gap-2.5 rounded-md bg-slate-50 px-3 py-2">
                     <input type="checkbox" name="financing" value="yes" defaultChecked={defaultFinancing} className="h-4 w-4 shrink-0 rounded-sm border-slate-300" />
-                    <span className="text-[0.82rem] leading-snug text-slate-700"><span className="font-bold">Ask me about financing.</span> Monthly payments through Synchrony, subject to credit approval.</span>
+                    <span className="text-[0.8rem] leading-snug text-slate-700"><span className="font-semibold">Ask me about financing</span> <span className="text-slate-500">· Synchrony, subject to approval</span></span>
                   </label>
-                  <label className="flex cursor-pointer items-start gap-2.5 rounded-md border border-slate-200 bg-slate-50 px-3 py-2.5">
+                  <label className="flex cursor-pointer items-start gap-2.5 rounded-md bg-slate-50 px-3 py-2">
                     <input type="checkbox" name="sms_consent" value="yes" className="mt-0.5 h-4 w-4 shrink-0 rounded-sm border-slate-300" />
-                    <span className="text-[0.68rem] leading-[1.45] text-slate-600">
-                      <span className="font-bold text-slate-700">SMS consent (optional).</span> I agree to receive text messages from Solivance Electric LLC about my quote, scheduling, and appointment follow-up. Msg frequency varies (1–5 msgs per request). Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of service. See <a href="/privacy" className="underline">Privacy Policy</a> &amp; <a href="/terms" className="underline">Terms</a>.
+                    <span className="text-[0.66rem] leading-[1.4] text-slate-600">
+                      <span className="font-semibold text-slate-700">Text me about my quote (optional).</span> I agree to texts from Solivance Electric LLC about my request and scheduling, 1–5 msgs per request. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Not a condition of service.
                     </span>
                   </label>
                   <button type="submit" disabled={sending} className={cta}>
                     {sending ? 'Sending…' : <>Get my free quote <ArrowRight className="h-4 w-4" aria-hidden /></>}
                   </button>
                   {error && <div role="alert" className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2 text-[0.85rem] font-medium text-rose-800">{error}</div>}
-                  <p className="text-center text-[0.68rem] leading-[1.4] text-slate-500">
-                    By submitting, you confirm you are at least 18 and agree to our <a href="/terms" className="underline">Terms</a> &amp; <a href="/privacy" className="underline">Privacy Policy</a>.
+                  <p className="text-center text-[0.64rem] leading-[1.4] text-slate-500">
+                    By submitting you confirm you&rsquo;re 18+ and agree to our <a href="/terms" className="underline">Terms</a> &amp; <a href="/privacy" className="underline">Privacy Policy</a>.
                   </p>
                 </form>
               )}
-
-              <ProofStack step={stepNo - 1} narrow={step === 'contact'} />
             </div>
+
+            <Proof index={stepNo - 1} compact={step === 'contact'} />
           </div>
         )}
       </div>
