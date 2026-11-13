@@ -158,7 +158,7 @@ function ThankYou({ first }: { first: string }) {
     <div role="status">
       {/* Headline */}
       <div className="text-center">
-        <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-emerald-300">
+        <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 lg:[@media(max-height:760px)]:hidden bg-emerald-500/10 px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-emerald-300">
           <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" /><span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" /></span>
           Request received
         </span>
@@ -214,9 +214,9 @@ function ThankYou({ first }: { first: string }) {
         </div>
 
         {/* Prep checklist */}
-        <div className={`${card} p-4 sm:p-5`}>
+        <div className={`${card} flex flex-col p-4 sm:p-5`}>
           <p className={eyebrow}>Save time on your visit</p>
-          <ul className="mt-3 grid gap-3">
+          <ul className="mt-3 grid gap-3 lg:mb-4">
             {PREP.map((it) => (
               <li key={it.title} className="flex items-start gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--onestop-navy-deep)]/[0.06] text-[var(--onestop-navy-deep)]">
@@ -229,7 +229,7 @@ function ThankYou({ first }: { first: string }) {
               </li>
             ))}
           </ul>
-          <a href={`tel:${siteConfig.cleanPhone}`} className="mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-5 text-[0.85rem] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#e55f15]">
+          <a href={`tel:${siteConfig.cleanPhone}`} className="mt-4 inline-flex min-h-12 w-full lg:mt-auto items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-5 text-[0.85rem] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#e55f15]">
             <Phone className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">Can&rsquo;t wait?</span> Call {siteConfig.phone}
           </a>
         </div>
@@ -445,7 +445,7 @@ export function QuoteQuiz({
         </div>
       </div>
 
-      <div className={`relative mx-auto flex min-h-[calc(100dvh-61px)] w-full flex-col px-4 pb-8 pt-4 sm:px-6 sm:pt-8 lg:justify-center ${step === 'contact' ? 'lg:py-4' : 'lg:py-8'} ${step === 'service' || done ? 'max-w-[1120px]' : step === 'contact' ? 'max-w-[700px]' : 'max-w-[980px]'}`}>
+      <div className={`relative mx-auto flex min-h-[calc(100dvh-61px)] w-full flex-col px-4 pb-8 pt-4 sm:px-6 sm:pt-8 lg:justify-center ${step === 'contact' ? 'lg:py-4 lg:[@media(max-height:760px)]:py-2' : 'lg:py-8'} ${step === 'service' || done ? 'max-w-[1120px]' : step === 'contact' ? 'max-w-[700px]' : 'max-w-[980px]'}`}>
         {done ? (
           <ThankYou first={firstName} />
         ) : (
