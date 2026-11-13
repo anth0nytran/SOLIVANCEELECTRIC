@@ -11,7 +11,7 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'rea
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
-  ArrowLeft, ArrowRight, BadgeCheck, MessageSquare, BatteryCharging, Star, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
+  ArrowLeft, ArrowRight, BadgeCheck, Camera, HelpCircle, MessageSquare, Users, Wallet, BatteryCharging, Star, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
   Lamp, Phone, Sun, Sunset, Timer, X, Zap,
 } from 'lucide-react';
 import { siteConfig } from '../config';
@@ -133,89 +133,116 @@ function Proof({ index, compact = false }: { index: number; compact?: boolean })
 }
 
 const NEXT_STEPS = [
-  ['Reply to our text', 'We’re texting you now. Your visit isn’t booked until you reply. After hours? We text first thing in the morning.'],
-  ['We confirm your day and time', 'Pick what works. We may also give you a quick call.'],
-  ['Free visit + one written, fixed price', 'A licensed electrician checks it. Permit, inspection and CenterPoint coordination included.'],
+  { title: 'Reply to our text', body: 'Your visit isn’t booked until you reply. After hours? We text first thing in the morning.' },
+  { title: 'We lock in your day', body: 'Pick a day and time that works. We may give you a quick call too.' },
+  { title: 'Free visit + fixed price', body: 'A licensed electrician checks it and hands you one written price.' },
 ];
-const ASK_ANY = [
-  ['Are you pulling the city permit?', 'Yes. Every job that needs one.'],
-  ['Who pays if it fails inspection?', 'We do. Re-inspections on our work are on us.'],
-  ['Are you licensed in Texas?', `Yes. ${siteConfig.license.label}.`],
+// Permit frame: what we do vs. what to ask anyone else. No claims about other contractors.
+const COMPARE = [
+  { q: 'City permit pulled', us: 'Every job that needs one' },
+  { q: 'City inspection', us: 'Scheduled by us' },
+  { q: 'Fails inspection?', us: 'Re-inspection on us' },
+  { q: 'Texas license', us: siteConfig.license.label },
+];
+const PREP = [
+  { icon: Camera, title: 'Snap your panel', body: 'Send a photo when you reply to our text.' },
+  { icon: Users, title: 'Have the decision-makers there', body: 'Get answers and a price on the spot.' },
+  { icon: Wallet, title: 'Ask about financing', body: 'Monthly payments through Synchrony.' },
 ];
 
 function ThankYou({ first }: { first: string }) {
   const review = reviews.find((r) => r.id === 'zno-z');
+  const card = 'rounded-xl bg-white shadow-[0_40px_100px_-30px_rgba(0,0,0,0.8)]';
+  const eyebrow = 'text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[var(--onestop-red)]';
   return (
     <div role="status">
+      {/* Headline */}
       <div className="text-center">
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 ring-1 ring-emerald-400/40">
-          <MessageSquare className="h-6 w-6 text-emerald-400" aria-hidden />
-        </div>
-        <h2 className="text-[1.5rem] font-bold leading-tight tracking-[-0.025em] text-white sm:text-[1.9rem] lg:text-[2.2rem]">
+        <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-emerald-300">
+          <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" /><span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" /></span>
+          Request received
+        </span>
+        <h2 className="mt-3 text-[1.55rem] font-bold leading-tight tracking-[-0.025em] text-white sm:text-[1.95rem] lg:text-[2.3rem]">
           Almost done{first ? `, ${first}` : ''}. Check your texts.
         </h2>
         <p className="mx-auto mt-1.5 max-w-xl text-[0.92rem] text-white/75 lg:text-[1rem]">
-          <span className="font-semibold text-white">You&rsquo;re not booked yet.</span> We&rsquo;re texting you right now. Reply to lock in your time.
+          <span className="font-semibold text-white">You&rsquo;re not booked yet.</span> We&rsquo;re texting you now. Reply to lock in your time.
         </p>
       </div>
 
-      <div className="mt-5 grid gap-3 lg:mt-7 lg:grid-cols-2 lg:gap-4">
-        {/* What happens next */}
-        <div className="rounded-xl bg-white p-5 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.8)]">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[var(--onestop-red)]">What happens next</p>
-          <ol className="mt-3 grid gap-3.5">
-            {NEXT_STEPS.map(([t, d], i) => (
-              <li key={t} className="flex gap-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--onestop-navy-deep)] text-[0.78rem] font-semibold text-white">{i + 1}</span>
+      {/* Timeline */}
+      <div className={`${card} mt-5 p-4 sm:p-5 lg:mt-5 lg:px-7 lg:py-5`}>
+        <ol className="relative grid gap-4 lg:grid-cols-3 lg:gap-6">
+          <span aria-hidden className="absolute left-[15px] top-4 bottom-4 w-px bg-slate-200 lg:left-[16.6%] lg:right-[16.6%] lg:top-[15px] lg:bottom-auto lg:h-px lg:w-auto" />
+          {NEXT_STEPS.map((st, i) => (
+            <li key={st.title} className="relative flex gap-3 lg:flex-col lg:items-center lg:text-center">
+              <span className={`relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[0.8rem] font-bold ring-4 ring-white ${i === 0 ? 'bg-[var(--onestop-red)] text-white' : 'bg-slate-100 text-slate-500'}`}>
+                {i === 0 ? <MessageSquare className="h-4 w-4" aria-hidden /> : i + 1}
+              </span>
+              <span className="min-w-0">
+                <span className="flex items-center gap-2 lg:justify-center">
+                  <span className="text-[0.95rem] font-semibold leading-tight text-[#0A1322]">{st.title}</span>
+                  {i === 0 && <span className="rounded-full bg-[var(--onestop-red)]/10 px-2 py-0.5 text-[0.62rem] font-bold uppercase tracking-wider text-[var(--onestop-red)]">Now</span>}
+                </span>
+                <span className="mt-1 block text-[0.8rem] leading-snug text-slate-600">{st.body}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div className="mt-3 grid gap-3 lg:mt-4 lg:grid-cols-[1.25fr_1fr] lg:gap-4">
+        {/* Permit frame */}
+        <div className={`${card} p-4 sm:p-5`}>
+          <p className={eyebrow}>Before you compare quotes</p>
+          <p className="mt-1.5 text-[0.98rem] font-semibold leading-snug text-[#0A1322]">The #1 reason a quote looks cheaper: <span className="text-[var(--onestop-red)]">no permit.</span></p>
+          <div className="mt-3 overflow-hidden rounded-lg border border-slate-200">
+            <div className="grid grid-cols-[1fr_1.3fr] bg-slate-50 px-3 py-2 sm:grid-cols-[1fr_1.15fr_0.9fr] text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-slate-500">
+              <span />
+              <span className="text-[var(--onestop-navy-deep)]">Solivance</span>
+              <span className="hidden sm:block">Ask anyone else</span>
+            </div>
+            {COMPARE.map((r) => (
+              <div key={r.q} className="grid grid-cols-[1fr_1.3fr] items-center sm:grid-cols-[1fr_1.15fr_0.9fr] border-t border-slate-100 px-3 py-2 text-[0.8rem]">
+                <span className="font-medium text-slate-700">{r.q}</span>
+                <span className="flex items-center gap-1.5 font-semibold text-[#0A1322]"><CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />{r.us}</span>
+                <span className="hidden items-center gap-1.5 text-slate-500 sm:flex"><HelpCircle className="h-3.5 w-3.5 shrink-0 text-slate-400" aria-hidden />Ask</span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-2.5 text-[0.76rem] leading-snug text-slate-500"><span className="font-semibold text-slate-700 sm:hidden">Ask any other electrician the same 4 things. </span>Unpermitted work can come back on you when you sell your home or file an insurance claim. Then you pay twice.</p>
+        </div>
+
+        {/* Prep checklist */}
+        <div className={`${card} p-4 sm:p-5`}>
+          <p className={eyebrow}>Save time on your visit</p>
+          <ul className="mt-3 grid gap-3">
+            {PREP.map((it) => (
+              <li key={it.title} className="flex items-start gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--onestop-navy-deep)]/[0.06] text-[var(--onestop-navy-deep)]">
+                  <it.icon className="h-[18px] w-[18px]" aria-hidden />
+                </span>
                 <span>
-                  <span className="block text-[0.95rem] font-semibold leading-tight text-[#0A1322]">{t}</span>
-                  <span className="mt-0.5 block text-[0.82rem] leading-snug text-slate-600">{d}</span>
+                  <span className="block text-[0.9rem] font-semibold leading-tight text-[#0A1322]">{it.title}</span>
+                  <span className="mt-0.5 block text-[0.78rem] leading-snug text-slate-600">{it.body}</span>
                 </span>
               </li>
             ))}
-          </ol>
-          <div className="mt-4 rounded-md bg-slate-50 p-3">
-            <p className="text-[0.8rem] font-semibold text-[#0A1322]">Save time on the visit</p>
-            <ul className="mt-1.5 grid gap-1 text-[0.8rem] text-slate-600">
-              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />When you reply, send a photo of your panel.</li>
-              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />Have everyone who decides there, so you get answers on the spot.</li>
-              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />Want monthly payments? Ask about financing.</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Permit frame */}
-        <div className="rounded-xl bg-white p-5 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.8)]">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[var(--onestop-red)]">Before you compare quotes</p>
-          <p className="mt-2 text-[0.95rem] font-semibold leading-snug text-[#0A1322]">The #1 reason a quote looks cheaper: no permit.</p>
-          <p className="mt-1 text-[0.82rem] leading-snug text-slate-600">
-            Unpermitted electrical work can come back on you when you sell your home or file an insurance claim. Then you pay twice.
-          </p>
-          <p className="mt-3 text-[0.8rem] font-semibold text-[#0A1322]">Ask any electrician these 3 questions:</p>
-          <ul className="mt-2 grid gap-2">
-            {ASK_ANY.map(([q, a]) => (
-              <li key={q} className="rounded-md border border-slate-200 px-3 py-2">
-                <span className="block text-[0.84rem] font-semibold text-[#0A1322]">&ldquo;{q}&rdquo;</span>
-                <span className="mt-0.5 flex items-center gap-1.5 text-[0.78rem] text-slate-600"><BadgeCheck className="h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />Our answer: {a}</span>
-              </li>
-            ))}
           </ul>
+          <a href={`tel:${siteConfig.cleanPhone}`} className="mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-5 text-[0.85rem] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#e55f15]">
+            <Phone className="h-4 w-4" aria-hidden /> <span className="hidden sm:inline">Can&rsquo;t wait?</span> Call {siteConfig.phone}
+          </a>
         </div>
       </div>
 
-      <div className="mt-4 flex flex-col items-center gap-3 lg:mt-5">
-        <a href={`tel:${siteConfig.cleanPhone}`} className={`${cta} max-w-sm`}>
-          <Phone className="h-4 w-4" aria-hidden /> Can&rsquo;t wait? Call {siteConfig.phone}
-        </a>
-        {review && (
-          <figure className="mx-auto max-w-[620px] text-center">
-            <blockquote className="line-clamp-2 text-[0.8rem] italic leading-snug text-white/70">&ldquo;{review.quote}&rdquo;</blockquote>
-            <figcaption className="mt-1 flex items-center justify-center gap-1 text-[0.72rem] text-white/55">
-              {review.author} · <BadgeCheck className="h-3 w-3 text-emerald-400" aria-hidden /> Google review
-            </figcaption>
-          </figure>
-        )}
-      </div>
+      {review && (
+        <figure className="mx-auto mt-4 max-w-[620px] text-center lg:mt-5 lg:[@media(max-height:840px)]:hidden">
+          <blockquote className="line-clamp-2 text-[0.8rem] italic leading-snug text-white/70">&ldquo;{review.quote}&rdquo;</blockquote>
+          <figcaption className="mt-1 flex items-center justify-center gap-1 text-[0.72rem] text-white/55">
+            {review.author} · <BadgeCheck className="h-3 w-3 text-emerald-400" aria-hidden /> Google review
+          </figcaption>
+        </figure>
+      )}
     </div>
   );
 }
@@ -399,7 +426,7 @@ export function QuoteQuiz({
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
       </div>
       {/* Top bar: brand + progress + exit */}
-      <div className="sticky top-0 z-10 border-b border-white/10 bg-black/40 backdrop-blur-md">
+      <div className="sticky top-0 z-30 border-b border-white/10 bg-black/40 backdrop-blur-md">
         <div className="mx-auto flex h-14 w-full max-w-[1120px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
           {!done ? (
             <button type="button" onClick={back} className="inline-flex h-10 items-center gap-1.5 rounded-md px-2 text-[0.85rem] font-semibold text-white/85 hover:bg-white/10">
@@ -467,7 +494,10 @@ export function QuoteQuiz({
                     </label>
                     <label className="block">
                       <span className={fieldLabel}>Mobile phone</span>
-                      <input required name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="Mobile phone" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit phone number" className={field} />
+                      <span className="relative block">
+                        <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-2 pl-3.5 text-[1rem] font-medium text-slate-500">+1<span className="h-5 w-px bg-slate-200" /></span>
+                        <input required name="phone" type="tel" inputMode="tel" autoComplete="tel-national" placeholder="Mobile phone" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit US phone number" className={`${field} pl-12`} />
+                      </span>
                     </label>
                     <label className="block">
                       <span className={fieldLabel}>Email</span>
