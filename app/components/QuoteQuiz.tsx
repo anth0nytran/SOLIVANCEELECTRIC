@@ -11,7 +11,7 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'rea
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
-  ArrowLeft, ArrowRight, BadgeCheck, BatteryCharging, Star, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
+  ArrowLeft, ArrowRight, BadgeCheck, MessageSquare, BatteryCharging, Star, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
   Lamp, Phone, Sun, Sunset, Timer, X, Zap,
 } from 'lucide-react';
 import { siteConfig } from '../config';
@@ -67,8 +67,9 @@ const fieldLabel = 'sr-only sm:not-sr-only sm:mb-1 sm:block sm:text-[0.8rem] sm:
 const cta =
   'inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-md bg-[var(--onestop-red)] px-6 text-[0.92rem] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#e55f15] disabled:opacity-60';
 
+// US area codes never start with 0 or 1, so a leading 1 / +1 is always the country code. Drop it.
 const formatPhone = (v: string) => {
-  const d = v.replace(/\D/g, '').slice(0, 10);
+  const d = v.replace(/\D/g, '').replace(/^1/, '').slice(0, 10);
   if (!d.length) return '';
   if (d.length <= 3) return `(${d}`;
   if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
@@ -131,6 +132,94 @@ function Proof({ index, compact = false }: { index: number; compact?: boolean })
   );
 }
 
+const NEXT_STEPS = [
+  ['Reply to our text', 'We’re texting you now. Your visit isn’t booked until you reply. After hours? We text first thing in the morning.'],
+  ['We confirm your day and time', 'Pick what works. We may also give you a quick call.'],
+  ['Free visit + one written, fixed price', 'A licensed electrician checks it. Permit, inspection and CenterPoint coordination included.'],
+];
+const ASK_ANY = [
+  ['Are you pulling the city permit?', 'Yes. Every job that needs one.'],
+  ['Who pays if it fails inspection?', 'We do. Re-inspections on our work are on us.'],
+  ['Are you licensed in Texas?', `Yes. ${siteConfig.license.label}.`],
+];
+
+function ThankYou({ first }: { first: string }) {
+  const review = reviews.find((r) => r.id === 'zno-z');
+  return (
+    <div role="status">
+      <div className="text-center">
+        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 ring-1 ring-emerald-400/40">
+          <MessageSquare className="h-6 w-6 text-emerald-400" aria-hidden />
+        </div>
+        <h2 className="text-[1.5rem] font-bold leading-tight tracking-[-0.025em] text-white sm:text-[1.9rem] lg:text-[2.2rem]">
+          Almost done{first ? `, ${first}` : ''}. Check your texts.
+        </h2>
+        <p className="mx-auto mt-1.5 max-w-xl text-[0.92rem] text-white/75 lg:text-[1rem]">
+          <span className="font-semibold text-white">You&rsquo;re not booked yet.</span> We&rsquo;re texting you right now. Reply to lock in your time.
+        </p>
+      </div>
+
+      <div className="mt-5 grid gap-3 lg:mt-7 lg:grid-cols-2 lg:gap-4">
+        {/* What happens next */}
+        <div className="rounded-xl bg-white p-5 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.8)]">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[var(--onestop-red)]">What happens next</p>
+          <ol className="mt-3 grid gap-3.5">
+            {NEXT_STEPS.map(([t, d], i) => (
+              <li key={t} className="flex gap-3">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--onestop-navy-deep)] text-[0.78rem] font-semibold text-white">{i + 1}</span>
+                <span>
+                  <span className="block text-[0.95rem] font-semibold leading-tight text-[#0A1322]">{t}</span>
+                  <span className="mt-0.5 block text-[0.82rem] leading-snug text-slate-600">{d}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-4 rounded-md bg-slate-50 p-3">
+            <p className="text-[0.8rem] font-semibold text-[#0A1322]">Save time on the visit</p>
+            <ul className="mt-1.5 grid gap-1 text-[0.8rem] text-slate-600">
+              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />When you reply, send a photo of your panel.</li>
+              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />Have everyone who decides there, so you get answers on the spot.</li>
+              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />Want monthly payments? Ask about financing.</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Permit frame */}
+        <div className="rounded-xl bg-white p-5 shadow-[0_40px_100px_-30px_rgba(0,0,0,0.8)]">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[var(--onestop-red)]">Before you compare quotes</p>
+          <p className="mt-2 text-[0.95rem] font-semibold leading-snug text-[#0A1322]">The #1 reason a quote looks cheaper: no permit.</p>
+          <p className="mt-1 text-[0.82rem] leading-snug text-slate-600">
+            Unpermitted electrical work can come back on you when you sell your home or file an insurance claim. Then you pay twice.
+          </p>
+          <p className="mt-3 text-[0.8rem] font-semibold text-[#0A1322]">Ask any electrician these 3 questions:</p>
+          <ul className="mt-2 grid gap-2">
+            {ASK_ANY.map(([q, a]) => (
+              <li key={q} className="rounded-md border border-slate-200 px-3 py-2">
+                <span className="block text-[0.84rem] font-semibold text-[#0A1322]">&ldquo;{q}&rdquo;</span>
+                <span className="mt-0.5 flex items-center gap-1.5 text-[0.78rem] text-slate-600"><BadgeCheck className="h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />Our answer: {a}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-col items-center gap-3 lg:mt-5">
+        <a href={`tel:${siteConfig.cleanPhone}`} className={`${cta} max-w-sm`}>
+          <Phone className="h-4 w-4" aria-hidden /> Can&rsquo;t wait? Call {siteConfig.phone}
+        </a>
+        {review && (
+          <figure className="mx-auto max-w-[620px] text-center">
+            <blockquote className="line-clamp-2 text-[0.8rem] italic leading-snug text-white/70">&ldquo;{review.quote}&rdquo;</blockquote>
+            <figcaption className="mt-1 flex items-center justify-center gap-1 text-[0.72rem] text-white/55">
+              {review.author} · <BadgeCheck className="h-3 w-3 text-emerald-400" aria-hidden /> Google review
+            </figcaption>
+          </figure>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ServiceStep({ service, pick, compact = false }: { service: string; pick: (v: string) => void; compact?: boolean }) {
   if (compact) {
     return (
@@ -178,6 +267,7 @@ export function QuoteQuiz({
   const [urgency, setUrgency] = useState('');
   const [timeWindow, setTimeWindow] = useState('');
   const [phone, setPhone] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [ts] = useState(() => Date.now().toString());
@@ -245,6 +335,7 @@ export function QuoteQuiz({
         return;
       }
       trackMarketingEvent('Lead Form Success', { form: location, service });
+      setFirstName(String(fd.get('name') || '').trim().split(/\s+/)[0] || '');
       setStep('done');
     } catch {
       trackMarketingEvent('Lead Form Error', { form: location, service });
@@ -262,9 +353,9 @@ export function QuoteQuiz({
       <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 ring-8 ring-emerald-50/60">
         <CheckCircle2 className="h-8 w-8 text-emerald-600" aria-hidden />
       </div>
-      <h3 className="text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-[var(--onestop-navy-deep)]">You&rsquo;re on the list.</h3>
+      <h3 className="text-[1.5rem] font-bold leading-tight tracking-[-0.02em] text-[var(--onestop-navy-deep)]">Almost done. Check your texts.</h3>
       <p className="mx-auto mt-2 max-w-sm text-[0.95rem] leading-relaxed text-slate-600">
-        Keep your phone nearby. We&rsquo;ll call you to lock in your day. If you miss us, reply to our text with a good time.
+        You&rsquo;re not booked yet. We&rsquo;re texting you now. Reply to lock in your time.
       </p>
       <a href={`tel:${siteConfig.cleanPhone}`} className={`${cta} mt-5`}>
         <Phone className="h-4 w-4" aria-hidden /> Call now · {siteConfig.phone}
@@ -327,9 +418,9 @@ export function QuoteQuiz({
         </div>
       </div>
 
-      <div className={`relative mx-auto flex min-h-[calc(100dvh-61px)] w-full flex-col px-4 pb-8 pt-4 sm:px-6 sm:pt-8 lg:justify-center ${step === 'contact' ? 'lg:py-4' : 'lg:py-8'} ${step === 'service' ? 'max-w-[1120px]' : step === 'contact' ? 'max-w-[700px]' : 'max-w-[980px]'}`}>
+      <div className={`relative mx-auto flex min-h-[calc(100dvh-61px)] w-full flex-col px-4 pb-8 pt-4 sm:px-6 sm:pt-8 lg:justify-center ${step === 'contact' ? 'lg:py-4' : 'lg:py-8'} ${step === 'service' || done ? 'max-w-[1120px]' : step === 'contact' ? 'max-w-[700px]' : 'max-w-[980px]'}`}>
         {done ? (
-          <div className="mx-auto w-full max-w-[560px] rounded-md border border-slate-200 bg-white p-6 shadow-sm sm:p-8">{success}</div>
+          <ThankYou first={firstName} />
         ) : (
           <div className={step === 'contact' ? 'mx-auto w-full max-w-[620px]' : ''}>
             <div className="text-center">
