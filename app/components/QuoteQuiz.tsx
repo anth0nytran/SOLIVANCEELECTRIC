@@ -11,30 +11,30 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'rea
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
-  ArrowLeft, ArrowRight, BatteryCharging, Building2, CalendarDays, Car, CheckCircle2, ChevronRight, Clock,
-  Lamp, Lock, MoreHorizontal, Phone, Shield, Sun, Sunset, Timer, X, Zap,
+  ArrowLeft, ArrowRight, BatteryCharging, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
+  Lamp, Lock, Phone, Shield, Sun, Sunset, Timer, X, Zap,
 } from 'lucide-react';
 import { siteConfig } from '../config';
-import { carePlans, carePlanService } from '../carePlans';
-import { GENERATOR_SERVICES } from '../generators/products';
 import { trackMarketingEvent } from './MarketingAnalytics';
 
 type Step = 'service' | 'urgency' | 'window' | 'contact' | 'done';
 const STEPS: Step[] = ['service', 'urgency', 'window', 'contact'];
 
-// Values are the exact site service labels so the CRM "Service Needed" mapping keeps working.
+// Every service the site offers, as a tile. Values are the exact site service labels so the
+// CRM "Service Needed" mapping keeps working (unmapped values land as "Other").
 const SERVICE_TILES: { value: string; label: string; sub: string; icon: typeof Zap }[] = [
   { value: 'Panel Upgrades', label: 'Panel upgrade', sub: 'Old box, tripping breakers', icon: Zap },
-  { value: 'Generator Installs', label: 'Standby generator', sub: 'Whole-home or essentials', icon: BatteryCharging },
+  { value: 'Generator Installs', label: 'Generator install', sub: 'Whole-home standby', icon: BatteryCharging },
+  { value: 'Briggs & Stratton Generator Sales', label: 'Buy a generator', sub: 'Briggs & Stratton dealer', icon: ShoppingCart },
   { value: 'EV Chargers', label: 'EV charger', sub: 'Level 2 or DC fast', icon: Car },
   { value: 'Parking Lot Lighting', label: 'Parking lot lighting', sub: 'Poles, LED retrofits', icon: Lamp },
   { value: 'Soffit Lighting', label: 'Soffit lighting', sub: 'Exterior & landscape', icon: Sun },
-  { value: 'New Commercial Warehouses', label: 'New build / build-out', sub: 'Commercial or residential', icon: Building2 },
-];
-const OTHER_SERVICES = [
-  ...siteConfig.services.filter((s) => !SERVICE_TILES.some((t) => t.value === s)),
-  ...GENERATOR_SERVICES,
-  ...carePlans.map(carePlanService),
+  { value: 'New Commercial Warehouses', label: 'Commercial build-out', sub: 'Warehouses & retail centers', icon: Building2 },
+  { value: 'New Home Builds (Single & Multi-Family)', label: 'New home build', sub: 'Single & multi-family', icon: Home },
+  { value: 'RV Park Pedestals', label: 'RV park pedestals', sub: 'New or repair', icon: Caravan },
+  { value: 'Mobile Home Connections', label: 'Mobile home hookup', sub: 'Power connection', icon: Plug },
+  { value: 'Solivance Care Plan', label: 'Maintenance plan', sub: 'Yearly safety checks', icon: ShieldCheck },
+  { value: 'Other / Not sure', label: 'Something else', sub: 'Repairs, not sure', icon: Wrench },
 ];
 
 // Values match options on the CRM Urgency dropdown ("Within 30 days" added 2026-11-13).
@@ -89,36 +89,31 @@ function Choice({ on, icon: Icon, label, sub, onClick }: { on?: boolean; icon: t
   );
 }
 
-function ServiceStep({ service, pick, other, setOther }: { service: string; pick: (v: string) => void; other: boolean; setOther: (v: boolean) => void }) {
-  const isOther = !!service && !SERVICE_TILES.some((t) => t.value === service);
-  return (
-    <div className="grid gap-2.5">
-      <div className="grid gap-2.5 sm:grid-cols-2">
+function ServiceStep({ service, pick, compact = false }: { service: string; pick: (v: string) => void; compact?: boolean }) {
+  if (compact) {
+    return (
+      <div className="grid grid-cols-2 gap-2 min-[420px]:grid-cols-3">
         {SERVICE_TILES.map((t) => (
-          <Choice key={t.value} on={service === t.value} icon={t.icon} label={t.label} sub={t.sub} onClick={() => pick(t.value)} />
+          <button
+            key={t.value}
+            type="button"
+            onClick={() => pick(t.value)}
+            className="group flex min-h-[52px] items-center gap-2 rounded-md border border-slate-200 bg-white p-2 text-left min-[420px]:min-h-[84px] min-[420px]:flex-col min-[420px]:items-start min-[420px]:justify-between min-[420px]:p-2.5 transition-colors hover:border-[var(--onestop-navy-deep)] hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--onestop-navy-deep)] sm:p-3"
+          >
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy-deep)]/[0.06] text-[var(--onestop-navy-deep)] transition-colors group-hover:bg-[var(--onestop-red)] group-hover:text-white min-[420px]:h-8 min-[420px]:w-8">
+              <t.icon className="h-4 w-4" aria-hidden />
+            </span>
+            <span className="text-[0.82rem] font-semibold leading-tight text-[#0A1322] sm:text-[0.86rem]">{t.label}</span>
+          </button>
         ))}
       </div>
-      {other || isOther ? (
-        <label className="block">
-          <span className="sr-only">Other service</span>
-          <select
-            className={`${field} appearance-none`}
-            value={isOther ? service : ''}
-            onChange={(e) => e.target.value && pick(e.target.value)}
-          >
-            <option value="" disabled>Pick a service…</option>
-            {OTHER_SERVICES.map((s) => <option key={s} value={s}>{s}</option>)}
-          </select>
-        </label>
-      ) : (
-        <button type="button" onClick={() => setOther(true)} className={option}>
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[var(--onestop-navy-deep)]/[0.06] text-[var(--onestop-navy-deep)]">
-            <MoreHorizontal className="h-5 w-5" aria-hidden />
-          </span>
-          <span className="flex-1 text-[0.98rem] font-semibold text-[#0A1322]">Something else</span>
-          <ChevronRight className="h-4 w-4 text-slate-400" aria-hidden />
-        </button>
-      )}
+    );
+  }
+  return (
+    <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+      {SERVICE_TILES.map((t) => (
+        <Choice key={t.value} on={service === t.value} icon={t.icon} label={t.label} sub={t.sub} onClick={() => pick(t.value)} />
+      ))}
     </div>
   );
 }
@@ -137,7 +132,6 @@ export function QuoteQuiz({
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<Step>('service');
   const [service, setService] = useState(initialService);
-  const [other, setOther] = useState(false);
   const [urgency, setUrgency] = useState('');
   const [timeWindow, setTimeWindow] = useState('');
   const [phone, setPhone] = useState('');
@@ -248,10 +242,10 @@ export function QuoteQuiz({
           <button type="button" onClick={start} className={cta}>Continue <ArrowRight className="h-4 w-4" aria-hidden /></button>
         </div>
       ) : (
-        <ServiceStep service={service} pick={pickService} other={other} setOther={setOther} />
+        <ServiceStep compact service={service} pick={pickService} />
       )}
       <p className="mt-3 flex items-center justify-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-500">
-        <Lock className="h-3 w-3" aria-hidden /> Free quote · No obligation · 4 quick steps
+        <Lock className="h-3 w-3" aria-hidden /> Free quote · No obligation<span className="hidden sm:inline"> · 4 quick steps</span>
       </p>
     </div>
   );
@@ -266,7 +260,7 @@ export function QuoteQuiz({
       </div>
       {/* Top bar: brand + progress + exit */}
       <div className="sticky top-0 z-10 border-b border-white/10 bg-black/40 backdrop-blur-md">
-        <div className="mx-auto flex h-14 w-full max-w-[640px] items-center justify-between gap-3 px-4 sm:px-6">
+        <div className="mx-auto flex h-14 w-full max-w-[1120px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
           {!done ? (
             <button type="button" onClick={back} className="inline-flex h-10 items-center gap-1.5 rounded-md px-2 text-[0.85rem] font-semibold text-white/85 hover:bg-white/10">
               <ArrowLeft className="h-4 w-4" aria-hidden /> Back
@@ -284,28 +278,30 @@ export function QuoteQuiz({
         </div>
       </div>
 
-      <div className="relative mx-auto w-full max-w-[640px] px-4 pb-16 pt-6 sm:px-6 sm:pt-10">
+      <div className={`relative mx-auto flex min-h-[calc(100dvh-60px)] w-full flex-col px-4 pb-16 pt-6 sm:px-6 sm:pt-10 lg:justify-center lg:py-14 ${step === 'service' || step === 'urgency' ? 'max-w-[980px]' : step === 'contact' ? 'max-w-[760px]' : 'max-w-[820px]'}`}>
         {done ? (
-          <div className="rounded-md border border-slate-200 bg-white p-6 shadow-sm sm:p-8">{success}</div>
+          <div className="mx-auto w-full max-w-[560px] rounded-md border border-slate-200 bg-white p-6 shadow-sm sm:p-8">{success}</div>
         ) : (
-          <>
-            <div className="mb-3 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.22em] text-white/75">
-              <span className="h-px w-6 bg-[var(--onestop-gold)]" /> Solivance Electric · Houston
+          <div>
+          <div className="lg:text-center">
+            <div className="mb-3 flex items-center gap-3 font-[family-name:var(--font-app-mono)] text-[0.68rem] uppercase tracking-[0.22em] text-white/75 lg:justify-center">
+              <span className="h-px w-6 bg-[var(--onestop-gold)]" /> Solivance Electric · Houston <span className="hidden h-px w-6 bg-[var(--onestop-gold)] lg:inline-block" />
             </div>
-            <h2 className="text-[1.6rem] font-bold leading-[1.15] tracking-[-0.025em] text-white sm:text-[1.9rem]">
+            <h2 className="text-[1.6rem] font-bold leading-[1.15] tracking-[-0.025em] text-balance text-white sm:text-[1.9rem] lg:text-[2.5rem] lg:leading-[1.08]">
               {QUESTION[step].title}
             </h2>
-            <p className="mt-1.5 text-[0.95rem] text-white/80">{QUESTION[step].sub}</p>
+            <p className="mt-1.5 text-[0.95rem] text-white/80 lg:mt-3 lg:text-[1.05rem]">{QUESTION[step].sub}</p>
+          </div>
 
-            <div className="mt-5">
-              {step === 'service' && <ServiceStep service={service} pick={pickService} other={other} setOther={setOther} />}
+            <div className="mt-5 lg:mt-9">
+              {step === 'service' && <ServiceStep service={service} pick={pickService} />}
 
               {step === 'urgency' && (
-                <div className="grid gap-2.5">
+                <div className="grid gap-2.5 lg:grid-cols-3">
                   {URGENCY.map((u) => (
                     <Choice key={u.value} on={urgency === u.value} icon={u.icon} label={u.label} sub={u.sub} onClick={() => { setUrgency(u.value); go('window'); }} />
                   ))}
-                  <a href={`tel:${siteConfig.cleanPhone}`} className="mt-1 flex items-center gap-2.5 rounded-md border border-[var(--onestop-red)]/30 bg-rose-50 px-3.5 py-3 text-[0.85rem] text-slate-700 hover:bg-rose-100">
+                  <a href={`tel:${siteConfig.cleanPhone}`} className="mt-1 flex items-center gap-2.5 rounded-md border border-[var(--onestop-red)]/30 bg-rose-50 px-3.5 py-3 text-[0.85rem] text-slate-700 hover:bg-rose-100 lg:col-span-3 lg:justify-center">
                     <Phone className="h-4 w-4 shrink-0 text-[var(--onestop-red)]" aria-hidden />
                     <span><span className="font-bold text-[var(--onestop-red)]">Power out or burning smell?</span> Call {siteConfig.phone} now, 24/7.</span>
                   </a>
@@ -321,13 +317,14 @@ export function QuoteQuiz({
               )}
 
               {step === 'contact' && (
-                <form onSubmit={submit} className="grid gap-4 rounded-md border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                <form onSubmit={submit} className="grid gap-4 rounded-md border border-slate-200 bg-white p-5 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.55)] sm:p-7">
                   <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                   <div className="flex flex-wrap gap-1.5 text-[0.75rem] font-semibold text-[var(--onestop-navy-deep)]">
                     {[service, urgency, timeWindow].map((v) => (
                       <span key={v} className="rounded-full bg-slate-100 px-2.5 py-1">{v}</span>
                     ))}
                   </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block">
                     <span className={fieldLabel}>Full name</span>
                     <input required name="name" type="text" autoComplete="name" placeholder="John Doe" pattern="[A-Za-z\s\-']{2,50}" title="Letters, spaces and hyphens only" className={field} />
@@ -336,14 +333,17 @@ export function QuoteQuiz({
                     <span className={fieldLabel}>Mobile phone</span>
                     <input required name="phone" type="tel" inputMode="tel" autoComplete="tel" placeholder="(832) 555-0123" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} pattern="\(\d{3}\) \d{3}-\d{4}" title="10-digit phone number" className={field} />
                   </label>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
                   <label className="block">
                     <span className={fieldLabel}>Email</span>
                     <input required name="email" type="email" autoComplete="email" placeholder="you@example.com" className={field} />
                   </label>
                   <label className="block">
                     <span className={fieldLabel}>Service address</span>
-                    <input required name="address" type="text" autoComplete="street-address" placeholder="123 Main St, Houston TX" className={field} />
+                    <input required name="address" type="text" autoComplete="street-address" placeholder="123 Main St, Houston" className={field} />
                   </label>
+                  </div>
                   <label className="block">
                     <span className={fieldLabel}>Anything we should know? <span className="font-normal text-slate-500">(optional)</span></span>
                     <textarea name="message" rows={2} maxLength={5000} defaultValue={initialMessage} placeholder="Panel age, what's tripping, gate code…" className={`${field} h-auto resize-none py-3`} />
@@ -367,14 +367,14 @@ export function QuoteQuiz({
                   </p>
                 </form>
               )}
-            </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-white/75">
-              <span className="flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" aria-hidden /> Licensed &amp; insured</span>
-              <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" aria-hidden /> Free quote</span>
-              <span>{siteConfig.yearsInBusiness}+ yrs in Houston</span>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-white/75">
+                <span className="flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" aria-hidden /> Licensed &amp; insured</span>
+                <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" aria-hidden /> Free quote</span>
+                <span>{siteConfig.yearsInBusiness}+ yrs in Houston</span>
+              </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>,

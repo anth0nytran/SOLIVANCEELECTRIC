@@ -101,7 +101,7 @@ export default function HomePageClient() {
                   </div>
                 </div>
                 <div className="p-5 sm:p-6 lg:p-7">
-                  <h2 className="text-xl sm:text-[1.4rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.025em] leading-tight mb-1.5">Get an electrician out this week.</h2>
+                  <h2 className="text-xl sm:text-[1.4rem] font-bold text-[var(--onestop-navy-deep)] tracking-[-0.025em] leading-tight mb-1.5 text-balance">Get an electrician out this week.</h2>
                   <p className="text-[0.82rem] text-slate-500 mb-5 leading-snug">4 quick taps. We call you right back to lock in your day.</p>
                   <QuoteQuiz location="home:hero" />
                 </div>

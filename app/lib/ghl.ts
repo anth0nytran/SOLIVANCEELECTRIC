@@ -76,6 +76,7 @@ const FIELD_IDS = {
 const SERVICE_MAP: Record<string, string> = {
   'Panel Upgrades': 'Panel Upgrade / Replacement',
   'Generator Installs': 'Generator Installation',
+  'Briggs & Stratton Generator Sales': 'Generator Installation',
   'Parking Lot Lighting': 'Lighting (LED / Parking Lot / Soffit)',
   'Soffit Lighting': 'Lighting (LED / Parking Lot / Soffit)',
   'EV Chargers': 'EV Charger Installation',
