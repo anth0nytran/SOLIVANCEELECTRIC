@@ -11,11 +11,12 @@ import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'rea
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
-  ArrowLeft, ArrowRight, BatteryCharging, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
-  Lamp, Lock, Phone, Shield, Sun, Sunset, Timer, X, Zap,
+  ArrowLeft, ArrowRight, BadgeCheck, BatteryCharging, FileCheck2, HardHat, Star, Building2, CalendarDays, Caravan, Home, Plug, ShieldCheck, ShoppingCart, Wrench, Car, CheckCircle2, ChevronRight, Clock,
+  Lamp, Phone, Sun, Sunset, Timer, X, Zap,
 } from 'lucide-react';
 import { siteConfig } from '../config';
 import { trackMarketingEvent } from './MarketingAnalytics';
+import { reviews } from '../reviews';
 
 type Step = 'service' | 'urgency' | 'window' | 'contact' | 'done';
 const STEPS: Step[] = ['service', 'urgency', 'window', 'contact'];
@@ -86,6 +87,55 @@ function Choice({ on, icon: Icon, label, sub, onClick }: { on?: boolean; icon: t
       </span>
       <ChevronRight className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5" aria-hidden />
     </button>
+  );
+}
+
+// Real Google reviews (app/reviews.ts): panel job on time, 5-minute response, showed up + fair price.
+const PROOF = ['tonya-n', 'gabriella-o', 'zno-z']
+  .map((id) => reviews.find((r) => r.id === id))
+  .filter(Boolean) as (typeof reviews)[number][];
+const excerpt = (q: string, n: number) => (q.length <= n ? q : `${q.slice(0, q.lastIndexOf(' ', n))}…`);
+
+function Stars({ className = 'h-3.5 w-3.5' }: { className?: string }) {
+  return (
+    <span className="flex gap-0.5 text-[var(--onestop-gold)]" aria-label="5 out of 5 stars">
+      {[0, 1, 2, 3, 4].map((i) => <Star key={i} className={`${className} fill-current`} aria-hidden />)}
+    </span>
+  );
+}
+
+// Trust stack under every popup step: credentials row + real reviews.
+function ProofStack({ step, narrow }: { step: number; narrow: boolean }) {
+  const creds = [
+    { icon: Star, title: `${siteConfig.rating.toFixed(1)} on Google`, sub: `${siteConfig.reviewCount} five-star reviews` },
+    { icon: BadgeCheck, title: 'Licensed & insured', sub: siteConfig.license.label },
+    { icon: FileCheck2, title: 'Permit pulled', sub: 'City inspected, every job' },
+    { icon: HardHat, title: `${siteConfig.yearsInBusiness}+ years in Houston`, sub: 'Local crew, not a call center' },
+  ];
+  const shown = narrow ? [PROOF[step % PROOF.length]] : PROOF;
+  return (
+    <div className="mt-8 border-t border-white/15 pt-6">
+      <ul className="grid grid-cols-2 gap-x-4 gap-y-4 lg:grid-cols-4">
+        {creds.map((c) => (
+          <li key={c.title} className="flex items-start gap-2.5">
+            <c.icon className={`mt-0.5 h-4 w-4 shrink-0 text-[var(--onestop-gold)] ${c.icon === Star ? 'fill-current' : ''}`} aria-hidden />
+            <span className="min-w-0">
+              <span className="block text-[0.86rem] font-semibold leading-tight text-white">{c.title}</span>
+              <span className="mt-0.5 block text-[0.76rem] leading-snug text-white/65">{c.sub}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div className={`mt-5 grid gap-3 ${narrow ? '' : 'lg:grid-cols-3'}`}>
+        {shown.map((r, i) => (
+          <figure key={r.id} className={`rounded-md bg-white p-4 text-left shadow-sm ${!narrow && i > 0 ? 'hidden lg:block' : ''}`}>
+            <Stars />
+            <blockquote className="mt-2 text-[0.86rem] leading-relaxed text-slate-700">&ldquo;{excerpt(r.quote, 150)}&rdquo;</blockquote>
+            <figcaption className="mt-2 text-[0.78rem] font-semibold text-[var(--onestop-navy-deep)]">{r.author} <span className="font-normal text-slate-500">· Google review</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -244,9 +294,15 @@ export function QuoteQuiz({
       ) : (
         <ServiceStep compact service={service} pick={pickService} />
       )}
-      <p className="mt-3 flex items-center justify-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-500">
-        <Lock className="h-3 w-3" aria-hidden /> Free quote · No obligation<span className="hidden sm:inline"> · 4 quick steps</span>
-      </p>
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 border-t border-slate-100 pt-3 text-[0.74rem] text-slate-600">
+        <span className="flex items-center gap-1.5"><Stars className="h-3 w-3" /><span className="font-semibold text-slate-800">{siteConfig.rating.toFixed(1)}</span> on Google</span>
+        <span className="text-slate-300" aria-hidden>|</span>
+        <span>{siteConfig.license.label}</span>
+        <span className="text-slate-300" aria-hidden>|</span>
+        <span>Permit pulled</span>
+        <span className="hidden text-slate-300 sm:inline" aria-hidden>|</span>
+        <span className="hidden sm:inline">Free quote</span>
+      </div>
     </div>
   );
 
@@ -368,11 +424,7 @@ export function QuoteQuiz({
                 </form>
               )}
 
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-white/75">
-                <span className="flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-[var(--onestop-gold)]" aria-hidden /> Licensed &amp; insured</span>
-                <span className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5 text-[var(--onestop-gold)]" aria-hidden /> Free quote</span>
-                <span>{siteConfig.yearsInBusiness}+ yrs in Houston</span>
-              </div>
+              <ProofStack step={stepNo - 1} narrow={step === 'contact'} />
             </div>
           </div>
         )}
